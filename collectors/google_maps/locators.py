@@ -1,10 +1,13 @@
-# Search
-SEARCH_BOX = "combobox"
+class GoogleMapsLocators:
 
-# Results
-RESULT_CARD = "article"
+    SEARCH_BOX = 'input[name="q"]'
 
-# Inside Card
-TITLE = "span.qBF1Pd"
-RATING = "span.MW4etd"
-REVIEWS = "span.UY7F9"
+    RESULTS_PANEL = 'div[role="feed"]'
+
+    BRANCH_CARD = 'div[role="article"]'
+
+    REVIEW_BUTTON = 'button[jsaction]'
+
+    ADDRESS = 'button[data-item-id="address"]'
+
+    RATING = 'span[role="img"]'
