@@ -8,6 +8,8 @@ venv/
 !.env.example
 output/
 data/
+!data/eval/
+!data/eval/**
 *.db
 *.sqlite
 *.sqlite3
@@ -18,4 +20,3 @@ data/
 playwright-report/
 test-results/
 *.log
-output/

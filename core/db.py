@@ -720,6 +720,52 @@ class Database:
             raw_response=json.loads(row["raw_response"] or "{}"),
         )
 
+    async def list_branch_analyses(self, branch_id: int) -> list[dict]:
+        """Return analysis rows joined to reviews for scoring/insights."""
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                a.*,
+                r.branch_id,
+                r.rating AS review_rating,
+                r.text AS review_text
+            FROM review_analyses a
+            JOIN reviews r ON r.id = a.review_id
+            WHERE r.branch_id = ?
+            ORDER BY a.id ASC
+            """,
+            (branch_id,),
+        )
+        rows = []
+        for row in await cursor.fetchall():
+            item = dict(row)
+            item["complaint_categories"] = json.loads(item.get("complaint_categories") or "[]")
+            item["positive_categories"] = json.loads(item.get("positive_categories") or "[]")
+            item["mentioned_employees"] = json.loads(item.get("mentioned_employees") or "[]")
+            item["evidence_spans"] = json.loads(item.get("evidence_spans") or "{}")
+            item["confidence_by_field"] = json.loads(item.get("confidence_by_field") or "{}")
+            if item.get("package_damage") is not None:
+                item["package_damage"] = bool(item["package_damage"])
+            rows.append(item)
+        return rows
+
+    async def list_pending_review_ids(self, *, limit: int = 200) -> list[int]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT r.id
+            FROM reviews r
+            LEFT JOIN review_analyses a ON a.review_id = r.id
+            WHERE a.review_id IS NULL
+               OR a.status IN ('failed', 'pending')
+            ORDER BY r.id ASC
+            LIMIT ?
+            """,
+            (max(1, min(int(limit), 100000)),),
+        )
+        return [int(row["id"]) for row in await cursor.fetchall()]
+
     async def stats(self) -> dict[str, int]:
         assert self._conn is not None
         result: dict[str, int] = {}

@@ -12,6 +12,8 @@ from ai.pipeline import AnalysisPipeline
 from core.db import Database
 from models.branch import Branch
 from models.review import Review
+from scoring.engine import ScoringEngine
+from scoring.insights import InsightsGenerator
 
 
 DEMO_REVIEWS = [
@@ -114,90 +116,25 @@ async def seed(db_path: str) -> None:
                 ),
             )
 
-        await db.upsert_company_insights(
-            company_id,
-            summary=(
-                "Tipax shows mixed customer experience. Delivery speed and tracking "
-                "are the most frequent complaints, while some customers praise staff "
-                "helpfulness and occasional fast deliveries."
-            ),
-            pros=["staff_behavior", "professionalism", "customer_service"],
-            cons=["delivery_speed", "tracking", "package_damage", "pricing"],
-            common_categories=["delivery_speed", "tracking", "staff_behavior"],
-            review_count_used=7,
-        )
-        await db.upsert_branch_insights(
-            hq_id,
-            summary=(
-                "Tipax HQ reviews are polarized. Repeated complaints focus on delays, "
-                "tracking gaps, and occasional package damage. Positive notes mention "
-                "helpful staff and professionalism."
-            ),
-            pros=["staff_behavior", "professionalism"],
-            cons=["delivery_speed", "tracking", "package_damage"],
-            common_categories=["delivery_speed", "tracking", "staff_behavior"],
-            review_count_used=5,
-        )
-        await db.upsert_branch_insights(
-            vanak_id,
-            summary="Vanak branch has limited evidence with mixed speed feedback.",
-            pros=["delivery_speed"],
-            cons=["delivery_speed"],
-            common_categories=["delivery_speed"],
-            review_count_used=2,
-        )
-
-        hq_components = {
-            "algorithm_version": "score_v1",
-            "sentiment_score": 46.0,
-            "dimension_score": 44.0,
-            "complaint_penalty": -8.5,
-            "positive_reward": 3.0,
-            "urgency_penalty": -1.0,
-            "kappa": 0.71,
-            "n_eff": 5.0,
-            "raw": 58.0,
-            "top_complaints": [
-                {"category": "delivery_speed", "share": 0.40},
-                {"category": "tracking", "share": 0.25},
-            ],
-            "top_positives": [
-                {"category": "staff_behavior", "share": 0.20},
-            ],
-            "why": [
-                "Repeated delay/tracking complaints pulled the score down.",
-                "Helpful staff mentions provided a small positive reward.",
-                "Moderate review volume keeps confidence medium.",
-            ],
-        }
-        await db.insert_branch_score(hq_id, score=54.5, components=hq_components)
-        await db.insert_branch_score(
-            vanak_id,
-            score=62.0,
-            components={
-                "algorithm_version": "score_v1",
-                "why": ["Limited mixed evidence; slight lean to neutral-positive."],
-                "kappa": 0.35,
-                "n_eff": 2.0,
-            },
-        )
-        await db.insert_company_score(
-            company_id,
-            score=56.0,
-            components={
-                "algorithm_version": "score_v1",
-                "branch_scores": {"Tipax HQ": 54.5, "Tipax Vanak": 62.0},
-                "why": [
-                    "Company score is a credibility-weighted blend of branch scores.",
-                    "HQ volume dominates, so company score stays close to HQ.",
-                ],
-            },
-        )
+        # Deterministic score_v1 + insights from analyses (no hand-authored scores)
+        insights = InsightsGenerator(db)
+        engine = ScoringEngine(db)
+        await insights.refresh_company(company_id, company_name="Tipax")
+        company_score = await engine.score_company(company_id)
+        hq_score = await db.get_branch_score(hq_id)
+        vanak_score = await db.get_branch_score(vanak_id)
 
         stats = await db.stats()
         print("Demo seed complete")
         print(f"DB: {db_path}")
         print(f"company_id={company_id} hq_branch_id={hq_id} vanak_branch_id={vanak_id}")
+        print(
+            {
+                "company_score": company_score.score,
+                "hq_score": None if hq_score is None else hq_score.get("score"),
+                "vanak_score": None if vanak_score is None else vanak_score.get("score"),
+            }
+        )
         print(stats)
     finally:
         await db.close()

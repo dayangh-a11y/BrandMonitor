@@ -19,23 +19,6 @@ from models.review import Review
 log = get_logger("ai_worker")
 
 
-async def list_pending_review_ids(db: Database, *, limit: int) -> list[int]:
-    assert db._conn is not None
-    cursor = await db._conn.execute(
-        """
-        SELECT r.id
-        FROM reviews r
-        LEFT JOIN review_analyses a ON a.review_id = r.id
-        WHERE a.review_id IS NULL
-           OR a.status IN ('failed', 'pending')
-        ORDER BY r.id ASC
-        LIMIT ?
-        """,
-        (limit,),
-    )
-    return [int(row["id"]) for row in await cursor.fetchall()]
-
-
 async def main() -> None:
     settings = load_settings()
     setup_logging(settings)
@@ -55,7 +38,7 @@ async def main() -> None:
     pipeline = AnalysisPipeline(db, adapter)
 
     try:
-        pending = await list_pending_review_ids(db, limit=args.limit)
+        pending = await db.list_pending_review_ids(limit=args.limit)
         log.info("pending_reviews=%s provider=%s", len(pending), settings.ai_provider)
         processed = []
         for review_id in pending:

@@ -60,16 +60,29 @@ class AnalysisWorker:
                 branch_name=row["branch_name"] or "",
                 source=row["source"] or "google_maps",
             )
-            await self.pipeline.process_review(int(scope_id), review)
-            done = 1
-            await self.db.finish_analysis_job(
-                job_id,
-                status="succeeded",
-                done_items=done,
-                failed_items=failed,
-            )
-            METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=True)
-            log.info("ai_job_succeeded job_id=%s review_id=%s", job_id, scope_id)
+            dto = await self.pipeline.process_review(int(scope_id), review)
+            if dto.status == "failed":
+                failed = 1
+                error = dto.error or "analysis_failed"
+                await self.db.finish_analysis_job(
+                    job_id,
+                    status="failed",
+                    done_items=0,
+                    failed_items=failed,
+                    error=error,
+                )
+                METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=False)
+                log.error("ai_job_analysis_failed job_id=%s error=%s", job_id, error)
+            else:
+                done = 1
+                await self.db.finish_analysis_job(
+                    job_id,
+                    status="succeeded",
+                    done_items=done,
+                    failed_items=failed,
+                )
+                METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=True)
+                log.info("ai_job_succeeded job_id=%s review_id=%s", job_id, scope_id)
         except AnalysisValidationError as exc:
             failed = 1
             error = str(exc)
