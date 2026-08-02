@@ -884,6 +884,164 @@ class Database:
         data["components"] = json.loads(data.get("components") or "{}")
         return data
 
+    async def get_company_insights(self, company_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT * FROM company_insights WHERE company_id = ?",
+            (company_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        data = dict(row)
+        data["pros"] = json.loads(data.get("pros") or "[]")
+        data["cons"] = json.loads(data.get("cons") or "[]")
+        data["common_categories"] = json.loads(data.get("common_categories") or "[]")
+        return data
+
+    async def get_branch_insights(self, branch_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT * FROM branch_insights WHERE branch_id = ?",
+            (branch_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        data = dict(row)
+        data["pros"] = json.loads(data.get("pros") or "[]")
+        data["cons"] = json.loads(data.get("cons") or "[]")
+        data["common_categories"] = json.loads(data.get("common_categories") or "[]")
+        return data
+
+    async def upsert_company_insights(
+        self,
+        company_id: int,
+        *,
+        summary: str,
+        pros: list[str],
+        cons: list[str],
+        common_categories: list[str],
+        review_count_used: int,
+        model_name: str = "demo",
+        prompt_version: str = "demo_v1",
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO company_insights (
+                company_id, summary, pros, cons, common_categories,
+                review_count_used, model_name, prompt_version, generated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(company_id) DO UPDATE SET
+                summary = excluded.summary,
+                pros = excluded.pros,
+                cons = excluded.cons,
+                common_categories = excluded.common_categories,
+                review_count_used = excluded.review_count_used,
+                model_name = excluded.model_name,
+                prompt_version = excluded.prompt_version,
+                generated_at = excluded.generated_at
+            """,
+            (
+                company_id,
+                summary,
+                json.dumps(pros, ensure_ascii=False),
+                json.dumps(cons, ensure_ascii=False),
+                json.dumps(common_categories, ensure_ascii=False),
+                review_count_used,
+                model_name,
+                prompt_version,
+                now,
+            ),
+        )
+        await self._conn.commit()
+
+    async def upsert_branch_insights(
+        self,
+        branch_id: int,
+        *,
+        summary: str,
+        pros: list[str],
+        cons: list[str],
+        common_categories: list[str],
+        review_count_used: int,
+        model_name: str = "demo",
+        prompt_version: str = "demo_v1",
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO branch_insights (
+                branch_id, summary, pros, cons, common_categories,
+                review_count_used, model_name, prompt_version, generated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(branch_id) DO UPDATE SET
+                summary = excluded.summary,
+                pros = excluded.pros,
+                cons = excluded.cons,
+                common_categories = excluded.common_categories,
+                review_count_used = excluded.review_count_used,
+                model_name = excluded.model_name,
+                prompt_version = excluded.prompt_version,
+                generated_at = excluded.generated_at
+            """,
+            (
+                branch_id,
+                summary,
+                json.dumps(pros, ensure_ascii=False),
+                json.dumps(cons, ensure_ascii=False),
+                json.dumps(common_categories, ensure_ascii=False),
+                review_count_used,
+                model_name,
+                prompt_version,
+                now,
+            ),
+        )
+        await self._conn.commit()
+
+    async def insert_branch_score(
+        self,
+        branch_id: int,
+        *,
+        score: float,
+        components: dict,
+        algorithm_version: str = "score_v1",
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO branch_scores (
+                branch_id, score, components, algorithm_version, calculated_at
+            ) VALUES (?, ?, ?, ?, ?)
+            """,
+            (branch_id, score, json.dumps(components, ensure_ascii=False), algorithm_version, now),
+        )
+        await self._conn.commit()
+
+    async def insert_company_score(
+        self,
+        company_id: int,
+        *,
+        score: float,
+        components: dict,
+        algorithm_version: str = "score_v1",
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO company_scores (
+                company_id, score, components, algorithm_version, calculated_at
+            ) VALUES (?, ?, ?, ?, ?)
+            """,
+            (company_id, score, json.dumps(components, ensure_ascii=False), algorithm_version, now),
+        )
+        await self._conn.commit()
+
     async def search(
         self,
         query: str,
