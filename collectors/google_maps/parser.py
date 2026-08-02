@@ -3,8 +3,13 @@ import re
 from models.branch import Branch
 from models.review import Review
 
+_PERSIAN_DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
+
 
 class GoogleMapsParser:
+    def normalize_digits(self, value: str) -> str:
+        return (value or "").translate(_PERSIAN_DIGITS).replace("٫", ".").replace("،", ",")
+
     def parse_branch(
         self,
         name: str,
@@ -22,7 +27,7 @@ class GoogleMapsParser:
         return Branch(
             name=clean_name,
             rating=self._to_float(rating),
-            review_count=self._to_int(reviews),
+            review_count=self.extract_review_count(reviews),
             address=(address or "").strip(),
             maps_url=(maps_url or "").strip(),
             place_id=(place_id or "").strip(),
@@ -59,7 +64,6 @@ class GoogleMapsParser:
             },
         )
 
-    # Backward-compatible method name used by older collector code.
     def parse(self, name, rating, reviews, address):
         return self.parse_branch(name, rating, reviews, address)
 
@@ -68,23 +72,42 @@ class GoogleMapsParser:
             return 0.0
         if isinstance(value, (int, float)):
             return float(value)
-        match = re.search(r"\d+(?:[.,]\d+)?", str(value).replace(",", "."))
+        normalized = self.normalize_digits(str(value))
+        match = re.search(r"\d+(?:\.\d+)?", normalized.replace(",", ""))
         if not match:
             return 0.0
         try:
-            return float(match.group().replace(",", "."))
+            return float(match.group())
         except ValueError:
             return 0.0
+
+    def extract_review_count(self, value: str | int | None) -> int:
+        if value is None:
+            return 0
+        if isinstance(value, int):
+            return value
+        normalized = self.normalize_digits(str(value))
+        patterns = [
+            r"\(([0-9][0-9,]*)\)",
+            r"([0-9][0-9,]*)\s*(?:reviews?|review|نظر|مرور)",
+            r"(?:reviews?|review|نظر|مرور)\s*([0-9][0-9,]*)",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, normalized, flags=re.IGNORECASE)
+            if match:
+                return self._to_int(match.group(1))
+        return 0
 
     def _to_int(self, value: str | int | None) -> int:
         if value is None:
             return 0
         if isinstance(value, int):
             return value
-        digits = re.sub(r"[^\d]", "", str(value))
-        if not digits:
+        normalized = self.normalize_digits(str(value))
+        match = re.search(r"\d+", normalized.replace(",", ""))
+        if not match:
             return 0
         try:
-            return int(digits)
+            return int(match.group())
         except ValueError:
             return 0

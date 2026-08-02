@@ -24,15 +24,25 @@ cp .env.example .env
 python main.py
 ```
 
-## Smoke test
+## Tests
 
 ```bash
-python scripts/smoke_test.py
-echo $?
+# Live Google Maps: collect branches (+ reviews if Google allows)
+python3 scripts/smoke_test.py
 # 0 = branches + reviews OK
-# 2 = branches OK, reviews blocked/empty
+# 2 = branches OK, reviews blocked (common on cloud/datacenter IPs)
 # 1 = failed
+
+# Review extraction pipeline against local fixture HTML
+python3 scripts/test_review_fixture.py
+
+# Parser unit checks
+python3 -m pytest tests/test_parser.py -q
 ```
+
+Note: Google often serves a "limited view" without the Reviews tab to
+unsigned/datacenter sessions. Branch collection still works; review text
+may require a normal residential browser session or another source later.
 
 ## Environment
 

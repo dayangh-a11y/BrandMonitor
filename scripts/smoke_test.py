@@ -1,4 +1,4 @@
-"""Phase-1 smoke test: collect a few branches + reviews and assert DB write."""
+"""Phase-1 smoke test: live branch collection + DB write; reviews when Maps allows."""
 
 from __future__ import annotations
 
@@ -22,9 +22,9 @@ async def run() -> int:
     os.environ.setdefault("SCROLL_PAUSE_MS", "1000")
 
     brand = os.getenv("SEARCH_QUERY", "تیپاکس")
-    db_path = "data/smoke_test.db"
-    if Path(db_path).exists():
-        Path(db_path).unlink()
+    db_path = ROOT / "data/smoke_test.db"
+    if db_path.exists():
+        db_path.unlink()
 
     collector = GoogleMapsCollector(
         headless=True,
@@ -33,19 +33,24 @@ async def run() -> int:
         scroll_pause_ms=1000,
     )
     exporter = CsvExporter()
-    db = Database(db_path)
+    db = Database(str(db_path))
 
     await db.connect()
     await collector.start()
 
     try:
-        # Capture a screenshot early for debugging if Maps UI changes.
         assert collector.page is not None
-        Path("output").mkdir(exist_ok=True)
-        await collector.page.screenshot(path="output/smoke_maps_home.png", full_page=True)
+        Path(ROOT / "output").mkdir(exist_ok=True)
+        await collector.page.screenshot(
+            path=str(ROOT / "output/smoke_maps_home.png"),
+            full_page=True,
+        )
 
         branches, reviews = await collector.collect(brand, with_reviews=True)
-        await collector.page.screenshot(path="output/smoke_after_collect.png", full_page=True)
+        await collector.page.screenshot(
+            path=str(ROOT / "output/smoke_after_collect.png"),
+            full_page=True,
+        )
 
         if not branches:
             print("FAIL: no branches collected")
@@ -58,27 +63,38 @@ async def run() -> int:
                 if review.branch_name == branch.name:
                     await db.upsert_review(branch_id, review)
 
-        exporter.export_branches(branches, filename="output/smoke_branches.csv")
-        exporter.export_reviews(reviews, filename="output/smoke_reviews.csv")
+        exporter.export_branches(
+            branches,
+            filename=str(ROOT / "output/smoke_branches.csv"),
+        )
+        exporter.export_reviews(
+            reviews,
+            filename=str(ROOT / "output/smoke_reviews.csv"),
+        )
         stats = await db.stats()
 
         print("\n=== SMOKE TEST RESULT ===")
         print(f"branches={len(branches)} reviews={len(reviews)} db={stats}")
+        print(f"limited_view={collector.limited_view}")
         for branch in branches:
-            print(f" - {branch.name} | rating={branch.rating} | reviews={branch.review_count}")
+            print(
+                f" - {branch.name} | rating={branch.rating} | "
+                f"reviews={branch.review_count} | address={branch.address[:60]}"
+            )
         for review in reviews[:5]:
             preview = (review.text[:80] + "...") if len(review.text) > 80 else review.text
             print(f"   * {review.rating} | {review.author} | {preview}")
 
-        # Soft success criteria:
-        # - at least 1 branch always required
-        # - reviews preferred; if Maps blocks review pane, still keep branch success
         if stats["branches"] < 1:
             print("FAIL: branches not persisted")
             return 1
 
         if len(reviews) == 0:
-            print("WARN: branches OK but zero reviews extracted (Maps UI/consent may have blocked)")
+            print(
+                "WARN: branches OK but zero live reviews "
+                "(Google limited view / bot block is common in cloud IPs)"
+            )
+            print("HINT: run scripts/test_review_fixture.py to verify review pipeline")
             return 2
 
         print("PASS")

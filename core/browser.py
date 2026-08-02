@@ -24,7 +24,7 @@ class BrowserManager:
             ],
         )
         self.context = await self.browser.new_context(
-            locale="fa-IR",
+            locale=os.getenv("BROWSER_LOCALE", "en-US"),
             viewport={"width": 1365, "height": 900},
             user_agent=(
                 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
