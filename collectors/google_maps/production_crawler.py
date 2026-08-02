@@ -94,13 +94,14 @@ class ProductionCrawler:
                     },
                 )
 
-            report = await self.build_report(run_id)
-            final_status = "succeeded" if report.branches_failed == 0 else "failed"
-            # If some failed but retries exhausted, mark failed; else succeeded with partial.
-            if report.branches_failed > 0 and report.branches_succeeded > 0:
-                final_status = "succeeded"
+            progress_tasks = await self.db.list_crawl_branch_tasks(run_id)
+            failed = sum(1 for t in progress_tasks if t.get("status") == "failed")
+            succeeded = sum(1 for t in progress_tasks if t.get("status") == "succeeded")
+            final_status = "succeeded"
+            if failed > 0 and succeeded == 0:
+                final_status = "failed"
             await self.db.update_crawl_run_status(run_id, final_status, finished=True)
-            report.status = final_status  # type: ignore[assignment]
+            report = await self.build_report(run_id)
             report.duration_seconds = round(time.perf_counter() - started, 3)
             await self.db.save_crawl_report(run_id, report.to_dict())
             self.monitor.event("finish_run", run_id=run_id, status=final_status)
