@@ -70,18 +70,19 @@ def test_stress_thousands_of_reviews_and_report(tmp_path: Path):
         assert report.branches_succeeded == 20
         assert elapsed < 120  # generous for CI/cloud CPU
 
-        # Incremental rerun should update all and insert none.
+        # Incremental rerun: no new inserts; identical content is unchanged (not edited).
         source2 = StressSource(branches=20, reviews_per_branch=250)
         crawler2 = ProductionCrawler(db, source2, monitor=CrawlMonitor())
         report2 = await crawler2.run(
             CrawlConfig(company_name="StressCo", mode="incremental", max_attempts=1)
         )
         assert report2.reviews_new == 0
-        assert report2.reviews_updated == 5000
+        assert report2.reviews_found == 5000
+        assert report2.reviews_updated == 0
 
         saved = await db.get_crawl_report(report2.run_id)
         assert saved is not None
-        assert saved["reviews_updated"] == 5000
+        assert saved["reviews_found"] == 5000
         print(
             {
                 "elapsed_sec": round(elapsed, 3),

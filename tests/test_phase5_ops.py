@@ -133,7 +133,7 @@ def test_duplicate_imports(tmp_path: Path):
         stats = await db.stats()
         assert stats["reviews"] == 2
 
-        known_ext, known_fp = await db.get_branch_known_review_keys(branch_id)
+        known_ext, known_fp, *_ = await db.get_branch_known_review_keys(branch_id)
         new_reviews, existing = filter_incremental_reviews(
             reviews,
             known_external_ids=known_ext,

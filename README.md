@@ -50,12 +50,16 @@ Open:
 
 ```bash
 python3 scripts/run_production_crawl.py --company تیپاکس --mode incremental --max-branches 3
+python3 scripts/run_scheduler.py manual --company تیپاکس --mode incremental
+python3 scripts/run_scheduler.py all-companies --max-branches 3
 python3 scripts/run_ai_analysis.py --limit 100
 python3 scripts/run_scoring.py --insights
 python3 scripts/run_mvp_pipeline.py
 python3 scripts/backup_export.py --format all
 python3 -m pytest tests/ -q
 ```
+
+Company registry (no hardcoded names): `config/companies.yaml` — see `docs/PHASE6_COLLECTION.md`.
 
 ## Docs
 

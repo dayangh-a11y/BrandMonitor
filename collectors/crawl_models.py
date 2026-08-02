@@ -17,6 +17,9 @@ class CrawlConfig:
     max_reviews_per_branch: int | None = None
     max_attempts: int = 3
     headless: bool = True
+    branch_place_id: str | None = None
+    branch_name: str | None = None
+    detect_deleted_reviews: bool = True
 
 
 @dataclass
@@ -49,7 +52,8 @@ class CrawlReport:
     reviews_found: int
     reviews_new: int
     reviews_updated: int
-    retries: int
+    reviews_deleted: int = 0
+    retries: int = 0
     errors: list[str] = field(default_factory=list)
     stats: dict[str, float] = field(default_factory=dict)
 
@@ -69,6 +73,7 @@ class CrawlReport:
             "reviews_found": self.reviews_found,
             "reviews_new": self.reviews_new,
             "reviews_updated": self.reviews_updated,
+            "reviews_deleted": self.reviews_deleted,
             "retries": self.retries,
             "errors": self.errors,
             "stats": self.stats,

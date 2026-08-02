@@ -35,6 +35,10 @@ class GoogleMapsLocators:
     REVIEW_DATE = "span.rsqaWe"
     REVIEW_TEXT = "span.wiI7pd"
     REVIEW_MORE = "button.w8nwRe"
+    REVIEW_OWNER_RESPONSE = "div.CDe7pd"
+    REVIEW_OWNER_RESPONSE_DATE = "span.DZSIDd"
+    PLACE_PHONE = 'button[data-item-id^="phone"]'
+    PLACE_ADDRESS = 'button[data-item-id="address"]'
 
     CONSENT_BUTTONS = [
         'button:has-text("Accept all")',

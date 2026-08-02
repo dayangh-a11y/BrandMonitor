@@ -90,12 +90,13 @@ def test_production_crawler_resume_retry_and_report(tmp_path: Path):
         assert report.branches_succeeded >= 1
         assert report.reviews_new >= 2
 
-        # Incremental second run should update existing and add none if same payload.
+        # Incremental second run: no new inserts; unchanged content is not an "edit".
         source2 = FakeSource()
         crawler2 = ProductionCrawler(db, source2, monitor=CrawlMonitor())
         report2 = await crawler2.run(CrawlConfig(company_name="Tipax", mode="incremental"))
         assert report2.reviews_new == 0
-        assert report2.reviews_updated >= 1
+        assert report2.reviews_found >= 1
+        assert report2.reviews_updated == 0  # same payload => unchanged, not edited
 
         progress = await crawler2.get_progress(report2.run_id)
         assert progress.total_branches >= 2

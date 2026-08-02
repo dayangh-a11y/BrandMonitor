@@ -245,7 +245,7 @@ class GoogleMapsCollector:
                 review_count_text = aria
 
         address = ""
-        address_btn = self.page.locator('button[data-item-id="address"]').first
+        address_btn = self.page.locator(L.PLACE_ADDRESS).first
         if await address_btn.count():
             try:
                 aria = await address_btn.get_attribute("aria-label") or ""
@@ -257,7 +257,21 @@ class GoogleMapsCollector:
             except Exception:
                 address = ""
 
+        phone = ""
+        phone_btn = self.page.locator(L.PLACE_PHONE).first
+        if await phone_btn.count():
+            try:
+                aria = await phone_btn.get_attribute("aria-label") or ""
+                phone = (
+                    aria.replace("Phone:", "")
+                    .replace("تلفن:", "")
+                    .strip()
+                )
+            except Exception:
+                phone = ""
+
         maps_url = self.page.url or fallback_url
+        latitude, longitude = self._extract_coordinates(maps_url)
         return self.parser.parse_branch(
             name=name,
             rating=rating_text,
@@ -266,6 +280,9 @@ class GoogleMapsCollector:
             maps_url=maps_url,
             place_id=self._extract_place_id(maps_url),
             company_name=company_name,
+            phone=phone,
+            latitude=latitude,
+            longitude=longitude,
         )
 
     async def _open_reviews_panel(self) -> bool:
@@ -380,6 +397,22 @@ class GoogleMapsCollector:
                     text = ""
 
             external_id = await card.get_attribute("data-review-id") or ""
+
+            owner_response = ""
+            owner_response_at = ""
+            owner_node = card.locator(L.REVIEW_OWNER_RESPONSE).first
+            if await owner_node.count():
+                try:
+                    owner_response = (await owner_node.inner_text()).strip()
+                except Exception:
+                    owner_response = ""
+                date_resp = card.locator(L.REVIEW_OWNER_RESPONSE_DATE).first
+                if await date_resp.count():
+                    try:
+                        owner_response_at = (await date_resp.inner_text()).strip()
+                    except Exception:
+                        owner_response_at = ""
+
             review = self.parser.parse_review(
                 author=author,
                 rating=rating,
@@ -387,6 +420,8 @@ class GoogleMapsCollector:
                 published_at=published_at,
                 external_id=external_id,
                 branch_name=branch_name,
+                owner_response=owner_response,
+                owner_response_at=owner_response_at,
             )
             if review:
                 reviews.append(review)
@@ -456,3 +491,15 @@ class GoogleMapsCollector:
         if "q" in query and query["q"]:
             return query["q"][0]
         return ""
+
+    def _extract_coordinates(self, url: str) -> tuple[float | None, float | None]:
+        if not url:
+            return None, None
+        # Common Maps patterns: @lat,lng,zoom or !3dLAT!4dLNG
+        match = re.search(r"@(-?\d+\.\d+),(-?\d+\.\d+)", url)
+        if match:
+            return float(match.group(1)), float(match.group(2))
+        match = re.search(r"!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)", url)
+        if match:
+            return float(match.group(1)), float(match.group(2))
+        return None, None

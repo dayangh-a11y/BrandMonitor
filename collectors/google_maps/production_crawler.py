@@ -6,7 +6,7 @@ from typing import Protocol
 
 from collectors.crawl_models import CrawlConfig, CrawlProgress, CrawlReport
 from collectors.dedupe import branch_identity_key, review_fingerprint
-from collectors.incremental import filter_incremental_reviews
+from collectors.incremental import diff_reviews
 from collectors.monitoring import CrawlMonitor
 from core.db import Database
 from core.logging_setup import get_logger
@@ -176,10 +176,18 @@ class ProductionCrawler:
                 name=branch.name,
                 address=branch.address,
             )
+            if config.branch_place_id and branch.place_id != config.branch_place_id:
+                continue
+            if config.branch_name and branch.name.casefold() != config.branch_name.casefold():
+                continue
             seen_keys.add(key)
             branch_id = None
             if key in existing_by_key:
                 branch_id = int(existing_by_key[key]["id"])
+                # Refresh metadata for known branches.
+                branch_id = await self.db.upsert_branch(company_id, branch)
+            else:
+                branch_id = await self.db.upsert_branch(company_id, branch)
             if key not in tasked_keys:
                 await self.db.add_crawl_branch_task(
                     run_id,
@@ -190,24 +198,26 @@ class ProductionCrawler:
                     max_attempts=config.max_attempts,
                 )
 
-        deleted_ids = [
-            int(row["id"])
-            for key, row in existing_by_key.items()
-            if key not in seen_keys and not int(row.get("is_deleted") or 0)
-        ]
-        if deleted_ids:
-            await self.db.mark_branches_deleted(deleted_ids)
-            for branch_id in deleted_ids:
-                row = next(r for r in existing_rows if int(r["id"]) == branch_id)
-                task_id = await self.db.add_crawl_branch_task(
-                    run_id,
-                    branch_name=row.get("name") or "",
-                    address=row.get("address") or "",
-                    place_id=row.get("place_id") or "",
-                    branch_id=branch_id,
-                    max_attempts=1,
-                )
-                await self.db.finish_branch_task(task_id, status="deleted", branch_id=branch_id)
+        deleted_ids = []
+        if not config.branch_place_id and not config.branch_name:
+            deleted_ids = [
+                int(row["id"])
+                for key, row in existing_by_key.items()
+                if key not in seen_keys and not int(row.get("is_deleted") or 0)
+            ]
+            if deleted_ids:
+                await self.db.mark_branches_deleted(deleted_ids)
+                for branch_id in deleted_ids:
+                    row = next(r for r in existing_rows if int(r["id"]) == branch_id)
+                    task_id = await self.db.add_crawl_branch_task(
+                        run_id,
+                        branch_name=row.get("name") or "",
+                        address=row.get("address") or "",
+                        place_id=row.get("place_id") or "",
+                        branch_id=branch_id,
+                        max_attempts=1,
+                    )
+                    await self.db.finish_branch_task(task_id, status="deleted", branch_id=branch_id)
 
         await self.db.record_crawl_stat(run_id, "branches_discovered", float(len(discovered)))
         await self.db.record_crawl_stat(run_id, "branches_deleted", float(len(deleted_ids)))
@@ -242,52 +252,57 @@ class ProductionCrawler:
 
             branch_id = task.get("branch_id")
             if branch_id is None:
-                # Persist discovered branch metadata with review_count estimate.
                 branch.review_count = len(reviews)
                 branch_id = await self.db.upsert_branch(company_id, branch)
             else:
                 branch_id = int(branch_id)
                 await self.db.mark_branch_seen(branch_id)
 
-            known_external, known_fp = await self.db.get_branch_known_review_keys(branch_id)
-            if config.mode == "incremental":
-                new_reviews, existing_reviews = filter_incremental_reviews(
-                    reviews,
-                    known_external_ids=known_external,
-                    known_fingerprints=known_fp,
-                    fingerprint_fn=review_fingerprint,
-                    branch_key=str(branch_id),
-                )
-            else:
-                # Full mode still upserts; treat unknown as new and known as updates.
-                new_reviews, existing_reviews = filter_incremental_reviews(
-                    reviews,
-                    known_external_ids=known_external,
-                    known_fingerprints=known_fp,
-                    fingerprint_fn=review_fingerprint,
-                    branch_key=str(branch_id),
+            known_external, known_fp, known_hashes, active_rows = (
+                await self.db.get_branch_known_review_keys(branch_id)
+            )
+            diff = diff_reviews(
+                reviews,
+                known_external_ids=known_external,
+                known_fingerprints=known_fp,
+                known_content_hashes=known_hashes,
+                active_rows=active_rows if config.detect_deleted_reviews else [],
+                fingerprint_fn=review_fingerprint,
+                branch_key=str(branch_id),
+            )
+
+            upsert_batch = diff.new_reviews + diff.edited_reviews + diff.unchanged_reviews
+            if upsert_batch:
+                await self.db.upsert_reviews_batch(branch_id, upsert_batch)
+
+            deleted_count = 0
+            if config.detect_deleted_reviews and diff.deleted_review_ids:
+                deleted_count = await self.db.mark_reviews_deleted(
+                    branch_id, diff.deleted_review_ids
                 )
 
-            for review in new_reviews + existing_reviews:
-                await self.db.upsert_review(branch_id, review)
-
+            await self.db.mark_branch_success(branch_id)
             await self.db.finish_branch_task(
                 int(task["id"]),
                 status="succeeded",
                 branch_id=branch_id,
                 reviews_found=len(reviews),
-                reviews_new=len(new_reviews),
-                reviews_updated=len(existing_reviews),
+                reviews_new=len(diff.new_reviews),
+                reviews_updated=len(diff.edited_reviews),
             )
             await self.db.record_crawl_stat(run_id, "reviews_found", float(len(reviews)))
-            await self.db.record_crawl_stat(run_id, "reviews_new", float(len(new_reviews)))
-            await self.db.record_crawl_stat(run_id, "reviews_updated", float(len(existing_reviews)))
+            await self.db.record_crawl_stat(run_id, "reviews_new", float(len(diff.new_reviews)))
+            await self.db.record_crawl_stat(
+                run_id, "reviews_updated", float(len(diff.edited_reviews))
+            )
+            await self.db.record_crawl_stat(run_id, "reviews_deleted", float(deleted_count))
             self.monitor.event(
                 "branch_succeeded",
                 run_id=run_id,
                 branch=branch.name,
-                new=len(new_reviews),
-                updated=len(existing_reviews),
+                new=len(diff.new_reviews),
+                updated=len(diff.edited_reviews),
+                deleted=deleted_count,
             )
         except Exception as exc:  # noqa: BLE001
             status = "failed"
@@ -363,6 +378,7 @@ class ProductionCrawler:
             reviews_found=int(stats.get("reviews_found", 0)),
             reviews_new=int(stats.get("reviews_new", 0)),
             reviews_updated=int(stats.get("reviews_updated", 0)),
+            reviews_deleted=int(stats.get("reviews_deleted", 0)),
             retries=retries,
             errors=errors,
             stats=stats,
