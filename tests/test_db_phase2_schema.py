@@ -1,4 +1,4 @@
-"""Phase 2 schema verification — tables and indexes only."""
+"""Phase 2 / 2.1 schema verification — tables and indexes."""
 
 from __future__ import annotations
 
@@ -21,9 +21,24 @@ PHASE2_TABLES = {
 PHASE2_INDEXES = {
     "idx_review_analyses_status",
     "idx_review_analyses_sentiment",
+    "idx_review_analyses_input_hash",
     "idx_analysis_jobs_status",
     "idx_branch_scores_branch_calculated",
     "idx_company_scores_company_calculated",
+}
+
+REQUIRED_ANALYSIS_COLUMNS = {
+    "complaint_categories",
+    "positive_categories",
+    "staff_behavior",
+    "mentioned_employees",
+    "mentioned_branch",
+    "confidence_overall",
+    "confidence_by_field",
+    "input_hash",
+    "provider",
+    "model_id",
+    "schema_version",
 }
 
 
@@ -48,8 +63,6 @@ def test_phase2_tables_and_indexes_exist(db_path: str):
             )
             tables = {row["name"] for row in await cursor.fetchall()}
             assert PHASE2_TABLES.issubset(tables)
-
-            # Phase 1 tables must still exist.
             assert {"companies", "branches", "reviews"}.issubset(tables)
 
             cursor = await db._conn.execute(
@@ -57,6 +70,10 @@ def test_phase2_tables_and_indexes_exist(db_path: str):
             )
             indexes = {row["name"] for row in await cursor.fetchall()}
             assert PHASE2_INDEXES.issubset(indexes)
+
+            cursor = await db._conn.execute("PRAGMA table_info(review_analyses)")
+            columns = {row["name"] for row in await cursor.fetchall()}
+            assert REQUIRED_ANALYSIS_COLUMNS.issubset(columns)
         finally:
             await db.close()
 
@@ -94,13 +111,13 @@ def test_review_analyses_fk_and_unique_review_id(db_path: str):
             await db._conn.execute(
                 """
                 INSERT INTO review_analyses (
-                    review_id, sentiment, sentiment_score, urgency, categories,
-                    pros, cons, model_name, prompt_version, raw_response,
-                    status, created_at, updated_at
+                    review_id, sentiment, complaint_categories, positive_categories,
+                    status, provider, model_id, prompt_version, schema_version,
+                    input_hash, created_at, updated_at
                 ) VALUES (
-                    1, 'negative', -0.8, 'medium', '["delivery_speed"]',
-                    '[]', '["slow"]', '', 'v1', '{}',
-                    'succeeded', ?, ?
+                    1, 'Negative', '["delivery_speed"]', '[]',
+                    'succeeded', 'fake', 'fake-v1', 'v1', 'analysis_dto_v1',
+                    'hash1', ?, ?
                 )
                 """,
                 (now, now),
@@ -111,13 +128,13 @@ def test_review_analyses_fk_and_unique_review_id(db_path: str):
                 await db._conn.execute(
                     """
                     INSERT INTO review_analyses (
-                        review_id, sentiment, sentiment_score, urgency,
-                        categories, pros, cons, model_name, prompt_version,
-                        raw_response, status, created_at, updated_at
+                        review_id, sentiment, complaint_categories, positive_categories,
+                        status, provider, model_id, prompt_version, schema_version,
+                        input_hash, created_at, updated_at
                     ) VALUES (
-                        1, 'negative', -0.8, 'low',
-                        '[]', '[]', '[]', '', 'v1',
-                        '{}', 'pending', ?, ?
+                        1, 'Negative', '[]', '[]',
+                        'pending', 'fake', 'fake-v1', 'v1', 'analysis_dto_v1',
+                        'hash2', ?, ?
                     )
                     """,
                     (now, now),
