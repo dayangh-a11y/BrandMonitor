@@ -214,10 +214,78 @@ class Database:
                 ON branch_scores(branch_id, calculated_at);
             CREATE INDEX IF NOT EXISTS idx_company_scores_company_calculated
                 ON company_scores(company_id, calculated_at);
+
+            -- Phase 4: production crawl pipeline
+            CREATE TABLE IF NOT EXISTS crawl_runs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                company_name TEXT NOT NULL,
+                mode TEXT NOT NULL DEFAULT 'full'
+                    CHECK (mode IN ('full', 'incremental')),
+                status TEXT NOT NULL DEFAULT 'queued'
+                    CHECK (status IN ('queued', 'running', 'succeeded', 'failed', 'interrupted')),
+                config_json TEXT NOT NULL DEFAULT '{}',
+                error TEXT,
+                started_at TEXT,
+                finished_at TEXT,
+                created_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS crawl_branch_tasks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id INTEGER NOT NULL,
+                branch_id INTEGER,
+                place_id TEXT NOT NULL DEFAULT '',
+                branch_name TEXT NOT NULL DEFAULT '',
+                address TEXT NOT NULL DEFAULT '',
+                status TEXT NOT NULL DEFAULT 'pending'
+                    CHECK (status IN ('pending', 'running', 'succeeded', 'failed', 'skipped', 'deleted')),
+                attempts INTEGER NOT NULL DEFAULT 0,
+                max_attempts INTEGER NOT NULL DEFAULT 3,
+                last_error TEXT,
+                reviews_found INTEGER NOT NULL DEFAULT 0,
+                reviews_new INTEGER NOT NULL DEFAULT 0,
+                reviews_updated INTEGER NOT NULL DEFAULT 0,
+                discovered_at TEXT,
+                started_at TEXT,
+                completed_at TEXT,
+                FOREIGN KEY(run_id) REFERENCES crawl_runs(id),
+                FOREIGN KEY(branch_id) REFERENCES branches(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS crawl_stats (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id INTEGER NOT NULL,
+                metric TEXT NOT NULL,
+                value REAL NOT NULL DEFAULT 0,
+                recorded_at TEXT NOT NULL,
+                FOREIGN KEY(run_id) REFERENCES crawl_runs(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS crawl_reports (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id INTEGER NOT NULL UNIQUE,
+                report_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY(run_id) REFERENCES crawl_runs(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS crawl_checkpoints (
+                run_id INTEGER PRIMARY KEY,
+                cursor_json TEXT NOT NULL DEFAULT '{}',
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY(run_id) REFERENCES crawl_runs(id)
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_crawl_runs_status ON crawl_runs(status);
+            CREATE INDEX IF NOT EXISTS idx_crawl_branch_tasks_run_status
+                ON crawl_branch_tasks(run_id, status);
+            CREATE INDEX IF NOT EXISTS idx_crawl_stats_run_metric
+                ON crawl_stats(run_id, metric);
             """
         )
         await self._conn.commit()
         await self._ensure_phase21_review_analyses_schema()
+        await self._ensure_phase4_branch_soft_delete_columns()
 
     async def _ensure_phase21_review_analyses_schema(self) -> None:
         """Upgrade legacy review_analyses shape if an older draft table exists."""
@@ -301,6 +369,18 @@ class Database:
             DROP TABLE IF EXISTS review_analyses_legacy;
             """
         )
+        await self._conn.commit()
+
+    async def _ensure_phase4_branch_soft_delete_columns(self) -> None:
+        assert self._conn is not None
+        cursor = await self._conn.execute("PRAGMA table_info(branches)")
+        cols = {row["name"] for row in await cursor.fetchall()}
+        if "is_deleted" not in cols:
+            await self._conn.execute(
+                "ALTER TABLE branches ADD COLUMN is_deleted INTEGER NOT NULL DEFAULT 0"
+            )
+        if "last_seen_at" not in cols:
+            await self._conn.execute("ALTER TABLE branches ADD COLUMN last_seen_at TEXT")
         await self._conn.commit()
 
     async def upsert_company(self, name: str, source: str = "google_maps") -> int:
@@ -1107,3 +1187,339 @@ class Database:
             "companies": [dict(row) for row in await companies_cursor.fetchall()],
             "branches": [dict(row) for row in await branches_cursor.fetchall()],
         }
+
+    # --- Phase 4 crawl persistence ---
+
+    async def create_crawl_run(
+        self,
+        *,
+        company_name: str,
+        mode: str = "full",
+        config: dict | None = None,
+    ) -> int:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        cursor = await self._conn.execute(
+            """
+            INSERT INTO crawl_runs (company_name, mode, status, config_json, created_at)
+            VALUES (?, ?, 'queued', ?, ?)
+            """,
+            (company_name, mode, json.dumps(config or {}, ensure_ascii=False), now),
+        )
+        await self._conn.commit()
+        return int(cursor.lastrowid)
+
+    async def update_crawl_run_status(
+        self,
+        run_id: int,
+        status: str,
+        *,
+        error: str | None = None,
+        started: bool = False,
+        finished: bool = False,
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        fields = ["status = ?"]
+        params: list[object] = [status]
+        if error is not None:
+            fields.append("error = ?")
+            params.append(error)
+        if started:
+            fields.append("started_at = COALESCE(started_at, ?)")
+            params.append(now)
+        if finished:
+            fields.append("finished_at = ?")
+            params.append(now)
+        params.append(run_id)
+        await self._conn.execute(
+            f"UPDATE crawl_runs SET {', '.join(fields)} WHERE id = ?",
+            params,
+        )
+        await self._conn.commit()
+
+    async def get_crawl_run(self, run_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute("SELECT * FROM crawl_runs WHERE id = ?", (run_id,))
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+
+    async def add_crawl_branch_task(
+        self,
+        run_id: int,
+        *,
+        branch_name: str,
+        address: str = "",
+        place_id: str = "",
+        branch_id: int | None = None,
+        max_attempts: int = 3,
+    ) -> int:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        cursor = await self._conn.execute(
+            """
+            INSERT INTO crawl_branch_tasks (
+                run_id, branch_id, place_id, branch_name, address,
+                status, max_attempts, discovered_at
+            ) VALUES (?, ?, ?, ?, ?, 'pending', ?, ?)
+            """,
+            (run_id, branch_id, place_id, branch_name, address, max_attempts, now),
+        )
+        await self._conn.commit()
+        return int(cursor.lastrowid)
+
+    async def list_crawl_branch_tasks(
+        self,
+        run_id: int,
+        *,
+        statuses: list[str] | None = None,
+    ) -> list[dict]:
+        assert self._conn is not None
+        if statuses:
+            placeholders = ",".join("?" for _ in statuses)
+            cursor = await self._conn.execute(
+                f"""
+                SELECT * FROM crawl_branch_tasks
+                WHERE run_id = ? AND status IN ({placeholders})
+                ORDER BY id ASC
+                """,
+                (run_id, *statuses),
+            )
+        else:
+            cursor = await self._conn.execute(
+                "SELECT * FROM crawl_branch_tasks WHERE run_id = ? ORDER BY id ASC",
+                (run_id,),
+            )
+        return [dict(row) for row in await cursor.fetchall()]
+
+    async def claim_next_branch_task(self, run_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT * FROM crawl_branch_tasks
+            WHERE run_id = ? AND status IN ('pending', 'failed')
+              AND attempts < max_attempts
+            ORDER BY
+              CASE status WHEN 'pending' THEN 0 ELSE 1 END,
+              id ASC
+            LIMIT 1
+            """,
+            (run_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE crawl_branch_tasks
+            SET status = 'running',
+                attempts = attempts + 1,
+                started_at = COALESCE(started_at, ?),
+                last_error = NULL
+            WHERE id = ?
+            """,
+            (now, row["id"]),
+        )
+        await self._conn.commit()
+        cursor = await self._conn.execute(
+            "SELECT * FROM crawl_branch_tasks WHERE id = ?",
+            (row["id"],),
+        )
+        claimed = await cursor.fetchone()
+        return dict(claimed) if claimed else None
+
+    async def finish_branch_task(
+        self,
+        task_id: int,
+        *,
+        status: str,
+        branch_id: int | None = None,
+        reviews_found: int = 0,
+        reviews_new: int = 0,
+        reviews_updated: int = 0,
+        error: str | None = None,
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE crawl_branch_tasks
+            SET status = ?,
+                branch_id = COALESCE(?, branch_id),
+                reviews_found = ?,
+                reviews_new = ?,
+                reviews_updated = ?,
+                last_error = ?,
+                completed_at = ?
+            WHERE id = ?
+            """,
+            (
+                status,
+                branch_id,
+                reviews_found,
+                reviews_new,
+                reviews_updated,
+                error,
+                now,
+                task_id,
+            ),
+        )
+        await self._conn.commit()
+
+    async def save_checkpoint(self, run_id: int, cursor_data: dict) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO crawl_checkpoints (run_id, cursor_json, updated_at)
+            VALUES (?, ?, ?)
+            ON CONFLICT(run_id) DO UPDATE SET
+                cursor_json = excluded.cursor_json,
+                updated_at = excluded.updated_at
+            """,
+            (run_id, json.dumps(cursor_data, ensure_ascii=False), now),
+        )
+        await self._conn.commit()
+
+    async def get_checkpoint(self, run_id: int) -> dict:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT cursor_json FROM crawl_checkpoints WHERE run_id = ?",
+            (run_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return {}
+        return json.loads(row["cursor_json"] or "{}")
+
+    async def record_crawl_stat(self, run_id: int, metric: str, value: float) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO crawl_stats (run_id, metric, value, recorded_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (run_id, metric, value, now),
+        )
+        await self._conn.commit()
+
+    async def get_crawl_stats(self, run_id: int) -> dict[str, float]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT metric, SUM(value) AS total
+            FROM crawl_stats
+            WHERE run_id = ?
+            GROUP BY metric
+            """,
+            (run_id,),
+        )
+        return {row["metric"]: float(row["total"]) for row in await cursor.fetchall()}
+
+    async def save_crawl_report(self, run_id: int, report: dict) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO crawl_reports (run_id, report_json, created_at)
+            VALUES (?, ?, ?)
+            ON CONFLICT(run_id) DO UPDATE SET
+                report_json = excluded.report_json,
+                created_at = excluded.created_at
+            """,
+            (run_id, json.dumps(report, ensure_ascii=False), now),
+        )
+        await self._conn.commit()
+
+    async def get_crawl_report(self, run_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT report_json FROM crawl_reports WHERE run_id = ?",
+            (run_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        return json.loads(row["report_json"] or "{}")
+
+    async def list_company_branch_rows(self, company_id: int) -> list[dict]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT * FROM branches
+            WHERE company_id = ?
+            ORDER BY id ASC
+            """,
+            (company_id,),
+        )
+        return [dict(row) for row in await cursor.fetchall()]
+
+    async def mark_branches_deleted(self, branch_ids: list[int]) -> None:
+        if not branch_ids:
+            return
+        assert self._conn is not None
+        placeholders = ",".join("?" for _ in branch_ids)
+        await self._conn.execute(
+            f"UPDATE branches SET is_deleted = 1 WHERE id IN ({placeholders})",
+            branch_ids,
+        )
+        await self._conn.commit()
+
+    async def mark_branch_seen(self, branch_id: int) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE branches
+            SET is_deleted = 0, last_seen_at = ?
+            WHERE id = ?
+            """,
+            (now, branch_id),
+        )
+        await self._conn.commit()
+
+    async def get_branch_known_review_keys(self, branch_id: int) -> tuple[set[str], set[str]]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT external_id, author, published_at, text, rating FROM reviews WHERE branch_id = ?",
+            (branch_id,),
+        )
+        external_ids: set[str] = set()
+        fingerprints: set[str] = set()
+        from collectors.dedupe import review_fingerprint
+        from models.review import Review
+
+        for row in await cursor.fetchall():
+            external = (row["external_id"] or "").strip()
+            if external:
+                external_ids.add(external)
+            fingerprints.add(
+                review_fingerprint(
+                    Review(
+                        author=row["author"] or "",
+                        published_at=row["published_at"] or "",
+                        text=row["text"] or "",
+                        rating=float(row["rating"] or 0),
+                        external_id=external,
+                    ),
+                    branch_key=str(branch_id),
+                )
+            )
+        return external_ids, fingerprints
+
+    async def find_resumable_crawl_run(self, company_name: str) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT * FROM crawl_runs
+            WHERE company_name = ?
+              AND status IN ('running', 'interrupted', 'queued')
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (company_name,),
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
