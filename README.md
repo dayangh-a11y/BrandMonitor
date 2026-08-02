@@ -48,6 +48,7 @@ Open:
 | Demo HTML | Ready |
 | Admin ops pages | Ready |
 | Private beta cycle | Ready (`scripts/run_beta_cycle.py`) |
+| Executive analytics dashboards | Ready (`/analytics/ui`, Phase 7) |
 
 ## Key commands
 
@@ -69,6 +70,7 @@ Company registry (no hardcoded names): `config/companies.yaml` — see `docs/PHA
 
 - `docs/PRODUCTION.md` — deploy / env
 - `docs/PRIVATE_BETA.md` — API auth, beta cycle, browser session, durable metrics
+- `docs/PHASE7_ANALYTICS.md` — executive analytics dashboards & API
 - `docs/PHASE6_AI.md` — OpenAI adapter & prompts
 - `docs/MVP_ENGINEERING_REPORT.md` — latest MVP integration report
 - `docs/REMAINING_BEFORE_LAUNCH.md` — public launch checklist
