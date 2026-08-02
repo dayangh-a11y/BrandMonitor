@@ -14,6 +14,7 @@ from api.errors import (
     http_exception_handler,
     unhandled_error_handler,
 )
+from api.demo import router as demo_router
 from api.routes import router
 from api.schemas import HealthOut
 from fastapi import HTTPException
@@ -53,6 +54,7 @@ async def validation_exception_handler(_, exc: RequestValidationError):
 
 
 app.include_router(router)
+app.include_router(demo_router)
 
 
 @app.get("/health", response_model=HealthOut, tags=["system"])
