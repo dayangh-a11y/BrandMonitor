@@ -288,6 +288,7 @@ class Database:
         await self._ensure_phase4_branch_soft_delete_columns()
         await self._ensure_phase6_collection_columns()
         await self._ensure_ops_metric_samples()
+        await self._ensure_analytics_snapshots()
 
     async def _ensure_phase21_review_analyses_schema(self) -> None:
         """Upgrade legacy review_analyses shape if an older draft table exists."""
@@ -1941,6 +1942,216 @@ class Database:
             """
         )
         await self._conn.commit()
+
+    async def _ensure_analytics_snapshots(self) -> None:
+        """Precomputed executive analytics payloads (Phase 7)."""
+        assert self._conn is not None
+        await self._conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS analytics_snapshots (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                entity_type TEXT NOT NULL,
+                entity_id INTEGER NOT NULL,
+                snapshot_kind TEXT NOT NULL,
+                filter_hash TEXT NOT NULL DEFAULT '',
+                payload_json TEXT NOT NULL,
+                computed_at TEXT NOT NULL,
+                UNIQUE(entity_type, entity_id, snapshot_kind, filter_hash)
+            );
+            CREATE INDEX IF NOT EXISTS idx_analytics_snapshots_entity
+                ON analytics_snapshots(entity_type, entity_id, snapshot_kind);
+            """
+        )
+        await self._conn.commit()
+
+    async def upsert_analytics_snapshot(
+        self,
+        entity_type: str,
+        entity_id: int,
+        snapshot_kind: str,
+        filter_hash: str,
+        payload: dict,
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            INSERT INTO analytics_snapshots (
+                entity_type, entity_id, snapshot_kind, filter_hash, payload_json, computed_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(entity_type, entity_id, snapshot_kind, filter_hash) DO UPDATE SET
+                payload_json = excluded.payload_json,
+                computed_at = excluded.computed_at
+            """,
+            (
+                entity_type,
+                entity_id,
+                snapshot_kind,
+                filter_hash,
+                json.dumps(payload, ensure_ascii=False),
+                now,
+            ),
+        )
+        await self._conn.commit()
+
+    async def get_analytics_snapshot(
+        self,
+        entity_type: str,
+        entity_id: int,
+        snapshot_kind: str,
+        filter_hash: str,
+    ) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT payload_json, computed_at
+            FROM analytics_snapshots
+            WHERE entity_type = ? AND entity_id = ?
+              AND snapshot_kind = ? AND filter_hash = ?
+            """,
+            (entity_type, entity_id, snapshot_kind, filter_hash),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        return {
+            "payload": json.loads(row["payload_json"] or "{}"),
+            "computed_at": row["computed_at"],
+        }
+
+    async def list_company_analytics_rows(self, company_id: int) -> list[dict]:
+        """Joined review+analysis+branch rows for company analytics."""
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                r.id AS review_id,
+                r.branch_id,
+                r.author,
+                r.rating AS review_rating,
+                r.text AS review_text,
+                r.published_at,
+                r.collected_at,
+                COALESCE(a.analyzed_at, r.collected_at) AS event_date,
+                b.name AS branch_name,
+                COALESCE(b.city, '') AS city,
+                COALESCE(b.province, '') AS province,
+                a.sentiment,
+                a.complaint_categories,
+                a.positive_categories,
+                a.delivery_speed,
+                a.customer_service,
+                a.staff_behavior,
+                a.package_damage,
+                a.pricing,
+                a.tracking,
+                a.professionalism,
+                a.mentioned_employees,
+                a.mentioned_city,
+                a.confidence_overall,
+                a.status
+            FROM reviews r
+            JOIN branches b ON b.id = r.branch_id
+            LEFT JOIN review_analyses a ON a.review_id = r.id
+            WHERE b.company_id = ?
+              AND COALESCE(r.is_deleted, 0) = 0
+              AND COALESCE(b.is_deleted, 0) = 0
+            ORDER BY COALESCE(a.analyzed_at, r.collected_at) ASC, r.id ASC
+            """,
+            (company_id,),
+        )
+        return [self._normalize_analytics_row(dict(row)) for row in await cursor.fetchall()]
+
+    async def list_branch_analytics_rows(self, branch_id: int) -> list[dict]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                r.id AS review_id,
+                r.branch_id,
+                r.author,
+                r.rating AS review_rating,
+                r.text AS review_text,
+                r.published_at,
+                r.collected_at,
+                COALESCE(a.analyzed_at, r.collected_at) AS event_date,
+                b.name AS branch_name,
+                COALESCE(b.city, '') AS city,
+                COALESCE(b.province, '') AS province,
+                a.sentiment,
+                a.complaint_categories,
+                a.positive_categories,
+                a.delivery_speed,
+                a.customer_service,
+                a.staff_behavior,
+                a.package_damage,
+                a.pricing,
+                a.tracking,
+                a.professionalism,
+                a.mentioned_employees,
+                a.mentioned_city,
+                a.confidence_overall,
+                a.status
+            FROM reviews r
+            JOIN branches b ON b.id = r.branch_id
+            LEFT JOIN review_analyses a ON a.review_id = r.id
+            WHERE r.branch_id = ?
+              AND COALESCE(r.is_deleted, 0) = 0
+            ORDER BY COALESCE(a.analyzed_at, r.collected_at) ASC, r.id ASC
+            """,
+            (branch_id,),
+        )
+        return [self._normalize_analytics_row(dict(row)) for row in await cursor.fetchall()]
+
+    def _normalize_analytics_row(self, item: dict) -> dict:
+        item["complaint_categories"] = json.loads(item.get("complaint_categories") or "[]")
+        item["positive_categories"] = json.loads(item.get("positive_categories") or "[]")
+        item["mentioned_employees"] = json.loads(item.get("mentioned_employees") or "[]")
+        if item.get("package_damage") is not None:
+            item["package_damage"] = bool(item["package_damage"])
+        if item.get("status") not in (None, "succeeded"):
+            # Keep row for volume/rating trends; null out AI dims if failed
+            pass
+        return item
+
+    async def list_company_score_history(self, company_id: int, *, limit: int = 60) -> list[dict]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT score, components, algorithm_version, calculated_at
+            FROM company_scores
+            WHERE company_id = ?
+            ORDER BY calculated_at ASC, id ASC
+            LIMIT ?
+            """,
+            (company_id, limit),
+        )
+        rows = []
+        for row in await cursor.fetchall():
+            item = dict(row)
+            item["components"] = json.loads(item.get("components") or "{}")
+            rows.append(item)
+        return rows
+
+    async def list_branch_score_history(self, branch_id: int, *, limit: int = 60) -> list[dict]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT score, components, algorithm_version, calculated_at
+            FROM branch_scores
+            WHERE branch_id = ?
+            ORDER BY calculated_at ASC, id ASC
+            LIMIT ?
+            """,
+            (branch_id, limit),
+        )
+        rows = []
+        for row in await cursor.fetchall():
+            item = dict(row)
+            item["components"] = json.loads(item.get("components") or "{}")
+            rows.append(item)
+        return rows
 
     async def insert_metric_samples(self, samples: list[dict]) -> int:
         assert self._conn is not None
