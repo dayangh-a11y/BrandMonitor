@@ -4,6 +4,7 @@ from typing import Literal
 
 from fastapi import APIRouter, Depends, Query
 
+from api.auth import require_api_token
 from api.deps import get_db
 from api.errors import APIError
 from api.schemas import (
@@ -16,7 +17,7 @@ from api.schemas import (
 )
 from core.db import Database
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_api_token)])
 
 SortParam = Literal["newest", "oldest", "highest_score", "lowest_score"]
 

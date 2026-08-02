@@ -188,9 +188,11 @@ async def system_health_page(
 async def metrics_json(request: Request, db: Database = Depends(get_db)) -> JSONResponse:
     await _admin_gate(request)
     health = await db.get_system_health()
+    durable = await db.list_recent_metric_samples(limit=100)
     return JSONResponse(
         {
             "metrics": METRICS.snapshot(),
+            "durable_metric_samples": durable,
             "health": health,
         }
     )

@@ -53,9 +53,11 @@ def test_config_environments(monkeypatch):
         monkeypatch.setenv("BRANDMONITOR_ENV", name)
         if name == "production":
             monkeypatch.setenv("ADMIN_TOKEN", "prod-secret")
+            monkeypatch.setenv("API_TOKEN", "prod-api-secret")
         settings = load_settings()
         assert settings.environment == resolve_environment(name)
         assert settings.db_path
+        assert settings.api_token
     monkeypatch.setenv("BRANDMONITOR_ENV", "development")
 
 

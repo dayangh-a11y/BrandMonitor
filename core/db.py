@@ -287,6 +287,7 @@ class Database:
         await self._ensure_phase21_review_analyses_schema()
         await self._ensure_phase4_branch_soft_delete_columns()
         await self._ensure_phase6_collection_columns()
+        await self._ensure_ops_metric_samples()
 
     async def _ensure_phase21_review_analyses_schema(self) -> None:
         """Upgrade legacy review_analyses shape if an older draft table exists."""
@@ -1922,6 +1923,71 @@ class Database:
             (now, now, branch_id),
         )
         await self._conn.commit()
+
+    async def _ensure_ops_metric_samples(self) -> None:
+        """Durable metric samples so restarts do not wipe ops history."""
+        assert self._conn is not None
+        await self._conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS ops_metric_samples (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                value REAL NOT NULL,
+                labels_json TEXT NOT NULL DEFAULT '{}',
+                recorded_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_ops_metric_samples_name_time
+                ON ops_metric_samples(name, recorded_at);
+            """
+        )
+        await self._conn.commit()
+
+    async def insert_metric_samples(self, samples: list[dict]) -> int:
+        assert self._conn is not None
+        if not samples:
+            return 0
+        rows = []
+        for sample in samples:
+            labels = sample.get("labels") or {}
+            labels_json = labels if isinstance(labels, str) else json.dumps(labels, ensure_ascii=False)
+            rows.append(
+                (
+                    str(sample.get("name") or ""),
+                    float(sample.get("value") or 0.0),
+                    labels_json,
+                    str(sample.get("recorded_at") or datetime.now(timezone.utc).isoformat()),
+                )
+            )
+        await self._conn.executemany(
+            """
+            INSERT INTO ops_metric_samples (name, value, labels_json, recorded_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            rows,
+        )
+        await self._conn.commit()
+        return len(rows)
+
+    async def list_recent_metric_samples(self, *, limit: int = 200) -> list[dict]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT id, name, value, labels_json, recorded_at
+            FROM ops_metric_samples
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        out = []
+        for row in await cursor.fetchall():
+            item = dict(row)
+            try:
+                item["labels"] = json.loads(item.pop("labels_json") or "{}")
+            except json.JSONDecodeError:
+                item["labels"] = {}
+            out.append(item)
+        return out
 
     async def get_ops_dashboard(self) -> dict:
         """Aggregate payload for admin monitoring dashboard."""

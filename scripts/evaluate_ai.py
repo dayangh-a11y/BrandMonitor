@@ -307,12 +307,32 @@ async def main() -> None:
     parser.add_argument("--dataset", default="data/eval/reviews_200.jsonl")
     parser.add_argument("--out-dir", default="output/ai_eval")
     parser.add_argument("--live", action="store_true", help="Use real OpenAI when key is set")
+    parser.add_argument(
+        "--require-live",
+        action="store_true",
+        help="Fail if --live was requested but OPENAI_API_KEY is missing",
+    )
+    parser.add_argument(
+        "--language",
+        default=None,
+        help="Filter dataset by language code (e.g. fa, en)",
+    )
     parser.add_argument("--limit", type=int, default=200)
     args = parser.parse_args()
 
-    rows = load_dataset(Path(args.dataset))[: args.limit]
-    if len(rows) < 200 and args.limit >= 200:
+    rows = load_dataset(Path(args.dataset))
+    if args.language:
+        lang = args.language.strip().lower()
+        rows = [r for r in rows if str(r.get("language") or "").lower() == lang]
+        if not rows:
+            raise SystemExit(f"No reviews with language={args.language!r} in dataset")
+    rows = rows[: args.limit]
+    if args.language is None and len(rows) < 200 and args.limit >= 200:
         raise SystemExit(f"Dataset has only {len(rows)} rows; need >= 200")
+
+    settings = load_settings()
+    if args.live and args.require_live and not settings.openai_api_key:
+        raise SystemExit("OPENAI_API_KEY required for --live --require-live")
 
     fake_scores, fake_pairs, fake_latency = await run_fake(rows)
     prod_scores, prod_pairs, prod_latency, cost, mode = await run_production(

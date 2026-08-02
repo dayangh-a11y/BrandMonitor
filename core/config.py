@@ -15,6 +15,7 @@ class Settings:
     environment: EnvironmentName = "development"
     db_path: str = "data/brandmonitor.db"
     admin_token: str = "dev-admin-token"
+    api_token: str = "dev-api-token"
     log_level: str = "INFO"
     log_json: bool = False
     crawl_max_attempts: int = 3
@@ -24,6 +25,9 @@ class Settings:
     backup_dir: str = "backups"
     api_debug: bool = True
     headless: bool = True
+    browser_proxy: str = ""
+    browser_storage_state: str = ""
+    browser_locale: str = "en-US"
     # Phase 6 — AI provider
     ai_provider: str = "fake"
     openai_api_key: str = ""
@@ -45,6 +49,7 @@ _PROFILES: dict[EnvironmentName, dict] = {
     "development": {
         "db_path": "data/brandmonitor.db",
         "admin_token": "dev-admin-token",
+        "api_token": "dev-api-token",
         "log_level": "DEBUG",
         "log_json": False,
         "api_debug": True,
@@ -54,6 +59,7 @@ _PROFILES: dict[EnvironmentName, dict] = {
     "staging": {
         "db_path": "data/staging_brandmonitor.db",
         "admin_token": "staging-admin-token",
+        "api_token": "staging-api-token",
         "log_level": "INFO",
         "log_json": True,
         "api_debug": False,
@@ -64,6 +70,7 @@ _PROFILES: dict[EnvironmentName, dict] = {
     "production": {
         "db_path": "data/prod_brandmonitor.db",
         "admin_token": "",  # must be set via ADMIN_TOKEN
+        "api_token": "",  # must be set via API_TOKEN
         "log_level": "INFO",
         "log_json": True,
         "api_debug": False,
@@ -93,6 +100,7 @@ def load_settings(environment: str | None = None) -> Settings:
         environment=env,
         db_path=os.getenv("DB_PATH", base["db_path"]),
         admin_token=os.getenv("ADMIN_TOKEN", base["admin_token"]),
+        api_token=os.getenv("API_TOKEN", base.get("api_token", "dev-api-token")),
         log_level=os.getenv("LOG_LEVEL", base["log_level"]),
         log_json=_as_bool(os.getenv("LOG_JSON"), default=bool(base["log_json"])),
         crawl_max_attempts=int(os.getenv("CRAWL_MAX_ATTEMPTS", base.get("crawl_max_attempts", 3))),
@@ -104,6 +112,12 @@ def load_settings(environment: str | None = None) -> Settings:
         backup_dir=os.getenv("BACKUP_DIR", "backups"),
         api_debug=_as_bool(os.getenv("API_DEBUG"), default=bool(base["api_debug"])),
         headless=_as_bool(os.getenv("HEADLESS"), default=bool(base["headless"])),
+        browser_proxy=os.getenv(
+            "BROWSER_PROXY",
+            os.getenv("HTTPS_PROXY", os.getenv("HTTP_PROXY", "")),
+        ),
+        browser_storage_state=os.getenv("BROWSER_STORAGE_STATE", ""),
+        browser_locale=os.getenv("BROWSER_LOCALE", "en-US"),
         ai_provider=os.getenv("AI_PROVIDER", "fake" if not os.getenv("OPENAI_API_KEY") else "openai"),
         openai_api_key=os.getenv("OPENAI_API_KEY", ""),
         openai_model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
@@ -116,6 +130,8 @@ def load_settings(environment: str | None = None) -> Settings:
     )
     if settings.is_production and not settings.admin_token:
         raise ValueError("ADMIN_TOKEN is required in production")
+    if settings.is_production and not settings.api_token:
+        raise ValueError("API_TOKEN is required in production")
     return settings
 
 

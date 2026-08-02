@@ -19,7 +19,9 @@ def test_api_serves_engine_scores(tmp_path: Path, monkeypatch):
     monkeypatch.setenv("BRANDMONITOR_ENV", "development")
     monkeypatch.setenv("DB_PATH", db_path)
     monkeypatch.setenv("ADMIN_TOKEN", "dev-admin-token")
+    monkeypatch.setenv("API_TOKEN", "dev-api-token")
     monkeypatch.setenv("AI_PROVIDER", "fake")
+    headers = {"X-API-Token": "dev-api-token"}
 
     async def seed() -> int:
         db = Database(db_path)
@@ -66,15 +68,15 @@ def test_api_serves_engine_scores(tmp_path: Path, monkeypatch):
     from api.main import app
 
     with TestClient(app) as client:
-        company = client.get(f"/companies/{company_id}")
+        company = client.get(f"/companies/{company_id}", headers=headers)
         assert company.status_code == 200
-        score = client.get(f"/companies/{company_id}/score")
+        score = client.get(f"/companies/{company_id}/score", headers=headers)
         assert score.status_code == 200
         body = score.json()
         assert body["algorithm_version"] == "score_v1"
         assert 0 <= body["score"] <= 100
         assert "why" in body["components"]
-        search = client.get("/search?q=ScoreCo")
+        search = client.get("/search?q=ScoreCo", headers=headers)
         assert search.status_code == 200
         demo = client.get("/demo")
         assert demo.status_code == 200

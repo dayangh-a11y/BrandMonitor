@@ -117,6 +117,13 @@ class MetricsRegistry:
                 "sample_count": len(self._samples),
             }
 
+    def drain_samples(self) -> list[MetricSample]:
+        """Return and clear buffered samples (for durable flush)."""
+        with self._lock:
+            out = list(self._samples)
+            self._samples.clear()
+            return out
+
     def reset(self) -> None:
         with self._lock:
             self._counters.clear()
@@ -133,3 +140,23 @@ class MetricsRegistry:
 
 
 METRICS = MetricsRegistry()
+
+
+async def flush_metrics_to_db(db: Any) -> int:
+    """Persist drained in-process samples to SQLite. Returns rows written."""
+    samples = METRICS.drain_samples()
+    if not samples:
+        return 0
+    flush = getattr(db, "insert_metric_samples", None)
+    if flush is None:
+        return 0
+    payload = [
+        {
+            "name": s.name,
+            "value": s.value,
+            "labels": s.labels,
+            "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(s.ts)),
+        }
+        for s in samples
+    ]
+    return await flush(payload)

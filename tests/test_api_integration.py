@@ -80,32 +80,36 @@ async def _prepare(db_path: str) -> tuple[int, int]:
     return company_id, branch_id
 
 
-def test_api_companies_branches_reviews_scores_search(tmp_path: Path):
+def test_api_companies_branches_reviews_scores_search(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("API_TOKEN", "dev-api-token")
+    headers = {"X-API-Token": "dev-api-token"}
+
     async def run() -> None:
         db_path = str(tmp_path / "api.db")
         company_id, branch_id = await _prepare(db_path)
         transport = ASGITransport(app=app)
         async with AsyncClient(transport=transport, base_url="http://test") as ac:
-            response = await ac.get("/companies")
+            response = await ac.get("/companies", headers=headers)
             assert response.status_code == 200
             assert response.json()[0]["name"] == "Tipax"
 
-            response = await ac.get(f"/companies/{company_id}")
+            response = await ac.get(f"/companies/{company_id}", headers=headers)
             assert response.status_code == 200
 
-            response = await ac.get("/companies/99999")
+            response = await ac.get("/companies/99999", headers=headers)
             assert response.status_code == 404
             assert response.json()["error"]["code"] == "company_not_found"
 
-            response = await ac.get(f"/companies/{company_id}/branches")
+            response = await ac.get(f"/companies/{company_id}/branches", headers=headers)
             assert response.status_code == 200
             assert response.json()[0]["id"] == branch_id
 
-            response = await ac.get(f"/branches/{branch_id}")
+            response = await ac.get(f"/branches/{branch_id}", headers=headers)
             assert response.status_code == 200
 
             response = await ac.get(
                 f"/branches/{branch_id}/reviews",
+                headers=headers,
                 params={
                     "limit": 10,
                     "offset": 0,
@@ -120,19 +124,21 @@ def test_api_companies_branches_reviews_scores_search(tmp_path: Path):
             assert body["total"] == 1
             assert body["items"][0]["sentiment"] == "Negative"
 
-            response = await ac.get(f"/branches/{branch_id}/score")
+            response = await ac.get(f"/branches/{branch_id}/score", headers=headers)
             assert response.status_code == 200
             assert response.json()["score"] == 61.5
 
-            response = await ac.get(f"/companies/{company_id}/score")
+            response = await ac.get(f"/companies/{company_id}/score", headers=headers)
             assert response.status_code == 200
             assert response.json()["score"] == 60.0
 
-            response = await ac.get("/search", params={"q": "Tipax", "sort": "highest_score"})
+            response = await ac.get(
+                "/search", headers=headers, params={"q": "Tipax", "sort": "highest_score"}
+            )
             assert response.status_code == 200
             assert response.json()["companies"][0]["name"] == "Tipax"
 
-            response = await ac.get("/search")
+            response = await ac.get("/search", headers=headers)
             assert response.status_code == 422
             assert response.json()["error"]["code"] == "validation_error"
 
