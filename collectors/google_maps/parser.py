@@ -1,25 +1,13 @@
 import re
 
 from collectors.dedupe import review_content_hash
+from collectors.iran_geo import province_lookup
 from models.branch import Branch
 from models.review import Review
 
 _PERSIAN_DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
 
-_IRAN_PROVINCES = {
-    "tehran": ("Tehran", "Tehran"),
-    "تهران": ("تهران", "تهران"),
-    "mashhad": ("Mashhad", "Razavi Khorasan"),
-    "مشهد": ("مشهد", "خراسان رضوی"),
-    "isfahan": ("Isfahan", "Isfahan"),
-    "اصفهان": ("اصفهان", "اصفهان"),
-    "shiraz": ("Shiraz", "Fars"),
-    "شیراز": ("شیراز", "فارس"),
-    "tabriz": ("Tabriz", "East Azerbaijan"),
-    "تبریز": ("تبریز", "آذربایجان شرقی"),
-    "karaj": ("Karaj", "Alborz"),
-    "کرج": ("کرج", "البرز"),
-}
+_IRAN_PROVINCES = province_lookup()
 
 
 class GoogleMapsParser:

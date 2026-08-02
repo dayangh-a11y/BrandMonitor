@@ -199,7 +199,11 @@ class ProductionCrawler:
                 )
 
         deleted_ids = []
-        if not config.branch_place_id and not config.branch_name:
+        if (
+            config.detect_deleted_branches
+            and not config.branch_place_id
+            and not config.branch_name
+        ):
             deleted_ids = [
                 int(row["id"])
                 for key, row in existing_by_key.items()
@@ -245,6 +249,25 @@ class ProductionCrawler:
             company_name=config.company_name,
             maps_url="",
         )
+        if task.get("branch_id") is not None:
+            row = await self.db.get_branch(int(task["branch_id"]))
+            if row:
+                branch = Branch(
+                    name=row.get("name") or branch.name,
+                    address=row.get("address") or branch.address,
+                    place_id=row.get("place_id") or branch.place_id,
+                    company_name=config.company_name,
+                    maps_url=row.get("maps_url") or "",
+                    phone=row.get("phone") or "",
+                    latitude=row.get("latitude"),
+                    longitude=row.get("longitude"),
+                    city=row.get("city") or "",
+                    province=row.get("province") or "",
+                    rating=float(row.get("rating") or 0),
+                    review_count=int(row.get("review_count") or 0),
+                )
+        elif branch.place_id and not branch.maps_url:
+            branch.maps_url = f"https://www.google.com/maps/place/?q=place_id:{branch.place_id}"
         try:
             reviews = await self.source.collect_reviews(branch)
             if config.max_reviews_per_branch is not None:
@@ -281,6 +304,7 @@ class ProductionCrawler:
                     branch_id, diff.deleted_review_ids
                 )
 
+            duplicates_skipped = len(diff.unchanged_reviews)
             await self.db.mark_branch_success(branch_id)
             await self.db.finish_branch_task(
                 int(task["id"]),
@@ -296,6 +320,9 @@ class ProductionCrawler:
                 run_id, "reviews_updated", float(len(diff.edited_reviews))
             )
             await self.db.record_crawl_stat(run_id, "reviews_deleted", float(deleted_count))
+            await self.db.record_crawl_stat(
+                run_id, "duplicates_skipped", float(duplicates_skipped)
+            )
             self.monitor.event(
                 "branch_succeeded",
                 run_id=run_id,
@@ -303,6 +330,7 @@ class ProductionCrawler:
                 new=len(diff.new_reviews),
                 updated=len(diff.edited_reviews),
                 deleted=deleted_count,
+                duplicates_skipped=duplicates_skipped,
             )
         except Exception as exc:  # noqa: BLE001
             status = "failed"
@@ -394,6 +422,7 @@ class GoogleMapsBranchReviewSource:
         headless: bool = True,
         max_branches: int | None = None,
         max_reviews_per_branch: int | None = None,
+        search_queries: list[str] | None = None,
     ):
         from collectors.google_maps.collector import GoogleMapsCollector
 
@@ -402,6 +431,7 @@ class GoogleMapsBranchReviewSource:
             max_branches=max_branches or 10_000,
             max_reviews_per_branch=max_reviews_per_branch or 10_000,
         )
+        self._search_queries = list(search_queries or [])
         self._started = False
 
     async def _ensure_started(self) -> None:
@@ -410,9 +440,36 @@ class GoogleMapsBranchReviewSource:
             self._started = True
 
     async def discover_branches(self, company_name: str) -> list[Branch]:
+        """Discover branches; optionally merge multiple Maps search queries."""
         await self._ensure_started()
-        await self._collector.search(company_name)
-        return await self._collector.collect_branches(company_name=company_name)
+        queries = self._search_queries or [company_name]
+        merged: list[Branch] = []
+        seen: set[str] = set()
+        for query in queries:
+            log.info("maps_discover_query query=%s", query)
+            try:
+                await self._collector.search(query)
+                found = await self._collector.collect_branches(company_name=company_name)
+            except Exception as exc:  # noqa: BLE001
+                log.warning("maps_discover_query_failed query=%s error=%s", query, exc)
+                continue
+            for branch in found:
+                key = branch_identity_key(
+                    place_id=branch.place_id,
+                    name=branch.name,
+                    address=branch.address,
+                )
+                if key in seen:
+                    continue
+                seen.add(key)
+                merged.append(branch)
+        log.info(
+            "maps_discover_merged company=%s queries=%s branches=%s",
+            company_name,
+            len(queries),
+            len(merged),
+        )
+        return merged
 
     async def collect_reviews(self, branch: Branch) -> list[Review]:
         await self._ensure_started()

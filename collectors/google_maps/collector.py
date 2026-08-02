@@ -82,7 +82,9 @@ class GoogleMapsCollector:
             branch = await self._extract_current_place(company_name=company_name)
             return [branch] if branch else []
 
-        await self.scroll.scroll_feed(feed, rounds=min(10, max(3, self.max_branches)))
+        # Deep scroll for nationwide / provincial result lists.
+        scroll_rounds = min(40, max(8, min(self.max_branches, 40)))
+        await self.scroll.scroll_feed(feed, rounds=scroll_rounds)
 
         cards = self.page.locator(L.RESULT_CARD)
         if await cards.count() == 0:

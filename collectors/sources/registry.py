@@ -10,6 +10,7 @@ def build_source(
     headless: bool = True,
     max_branches: int | None = None,
     max_reviews_per_branch: int | None = None,
+    search_queries: list[str] | None = None,
 ) -> BranchReviewSource:
     """
     Factory for crawl sources.
@@ -25,6 +26,7 @@ def build_source(
             headless=headless,
             max_branches=max_branches,
             max_reviews_per_branch=max_reviews_per_branch,
+            search_queries=search_queries,
         )
     raise ValueError(
         f"Unknown crawl source {source_id!r}. "
