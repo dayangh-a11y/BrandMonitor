@@ -8,8 +8,12 @@ def test_tipax_queries_cover_all_provinces():
     queries = tipax_search_queries("تیپاکس")
     assert len(IRAN_PROVINCES) == 31
     assert "تیپاکس" in queries
+    # FA-only by default: brand + Iran + 31 provinces
+    assert len(queries) == 33
     for province in IRAN_PROVINCES:
         assert any(province["fa"] in q for q in queries)
+    wide = tipax_search_queries("تیپاکس", include_english=True)
+    assert len(wide) > len(queries)
 
 
 def test_parser_infers_more_provinces():

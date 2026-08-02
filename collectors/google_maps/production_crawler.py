@@ -273,13 +273,10 @@ class ProductionCrawler:
             if config.max_reviews_per_branch is not None:
                 reviews = reviews[: config.max_reviews_per_branch]
 
-            branch_id = task.get("branch_id")
-            if branch_id is None:
-                branch.review_count = len(reviews)
-                branch_id = await self.db.upsert_branch(company_id, branch)
-            else:
-                branch_id = int(branch_id)
-                await self.db.mark_branch_seen(branch_id)
+            # Persist enriched metadata gathered while opening the place page.
+            branch.review_count = max(int(branch.review_count or 0), len(reviews))
+            branch_id = await self.db.upsert_branch(company_id, branch)
+            await self.db.mark_branch_seen(branch_id)
 
             known_external, known_fp, known_hashes, active_rows = (
                 await self.db.get_branch_known_review_keys(branch_id)

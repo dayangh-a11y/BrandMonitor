@@ -34,6 +34,8 @@ class GoogleMapsCollector:
             os.getenv("MAX_REVIEWS_PER_BRANCH", "20")
         )
         self.scroll_pause_ms = scroll_pause_ms or int(os.getenv("SCROLL_PAUSE_MS", "1200"))
+        # Fast discovery skips per-card clicks; metadata is enriched on review visit.
+        self.fast_discover = os.getenv("FAST_DISCOVER", "true").lower() != "false"
 
     async def start(self) -> None:
         self.page = await self.browser.start()
@@ -98,10 +100,15 @@ class GoogleMapsCollector:
         seen: set[str] = set()
         for index in range(limit):
             card = cards.nth(index)
-            branch = await self._extract_branch_from_card(card, company_name=company_name)
+            if self.fast_discover:
+                branch = await self._extract_branch_from_card_fast(
+                    card, company_name=company_name
+                )
+            else:
+                branch = await self._extract_branch_from_card(card, company_name=company_name)
             if not branch:
                 continue
-            key = f"{branch.name}|{branch.address}|{branch.place_id}"
+            key = branch.place_id or f"{branch.name}|{branch.address}"
             if key in seen:
                 continue
             seen.add(key)
@@ -118,6 +125,36 @@ class GoogleMapsCollector:
             await self.page.wait_for_timeout(2500)
             await self._dismiss_consent()
             await self._dismiss_blocking_modal()
+        elif branch.place_id:
+            await self.page.goto(
+                f"https://www.google.com/maps/place/?q=place_id:{branch.place_id}",
+                wait_until="domcontentloaded",
+            )
+            await self.page.wait_for_timeout(2500)
+            await self._dismiss_consent()
+            await self._dismiss_blocking_modal()
+
+        # Enrich metadata (phone, coords, address, rating) on the place page.
+        enriched = await self._extract_current_place(
+            company_name=branch.company_name,
+            fallback_name=branch.name,
+            fallback_url=branch.maps_url,
+        )
+        if enriched:
+            branch.name = enriched.name or branch.name
+            branch.address = enriched.address or branch.address
+            branch.rating = enriched.rating or branch.rating
+            branch.review_count = enriched.review_count or branch.review_count
+            branch.maps_url = enriched.maps_url or branch.maps_url
+            branch.place_id = enriched.place_id or branch.place_id
+            branch.phone = enriched.phone or branch.phone
+            branch.latitude = enriched.latitude if enriched.latitude is not None else branch.latitude
+            branch.longitude = (
+                enriched.longitude if enriched.longitude is not None else branch.longitude
+            )
+            branch.city = enriched.city or branch.city
+            branch.province = enriched.province or branch.province
+            branch.metadata = {**(branch.metadata or {}), **(enriched.metadata or {})}
 
         self.limited_view = await self._detect_limited_view() or self.limited_view
         if self.limited_view:
@@ -166,6 +203,33 @@ class GoogleMapsCollector:
                 continue
         # Last resort: first visible text input.
         return self.page.locator('input[type="text"]').first
+
+    async def _extract_branch_from_card_fast(
+        self,
+        card: Locator,
+        company_name: str = "",
+    ) -> Branch | None:
+        """Parse list-card attributes without opening the place pane."""
+        href = await card.get_attribute("href") or ""
+        aria = await card.get_attribute("aria-label") or ""
+        if href and not href.startswith("http"):
+            href = "https://www.google.com" + href
+        # aria often: "Tipax 2.3 stars 320 reviews"
+        rating = self.parser._to_float(aria)
+        reviews = self.parser.extract_review_count(aria)
+        name = aria
+        # Strip trailing rating/review chatter when present.
+        name = re.split(r"\d+[.,]\d+\s*star", name, flags=re.IGNORECASE)[0].strip(" ·|-")
+        if not name:
+            name = aria.split(",")[0].strip() if aria else ""
+        return self.parser.parse_branch(
+            name=name or aria,
+            rating=rating,
+            reviews=reviews,
+            maps_url=href,
+            place_id=self._extract_place_id(href),
+            company_name=company_name,
+        )
 
     async def _extract_branch_from_card(
         self,

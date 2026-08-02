@@ -38,13 +38,18 @@ IRAN_PROVINCES: list[dict[str, str]] = [
 ]
 
 
-def tipax_search_queries(brand_query: str = "تیپاکس") -> list[str]:
+def tipax_search_queries(
+    brand_query: str = "تیپاکس",
+    *,
+    include_english: bool = False,
+) -> list[str]:
     """Nationwide + per-province Google Maps queries for Tipax coverage."""
     brand = (brand_query or "تیپاکس").strip()
     queries = [brand, f"{brand} ایران"]
     for province in IRAN_PROVINCES:
         queries.append(f"{brand} {province['fa']}")
-        queries.append(f"{brand} {province['en']}")
+        if include_english:
+            queries.append(f"{brand} {province['en']}")
     # Deduplicate while preserving order
     seen: set[str] = set()
     out: list[str] = []
