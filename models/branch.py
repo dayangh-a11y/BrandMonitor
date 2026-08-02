@@ -9,3 +9,9 @@ class Branch(BaseModel):
     maps_url: str = ""
     place_id: str = ""
     company_name: str = ""
+    phone: str = ""
+    latitude: float | None = None
+    longitude: float | None = None
+    city: str = ""
+    province: str = ""
+    metadata: dict = Field(default_factory=dict)

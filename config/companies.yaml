@@ -1,0 +1,41 @@
+companies:
+  - name: Tipax
+    query: تیپاکس
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 21600
+
+  - name: Chapar
+    query: چاپار
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 21600
+
+  - name: Post
+    query: پست ایران
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 43200
+
+  - name: Mahex
+    query: ماهکس
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 21600
+
+  - name: Pishro
+    query: پیشرو
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 21600
+
+  - name: TipaxBox
+    query: تیپاکس باکس
+    source: google_maps
+    enabled: false
+    schedule_interval_seconds: 43200
+
+defaults:
+  mode: incremental
+  max_attempts: 3
+  source: google_maps

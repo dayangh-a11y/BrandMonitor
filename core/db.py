@@ -286,6 +286,7 @@ class Database:
         await self._conn.commit()
         await self._ensure_phase21_review_analyses_schema()
         await self._ensure_phase4_branch_soft_delete_columns()
+        await self._ensure_phase6_collection_columns()
 
     async def _ensure_phase21_review_analyses_schema(self) -> None:
         """Upgrade legacy review_analyses shape if an older draft table exists."""
@@ -383,6 +384,44 @@ class Database:
             await self._conn.execute("ALTER TABLE branches ADD COLUMN last_seen_at TEXT")
         await self._conn.commit()
 
+    async def _ensure_phase6_collection_columns(self) -> None:
+        """Add branch metadata + review owner/deleted/hash columns for production collection."""
+        assert self._conn is not None
+        cursor = await self._conn.execute("PRAGMA table_info(branches)")
+        branch_cols = {row["name"] for row in await cursor.fetchall()}
+        branch_alters = {
+            "phone": "ALTER TABLE branches ADD COLUMN phone TEXT NOT NULL DEFAULT ''",
+            "latitude": "ALTER TABLE branches ADD COLUMN latitude REAL",
+            "longitude": "ALTER TABLE branches ADD COLUMN longitude REAL",
+            "city": "ALTER TABLE branches ADD COLUMN city TEXT NOT NULL DEFAULT ''",
+            "province": "ALTER TABLE branches ADD COLUMN province TEXT NOT NULL DEFAULT ''",
+            "metadata_json": "ALTER TABLE branches ADD COLUMN metadata_json TEXT NOT NULL DEFAULT '{}'",
+            "last_success_at": "ALTER TABLE branches ADD COLUMN last_success_at TEXT",
+        }
+        for col, sql in branch_alters.items():
+            if col not in branch_cols:
+                await self._conn.execute(sql)
+
+        cursor = await self._conn.execute("PRAGMA table_info(reviews)")
+        review_cols = {row["name"] for row in await cursor.fetchall()}
+        review_alters = {
+            "owner_response": "ALTER TABLE reviews ADD COLUMN owner_response TEXT NOT NULL DEFAULT ''",
+            "owner_response_at": "ALTER TABLE reviews ADD COLUMN owner_response_at TEXT NOT NULL DEFAULT ''",
+            "is_deleted": "ALTER TABLE reviews ADD COLUMN is_deleted INTEGER NOT NULL DEFAULT 0",
+            "content_hash": "ALTER TABLE reviews ADD COLUMN content_hash TEXT NOT NULL DEFAULT ''",
+            "last_seen_at": "ALTER TABLE reviews ADD COLUMN last_seen_at TEXT",
+        }
+        for col, sql in review_alters.items():
+            if col not in review_cols:
+                await self._conn.execute(sql)
+        await self._conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_reviews_branch_deleted ON reviews(branch_id, is_deleted)"
+        )
+        await self._conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_reviews_content_hash ON reviews(branch_id, content_hash)"
+        )
+        await self._conn.commit()
+
     async def upsert_company(self, name: str, source: str = "google_maps") -> int:
         assert self._conn is not None
         now = datetime.now(timezone.utc).isoformat()
@@ -410,15 +449,23 @@ class Database:
             """
             INSERT INTO branches (
                 company_id, name, address, rating, review_count,
-                maps_url, place_id, collected_at
+                maps_url, place_id, collected_at,
+                phone, latitude, longitude, city, province, metadata_json
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT(company_id, name, address) DO UPDATE SET
                 rating = excluded.rating,
                 review_count = excluded.review_count,
                 maps_url = excluded.maps_url,
                 place_id = excluded.place_id,
-                collected_at = excluded.collected_at
+                collected_at = excluded.collected_at,
+                phone = excluded.phone,
+                latitude = excluded.latitude,
+                longitude = excluded.longitude,
+                city = excluded.city,
+                province = excluded.province,
+                metadata_json = excluded.metadata_json,
+                is_deleted = 0
             """,
             (
                 company_id,
@@ -429,6 +476,12 @@ class Database:
                 branch.maps_url,
                 branch.place_id,
                 now,
+                branch.phone or "",
+                branch.latitude,
+                branch.longitude,
+                branch.city or "",
+                branch.province or "",
+                json.dumps(branch.metadata or {}, ensure_ascii=False),
             ),
         )
         await self._conn.commit()
@@ -447,13 +500,19 @@ class Database:
         assert self._conn is not None
         now = datetime.now(timezone.utc).isoformat()
         external_id = review.external_id or f"{review.author}|{review.published_at}|{review.text[:80]}"
+        content_hash = review.content_hash or ""
+        if not content_hash:
+            from collectors.dedupe import review_content_hash
+
+            content_hash = review_content_hash(review)
         await self._conn.execute(
             """
             INSERT INTO reviews (
                 branch_id, author, rating, text, published_at, language,
-                source, external_id, raw_json, collected_at
+                source, external_id, raw_json, collected_at,
+                owner_response, owner_response_at, is_deleted, content_hash, last_seen_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             ON CONFLICT(branch_id, external_id) DO UPDATE SET
                 author = excluded.author,
                 rating = excluded.rating,
@@ -461,7 +520,12 @@ class Database:
                 published_at = excluded.published_at,
                 language = excluded.language,
                 raw_json = excluded.raw_json,
-                collected_at = excluded.collected_at
+                collected_at = excluded.collected_at,
+                owner_response = excluded.owner_response,
+                owner_response_at = excluded.owner_response_at,
+                is_deleted = 0,
+                content_hash = excluded.content_hash,
+                last_seen_at = excluded.last_seen_at
             """,
             (
                 branch_id,
@@ -473,6 +537,10 @@ class Database:
                 review.source,
                 external_id,
                 json.dumps(review.raw, ensure_ascii=False),
+                now,
+                review.owner_response or "",
+                review.owner_response_at or "",
+                content_hash,
                 now,
             ),
         )
@@ -1526,34 +1594,51 @@ class Database:
         )
         await self._conn.commit()
 
-    async def get_branch_known_review_keys(self, branch_id: int) -> tuple[set[str], set[str]]:
+    async def get_branch_known_review_keys(
+        self, branch_id: int
+    ) -> tuple[set[str], set[str], dict[str, str], list[dict]]:
+        """
+        Returns:
+          known_external_ids, known_fingerprints, content_hash_by_key, active_rows
+        key prefers external_id else fingerprint.
+        """
         assert self._conn is not None
         cursor = await self._conn.execute(
-            "SELECT external_id, author, published_at, text, rating FROM reviews WHERE branch_id = ?",
+            """
+            SELECT id, external_id, author, published_at, text, rating, content_hash, is_deleted
+            FROM reviews
+            WHERE branch_id = ?
+            """,
             (branch_id,),
         )
         external_ids: set[str] = set()
         fingerprints: set[str] = set()
+        content_hash_by_key: dict[str, str] = {}
+        active_rows: list[dict] = []
         from collectors.dedupe import review_fingerprint
         from models.review import Review
 
         for row in await cursor.fetchall():
-            external = (row["external_id"] or "").strip()
+            item = dict(row)
+            external = (item.get("external_id") or "").strip()
+            fp = review_fingerprint(
+                Review(
+                    author=item.get("author") or "",
+                    published_at=item.get("published_at") or "",
+                    text=item.get("text") or "",
+                    rating=float(item.get("rating") or 0),
+                    external_id=external,
+                ),
+                branch_key=str(branch_id),
+            )
             if external:
                 external_ids.add(external)
-            fingerprints.add(
-                review_fingerprint(
-                    Review(
-                        author=row["author"] or "",
-                        published_at=row["published_at"] or "",
-                        text=row["text"] or "",
-                        rating=float(row["rating"] or 0),
-                        external_id=external,
-                    ),
-                    branch_key=str(branch_id),
-                )
-            )
-        return external_ids, fingerprints
+            fingerprints.add(fp)
+            key = external or fp
+            content_hash_by_key[key] = item.get("content_hash") or ""
+            if not int(item.get("is_deleted") or 0):
+                active_rows.append({**item, "fingerprint": fp, "key": key})
+        return external_ids, fingerprints, content_hash_by_key, active_rows
 
     async def find_resumable_crawl_run(self, company_name: str) -> dict | None:
         assert self._conn is not None
@@ -1754,6 +1839,8 @@ class Database:
         if not reviews:
             return 0
         assert self._conn is not None
+        from collectors.dedupe import review_content_hash
+
         now = datetime.now(timezone.utc).isoformat()
         rows = []
         for review in reviews:
@@ -1761,6 +1848,7 @@ class Database:
                 review.external_id
                 or f"{review.author}|{review.published_at}|{review.text[:80]}"
             )
+            content_hash = review.content_hash or review_content_hash(review)
             rows.append(
                 (
                     branch_id,
@@ -1773,15 +1861,20 @@ class Database:
                     external_id,
                     json.dumps(review.raw, ensure_ascii=False),
                     now,
+                    review.owner_response or "",
+                    review.owner_response_at or "",
+                    content_hash,
+                    now,
                 )
             )
         await self._conn.executemany(
             """
             INSERT INTO reviews (
                 branch_id, author, rating, text, published_at, language,
-                source, external_id, raw_json, collected_at
+                source, external_id, raw_json, collected_at,
+                owner_response, owner_response_at, is_deleted, content_hash, last_seen_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             ON CONFLICT(branch_id, external_id) DO UPDATE SET
                 author = excluded.author,
                 rating = excluded.rating,
@@ -1789,12 +1882,46 @@ class Database:
                 published_at = excluded.published_at,
                 language = excluded.language,
                 raw_json = excluded.raw_json,
-                collected_at = excluded.collected_at
+                collected_at = excluded.collected_at,
+                owner_response = excluded.owner_response,
+                owner_response_at = excluded.owner_response_at,
+                is_deleted = 0,
+                content_hash = excluded.content_hash,
+                last_seen_at = excluded.last_seen_at
             """,
             rows,
         )
         await self._conn.commit()
         return len(rows)
+
+    async def mark_reviews_deleted(self, branch_id: int, review_ids: list[int]) -> int:
+        if not review_ids:
+            return 0
+        assert self._conn is not None
+        placeholders = ",".join("?" for _ in review_ids)
+        cursor = await self._conn.execute(
+            f"""
+            UPDATE reviews
+            SET is_deleted = 1
+            WHERE branch_id = ? AND id IN ({placeholders})
+            """,
+            (branch_id, *review_ids),
+        )
+        await self._conn.commit()
+        return int(cursor.rowcount or 0)
+
+    async def mark_branch_success(self, branch_id: int) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE branches
+            SET is_deleted = 0, last_seen_at = ?, last_success_at = ?
+            WHERE id = ?
+            """,
+            (now, now, branch_id),
+        )
+        await self._conn.commit()
 
     async def get_ops_dashboard(self) -> dict:
         """Aggregate payload for admin monitoring dashboard."""

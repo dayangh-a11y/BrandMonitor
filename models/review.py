@@ -10,4 +10,8 @@ class Review(BaseModel):
     external_id: str = ""
     branch_name: str = ""
     source: str = "google_maps"
+    owner_response: str = ""
+    owner_response_at: str = ""
+    is_deleted: bool = False
+    content_hash: str = ""
     raw: dict = Field(default_factory=dict)
