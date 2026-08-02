@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 
 from ai.adapters.base import ModelAdapter
+from ai.metrics_ai import AI_METRICS
 from ai.taxonomy import PROMPT_VERSION, SCHEMA_VERSION
 from ai.validation import AnalysisValidationError, validate_analysis_payload
 from core.db import Database
@@ -37,6 +38,14 @@ class AnalysisPipeline:
         if existing_hash and existing_hash == input_hash:
             cached = await self.db.get_analysis_dto(review_id)
             if cached is not None:
+                AI_METRICS.record_request(
+                    success=cached.status == "succeeded",
+                    latency_ms=0.0,
+                    cost_usd=0.0,
+                    retries=0,
+                    confidence=cached.confidence_overall,
+                    cached=True,
+                )
                 return cached
 
         raw = await self.adapter.extract(review, meta={"review_id": review_id})
@@ -52,7 +61,10 @@ class AnalysisPipeline:
                 prompt_version=PROMPT_VERSION,
                 schema_version=SCHEMA_VERSION,
                 confidence_overall=0.0,
-                raw_response={"validation_error": str(exc)},
+                raw_response={
+                    "validation_error": str(exc),
+                    "raw": getattr(raw, "raw_response", {}),
+                },
             )
             await self.db.upsert_review_analysis(
                 review_id,

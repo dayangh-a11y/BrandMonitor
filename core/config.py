@@ -24,6 +24,16 @@ class Settings:
     backup_dir: str = "backups"
     api_debug: bool = True
     headless: bool = True
+    # Phase 6 — AI provider
+    ai_provider: str = "fake"
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4o-mini"
+    openai_temperature: float = 0.0
+    openai_max_tokens: int = 800
+    openai_base_url: str = "https://api.openai.com/v1"
+    openai_timeout_seconds: float = 45.0
+    openai_max_attempts: int = 4
+    openai_min_interval_seconds: float = 0.05
     extra: dict[str, str] = field(default_factory=dict)
 
     @property
@@ -94,6 +104,15 @@ def load_settings(environment: str | None = None) -> Settings:
         backup_dir=os.getenv("BACKUP_DIR", "backups"),
         api_debug=_as_bool(os.getenv("API_DEBUG"), default=bool(base["api_debug"])),
         headless=_as_bool(os.getenv("HEADLESS"), default=bool(base["headless"])),
+        ai_provider=os.getenv("AI_PROVIDER", "fake" if not os.getenv("OPENAI_API_KEY") else "openai"),
+        openai_api_key=os.getenv("OPENAI_API_KEY", ""),
+        openai_model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        openai_temperature=float(os.getenv("OPENAI_TEMPERATURE", "0")),
+        openai_max_tokens=int(os.getenv("OPENAI_MAX_TOKENS", "800")),
+        openai_base_url=os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+        openai_timeout_seconds=float(os.getenv("OPENAI_TIMEOUT_SECONDS", "45")),
+        openai_max_attempts=int(os.getenv("OPENAI_MAX_ATTEMPTS", "4")),
+        openai_min_interval_seconds=float(os.getenv("OPENAI_MIN_INTERVAL_SECONDS", "0.05")),
     )
     if settings.is_production and not settings.admin_token:
         raise ValueError("ADMIN_TOKEN is required in production")
