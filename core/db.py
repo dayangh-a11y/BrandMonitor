@@ -71,54 +71,65 @@ class Database:
             CREATE INDEX IF NOT EXISTS idx_reviews_branch_id ON reviews(branch_id);
             CREATE INDEX IF NOT EXISTS idx_branches_company_id ON branches(company_id);
 
-            -- Phase 2: AI analysis + scoring schema
+            -- Phase 2.1: AI analysis foundation schema (refined contract)
             CREATE TABLE IF NOT EXISTS review_analyses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 review_id INTEGER NOT NULL UNIQUE,
-                sentiment TEXT NOT NULL DEFAULT 'neutral'
-                    CHECK (sentiment IN ('positive', 'neutral', 'negative')),
-                sentiment_score REAL NOT NULL DEFAULT 0
-                    CHECK (sentiment_score >= -1.0 AND sentiment_score <= 1.0),
-                urgency TEXT NOT NULL DEFAULT 'low'
-                    CHECK (urgency IN ('low', 'medium', 'high')),
-                categories TEXT NOT NULL DEFAULT '[]',
-                mentioned_employee TEXT,
-                mentioned_city TEXT,
+                sentiment TEXT NOT NULL DEFAULT 'Neutral'
+                    CHECK (sentiment IN ('Positive', 'Neutral', 'Negative')),
+                complaint_categories TEXT NOT NULL DEFAULT '[]',
+                positive_categories TEXT NOT NULL DEFAULT '[]',
                 delivery_speed TEXT
                     CHECK (
                         delivery_speed IS NULL
                         OR delivery_speed IN ('fast', 'normal', 'slow')
                     ),
-                package_damage INTEGER
-                    CHECK (package_damage IS NULL OR package_damage IN (0, 1)),
                 customer_service TEXT
                     CHECK (
                         customer_service IS NULL
-                        OR customer_service IN ('good', 'bad')
+                        OR customer_service IN ('good', 'average', 'bad')
                     ),
+                staff_behavior TEXT
+                    CHECK (
+                        staff_behavior IS NULL
+                        OR staff_behavior IN ('good', 'average', 'bad')
+                    ),
+                package_damage INTEGER
+                    CHECK (package_damage IS NULL OR package_damage IN (0, 1)),
                 pricing TEXT
                     CHECK (
                         pricing IS NULL
-                        OR pricing IN ('fair', 'expensive')
+                        OR pricing IN ('cheap', 'fair', 'expensive')
                     ),
                 tracking TEXT
                     CHECK (
                         tracking IS NULL
-                        OR tracking IN ('good', 'bad')
+                        OR tracking IN ('good', 'average', 'bad')
                     ),
                 professionalism TEXT
                     CHECK (
                         professionalism IS NULL
-                        OR professionalism IN ('good', 'bad')
+                        OR professionalism IN ('good', 'average', 'bad')
                     ),
-                pros TEXT NOT NULL DEFAULT '[]',
-                cons TEXT NOT NULL DEFAULT '[]',
-                model_name TEXT NOT NULL DEFAULT '',
-                prompt_version TEXT NOT NULL DEFAULT '',
-                raw_response TEXT NOT NULL DEFAULT '{}',
+                mentioned_employees TEXT NOT NULL DEFAULT '[]',
+                mentioned_city TEXT,
+                mentioned_branch TEXT,
+                urgency TEXT NOT NULL DEFAULT 'low'
+                    CHECK (urgency IN ('low', 'medium', 'high')),
+                evidence_spans TEXT NOT NULL DEFAULT '{}',
+                confidence_overall REAL NOT NULL DEFAULT 0
+                    CHECK (confidence_overall >= 0.0 AND confidence_overall <= 1.0),
+                confidence_by_field TEXT NOT NULL DEFAULT '{}',
+                language TEXT,
                 status TEXT NOT NULL DEFAULT 'pending'
                     CHECK (status IN ('pending', 'succeeded', 'failed', 'skipped')),
                 error TEXT,
+                provider TEXT NOT NULL DEFAULT '',
+                model_id TEXT NOT NULL DEFAULT '',
+                prompt_version TEXT NOT NULL DEFAULT '',
+                schema_version TEXT NOT NULL DEFAULT '',
+                input_hash TEXT NOT NULL DEFAULT '',
+                raw_response TEXT NOT NULL DEFAULT '{}',
                 analyzed_at TEXT,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL,
@@ -195,12 +206,99 @@ class Database:
                 ON review_analyses(status);
             CREATE INDEX IF NOT EXISTS idx_review_analyses_sentiment
                 ON review_analyses(sentiment);
+            CREATE INDEX IF NOT EXISTS idx_review_analyses_input_hash
+                ON review_analyses(input_hash);
             CREATE INDEX IF NOT EXISTS idx_analysis_jobs_status
                 ON analysis_jobs(status);
             CREATE INDEX IF NOT EXISTS idx_branch_scores_branch_calculated
                 ON branch_scores(branch_id, calculated_at);
             CREATE INDEX IF NOT EXISTS idx_company_scores_company_calculated
                 ON company_scores(company_id, calculated_at);
+            """
+        )
+        await self._conn.commit()
+        await self._ensure_phase21_review_analyses_schema()
+
+    async def _ensure_phase21_review_analyses_schema(self) -> None:
+        """Upgrade legacy review_analyses shape if an older draft table exists."""
+        assert self._conn is not None
+        cursor = await self._conn.execute("PRAGMA table_info(review_analyses)")
+        cols = {row["name"] for row in await cursor.fetchall()}
+        if not cols:
+            return
+        if "complaint_categories" in cols and "input_hash" in cols and "staff_behavior" in cols:
+            return
+
+        await self._conn.execute("ALTER TABLE review_analyses RENAME TO review_analyses_legacy")
+        await self._conn.executescript(
+            """
+            CREATE TABLE review_analyses (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                review_id INTEGER NOT NULL UNIQUE,
+                sentiment TEXT NOT NULL DEFAULT 'Neutral'
+                    CHECK (sentiment IN ('Positive', 'Neutral', 'Negative')),
+                complaint_categories TEXT NOT NULL DEFAULT '[]',
+                positive_categories TEXT NOT NULL DEFAULT '[]',
+                delivery_speed TEXT
+                    CHECK (
+                        delivery_speed IS NULL
+                        OR delivery_speed IN ('fast', 'normal', 'slow')
+                    ),
+                customer_service TEXT
+                    CHECK (
+                        customer_service IS NULL
+                        OR customer_service IN ('good', 'average', 'bad')
+                    ),
+                staff_behavior TEXT
+                    CHECK (
+                        staff_behavior IS NULL
+                        OR staff_behavior IN ('good', 'average', 'bad')
+                    ),
+                package_damage INTEGER
+                    CHECK (package_damage IS NULL OR package_damage IN (0, 1)),
+                pricing TEXT
+                    CHECK (
+                        pricing IS NULL
+                        OR pricing IN ('cheap', 'fair', 'expensive')
+                    ),
+                tracking TEXT
+                    CHECK (
+                        tracking IS NULL
+                        OR tracking IN ('good', 'average', 'bad')
+                    ),
+                professionalism TEXT
+                    CHECK (
+                        professionalism IS NULL
+                        OR professionalism IN ('good', 'average', 'bad')
+                    ),
+                mentioned_employees TEXT NOT NULL DEFAULT '[]',
+                mentioned_city TEXT,
+                mentioned_branch TEXT,
+                urgency TEXT NOT NULL DEFAULT 'low'
+                    CHECK (urgency IN ('low', 'medium', 'high')),
+                evidence_spans TEXT NOT NULL DEFAULT '{}',
+                confidence_overall REAL NOT NULL DEFAULT 0
+                    CHECK (confidence_overall >= 0.0 AND confidence_overall <= 1.0),
+                confidence_by_field TEXT NOT NULL DEFAULT '{}',
+                language TEXT,
+                status TEXT NOT NULL DEFAULT 'pending'
+                    CHECK (status IN ('pending', 'succeeded', 'failed', 'skipped')),
+                error TEXT,
+                provider TEXT NOT NULL DEFAULT '',
+                model_id TEXT NOT NULL DEFAULT '',
+                prompt_version TEXT NOT NULL DEFAULT '',
+                schema_version TEXT NOT NULL DEFAULT '',
+                input_hash TEXT NOT NULL DEFAULT '',
+                raw_response TEXT NOT NULL DEFAULT '{}',
+                analyzed_at TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY(review_id) REFERENCES reviews(id)
+            );
+            CREATE INDEX IF NOT EXISTS idx_review_analyses_status ON review_analyses(status);
+            CREATE INDEX IF NOT EXISTS idx_review_analyses_sentiment ON review_analyses(sentiment);
+            CREATE INDEX IF NOT EXISTS idx_review_analyses_input_hash ON review_analyses(input_hash);
+            DROP TABLE IF EXISTS review_analyses_legacy;
             """
         )
         await self._conn.commit()
@@ -265,7 +363,7 @@ class Database:
         assert row is not None
         return int(row["id"])
 
-    async def upsert_review(self, branch_id: int, review: Review) -> None:
+    async def upsert_review(self, branch_id: int, review: Review) -> int:
         assert self._conn is not None
         now = datetime.now(timezone.utc).isoformat()
         external_id = review.external_id or f"{review.author}|{review.published_at}|{review.text[:80]}"
@@ -299,11 +397,253 @@ class Database:
             ),
         )
         await self._conn.commit()
+        cursor = await self._conn.execute(
+            """
+            SELECT id FROM reviews
+            WHERE branch_id = ? AND external_id = ?
+            """,
+            (branch_id, external_id),
+        )
+        row = await cursor.fetchone()
+        assert row is not None
+        return int(row["id"])
+
+    async def get_review_row(self, review_id: int):
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                r.*,
+                b.name AS branch_name
+            FROM reviews r
+            JOIN branches b ON b.id = r.branch_id
+            WHERE r.id = ?
+            """,
+            (review_id,),
+        )
+        return await cursor.fetchone()
+
+    async def create_analysis_job(
+        self,
+        *,
+        scope: str,
+        scope_id: int | None,
+        total_items: int = 1,
+    ) -> int:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        cursor = await self._conn.execute(
+            """
+            INSERT INTO analysis_jobs (
+                scope, scope_id, status, total_items, done_items, failed_items, created_at
+            ) VALUES (?, ?, 'queued', ?, 0, 0, ?)
+            """,
+            (scope, scope_id, total_items, now),
+        )
+        await self._conn.commit()
+        return int(cursor.lastrowid)
+
+    async def claim_next_analysis_job(self):
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT * FROM analysis_jobs
+            WHERE status = 'queued'
+            ORDER BY id ASC
+            LIMIT 1
+            """
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE analysis_jobs
+            SET status = 'running', started_at = ?
+            WHERE id = ? AND status = 'queued'
+            """,
+            (now, row["id"]),
+        )
+        await self._conn.commit()
+        cursor = await self._conn.execute(
+            "SELECT * FROM analysis_jobs WHERE id = ?",
+            (row["id"],),
+        )
+        return await cursor.fetchone()
+
+    async def finish_analysis_job(
+        self,
+        job_id: int,
+        *,
+        status: str,
+        done_items: int,
+        failed_items: int,
+        error: str | None = None,
+    ) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE analysis_jobs
+            SET status = ?, done_items = ?, failed_items = ?, error = ?, finished_at = ?
+            WHERE id = ?
+            """,
+            (status, done_items, failed_items, error, now, job_id),
+        )
+        await self._conn.commit()
+
+    async def upsert_review_analysis(
+        self,
+        review_id: int,
+        analysis,
+        *,
+        input_hash: str,
+    ) -> None:
+        from models.analysis import AnalysisDTO
+
+        assert self._conn is not None
+        assert isinstance(analysis, AnalysisDTO)
+        now = datetime.now(timezone.utc).isoformat()
+        analyzed_at = now if analysis.status in {"succeeded", "skipped"} else None
+        await self._conn.execute(
+            """
+            INSERT INTO review_analyses (
+                review_id, sentiment, complaint_categories, positive_categories,
+                delivery_speed, customer_service, staff_behavior, package_damage,
+                pricing, tracking, professionalism, mentioned_employees,
+                mentioned_city, mentioned_branch, urgency, evidence_spans,
+                confidence_overall, confidence_by_field, language, status, error,
+                provider, model_id, prompt_version, schema_version, input_hash,
+                raw_response, analyzed_at, created_at, updated_at
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )
+            ON CONFLICT(review_id) DO UPDATE SET
+                sentiment = excluded.sentiment,
+                complaint_categories = excluded.complaint_categories,
+                positive_categories = excluded.positive_categories,
+                delivery_speed = excluded.delivery_speed,
+                customer_service = excluded.customer_service,
+                staff_behavior = excluded.staff_behavior,
+                package_damage = excluded.package_damage,
+                pricing = excluded.pricing,
+                tracking = excluded.tracking,
+                professionalism = excluded.professionalism,
+                mentioned_employees = excluded.mentioned_employees,
+                mentioned_city = excluded.mentioned_city,
+                mentioned_branch = excluded.mentioned_branch,
+                urgency = excluded.urgency,
+                evidence_spans = excluded.evidence_spans,
+                confidence_overall = excluded.confidence_overall,
+                confidence_by_field = excluded.confidence_by_field,
+                language = excluded.language,
+                status = excluded.status,
+                error = excluded.error,
+                provider = excluded.provider,
+                model_id = excluded.model_id,
+                prompt_version = excluded.prompt_version,
+                schema_version = excluded.schema_version,
+                input_hash = excluded.input_hash,
+                raw_response = excluded.raw_response,
+                analyzed_at = excluded.analyzed_at,
+                updated_at = excluded.updated_at
+            """,
+            (
+                review_id,
+                analysis.sentiment,
+                json.dumps(analysis.complaint_categories, ensure_ascii=False),
+                json.dumps(analysis.positive_categories, ensure_ascii=False),
+                analysis.delivery_speed,
+                analysis.customer_service,
+                analysis.staff_behavior,
+                None if analysis.package_damage is None else int(analysis.package_damage),
+                analysis.pricing,
+                analysis.tracking,
+                analysis.professionalism,
+                json.dumps(analysis.mentioned_employees, ensure_ascii=False),
+                analysis.mentioned_city,
+                analysis.mentioned_branch,
+                analysis.urgency,
+                json.dumps(analysis.evidence_spans, ensure_ascii=False),
+                analysis.confidence_overall,
+                json.dumps(analysis.confidence_by_field.model_dump(), ensure_ascii=False),
+                analysis.language,
+                analysis.status,
+                analysis.error,
+                analysis.provider,
+                analysis.model_id,
+                analysis.prompt_version,
+                analysis.schema_version,
+                input_hash,
+                json.dumps(analysis.raw_response, ensure_ascii=False),
+                analyzed_at,
+                now,
+                now,
+            ),
+        )
+        await self._conn.commit()
+
+    async def get_analysis_input_hash(self, review_id: int) -> str | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT input_hash, status FROM review_analyses WHERE review_id = ?",
+            (review_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        if row["status"] not in {"succeeded", "skipped"}:
+            return None
+        return row["input_hash"] or None
+
+    async def get_analysis_dto(self, review_id: int):
+        from models.analysis import AnalysisDTO, ConfidenceByField
+
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT * FROM review_analyses WHERE review_id = ?",
+            (review_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        package_damage = row["package_damage"]
+        return AnalysisDTO(
+            sentiment=row["sentiment"],
+            complaint_categories=json.loads(row["complaint_categories"] or "[]"),
+            positive_categories=json.loads(row["positive_categories"] or "[]"),
+            delivery_speed=row["delivery_speed"],
+            customer_service=row["customer_service"],
+            staff_behavior=row["staff_behavior"],
+            package_damage=None if package_damage is None else bool(package_damage),
+            pricing=row["pricing"],
+            tracking=row["tracking"],
+            professionalism=row["professionalism"],
+            mentioned_employees=json.loads(row["mentioned_employees"] or "[]"),
+            mentioned_city=row["mentioned_city"],
+            mentioned_branch=row["mentioned_branch"],
+            urgency=row["urgency"],
+            evidence_spans=json.loads(row["evidence_spans"] or "{}"),
+            confidence_overall=float(row["confidence_overall"] or 0),
+            confidence_by_field=ConfidenceByField.model_validate(
+                json.loads(row["confidence_by_field"] or "{}")
+            ),
+            language=row["language"],
+            status=row["status"],
+            error=row["error"],
+            provider=row["provider"] or "",
+            model_id=row["model_id"] or "",
+            prompt_version=row["prompt_version"] or "",
+            schema_version=row["schema_version"] or "",
+            raw_response=json.loads(row["raw_response"] or "{}"),
+        )
 
     async def stats(self) -> dict[str, int]:
         assert self._conn is not None
         result: dict[str, int] = {}
-        for table in ("companies", "branches", "reviews"):
+        for table in ("companies", "branches", "reviews", "review_analyses", "analysis_jobs"):
             cursor = await self._conn.execute(f"SELECT COUNT(*) AS c FROM {table}")
             row = await cursor.fetchone()
             result[table] = int(row["c"]) if row else 0
