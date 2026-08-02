@@ -18,7 +18,7 @@ from collectors.sources.registry import build_source, build_source_for_company
 from core.config import load_settings
 from core.db import Database
 from core.logging_setup import get_logger, setup_logging
-from core.metrics import METRICS
+from core.metrics import METRICS, flush_metrics_to_db
 
 log = get_logger("scheduler")
 
@@ -62,6 +62,10 @@ async def _run_crawl(
         failed_branches=report.branches_failed,
         branches=report.branches_succeeded + report.branches_failed,
     )
+    try:
+        await flush_metrics_to_db(db)
+    except Exception as exc:  # noqa: BLE001 — metrics must not fail crawl
+        log.warning("metrics_flush_failed error=%s", exc)
     log.info(
         "crawl_finished run_id=%s status=%s new=%s updated=%s deleted=%s",
         report.run_id,

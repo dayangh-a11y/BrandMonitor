@@ -44,6 +44,8 @@ class GoogleMapsCollector:
         )
         await self._dismiss_consent()
         await self.page.wait_for_timeout(1500)
+        # Persist consent/session cookies when BROWSER_STORAGE_STATE is set.
+        await self.browser.save_storage_state()
 
     async def stop(self) -> None:
         await self.browser.stop()
