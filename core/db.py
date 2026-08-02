@@ -648,3 +648,304 @@ class Database:
             row = await cursor.fetchone()
             result[table] = int(row["c"]) if row else 0
         return result
+
+    async def list_companies(
+        self,
+        *,
+        sort: str = "newest",
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[dict]:
+        assert self._conn is not None
+        order_sql = {
+            "newest": "c.created_at DESC, c.id DESC",
+            "oldest": "c.created_at ASC, c.id ASC",
+            "highest_score": "latest_score IS NULL, latest_score DESC, c.id DESC",
+            "lowest_score": "latest_score IS NULL, latest_score ASC, c.id DESC",
+        }.get(sort, "c.created_at DESC, c.id DESC")
+        cursor = await self._conn.execute(
+            f"""
+            SELECT
+                c.id, c.name, c.source, c.created_at,
+                COUNT(DISTINCT b.id) AS branch_count,
+                COUNT(DISTINCT r.id) AS review_count,
+                (
+                    SELECT cs.score
+                    FROM company_scores cs
+                    WHERE cs.company_id = c.id
+                    ORDER BY cs.calculated_at DESC, cs.id DESC
+                    LIMIT 1
+                ) AS latest_score
+            FROM companies c
+            LEFT JOIN branches b ON b.company_id = c.id
+            LEFT JOIN reviews r ON r.branch_id = b.id
+            GROUP BY c.id
+            ORDER BY {order_sql}
+            LIMIT ? OFFSET ?
+            """,
+            (limit, offset),
+        )
+        return [dict(row) for row in await cursor.fetchall()]
+
+    async def get_company(self, company_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                c.id, c.name, c.source, c.created_at,
+                COUNT(DISTINCT b.id) AS branch_count,
+                COUNT(DISTINCT r.id) AS review_count,
+                (
+                    SELECT cs.score
+                    FROM company_scores cs
+                    WHERE cs.company_id = c.id
+                    ORDER BY cs.calculated_at DESC, cs.id DESC
+                    LIMIT 1
+                ) AS latest_score
+            FROM companies c
+            LEFT JOIN branches b ON b.company_id = c.id
+            LEFT JOIN reviews r ON r.branch_id = b.id
+            WHERE c.id = ?
+            GROUP BY c.id
+            """,
+            (company_id,),
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+
+    async def list_company_branches(
+        self,
+        company_id: int,
+        *,
+        sort: str = "newest",
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[dict]:
+        assert self._conn is not None
+        order_sql = {
+            "newest": "b.collected_at DESC, b.id DESC",
+            "oldest": "b.collected_at ASC, b.id ASC",
+            "highest_score": "latest_score IS NULL, latest_score DESC, b.id DESC",
+            "lowest_score": "latest_score IS NULL, latest_score ASC, b.id DESC",
+        }.get(sort, "b.collected_at DESC, b.id DESC")
+        cursor = await self._conn.execute(
+            f"""
+            SELECT
+                b.*,
+                c.name AS company_name,
+                (
+                    SELECT bs.score
+                    FROM branch_scores bs
+                    WHERE bs.branch_id = b.id
+                    ORDER BY bs.calculated_at DESC, bs.id DESC
+                    LIMIT 1
+                ) AS latest_score
+            FROM branches b
+            JOIN companies c ON c.id = b.company_id
+            WHERE b.company_id = ?
+            ORDER BY {order_sql}
+            LIMIT ? OFFSET ?
+            """,
+            (company_id, limit, offset),
+        )
+        return [dict(row) for row in await cursor.fetchall()]
+
+    async def get_branch(self, branch_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+                b.*,
+                c.name AS company_name,
+                (
+                    SELECT bs.score
+                    FROM branch_scores bs
+                    WHERE bs.branch_id = b.id
+                    ORDER BY bs.calculated_at DESC, bs.id DESC
+                    LIMIT 1
+                ) AS latest_score
+            FROM branches b
+            JOIN companies c ON c.id = b.company_id
+            WHERE b.id = ?
+            """,
+            (branch_id,),
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+
+    async def list_branch_reviews(
+        self,
+        branch_id: int,
+        *,
+        limit: int = 20,
+        offset: int = 0,
+        sentiment: str | None = None,
+        category: str | None = None,
+        city: str | None = None,
+        sort: str = "newest",
+    ) -> tuple[list[dict], int]:
+        assert self._conn is not None
+        where = ["r.branch_id = ?"]
+        params: list[object] = [branch_id]
+
+        if sentiment:
+            where.append("LOWER(ra.sentiment) = LOWER(?)")
+            params.append(sentiment)
+        if category:
+            where.append(
+                "(ra.complaint_categories LIKE ? OR ra.positive_categories LIKE ?)"
+            )
+            like = f'%"{category}"%'
+            params.extend([like, like])
+        if city:
+            where.append("LOWER(COALESCE(ra.mentioned_city, '')) LIKE LOWER(?)")
+            params.append(f"%{city}%")
+
+        where_sql = " AND ".join(where)
+        order_sql = {
+            "newest": "r.collected_at DESC, r.id DESC",
+            "oldest": "r.collected_at ASC, r.id ASC",
+            "highest_score": "r.rating DESC, r.id DESC",
+            "lowest_score": "r.rating ASC, r.id DESC",
+        }.get(sort, "r.collected_at DESC, r.id DESC")
+
+        count_cursor = await self._conn.execute(
+            f"""
+            SELECT COUNT(*) AS c
+            FROM reviews r
+            LEFT JOIN review_analyses ra ON ra.review_id = r.id
+            WHERE {where_sql}
+            """,
+            params,
+        )
+        total_row = await count_cursor.fetchone()
+        total = int(total_row["c"]) if total_row else 0
+
+        cursor = await self._conn.execute(
+            f"""
+            SELECT
+                r.id, r.branch_id, r.author, r.rating, r.text, r.published_at,
+                r.language, r.source, r.external_id, r.collected_at,
+                ra.sentiment,
+                ra.complaint_categories,
+                ra.positive_categories,
+                ra.mentioned_city
+            FROM reviews r
+            LEFT JOIN review_analyses ra ON ra.review_id = r.id
+            WHERE {where_sql}
+            ORDER BY {order_sql}
+            LIMIT ? OFFSET ?
+            """,
+            [*params, limit, offset],
+        )
+        rows = []
+        for row in await cursor.fetchall():
+            item = dict(row)
+            item["complaint_categories"] = json.loads(item.pop("complaint_categories") or "[]")
+            item["positive_categories"] = json.loads(item.pop("positive_categories") or "[]")
+            rows.append(item)
+        return rows, total
+
+    async def get_branch_score(self, branch_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT *
+            FROM branch_scores
+            WHERE branch_id = ?
+            ORDER BY calculated_at DESC, id DESC
+            LIMIT 1
+            """,
+            (branch_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        data = dict(row)
+        data["components"] = json.loads(data.get("components") or "{}")
+        return data
+
+    async def get_company_score(self, company_id: int) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT *
+            FROM company_scores
+            WHERE company_id = ?
+            ORDER BY calculated_at DESC, id DESC
+            LIMIT 1
+            """,
+            (company_id,),
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        data = dict(row)
+        data["components"] = json.loads(data.get("components") or "{}")
+        return data
+
+    async def search(
+        self,
+        query: str,
+        *,
+        limit: int = 20,
+        sort: str = "newest",
+    ) -> dict[str, list[dict]]:
+        assert self._conn is not None
+        q = f"%{query.strip()}%"
+        company_order = {
+            "newest": "c.created_at DESC",
+            "oldest": "c.created_at ASC",
+            "highest_score": "latest_score IS NULL, latest_score DESC",
+            "lowest_score": "latest_score IS NULL, latest_score ASC",
+        }.get(sort, "c.created_at DESC")
+        branch_order = {
+            "newest": "b.collected_at DESC",
+            "oldest": "b.collected_at ASC",
+            "highest_score": "latest_score IS NULL, latest_score DESC",
+            "lowest_score": "latest_score IS NULL, latest_score ASC",
+        }.get(sort, "b.collected_at DESC")
+
+        companies_cursor = await self._conn.execute(
+            f"""
+            SELECT
+                c.id, c.name, c.source, c.created_at,
+                COUNT(DISTINCT b.id) AS branch_count,
+                COUNT(DISTINCT r.id) AS review_count,
+                (
+                    SELECT cs.score FROM company_scores cs
+                    WHERE cs.company_id = c.id
+                    ORDER BY cs.calculated_at DESC, cs.id DESC LIMIT 1
+                ) AS latest_score
+            FROM companies c
+            LEFT JOIN branches b ON b.company_id = c.id
+            LEFT JOIN reviews r ON r.branch_id = b.id
+            WHERE c.name LIKE ?
+            GROUP BY c.id
+            ORDER BY {company_order}
+            LIMIT ?
+            """,
+            (q, limit),
+        )
+        branches_cursor = await self._conn.execute(
+            f"""
+            SELECT
+                b.*,
+                c.name AS company_name,
+                (
+                    SELECT bs.score FROM branch_scores bs
+                    WHERE bs.branch_id = b.id
+                    ORDER BY bs.calculated_at DESC, bs.id DESC LIMIT 1
+                ) AS latest_score
+            FROM branches b
+            JOIN companies c ON c.id = b.company_id
+            WHERE b.name LIKE ? OR b.address LIKE ? OR c.name LIKE ?
+            ORDER BY {branch_order}
+            LIMIT ?
+            """,
+            (q, q, q, limit),
+        )
+        return {
+            "companies": [dict(row) for row in await companies_cursor.fetchall()],
+            "branches": [dict(row) for row in await branches_cursor.fetchall()],
+        }
