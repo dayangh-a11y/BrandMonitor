@@ -1523,3 +1523,292 @@ class Database:
         )
         row = await cursor.fetchone()
         return dict(row) if row else None
+
+    # --- Phase 5 ops aggregates (admin / health / metrics) ---
+
+    async def list_crawl_runs(
+        self,
+        *,
+        statuses: list[str] | None = None,
+        limit: int = 50,
+    ) -> list[dict]:
+        assert self._conn is not None
+        limit = max(1, min(int(limit), 500))
+        if statuses:
+            placeholders = ",".join("?" for _ in statuses)
+            cursor = await self._conn.execute(
+                f"""
+                SELECT * FROM crawl_runs
+                WHERE status IN ({placeholders})
+                ORDER BY id DESC
+                LIMIT ?
+                """,
+                (*statuses, limit),
+            )
+        else:
+            cursor = await self._conn.execute(
+                "SELECT * FROM crawl_runs ORDER BY id DESC LIMIT ?",
+                (limit,),
+            )
+        return [dict(row) for row in await cursor.fetchall()]
+
+    async def count_crawl_runs_by_status(self) -> dict[str, int]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT status, COUNT(*) AS c FROM crawl_runs GROUP BY status"
+        )
+        return {str(row["status"]): int(row["c"]) for row in await cursor.fetchall()}
+
+    async def count_reviews_collected_since(self, iso_ts: str) -> int:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT COUNT(*) AS c FROM reviews WHERE collected_at >= ?",
+            (iso_ts,),
+        )
+        row = await cursor.fetchone()
+        return int(row["c"] if row else 0)
+
+    async def count_reviews_pending_analysis(self) -> int:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT COUNT(*) AS c
+            FROM reviews r
+            LEFT JOIN review_analyses a ON a.review_id = r.id
+            WHERE a.review_id IS NULL
+            """
+        )
+        row = await cursor.fetchone()
+        return int(row["c"] if row else 0)
+
+    async def count_analysis_jobs_by_status(self) -> dict[str, int]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            "SELECT status, COUNT(*) AS c FROM analysis_jobs GROUP BY status"
+        )
+        return {str(row["status"]): int(row["c"]) for row in await cursor.fetchall()}
+
+    async def get_last_successful_crawl(self) -> dict | None:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT * FROM crawl_runs
+            WHERE status = 'succeeded'
+            ORDER BY COALESCE(finished_at, created_at) DESC, id DESC
+            LIMIT 1
+            """
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+
+    async def get_failed_jobs_summary(self) -> dict[str, int]:
+        assert self._conn is not None
+        crawl_failed = await self._conn.execute(
+            "SELECT COUNT(*) AS c FROM crawl_runs WHERE status IN ('failed', 'interrupted')"
+        )
+        crawl_row = await crawl_failed.fetchone()
+        branch_failed = await self._conn.execute(
+            "SELECT COUNT(*) AS c FROM crawl_branch_tasks WHERE status = 'failed'"
+        )
+        branch_row = await branch_failed.fetchone()
+        ai_failed = await self._conn.execute(
+            "SELECT COUNT(*) AS c FROM analysis_jobs WHERE status = 'failed'"
+        )
+        ai_row = await ai_failed.fetchone()
+        return {
+            "failed_crawl_runs": int(crawl_row["c"] if crawl_row else 0),
+            "failed_branch_tasks": int(branch_row["c"] if branch_row else 0),
+            "failed_analysis_jobs": int(ai_row["c"] if ai_row else 0),
+        }
+
+    async def get_crawl_duration_stats(self) -> dict[str, float | None]:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT started_at, finished_at
+            FROM crawl_runs
+            WHERE started_at IS NOT NULL AND finished_at IS NOT NULL
+            ORDER BY id DESC
+            LIMIT 100
+            """
+        )
+        durations: list[float] = []
+        for row in await cursor.fetchall():
+            try:
+                start = datetime.fromisoformat(row["started_at"])
+                end = datetime.fromisoformat(row["finished_at"])
+                durations.append(max(0.0, (end - start).total_seconds()))
+            except ValueError:
+                continue
+        if not durations:
+            return {"avg_duration_seconds": None, "last_duration_seconds": None, "samples": 0}
+        return {
+            "avg_duration_seconds": round(sum(durations) / len(durations), 3),
+            "last_duration_seconds": round(durations[0], 3),
+            "samples": float(len(durations)),
+        }
+
+    async def get_avg_reviews_per_branch(self) -> float:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT
+              CASE WHEN COUNT(DISTINCT branch_id) = 0 THEN 0.0
+                   ELSE CAST(COUNT(*) AS REAL) / COUNT(DISTINCT branch_id)
+              END AS avg_rpb
+            FROM reviews
+            """
+        )
+        row = await cursor.fetchone()
+        return float(row["avg_rpb"] if row else 0.0)
+
+    async def count_branches_processed_in_runs(self, *, limit_runs: int = 20) -> int:
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT COUNT(*) AS c
+            FROM crawl_branch_tasks t
+            WHERE t.run_id IN (
+                SELECT id FROM crawl_runs ORDER BY id DESC LIMIT ?
+            )
+              AND t.status IN ('succeeded', 'failed', 'deleted')
+            """,
+            (max(1, limit_runs),),
+        )
+        row = await cursor.fetchone()
+        return int(row["c"] if row else 0)
+
+    async def database_size_bytes(self) -> int:
+        path = Path(self.path)
+        if not path.exists():
+            return 0
+        return int(path.stat().st_size)
+
+    async def reset_failed_branch_tasks(self, run_id: int) -> int:
+        """Re-queue failed tasks that still have attempts remaining (or bump budget)."""
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            UPDATE crawl_branch_tasks
+            SET status = 'pending',
+                last_error = NULL,
+                max_attempts = CASE
+                    WHEN attempts >= max_attempts THEN attempts + 2
+                    ELSE max_attempts
+                END
+            WHERE run_id = ? AND status = 'failed'
+            """,
+            (run_id,),
+        )
+        await self._conn.commit()
+        return int(cursor.rowcount or 0)
+
+    async def upsert_reviews_batch(self, branch_id: int, reviews: list[Review]) -> int:
+        """Batch upsert for stress / high-volume ingest (single commit)."""
+        if not reviews:
+            return 0
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        rows = []
+        for review in reviews:
+            external_id = (
+                review.external_id
+                or f"{review.author}|{review.published_at}|{review.text[:80]}"
+            )
+            rows.append(
+                (
+                    branch_id,
+                    review.author,
+                    review.rating,
+                    review.text,
+                    review.published_at,
+                    review.language,
+                    review.source,
+                    external_id,
+                    json.dumps(review.raw, ensure_ascii=False),
+                    now,
+                )
+            )
+        await self._conn.executemany(
+            """
+            INSERT INTO reviews (
+                branch_id, author, rating, text, published_at, language,
+                source, external_id, raw_json, collected_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(branch_id, external_id) DO UPDATE SET
+                author = excluded.author,
+                rating = excluded.rating,
+                text = excluded.text,
+                published_at = excluded.published_at,
+                language = excluded.language,
+                raw_json = excluded.raw_json,
+                collected_at = excluded.collected_at
+            """,
+            rows,
+        )
+        await self._conn.commit()
+        return len(rows)
+
+    async def get_ops_dashboard(self) -> dict:
+        """Aggregate payload for admin monitoring dashboard."""
+        today_start = (
+            datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        ).isoformat()
+        status_counts = await self.count_crawl_runs_by_status()
+        ai_jobs = await self.count_analysis_jobs_by_status()
+        duration = await self.get_crawl_duration_stats()
+        failed = await self.get_failed_jobs_summary()
+        last_ok = await self.get_last_successful_crawl()
+        pending_ai = await self.count_reviews_pending_analysis()
+        queue_len = int(ai_jobs.get("queued", 0) + ai_jobs.get("running", 0))
+        return {
+            "running_crawls": await self.list_crawl_runs(statuses=["running"], limit=20),
+            "completed_crawls": await self.list_crawl_runs(statuses=["succeeded"], limit=20),
+            "failed_crawls": await self.list_crawl_runs(
+                statuses=["failed", "interrupted"], limit=20
+            ),
+            "crawl_status_counts": status_counts,
+            "reviews_collected_today": await self.count_reviews_collected_since(today_start),
+            "reviews_pending_ai_analysis": pending_ai,
+            "ai_queue_length": queue_len,
+            "analysis_jobs_by_status": ai_jobs,
+            "branches_processed_recent": await self.count_branches_processed_in_runs(),
+            "crawl_duration": duration,
+            "average_reviews_per_branch": round(await self.get_avg_reviews_per_branch(), 3),
+            "failed_jobs": failed,
+            "last_successful_crawl": last_ok,
+        }
+
+    async def get_system_health(self) -> dict:
+        dash = await self.get_ops_dashboard()
+        ai_jobs = dash["analysis_jobs_by_status"]
+        failed = dash["failed_jobs"]
+        queue_len = dash["ai_queue_length"]
+        db_bytes = await self.database_size_bytes()
+        status = "ok"
+        if failed["failed_crawl_runs"] or failed["failed_analysis_jobs"]:
+            status = "attention"
+        if dash["crawl_status_counts"].get("running", 0) > 3:
+            status = "busy"
+        return {
+            "status": status,
+            "database_size_bytes": db_bytes,
+            "database_size_mb": round(db_bytes / (1024 * 1024), 3),
+            "queue_health": {
+                "ai_queue_length": queue_len,
+                "queued": int(ai_jobs.get("queued", 0)),
+                "running": int(ai_jobs.get("running", 0)),
+                "failed": int(ai_jobs.get("failed", 0)),
+                "succeeded": int(ai_jobs.get("succeeded", 0)),
+            },
+            "failed_jobs": failed,
+            "last_successful_crawl": dash["last_successful_crawl"],
+            "ai_processing_status": {
+                "pending_reviews": dash["reviews_pending_ai_analysis"],
+                "queue_length": queue_len,
+                "by_status": ai_jobs,
+            },
+            "reviews_collected_today": dash["reviews_collected_today"],
+            "average_reviews_per_branch": dash["average_reviews_per_branch"],
+        }

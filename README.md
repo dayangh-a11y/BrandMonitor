@@ -2,15 +2,14 @@
 
 AI-powered logistics review intelligence platform (Iran MVP).
 
-## Current stage (Phase 1)
+## Current stage (Phase 5 — Production Readiness)
 
-Google Maps collector that:
+Working MVP spine:
 
-1. Searches a courier brand (e.g. تیپاکس)
-2. Collects branch cards
-3. Opens each branch and extracts reviews
-4. Persists companies / branches / reviews into SQLite
-5. Also exports CSV under `output/`
+1. Google Maps collection + production crawl (incremental, resume, dedupe)
+2. AI foundation (`FakeAdapter` pipeline + jobs)
+3. REST read API + demo vertical slice
+4. **Ops:** admin monitoring/health, structured logs, metrics, env config, backup/export
 
 ## Quick start
 
@@ -21,47 +20,65 @@ pip install -r requirements.txt
 playwright install chromium
 
 cp .env.example .env
-python main.py
+export BRANDMONITOR_ENV=development
+export ADMIN_TOKEN=dev-admin-token
+
+# API + demo + admin
+PYTHONPATH=. uvicorn api.main:app --reload --port 8000
+# Demo:    http://127.0.0.1:8000/demo
+# Admin:   http://127.0.0.1:8000/admin/monitoring?token=dev-admin-token
+# Health:  http://127.0.0.1:8000/admin/health?token=dev-admin-token
+```
+
+## Environments
+
+| `BRANDMONITOR_ENV` | DB default | Notes |
+|---|---|---|
+| `development` | `data/brandmonitor.db` | debug logs, default admin token |
+| `staging` | `data/staging_brandmonitor.db` | JSON logs |
+| `production` | `data/prod_brandmonitor.db` | **requires** `ADMIN_TOKEN` |
+
+See `docs/PRODUCTION.md`.
+
+## Ops commands
+
+```bash
+# Production crawl (incremental)
+PYTHONPATH=. python3 scripts/run_production_crawl.py --company تیپاکس --mode incremental --max-branches 3
+
+# Scheduler: manual / schedule / retry-failed
+PYTHONPATH=. python3 scripts/run_scheduler.py manual --company تیپاکس
+PYTHONPATH=. python3 scripts/run_scheduler.py retry-failed --run-id 1
+
+# Backup / export
+PYTHONPATH=. python3 scripts/backup_export.py --format all
 ```
 
 ## Tests
 
 ```bash
-# Live Google Maps: collect branches (+ reviews if Google allows)
-python3 scripts/smoke_test.py
-# 0 = branches + reviews OK
-# 2 = branches OK, reviews blocked (common on cloud/datacenter IPs)
-# 1 = failed
-
-# Review extraction pipeline against local fixture HTML
-python3 scripts/test_review_fixture.py
-
-# Parser unit checks
-python3 -m pytest tests/test_parser.py -q
+PYTHONPATH=. python3 -m pytest tests/ -q
+# Phase 5 stress (50k reviews + 1k branches) is included
 ```
 
-Note: Google often serves a "limited view" without the Reviews tab to
-unsigned/datacenter sessions. Branch collection still works; review text
-may require a normal residential browser session or another source later.
+## Documentation
 
-## Environment
+| Doc | Content |
+|---|---|
+| `docs/PRODUCTION.md` | Deployment guide |
+| `docs/PHASE5_REPORTS.md` | Test / performance / stress reports |
+| `docs/REMAINING_BEFORE_LAUNCH.md` | Launch checklist |
 
-| Variable | Default | Meaning |
-|---|---|---|
-| `SEARCH_QUERY` | تیپاکس | Brand to search |
-| `MAX_BRANCHES` | 3 | Branch limit per run |
-| `MAX_REVIEWS_PER_BRANCH` | 20 | Review limit per branch |
-| `DB_PATH` | `data/brandmonitor.db` | SQLite path |
-| `HEADLESS` | `true` | Browser mode |
-
-## Architecture direction
+## Architecture
 
 ```text
-Collectors (Google Maps, ...)
+Collectors (Google Maps) → SQLite
         ↓
-Platform Core (Postgres/SQLite + AI jobs + scoring)
+AI jobs (FakeAdapter today) → scores (seed / future engine)
         ↓
-Public pages + Admin dashboard
+Public read API + demo UI
+        ↓
+Admin monitoring / health (token-gated)
 ```
 
-Phase 1 focuses on reliable ingestion. AI scoring and product UI come next.
+Frozen for Phase 5+: scoring engine, product UI, public API contracts, AI architecture.

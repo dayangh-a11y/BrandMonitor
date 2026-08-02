@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import time
+
 from ai.adapters.base import ModelAdapter
 from ai.pipeline import AnalysisPipeline
 from ai.validation import AnalysisValidationError
 from core.db import Database
+from core.logging_setup import get_logger
+from core.metrics import METRICS
 from models.review import Review
+
+log = get_logger("ai_worker")
 
 
 class AnalysisWorker:
@@ -15,11 +21,13 @@ class AnalysisWorker:
         self.pipeline = AnalysisPipeline(db, adapter)
 
     async def enqueue_review(self, review_id: int) -> int:
-        return await self.db.create_analysis_job(
+        job_id = await self.db.create_analysis_job(
             scope="review",
             scope_id=review_id,
             total_items=1,
         )
+        log.info("ai_job_enqueued job_id=%s review_id=%s", job_id, review_id)
+        return job_id
 
     async def process_next_job(self) -> dict | None:
         job = await self.db.claim_next_analysis_job()
@@ -32,6 +40,7 @@ class AnalysisWorker:
         done = 0
         failed = 0
         error: str | None = None
+        t0 = time.perf_counter()
 
         try:
             if scope != "review" or scope_id is None:
@@ -59,6 +68,8 @@ class AnalysisWorker:
                 done_items=done,
                 failed_items=failed,
             )
+            METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=True)
+            log.info("ai_job_succeeded job_id=%s review_id=%s", job_id, scope_id)
         except AnalysisValidationError as exc:
             failed = 1
             error = str(exc)
@@ -69,6 +80,8 @@ class AnalysisWorker:
                 failed_items=failed,
                 error=error,
             )
+            METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=False)
+            log.error("ai_job_validation_failed job_id=%s error=%s", job_id, error)
         except Exception as exc:  # noqa: BLE001 - worker boundary
             failed = 1
             error = str(exc)
@@ -79,6 +92,8 @@ class AnalysisWorker:
                 failed_items=failed,
                 error=error,
             )
+            METRICS.record_ai_job(latency_ms=(time.perf_counter() - t0) * 1000, success=False)
+            log.error("ai_job_failed job_id=%s error=%s", job_id, error)
 
         return {
             "job_id": job_id,

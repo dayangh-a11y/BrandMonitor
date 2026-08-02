@@ -40,6 +40,12 @@ async def http_exception_handler(_: Request, exc: HTTPException) -> JSONResponse
 
 
 async def unhandled_error_handler(_: Request, exc: Exception) -> JSONResponse:
+    try:
+        from core.logging_setup import get_logger
+
+        get_logger("api").error("unhandled_error %s", exc, exc_info=exc)
+    except Exception:  # noqa: BLE001
+        pass
     return JSONResponse(
         status_code=500,
         content=error_body("internal_error", "Unexpected server error"),

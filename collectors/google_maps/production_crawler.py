@@ -9,8 +9,12 @@ from collectors.dedupe import branch_identity_key, review_fingerprint
 from collectors.incremental import filter_incremental_reviews
 from collectors.monitoring import CrawlMonitor
 from core.db import Database
+from core.logging_setup import get_logger
+from core.metrics import METRICS
 from models.branch import Branch
 from models.review import Review
+
+log = get_logger("crawler")
 
 
 class BranchReviewSource(Protocol):
@@ -104,6 +108,21 @@ class ProductionCrawler:
             report = await self.build_report(run_id)
             report.duration_seconds = round(time.perf_counter() - started, 3)
             await self.db.save_crawl_report(run_id, report.to_dict())
+            METRICS.record_crawl(
+                reviews_found=report.reviews_found,
+                reviews_new=report.reviews_new,
+                reviews_updated=report.reviews_updated,
+                duration_seconds=report.duration_seconds or 0.0,
+                failed_branches=report.branches_failed,
+                branches=report.branches_succeeded + report.branches_failed,
+            )
+            log.info(
+                "crawl_finished run_id=%s status=%s reviews_new=%s duration=%s",
+                run_id,
+                final_status,
+                report.reviews_new,
+                report.duration_seconds,
+            )
             self.monitor.event("finish_run", run_id=run_id, status=final_status)
             return report
         except Exception as exc:  # noqa: BLE001
@@ -113,6 +132,7 @@ class ProductionCrawler:
                 error=str(exc),
                 finished=True,
             )
+            log.error("crawl_interrupted run_id=%s error=%s", run_id, exc)
             self.monitor.event("interrupt_run", run_id=run_id, error=str(exc))
             raise
         finally:
