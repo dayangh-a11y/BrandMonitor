@@ -2,83 +2,76 @@
 
 AI-powered logistics review intelligence platform (Iran MVP).
 
-## Current stage (Phase 5 — Production Readiness)
+## MVP status (demonstrable)
 
-Working MVP spine:
+End-to-end path works locally:
 
-1. Google Maps collection + production crawl (incremental, resume, dedupe)
-2. AI foundation (`FakeAdapter` pipeline + jobs)
-3. REST read API + demo vertical slice
-4. **Ops:** admin monitoring/health, structured logs, metrics, env config, backup/export
-
-## Quick start
+**reviews → AI analysis → insights → score_v1 → API / demo**
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-playwright install chromium
 
-cp .env.example .env
 export BRANDMONITOR_ENV=development
 export ADMIN_TOKEN=dev-admin-token
+export AI_PROVIDER=fake   # or openai + OPENAI_API_KEY
+export DB_PATH=data/brandmonitor.db
+export PYTHONPATH=.
 
-# API + demo + admin
-PYTHONPATH=. uvicorn api.main:app --reload --port 8000
-# Demo:    http://127.0.0.1:8000/demo
-# Admin:   http://127.0.0.1:8000/admin/monitoring?token=dev-admin-token
-# Health:  http://127.0.0.1:8000/admin/health?token=dev-admin-token
+# Seed demo company/branches/reviews + analyze + score
+python3 scripts/seed_demo_data.py --db "$DB_PATH"
+
+# Or refresh any DB: analyze pending + rescore everything
+python3 scripts/run_mvp_pipeline.py --db "$DB_PATH"
+
+# Serve
+uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1
 ```
 
-## Environments
+Open:
 
-| `BRANDMONITOR_ENV` | DB default | Notes |
-|---|---|---|
-| `development` | `data/brandmonitor.db` | debug logs, default admin token |
-| `staging` | `data/staging_brandmonitor.db` | JSON logs |
-| `production` | `data/prod_brandmonitor.db` | **requires** `ADMIN_TOKEN` |
+- Demo: http://127.0.0.1:8000/demo
+- API docs: http://127.0.0.1:8000/docs
+- Admin: http://127.0.0.1:8000/admin/monitoring?token=dev-admin-token
 
-See `docs/PRODUCTION.md`.
+## Modules
 
-## Ops commands
+| Area | Status |
+|------|--------|
+| Google Maps collector + production crawl | Ready (live review yield may be limited by Google) |
+| AI analysis (`FakeAdapter` / `OpenAIAdapter`) | Ready |
+| score_v1 engine | Ready (`scoring/`) |
+| Insights generator | Ready (template from analyses) |
+| REST read API | Ready (no auth) |
+| Demo HTML | Ready |
+| Admin ops pages | Ready |
+
+## Key commands
 
 ```bash
-# Production crawl (incremental)
-PYTHONPATH=. python3 scripts/run_production_crawl.py --company تیپاکس --mode incremental --max-branches 3
-
-# Scheduler: manual / schedule / retry-failed
-PYTHONPATH=. python3 scripts/run_scheduler.py manual --company تیپاکس
-PYTHONPATH=. python3 scripts/run_scheduler.py retry-failed --run-id 1
-
-# Backup / export
-PYTHONPATH=. python3 scripts/backup_export.py --format all
+python3 scripts/run_production_crawl.py --company تیپاکس --mode incremental --max-branches 3
+python3 scripts/run_ai_analysis.py --limit 100
+python3 scripts/run_scoring.py --insights
+python3 scripts/run_mvp_pipeline.py
+python3 scripts/backup_export.py --format all
+python3 -m pytest tests/ -q
 ```
 
-## Tests
+## Docs
 
-```bash
-PYTHONPATH=. python3 -m pytest tests/ -q
-# Phase 5 stress (50k reviews + 1k branches) is included
-```
-
-## Documentation
-
-| Doc | Content |
-|---|---|
-| `docs/PRODUCTION.md` | Deployment guide |
-| `docs/PHASE5_REPORTS.md` | Test / performance / stress reports |
-| `docs/REMAINING_BEFORE_LAUNCH.md` | Launch checklist |
+- `docs/PRODUCTION.md` — deploy / env
+- `docs/PHASE6_AI.md` — OpenAI adapter & prompts
+- `docs/MVP_ENGINEERING_REPORT.md` — latest MVP integration report
+- `docs/REMAINING_BEFORE_LAUNCH.md` — public launch checklist
 
 ## Architecture
 
 ```text
-Collectors (Google Maps) → SQLite
-        ↓
-AI jobs (FakeAdapter today) → scores (seed / future engine)
-        ↓
-Public read API + demo UI
-        ↓
-Admin monitoring / health (token-gated)
+Collectors → SQLite
+     ↓
+AI analysis (Fake / OpenAI)
+     ↓
+Insights + score_v1
+     ↓
+Public API + Demo + Admin
 ```
-
-Frozen for Phase 5+: scoring engine, product UI, public API contracts, AI architecture.
