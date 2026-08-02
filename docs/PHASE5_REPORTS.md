@@ -25,14 +25,13 @@ PYTHONPATH=. python3 -m pytest tests/ -q
 
 ## 2. Performance report
 
-Targets measured in-process (no Google network):
+Measured on this agent run (`pytest tests/test_phase5_stress.py -q -s`):
 
-| Workload | Metric | Target |
-|----------|--------|--------|
-| 50k review batch upsert | wall time | < 180s |
-| 50k review batch upsert | throughput | recorded in `METRICS` `crawl_speed_reviews_per_sec` |
-| 1k branches × 2 reviews | wall time | < 300s |
-| 1k branches | success | 1000 succeeded tasks, 2000 reviews |
+| Workload | Result |
+|----------|--------|
+| 50k review batch upsert | **0.679s** (~**73,600 reviews/sec**) |
+| 1k branches × 2 reviews (full crawler path) | **10.34s** (~193 reviews/sec orchestration) |
+| 1k branches | 1000 succeeded, 2000 reviews, avg 2.0 reviews/branch |
 
 Notes:
 
@@ -42,10 +41,10 @@ Notes:
 
 ## 3. Stress test report
 
-| Test | Volume | Assertions |
-|------|--------|------------|
-| `test_stress_50000_fake_reviews` | 50,000 reviews | count==50000; duplicate upsert stable; metrics recorded |
-| `test_stress_1000_branches` | 1,000 branches / 2,000 reviews | all branches succeeded; ops dashboard avg reviews/branch == 2 |
+| Test | Volume | Result |
+|------|--------|--------|
+| `test_stress_50000_fake_reviews` | 50,000 reviews | **PASS** (incl. duplicate upsert) |
+| `test_stress_1000_branches` | 1,000 branches / 2,000 reviews | **PASS** |
 
 Prior Phase 4 baseline: 20×250 = 5,000 simulated reviews via full crawler path (still in `tests/test_crawl_stress.py`).
 

@@ -57,6 +57,10 @@ def setup_logging(settings: Settings | None = None) -> None:
     for name in COMPONENT_LOGGERS:
         logging.getLogger(name).setLevel(root.level)
 
+    # Keep third-party SQL drivers out of DEBUG floods.
+    logging.getLogger("aiosqlite").setLevel(logging.WARNING)
+    logging.getLogger("asyncio").setLevel(logging.INFO)
+
     _CONFIGURED = True
 
 
