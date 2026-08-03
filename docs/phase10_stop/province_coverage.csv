@@ -1,0 +1,32 @@
+province_en,province_fa,branch_count_persisted,status,coverage_quality,notes
+Tehran,تهران,50,ok,adequate,
+Alborz,البرز,8,ok,adequate,
+Isfahan,اصفهان,50,ok,adequate,
+Fars,فارس,32,ok,adequate,
+Razavi Khorasan,خراسان رضوی,17,ok,adequate,
+East Azerbaijan,آذربایجان شرقی,13,ok,adequate,
+West Azerbaijan,آذربایجان غربی,12,ok,adequate,
+Ardabil,اردبیل,0,no_branches,none,Still zero after Phase 10 gap probes (in-memory discovery not persisted)
+Yazd,یزد,10,ok,adequate,
+Kerman,کرمان,7,ok,adequate,
+Kermanshah,کرمانشاه,0,no_branches,none,Still zero after Phase 10 gap probes (in-memory discovery not persisted)
+Hamadan,همدان,3,ok,adequate,
+Qazvin,قزوین,1,unusually_low,weak,Weak relative to province size / peer provinces
+Qom,قم,2,unusually_low,weak,Weak relative to province size / peer provinces
+Markazi,مرکزی,2,unusually_low,weak,Weak relative to province size / peer provinces
+Lorestan,لرستان,7,ok,adequate,
+Khuzestan,خوزستان,25,ok,adequate,
+Bushehr,بوشهر,2,unusually_low,weak,Weak relative to province size / peer provinces
+Hormozgan,هرمزگان,16,ok,adequate,
+Sistan and Baluchestan,سیستان و بلوچستان,10,ok,adequate,
+Kurdistan,کردستان,6,ok,adequate,
+Ilam,ایلام,1,unusually_low,weak,Weak relative to province size / peer provinces
+Kohgiluyeh and Boyer-Ahmad,کهگیلویه و بویراحمد,1,unusually_low,weak,Weak relative to province size / peer provinces
+Chaharmahal and Bakhtiari,چهارمحال و بختیاری,5,ok,adequate,
+Gilan,گیلان,26,ok,adequate,
+Mazandaran,مازندران,21,ok,adequate,
+Golestan,گلستان,1,unusually_low,weak,Weak relative to province size / peer provinces
+Semnan,سمنان,1,unusually_low,weak,Weak relative to province size / peer provinces
+Zanjan,زنجان,1,unusually_low,weak,Weak relative to province size / peer provinces
+North Khorasan,خراسان شمالی,3,ok,adequate,
+South Khorasan,خراسان جنوبی,2,unusually_low,weak,Weak relative to province size / peer provinces
