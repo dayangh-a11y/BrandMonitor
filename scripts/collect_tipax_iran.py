@@ -88,17 +88,31 @@ async def build_coverage_report(db: Database, run_id: int) -> dict:
 
     # Estimated coverage vs provinces searched (31) and discovered task completion.
     provinces_targeted = len(IRAN_PROVINCES)
-    province_hits = {}
+    province_hits: dict[str, int] = {}
+    known_province_labels = {
+        p["fa"].casefold() for p in IRAN_PROVINCES
+    } | {p["en"].casefold() for p in IRAN_PROVINCES}
+    matched_known_provinces: set[str] = set()
     for b in active_branches:
         prov = (b.get("province") or "Unknown").strip() or "Unknown"
         province_hits[prov] = province_hits.get(prov, 0) + 1
+        key = prov.casefold()
+        for province in IRAN_PROVINCES:
+            if key in {province["fa"].casefold(), province["en"].casefold()} or key in province[
+                "en"
+            ].casefold():
+                matched_known_provinces.add(province["en"])
+                break
+            if province["fa"] in prov or province["en"].casefold() in key:
+                matched_known_provinces.add(province["en"])
+                break
 
     completion_rate = (completed / discovered) if discovered else 0.0
     # Heuristic: Tipax public footprint is large; coverage ≈ discovery completeness
-    # weighted by branch task success and province presence.
-    province_presence = len([p for p, n in province_hits.items() if p != "Unknown" and n > 0])
-    geo_coverage = province_presence / provinces_targeted if provinces_targeted else 0.0
-    estimated_coverage = round(0.6 * completion_rate + 0.4 * geo_coverage, 4)
+    # weighted by branch task success and known-province presence.
+    province_presence = len(matched_known_provinces)
+    geo_coverage = min(1.0, province_presence / provinces_targeted) if provinces_targeted else 0.0
+    estimated_coverage = round(min(1.0, 0.6 * completion_rate + 0.4 * geo_coverage), 4)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
