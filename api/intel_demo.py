@@ -273,7 +273,7 @@ async def intel_company(slug: str) -> HTMLResponse:
       <div class="kpi"><div class="label">Overall score</div><div class="value">{company['score']:.2f}</div></div>
       <div class="kpi"><div class="label">Avg rating</div><div class="value">{company['avg_rating']:.2f}</div></div>
       <div class="kpi"><div class="label">Provinces</div><div class="value">{company['province_count']}</div></div>
-      <div class="kpi"><div class="label">Neg. reviews</div>
+      <div class="kpi"><div class="label">Negative reviews</div>
         <div class="value">{int((company.get('sentiments') or {}).get('Negative') or 0)}</div></div>
     </section>
     <section class="grid">

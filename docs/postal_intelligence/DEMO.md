@@ -25,6 +25,15 @@ Open:
 
 JSON helpers: `/intel/api/snapshot`, `/intel/api/search`, `/intel/api/compare`.
 
+## Screenshots
+
+<img alt="Intel dashboard" src="screenshots/demo_home.png" />
+<img alt="Company profile" src="screenshots/demo_company_chapar.png" />
+<img alt="AI Compare" src="screenshots/demo_compare.png" />
+<img alt="AI Search" src="screenshots/demo_search.png" />
+<img alt="AI Insights" src="screenshots/demo_insights.png" />
+<img alt="Branch profile" src="screenshots/demo_branch.png" />
+
 ## AI rules
 
 - Narratives are deterministic summaries of warehouse tables only.
