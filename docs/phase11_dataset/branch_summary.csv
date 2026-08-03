@@ -1,0 +1,4 @@
+﻿brand_name,branch_name,city,province,review_count,average_rating,sentiment_score,complaint_rate,positive_rate,negative_rate,data_confidence
+Chapar,Chapar Center,Tehran,Tehran Province,6,3.0,33.33,33.33,33.33,33.33,زیاد
+Chapar,Chapar Shiraz,Shiraz,Fars,8,3.25,50.0,37.5,50.0,37.5,زیاد
+Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,9,3.1111,44.44,33.33,44.44,33.33,زیاد

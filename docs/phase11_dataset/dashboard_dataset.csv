@@ -1,0 +1,24 @@
+﻿review_id,brand,branch_name,city,province,rating,sentiment,emotion,complaint_category,urgency,confidence_score,review_source,review_date,latitude,longitude,branch_review_count,branch_average_rating,branch_sentiment_score,branch_complaint_rate,branch_data_confidence
+4448e786cd34eda1,Chapar,Chapar Center,Tehran,Tehran Province,2.0,Negative,Disappointed,delivery_delay,High,90,analytics_demo,2026-06-05,NULL,NULL,6,3.0,33.33,33.33,زیاد
+9e965b14950fbce0,Chapar,Chapar Center,Tehran,Tehran Province,4.0,Positive,Satisfied,staff_behavior,Low,90,analytics_demo,2026-05-23,NULL,NULL,6,3.0,33.33,33.33,زیاد
+e1bd95c6122b625a,Chapar,Chapar Center,Tehran,Tehran Province,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-05-06,NULL,NULL,6,3.0,33.33,33.33,زیاد
+0ea3ad8377e9deb5,Chapar,Chapar Center,Tehran,Tehran Province,2.0,Negative,Disappointed,package_damage,High,90,analytics_demo,2026-07-31,NULL,NULL,6,3.0,33.33,33.33,زیاد
+c6251e3d29d8c1f3,Chapar,Chapar Center,Tehran,Tehran Province,4.0,Positive,Satisfied,tracking,Low,90,analytics_demo,2026-05-18,NULL,NULL,6,3.0,33.33,33.33,زیاد
+245bad92aafb5d86,Chapar,Chapar Center,Tehran,Tehran Province,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-08-01,NULL,NULL,6,3.0,33.33,33.33,زیاد
+e10b765dd521e938,Chapar,Chapar Shiraz,Shiraz,Fars,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-05-15,NULL,NULL,8,3.25,50.0,37.5,زیاد
+4a742020f3230596,Chapar,Chapar Shiraz,Shiraz,Fars,5.0,Positive,Happy,other,Low,80,analytics_demo,2026-06-22,NULL,NULL,8,3.25,50.0,37.5,زیاد
+ace52cd7a88f3433,Chapar,Chapar Shiraz,Shiraz,Fars,2.0,Negative,Disappointed,delivery_delay,High,90,analytics_demo,2026-05-05,NULL,NULL,8,3.25,50.0,37.5,زیاد
+a5f4f5eb847b0e4f,Chapar,Chapar Shiraz,Shiraz,Fars,1.0,Negative,Angry,delivery_delay,Critical,90,analytics_demo,2026-06-04,NULL,NULL,8,3.25,50.0,37.5,زیاد
+18a005120bb7ee45,Chapar,Chapar Shiraz,Shiraz,Fars,5.0,Positive,Happy,other,Low,80,analytics_demo,2026-06-12,NULL,NULL,8,3.25,50.0,37.5,زیاد
+5501d86b6a8b6826,Chapar,Chapar Shiraz,Shiraz,Fars,4.0,Positive,Satisfied,staff_behavior,Low,90,analytics_demo,2026-06-11,NULL,NULL,8,3.25,50.0,37.5,زیاد
+b5025aedb17e31af,Chapar,Chapar Shiraz,Shiraz,Fars,4.0,Positive,Satisfied,tracking,Low,90,analytics_demo,2026-05-12,NULL,NULL,8,3.25,50.0,37.5,زیاد
+affb0996de00f474,Chapar,Chapar Shiraz,Shiraz,Fars,2.0,Negative,Disappointed,package_damage,High,90,analytics_demo,2026-07-24,NULL,NULL,8,3.25,50.0,37.5,زیاد
+238802284c644d18,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,1.0,Negative,Angry,price,High,90,analytics_demo,2026-06-19,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+9aff4f5d9611d524,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,5.0,Positive,Happy,other,Low,80,analytics_demo,2026-07-26,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+61393f612ff1e398,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,5.0,Positive,Happy,other,Low,80,analytics_demo,2026-07-20,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+c8f152b89c4ed630,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-05-15,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+fdfe9b47f4976208,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,1.0,Negative,Angry,delivery_delay,Critical,90,analytics_demo,2026-07-23,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+2096dac27ac03108,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,2.0,Negative,Disappointed,package_damage,High,90,analytics_demo,2026-05-15,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+ad84fe4d03e494ec,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,4.0,Positive,Satisfied,staff_behavior,Low,90,analytics_demo,2026-07-13,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+b6ac7badaf555c72,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-06-18,NULL,NULL,9,3.1111,44.44,33.33,زیاد
+630db3c1909caafa,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,4.0,Positive,Satisfied,tracking,Low,90,analytics_demo,2026-07-17,NULL,NULL,9,3.1111,44.44,33.33,زیاد

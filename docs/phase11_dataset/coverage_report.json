@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-08-03T13:58:17.104186+00:00",
+  "brands": [
+    "Chapar"
+  ],
+  "branch_count": 3,
+  "review_count": 23,
+  "city_count": 3,
+  "province_count": 3,
+  "pct_with_coordinates": 0.0,
+  "pct_with_date": 100.0,
+  "pct_with_company_reply": 0.0,
+  "sources": [
+    "analytics_demo"
+  ],
+  "duplicates_dropped": 18,
+  "input_rows_before_dedupe": 41
+}
