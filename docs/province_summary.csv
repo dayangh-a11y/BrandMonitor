@@ -1,0 +1,32 @@
+province_en,province_fa,branch_count,status
+Tehran,تهران,50,ok
+Alborz,البرز,8,ok
+Isfahan,اصفهان,50,ok
+Fars,فارس,32,ok
+Razavi Khorasan,خراسان رضوی,17,ok
+East Azerbaijan,آذربایجان شرقی,13,ok
+West Azerbaijan,آذربایجان غربی,12,ok
+Ardabil,اردبیل,0,no_branches
+Yazd,یزد,10,ok
+Kerman,کرمان,7,ok
+Kermanshah,کرمانشاه,0,no_branches
+Hamadan,همدان,3,ok
+Qazvin,قزوین,1,unusually_low
+Qom,قم,2,unusually_low
+Markazi,مرکزی,2,unusually_low
+Lorestan,لرستان,7,ok
+Khuzestan,خوزستان,25,ok
+Bushehr,بوشهر,2,unusually_low
+Hormozgan,هرمزگان,16,ok
+Sistan and Baluchestan,سیستان و بلوچستان,10,ok
+Kurdistan,کردستان,6,ok
+Ilam,ایلام,1,unusually_low
+Kohgiluyeh and Boyer-Ahmad,کهگیلویه و بویراحمد,1,unusually_low
+Chaharmahal and Bakhtiari,چهارمحال و بختیاری,5,ok
+Gilan,گیلان,26,ok
+Mazandaran,مازندران,21,ok
+Golestan,گلستان,1,unusually_low
+Semnan,سمنان,1,unusually_low
+Zanjan,زنجان,1,unusually_low
+North Khorasan,خراسان شمالی,3,ok
+South Khorasan,خراسان جنوبی,2,unusually_low
