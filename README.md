@@ -36,6 +36,7 @@ uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1
 Open:
 
 - **Postal Intelligence demo:** http://127.0.0.1:8000/intel
+- Pricing calculator feasibility: `docs/postal_intelligence/PRICING_CALCULATOR_FEASIBILITY.md`
 - Postal dashboards: `output/postal_intelligence/dashboards/index.html` (or `docs/postal_intelligence/dashboards/`)
 - Postal API: `/postal/*` (requires `X-API-Token`)
 - Legacy review demo: http://127.0.0.1:8000/demo
