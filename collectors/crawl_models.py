@@ -20,6 +20,7 @@ class CrawlConfig:
     branch_place_id: str | None = None
     branch_name: str | None = None
     detect_deleted_reviews: bool = True
+    detect_deleted_branches: bool = True
 
 
 @dataclass

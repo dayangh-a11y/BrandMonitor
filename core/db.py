@@ -447,6 +447,20 @@ class Database:
     async def upsert_branch(self, company_id: int, branch: Branch) -> int:
         assert self._conn is not None
         now = datetime.now(timezone.utc).isoformat()
+        # Prefer stable place_id match so enrichment doesn't create duplicates.
+        if branch.place_id:
+            cursor = await self._conn.execute(
+                """
+                SELECT id FROM branches
+                WHERE company_id = ? AND place_id = ? AND TRIM(place_id) != ''
+                LIMIT 1
+                """,
+                (company_id, branch.place_id),
+            )
+            existing = await cursor.fetchone()
+            if existing:
+                await self.update_branch_metadata(int(existing["id"]), branch)
+                return int(existing["id"])
         await self._conn.execute(
             """
             INSERT INTO branches (
@@ -497,6 +511,49 @@ class Database:
         row = await cursor.fetchone()
         assert row is not None
         return int(row["id"])
+
+    async def update_branch_metadata(self, branch_id: int, branch: Branch) -> None:
+        assert self._conn is not None
+        now = datetime.now(timezone.utc).isoformat()
+        await self._conn.execute(
+            """
+            UPDATE branches SET
+                name = ?,
+                address = ?,
+                rating = ?,
+                review_count = ?,
+                maps_url = ?,
+                place_id = ?,
+                collected_at = ?,
+                phone = ?,
+                latitude = ?,
+                longitude = ?,
+                city = ?,
+                province = ?,
+                metadata_json = ?,
+                is_deleted = 0,
+                last_seen_at = ?
+            WHERE id = ?
+            """,
+            (
+                branch.name,
+                branch.address,
+                branch.rating,
+                branch.review_count,
+                branch.maps_url,
+                branch.place_id,
+                now,
+                branch.phone or "",
+                branch.latitude,
+                branch.longitude,
+                branch.city or "",
+                branch.province or "",
+                json.dumps(branch.metadata or {}, ensure_ascii=False),
+                now,
+                branch_id,
+            ),
+        )
+        await self._conn.commit()
 
     async def upsert_review(self, branch_id: int, review: Review) -> int:
         assert self._conn is not None
