@@ -22,18 +22,19 @@ COMPANIES = [
     {
         "name": "Tipax",
         "branches": [
-            ("Tipax HQ", "Tehran", "Tehran Province", 2.4),
-            ("Tipax Vanak", "Tehran", "Tehran Province", 3.2),
-            ("Tipax Mashhad", "Mashhad", "Razavi Khorasan", 3.8),
-            ("Tipax Isfahan", "Isfahan", "Isfahan Province", 2.9),
+            # name, city, province, rating, lat, lon
+            ("Tipax HQ", "Tehran", "Tehran", 2.4, 35.6892, 51.3890),
+            ("Tipax Vanak", "Tehran", "Tehran", 3.2, 35.7575, 51.4097),
+            ("Tipax Mashhad", "Mashhad", "Razavi Khorasan", 3.8, 36.2970, 59.6062),
+            ("Tipax Isfahan", "Isfahan", "Isfahan", 2.9, 32.6539, 51.6660),
         ],
     },
     {
         "name": "Chapar",
         "branches": [
-            ("Chapar Center", "Tehran", "Tehran Province", 3.5),
-            ("Chapar Shiraz", "Shiraz", "Fars", 4.1),
-            ("Chapar Tabriz", "Tabriz", "East Azerbaijan", 3.0),
+            ("Chapar Center", "Tehran", "Tehran", 3.5, 35.7219, 51.3347),
+            ("Chapar Shiraz", "Shiraz", "Fars", 4.1, 29.5918, 52.5837),
+            ("Chapar Tabriz", "Tabriz", "East Azerbaijan", 3.0, 38.0962, 46.2738),
         ],
     },
 ]
@@ -55,7 +56,7 @@ REVIEW_TEMPLATES = [
 async def _seed_company(db: Database, pipeline: AnalysisPipeline, spec: dict, rng: random.Random) -> int:
     company_id = await db.upsert_company(spec["name"], source="analytics_demo")
     branch_ids: list[int] = []
-    for name, city, province, rating in spec["branches"]:
+    for name, city, province, rating, lat, lon in spec["branches"]:
         bid = await db.upsert_branch(
             company_id,
             Branch(
@@ -67,6 +68,8 @@ async def _seed_company(db: Database, pipeline: AnalysisPipeline, spec: dict, rn
                 place_id=f"demo-{spec['name'].lower()}-{city.lower()}-{name.lower().replace(' ', '-')}",
                 city=city,
                 province=province,
+                latitude=lat,
+                longitude=lon,
             ),
         )
         branch_ids.append(bid)

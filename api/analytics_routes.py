@@ -88,6 +88,41 @@ async def refresh_analytics(db: Database = Depends(get_db)) -> dict:
     return await _service(db).refresh_all()
 
 
+@router.get("/companies/{company_id}/geo")
+async def company_geo_analytics(
+    company_id: int,
+    request: Request,
+    refresh: bool = Query(False),
+    db: Database = Depends(get_db),
+) -> dict:
+    """Phase 11 geographic analytics payload (map pins, heatmaps, leaderboard)."""
+    try:
+        return await _service(db).geo_dashboard(
+            company_id, _filters_from_request(request), force_refresh=refresh
+        )
+    except KeyError as exc:
+        raise APIError(404, "company_not_found", str(exc)) from exc
+
+
+@router.get("/companies/{company_id}/geo/export")
+async def export_company_geo(
+    company_id: int,
+    request: Request,
+    format: Literal["json", "csv", "excel", "pdf", "png"] = Query("json"),
+    chart: str = Query("top10_best_bar"),
+    db: Database = Depends(get_db),
+) -> Response:
+    try:
+        payload = await _service(db).geo_dashboard(
+            company_id, _filters_from_request(request)
+        )
+    except KeyError as exc:
+        raise APIError(404, "company_not_found", str(exc)) from exc
+    return _export_response(
+        payload, format=format, chart=chart, stem=f"company_{company_id}_geo"
+    )
+
+
 @router.get("/companies/{company_id}/export")
 async def export_company(
     company_id: int,

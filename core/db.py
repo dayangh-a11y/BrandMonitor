@@ -1167,6 +1167,27 @@ class Database:
         data["common_categories"] = json.loads(data.get("common_categories") or "[]")
         return data
 
+    async def list_company_branch_insights(self, company_id: int) -> dict[int, dict]:
+        """Return branch_id -> insights for all branches of a company (read-only)."""
+        assert self._conn is not None
+        cursor = await self._conn.execute(
+            """
+            SELECT bi.*
+            FROM branch_insights bi
+            JOIN branches b ON b.id = bi.branch_id
+            WHERE b.company_id = ?
+            """,
+            (company_id,),
+        )
+        out: dict[int, dict] = {}
+        for row in await cursor.fetchall():
+            data = dict(row)
+            data["pros"] = json.loads(data.get("pros") or "[]")
+            data["cons"] = json.loads(data.get("cons") or "[]")
+            data["common_categories"] = json.loads(data.get("common_categories") or "[]")
+            out[int(data["branch_id"])] = data
+        return out
+
     async def upsert_company_insights(
         self,
         company_id: int,

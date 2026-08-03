@@ -5,6 +5,7 @@ from typing import Any
 
 from analytics.compute import build_branch_dashboard, build_company_dashboard, compare_entities
 from analytics.filters import AnalyticsFilter
+from analytics.geo_compute import build_geo_dashboard
 from core.logging_setup import get_logger
 
 log = get_logger("api")
@@ -247,13 +248,80 @@ class AnalyticsService:
         result["filters"] = filt.to_dict()
         return result
 
+    async def geo_dashboard(
+        self,
+        company_id: int,
+        filt: AnalyticsFilter | None = None,
+        *,
+        force_refresh: bool = False,
+    ) -> dict[str, Any]:
+        """Phase 11 geographic visualization payload (read-only over existing data)."""
+        filt = filt or AnalyticsFilter()
+        kind = "geo_dashboard"
+        cache_key = filt.cache_key()
+        if not force_refresh:
+            cached = await self.db.get_analytics_snapshot(
+                "company", company_id, kind, cache_key
+            )
+            if cached and self._fresh(cached.get("computed_at")):
+                payload = cached["payload"]
+                payload["cache"] = {"hit": True, "computed_at": cached["computed_at"]}
+                return payload
+
+        t0 = time.perf_counter()
+        company = await self.db.get_company(company_id)
+        if company is None:
+            raise KeyError(f"company {company_id}")
+
+        branches = await self.db.list_company_branches(company_id, limit=100000)
+        raw_branches = {
+            int(b["id"]): b for b in await self.db.list_company_branch_rows(company_id)
+        }
+        for b in branches:
+            raw = raw_branches.get(int(b["id"]), {})
+            b["city"] = raw.get("city") or b.get("city") or ""
+            b["province"] = raw.get("province") or b.get("province") or ""
+            b["latitude"] = raw.get("latitude")
+            b["longitude"] = raw.get("longitude")
+            b["maps_url"] = raw.get("maps_url") or ""
+            b["review_count"] = raw.get("review_count") or b.get("review_count") or 0
+
+        rows = await self.db.list_company_analytics_rows(company_id)
+        insights_by_branch = await self.db.list_company_branch_insights(company_id)
+        payload = build_geo_dashboard(
+            company=company,
+            branches=branches,
+            rows=rows,
+            insights_by_branch=insights_by_branch,
+            filt=filt,
+        )
+        elapsed_ms = (time.perf_counter() - t0) * 1000
+        payload["performance"] = {
+            "build_ms": round(elapsed_ms, 2),
+            "source_rows": len(rows),
+            "ttl_seconds": self.ttl_seconds,
+        }
+        await self.db.upsert_analytics_snapshot(
+            "company", company_id, kind, cache_key, payload
+        )
+        payload["cache"] = {"hit": False}
+        log.info(
+            "analytics_geo_built id=%s pins=%s ms=%.1f",
+            company_id,
+            len(payload.get("map_pins") or []),
+            elapsed_ms,
+        )
+        return payload
+
     async def refresh_all(self) -> dict[str, Any]:
         companies = await self.db.list_companies(limit=100000)
-        out = {"companies": 0, "branches": 0}
+        out = {"companies": 0, "branches": 0, "geo": 0}
         filt = AnalyticsFilter()
         for company in companies:
             await self.company_dashboard(int(company["id"]), filt, force_refresh=True)
+            await self.geo_dashboard(int(company["id"]), filt, force_refresh=True)
             out["companies"] += 1
+            out["geo"] += 1
             for branch in await self.db.list_company_branches(int(company["id"]), limit=100000):
                 await self.branch_dashboard(int(branch["id"]), filt, force_refresh=True)
                 out["branches"] += 1
