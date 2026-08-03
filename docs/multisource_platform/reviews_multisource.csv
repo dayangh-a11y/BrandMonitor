@@ -1,0 +1,1545 @@
+﻿id,source,brand,branch,city,province,rating,sentiment,emotion,complaint_category,urgency,confidence_score,review_date
+1,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,5 months ago
+2,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Lost Package,High,90,6 months ago
+3,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,Edited 7 months ago
+4,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+5,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+6,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Delay,High,90,a year ago
+7,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 months ago
+8,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+9,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+10,google_maps,Tipax,TIHUB,تهران,تهران,1.0,Negative,Angry,Other,High,80,2 years ago
+11,google_maps,Tipax,Tipax,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,100,2 years ago
+12,google_maps,Tipax,Tipax,NULL,خراسان شمالی,1.0,Negative,Angry,Delay,High,90,4 years ago
+13,google_maps,Tipax,Tipax,NULL,خراسان شمالی,1.0,Negative,Angry,Delay,High,90,6 years ago
+14,google_maps,Tipax,Tipax,NULL,خراسان شمالی,3.0,Neutral,Satisfied,Other,Low,80,6 years ago
+15,google_maps,Tipax,Tipax,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,80,4 years ago
+16,google_maps,Tipax,Tipax,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,6 years ago
+17,google_maps,Tipax,Tipax,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,3 years ago
+18,google_maps,Tipax,Tipax,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,2 years ago
+19,google_maps,Tipax,Tipax,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,Edited 7 years ago
+20,google_maps,Tipax,Tipax,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,2 years ago
+21,google_maps,Tipax,tipax,NULL,همدان,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+22,google_maps,Tipax,tipax,NULL,همدان,2.0,Negative,Disappointed,Other,Medium,80,7 months ago
+23,google_maps,Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,Negative,Angry,Mobile App,High,90,3 years ago
+24,google_maps,Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,Negative,Angry,Pricing,High,90,2 years ago
+25,google_maps,Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,Negative,Angry,Other,High,90,3 years ago
+26,google_maps,Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,Negative,Angry,Other,High,100,9 months ago
+27,google_maps,Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,Negative,Angry,Other,High,80,Edited 2 years ago
+28,google_maps,Tipax,تیپاکس,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,90,a year ago
+29,google_maps,Tipax,تیپاکس,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,90,2 months ago
+30,google_maps,Tipax,تیپاکس,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,4 years ago
+31,google_maps,Tipax,تیپاکس,NULL,خراسان شمالی,4.0,Negative,Disappointed,Other,Medium,90,3 years ago
+32,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,90,7 months ago
+33,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,3 years ago
+34,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,2 years ago
+35,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,100,7 months ago
+36,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+37,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,100,2 years ago
+38,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,3 years ago
+39,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+40,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+41,google_maps,Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,Edited 2 years ago
+42,google_maps,Tipax,تیپاکس فیاض بخش,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+43,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,100,Edited 5 months ago
+44,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,7 months ago
+45,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,90,a year ago
+46,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Pricing,High,100,a year ago
+47,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+48,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,100,11 months ago
+49,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+50,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,9 months ago
+51,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,10 months ago
+52,google_maps,Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,4.0,Positive,Satisfied,Other,Low,80,6 months ago
+53,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Other,High,100,2 years ago
+54,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Delay,High,100,6 months ago
+55,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Other,High,90,a month ago
+56,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Pricing,High,90,a year ago
+57,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Delay,High,100,a year ago
+58,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,1.0,Negative,Angry,Other,High,80,6 months ago
+59,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,2 years ago
+60,google_maps,Tipax,تیپاکس ملاصدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,70,a year ago
+61,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Delay,High,100,7 months ago
+62,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Mobile App,High,90,a year ago
+63,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+64,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Delay,High,90,a year ago
+65,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Other,High,100,a year ago
+66,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Pricing,High,90,a year ago
+67,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Other,High,100,6 months ago
+68,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,5.0,Positive,Happy,Other,Low,100,8 months ago
+69,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,1.0,Negative,Angry,Other,High,90,9 months ago
+70,google_maps,Tipax,تیپاکس قم| مرکزی,NULL,قم,3.0,Neutral,Satisfied,Other,Low,70,7 months ago
+71,google_maps,Tipax,تیپاکس خواجو اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Tracking,High,90,7 months ago
+72,google_maps,Tipax,تیپاکس وحدت,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+73,google_maps,Tipax,تیپاکس وحدت,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,80,5 years ago
+74,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+75,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,100,a year ago
+76,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Pricing,High,100,2 years ago
+77,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,2 years ago
+78,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,90,9 months ago
+79,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,5.0,Negative,Disappointed,Other,Medium,100,Edited a year ago
+80,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,2 years ago
+81,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,3 years ago
+82,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,a year ago
+83,google_maps,Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,3 years ago
+84,google_maps,Tipax,تیپاکس امام خمینی,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,2 years ago
+85,google_maps,Tipax,تیپاکس نقش جهان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,2 years ago
+86,google_maps,Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,1.0,Negative,Angry,Other,High,90,a week ago
+87,google_maps,Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+88,google_maps,Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,1.0,Negative,Angry,Pricing,High,80,3 years ago
+89,google_maps,Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,1.0,Negative,Angry,Delay,High,80,8 years ago
+90,google_maps,Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a week ago
+91,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+92,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Delay,High,100,2 years ago
+93,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,100,5 years ago
+94,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+95,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,80,9 months ago
+96,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,80,4 years ago
+97,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,80,4 years ago
+98,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,5.0,Positive,Happy,Other,Low,80,4 years ago
+99,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+100,google_maps,Tipax,تیپاکس آرژانتین,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+101,google_maps,Tipax,تیپاکس سبلان,تهران,تهران,1.0,Negative,Angry,Delay,High,100,a year ago
+102,google_maps,Tipax,تیپاکس سبلان,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,a year ago
+103,google_maps,Tipax,تیپاکس سبلان,تهران,تهران,1.0,Negative,Angry,Tracking,High,90,a year ago
+104,google_maps,Tipax,تیپاکس سبلان,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+105,google_maps,Tipax,تیپاکس سبلان,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2 weeks ago
+106,google_maps,Tipax,مرکزی تیپاکس,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,11 months ago
+107,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Lost Package,High,100,Edited 6 years ago
+108,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,5.0,Positive,Happy,Other,Low,80,2 years ago
+109,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Staff Behavior,High,90,6 years ago
+110,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,5.0,Positive,Happy,Other,Low,100,5 months ago
+111,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Other,High,100,9 months ago
+112,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Other,High,90,5 years ago
+113,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Delay,High,100,6 years ago
+114,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,1.0,Negative,Angry,Other,High,80,7 years ago
+115,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,5.0,Positive,Happy,Other,Low,70,6 years ago
+116,google_maps,Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,5.0,Positive,Happy,Other,Low,70,Edited 2 years ago
+117,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Other,High,100,2 years ago
+118,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Staff Behavior,High,90,a month ago
+119,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Lost Package,High,100,Edited 3 years ago
+120,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Other,High,100,3 years ago
+121,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Delay,High,90,4 years ago
+122,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,1.0,Negative,Angry,Other,High,80,8 months ago
+123,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,5.0,Positive,Happy,Other,Low,70,2 years ago
+124,google_maps,Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,5.0,Positive,Happy,Other,Low,80,4 years ago
+125,google_maps,Tipax,اکسس پوینت تیپاکس شیراز خیابان فلاح,NULL,فارس,5.0,Positive,Happy,Other,Low,70,2 years ago
+126,google_maps,Tipax,تیپاکس قادرآباد,Qaderabad,Boulevard Imam,1.0,Negative,Angry,Staff Behavior,High,100,5 months ago
+127,google_maps,Tipax,تیپاکس قادرآباد,Qaderabad,Boulevard Imam,5.0,Positive,Happy,Other,Low,80,3 years ago
+128,google_maps,Tipax,تیپاکس سمیرم,اصفهان,اصفهان,3.0,Neutral,Satisfied,Other,Low,80,a year ago
+129,google_maps,Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+130,google_maps,Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,Negative,Angry,Mobile App,High,90,11 months ago
+131,google_maps,Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+132,google_maps,Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,2 years ago
+133,google_maps,Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,a year ago
+134,google_maps,Tipax,تیپاکس آریا,اصفهان,اصفهان,2.0,Negative,Disappointed,Lost Package,High,90,a year ago
+135,google_maps,Tipax,تیپاکس آریا,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,8 months ago
+136,google_maps,Tipax,تیپاکس آریا,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+137,google_maps,Tipax,تیپاکس محله کوجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+138,google_maps,Tipax,تیپاکس محله کوجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+139,google_maps,Tipax,تیپاکس محله کوجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,2 years ago
+140,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,100,2 years ago
+141,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+142,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,3 years ago
+143,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Damaged Package,High,100,3 years ago
+144,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+145,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Pricing,High,90,a year ago
+146,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,4.0,Positive,Satisfied,Other,Low,80,a year ago
+147,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,80,a year ago
+148,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,a year ago
+149,google_maps,Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,3 months ago
+150,google_maps,Tipax,تیپاکس مشتاق,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,9 months ago
+151,google_maps,Tipax,تیپاکس مشتاق,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+152,google_maps,Tipax,تیپاکس مشتاق,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+153,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,1.0,Negative,Angry,Other,High,90,3 years ago
+154,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,1.0,Negative,Angry,Damaged Package,High,100,5 years ago
+155,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,1.0,Negative,Angry,Other,High,90,5 years ago
+156,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+157,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,3.0,Positive,Satisfied,Other,Low,100,3 years ago
+158,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+159,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,70,6 years ago
+160,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,1.0,Negative,Angry,Other,High,80,6 years ago
+161,google_maps,Tipax,تیپاکس نازی آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+162,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Positive,Satisfied,Other,High,90,7 months ago
+163,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Other,High,90,a year ago
+164,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Delay,High,100,a year ago
+165,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Pricing,High,90,Edited a year ago
+166,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Other,High,90,2 years ago
+167,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Other,High,100,9 months ago
+168,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,5.0,Positive,Happy,Other,Low,80,3 years ago
+169,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Other,High,90,a year ago
+170,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,1.0,Negative,Angry,Other,High,90,5 months ago
+171,google_maps,Tipax,تیپاکس گلستان,NULL,گلستان,5.0,Positive,Happy,Other,Low,80,3 years ago
+172,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Pricing,High,90,3 years ago
+173,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Staff Behavior,High,100,4 years ago
+174,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Other,High,90,3 years ago
+175,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Other,High,90,4 years ago
+176,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Lost Package,High,90,7 months ago
+177,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,5.0,Positive,Happy,Other,Low,70,3 years ago
+178,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,2 years ago
+179,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Mobile App,High,80,2 years ago
+180,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Positive,Satisfied,Other,High,90,a year ago
+181,google_maps,Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.0,Negative,Angry,Other,High,80,7 months ago
+182,google_maps,Tipax,تیپاکس خمینی شهر همایون,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,11 months ago
+183,google_maps,Tipax,تیپاکس خمینی شهر همایون,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,100,6 months ago
+184,google_maps,Tipax,تیپاکس خمینی شهر همایون,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+185,google_maps,Tipax,تیپاکس خمینی شهر همایون,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+186,google_maps,Tipax,تیپاکس آزادشهر,NULL,یزد,1.0,Negative,Angry,Other,High,90,7 months ago
+187,google_maps,Tipax,تیپاکس آزادشهر,NULL,یزد,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+188,google_maps,Tipax,تیپاکس آزادشهر,NULL,یزد,5.0,Positive,Happy,Other,Low,80,5 months ago
+189,google_maps,Tipax,تیپاکس ورزنه,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,2 years ago
+190,google_maps,Tipax,تیپاکس هرات,NULL,یزد,5.0,Positive,Happy,Other,Low,80,3 years ago
+191,google_maps,Tipax,انبار تیپاکس,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+192,google_maps,Tipax,انبار تیپاکس,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,4 years ago
+193,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,90,a year ago
+194,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,3 years ago
+195,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Customer Support,High,90,2 years ago
+196,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Customer Support,High,100,a year ago
+197,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Tracking,High,90,4 years ago
+198,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,a year ago
+199,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,3 years ago
+200,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,4 years ago
+201,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,2 years ago
+202,google_maps,Tipax,TIPAX,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+203,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,4.0,Positive,Satisfied,Other,Low,90,7 years ago
+204,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Negative,Disappointed,Other,Medium,100,3 years ago
+205,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,2.0,Negative,Disappointed,Other,Medium,90,6 years ago
+206,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,100,4 years ago
+207,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,6 years ago
+208,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,6 years ago
+209,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,2 years ago
+210,google_maps,Tipax,تیپاکس نورآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,70,3 years ago
+211,google_maps,Tipax,اکسس پوینت تیپاکس ابوذر غفاری,شیراز,فارس,4.0,Negative,Disappointed,Pricing,Medium,100,2 years ago
+212,google_maps,Tipax,اکسس پوینت تیپاکس ابوذر غفاری,شیراز,فارس,5.0,Positive,Happy,Other,Low,80,9 months ago
+213,google_maps,Tipax,تیپاکس شاهپور جدید,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,a week ago
+214,google_maps,Tipax,تیپاکس زینبیه,اصفهان,اصفهان,2.0,Negative,Disappointed,Other,Medium,80,2 years ago
+215,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+216,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,5.0,Positive,Happy,Other,Low,90,2 years ago
+217,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+218,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+219,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+220,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+221,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+222,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+223,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,1.0,Negative,Angry,Other,High,90,10 months ago
+224,google_maps,Tipax,تیپاکس قرچک,تهران,تهران,2.0,Negative,Disappointed,Other,Medium,90,7 months ago
+225,google_maps,Tipax,تیپاکس سمن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,7 months ago
+226,google_maps,Tipax,تیپاکس سمن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,a month ago
+227,google_maps,Tipax,تیپاکس هرند,اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,80,7 months ago
+228,google_maps,Tipax,تیپاکس خوراسگان(نیک پور),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+229,google_maps,Tipax,تیپاکس خوراسگان(نیک پور),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,7 months ago
+230,google_maps,Tipax,تیپاکس خوراسگان(نیک پور),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,10 months ago
+231,google_maps,Tipax,تیپاکس خوراسگان(نیک پور),اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+232,google_maps,Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,100,Edited a month ago
+233,google_maps,Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,90,11 months ago
+234,google_maps,Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,11 months ago
+235,google_maps,Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,a year ago
+236,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,3.0,Positive,Disappointed,Other,Low,100,4 years ago
+237,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Pricing,High,90,a year ago
+238,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,100,7 months ago
+239,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,100,3 years ago
+240,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,100,6 months ago
+241,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,90,a year ago
+242,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Pricing,High,100,2 years ago
+243,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,90,8 months ago
+244,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.0,Negative,Angry,Other,High,90,5 months ago
+245,google_maps,Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,5.0,Positive,Happy,Other,Low,90,9 months ago
+246,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,1.0,Negative,Angry,Pricing,High,100,11 months ago
+247,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,1.0,Negative,Angry,Other,High,90,7 months ago
+248,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,90,5 months ago
+249,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,80,2 years ago
+250,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,70,2 years ago
+251,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,70,2 years ago
+252,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,80,3 years ago
+253,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,70,10 months ago
+254,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,70,2 years ago
+255,google_maps,Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,5.0,Positive,Happy,Other,Low,80,3 years ago
+256,google_maps,Tipax,تیپاکس آبشار (شرق اصفهان ),اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,10 months ago
+257,google_maps,Tipax,تیپاکس آبشار (شرق اصفهان ),اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,80,9 months ago
+258,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Pricing,High,90,2 weeks ago
+259,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Other,High,90,8 months ago
+260,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Other,High,90,a week ago
+261,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Other,High,100,a year ago
+262,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,5.0,Positive,Happy,Other,Low,80,a year ago
+263,google_maps,Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Other,High,80,7 months ago
+264,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,4 years ago
+265,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,2 years ago
+266,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,3 years ago
+267,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,2 years ago
+268,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,5.0,Negative,Disappointed,Other,Medium,90,2 months ago
+269,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,3 years ago
+270,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,3 years ago
+271,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,a year ago
+272,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,8 months ago
+273,google_maps,Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,2 weeks ago
+274,google_maps,Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a month ago
+275,google_maps,Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,a year ago
+276,google_maps,Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,8 months ago
+277,google_maps,Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,10 months ago
+278,google_maps,Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,8 months ago
+279,google_maps,Tipax,تیپاکس شهرک صنعتی,NULL,یزد,4.0,Positive,Satisfied,Other,Low,80,7 months ago
+280,google_maps,Tipax,تیپاکس عبدالرزاق,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a month ago
+281,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,10 months ago
+282,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Damaged Package,High,90,11 months ago
+283,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Damaged Package,High,90,a year ago
+284,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+285,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,11 months ago
+286,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,a year ago
+287,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,2.0,Negative,Disappointed,Other,Medium,80,4 years ago
+288,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,80,5 years ago
+289,google_maps,Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+290,google_maps,Tipax,تیپاکس صنعت,اصفهان,اصفهان,1.0,Negative,Angry,Mobile App,High,100,a year ago
+291,google_maps,Tipax,تیپاکس چهلستون,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,90,5 months ago
+292,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Positive,Happy,Other,Low,90,4 years ago
+293,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Negative,Disappointed,Staff Behavior,Medium,100,4 years ago
+294,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,1.0,Negative,Angry,Other,High,90,4 years ago
+295,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Negative,Disappointed,Other,Medium,100,4 years ago
+296,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Positive,Happy,Other,Low,90,4 years ago
+297,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,3 years ago
+298,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,4.0,Positive,Satisfied,Other,Low,70,4 years ago
+299,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Positive,Happy,Other,Low,70,4 years ago
+300,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,5.0,Positive,Happy,Other,Low,70,4 years ago
+301,google_maps,Tipax,تیپاکس فاطمی,تهران,تهران,1.0,Negative,Angry,Other,High,80,3 years ago
+302,google_maps,Tipax,تیپاکس نواب,تهران,تهران,1.0,Negative,Angry,Other,High,90,10 months ago
+303,google_maps,Tipax,تیپاکس نواب,تهران,تهران,1.0,Negative,Angry,Other,High,100,8 months ago
+304,google_maps,Tipax,تیپاکس نواب,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,a year ago
+305,google_maps,Tipax,تیپاکس شادمان,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+306,google_maps,Tipax,تیپاکس شادمان,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+307,google_maps,Tipax,تیپاکس شادمان,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+308,google_maps,Tipax,تیپاکس شادمان,تهران,تهران,1.0,Negative,Angry,Other,High,80,2 years ago
+309,google_maps,Tipax,تیپاکس شادمان,تهران,تهران,5.0,Positive,Happy,Other,Low,70,3 years ago
+310,google_maps,Tipax,تیپاکس تهرانسر,تهران,تهران,1.0,Negative,Angry,Other,High,100,a year ago
+311,google_maps,Tipax,تیپاکس تهرانسر,تهران,تهران,5.0,Positive,Happy,Other,Low,90,a year ago
+312,google_maps,Tipax,تیپاکس تهرانسر,تهران,تهران,1.0,Negative,Angry,Lost Package,High,90,a year ago
+313,google_maps,Tipax,تیپاکس تهرانسر,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+314,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,1.0,Negative,Angry,Delay,High,90,10 months ago
+315,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,8 months ago
+316,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+317,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+318,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,3.0,Positive,Satisfied,Other,Low,90,3 years ago
+319,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,2.0,Positive,Satisfied,Other,Low,90,4 years ago
+320,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+321,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+322,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,4 years ago
+323,google_maps,Tipax,تیپاکس عباس آباد,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,a year ago
+324,google_maps,Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,90,2 years ago
+325,google_maps,Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+326,google_maps,Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,4 years ago
+327,google_maps,Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,تهران,تهران,5.0,Positive,Happy,Other,Low,80,4 years ago
+328,google_maps,Tipax,تیپاکس بهمنیار,تهران,تهران,2.0,Negative,Frustrated,Delay,High,90,6 months ago
+329,google_maps,Tipax,Gisha,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+330,google_maps,Tipax,تیپاکس افسریه,تهران,تهران,1.0,Negative,Angry,Delay,High,90,5 years ago
+331,google_maps,Tipax,تیپاکس افسریه,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+332,google_maps,Tipax,تیپاکس افسریه,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+333,google_maps,Tipax,تیپاکس افسریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+334,google_maps,Tipax,تیپاکس افسریه,تهران,تهران,5.0,Positive,Happy,Other,Low,90,2 years ago
+335,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,1.0,Negative,Angry,Mobile App,High,100,2 years ago
+336,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2 weeks ago
+337,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,5.0,Positive,Happy,Other,Low,90,2 years ago
+338,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,1.0,Negative,Angry,Mobile App,High,90,5 years ago
+339,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,5.0,Positive,Happy,Other,Low,90,5 years ago
+340,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+341,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+342,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+343,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,4.0,Positive,Satisfied,Other,Low,90,2 years ago
+344,google_maps,Tipax,تیپاکس حکیمیه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,3 years ago
+345,google_maps,Tipax,تیپاکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,90,3 years ago
+346,google_maps,Tipax,تیپاکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,70,3 years ago
+347,google_maps,Tipax,تیپاکس فلکه اول تهرانپارس,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,a month ago
+348,google_maps,Tipax,تیپاکس فلکه اول تهرانپارس,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,a year ago
+349,google_maps,Tipax,تیپاکس فلکه اول تهرانپارس,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+350,google_maps,Tipax,تیپاکس فلکه اول تهرانپارس,تهران,تهران,5.0,Positive,Happy,Other,Low,70,8 months ago
+351,google_maps,Tipax,تیپاکس خاوران,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+352,google_maps,Tipax,تیپاکس خاوران,تهران,تهران,5.0,Positive,Happy,Other,Low,70,6 months ago
+353,google_maps,Tipax,تیپاکس خاوران,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+354,google_maps,Tipax,تیپاکس مجتمع تجاری امال,تهران,تهران,5.0,Positive,Happy,Other,Low,80,8 months ago
+355,google_maps,Tipax,تیپاکس مجتمع تجاری امال,تهران,تهران,5.0,Negative,Disappointed,Other,Medium,90,8 months ago
+356,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,1.0,Negative,Angry,Delay,High,90,a month ago
+357,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,1.0,Negative,Angry,Other,High,90,3 years ago
+358,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,1.0,Negative,Angry,Other,High,100,2 years ago
+359,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,1.0,Negative,Angry,Mobile App,High,100,3 years ago
+360,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,5.0,Positive,Happy,Other,Low,80,2 years ago
+361,google_maps,Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,5.0,Positive,Happy,Other,Low,80,3 years ago
+362,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+363,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,1.0,Negative,Angry,Other,High,100,2 years ago
+364,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,6 years ago
+365,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,2 years ago
+366,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,4 years ago
+367,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,6 months ago
+368,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,4.0,Positive,Satisfied,Other,Low,70,Edited 4 years ago
+369,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,1.0,Positive,Satisfied,Other,High,80,2 years ago
+370,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,2 years ago
+371,google_maps,Tipax,تیپاکس چهاردانگه,تهران,تهران,3.0,Positive,Satisfied,Other,Low,80,7 years ago
+372,google_maps,Tipax,تیپاکس فلاح,تهران,تهران,5.0,Positive,Happy,Other,Low,90,a year ago
+373,google_maps,Tipax,تیپاکس فلاح,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+374,google_maps,Tipax,تیپاکس فلاح,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+375,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,10 months ago
+376,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Customer Support,High,100,a year ago
+377,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,a year ago
+378,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+379,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+380,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+381,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,100,Edited 8 months ago
+382,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+383,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+384,google_maps,Tipax,تیپاکس مشیریه,تهران,تهران,5.0,Positive,Happy,Other,Low,70,2 years ago
+385,google_maps,Tipax,تیپاکس (پیروزی-نیروهوایی),تهران,تهران,1.0,Negative,Angry,Mobile App,High,90,9 months ago
+386,google_maps,Tipax,تیپاکس (پیروزی-نیروهوایی),تهران,تهران,5.0,Positive,Happy,Other,Low,90,6 months ago
+387,google_maps,Tipax,تیپاکس (پیروزی-نیروهوایی),تهران,تهران,5.0,Positive,Happy,Other,Low,90,a year ago
+388,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Damaged Package,High,90,3 years ago
+389,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,10 months ago
+390,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+391,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Delay,High,80,a year ago
+392,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Other,High,80,4 years ago
+393,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,1.0,Negative,Angry,Other,High,80,3 years ago
+394,google_maps,Tipax,تیپاکس راه آهن,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+395,google_maps,Tipax,تیپاکس یاس,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+396,google_maps,Tipax,تیپاکس یاس,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+397,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Lost Package,High,90,2 years ago
+398,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+399,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Other,High,90,3 years ago
+400,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Delay,High,90,5 months ago
+401,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+402,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+403,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Other,High,80,8 months ago
+404,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Other,High,80,3 years ago
+405,google_maps,Tipax,تیپاکس واوان تهران,تهران,تهران,1.0,Negative,Angry,Pricing,High,80,a year ago
+406,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,11 months ago
+407,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+408,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,80,9 months ago
+409,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Negative,Angry,Other,High,80,7 months ago
+410,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Positive,Satisfied,Other,High,80,a year ago
+411,google_maps,Tipax,تیپاکس پونک,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+412,google_maps,Tipax,30 Metri Jey Branch,تهران,تهران,1.0,Negative,Angry,Other,High,100,a year ago
+413,google_maps,Tipax,تیپاکس کن,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,a year ago
+414,google_maps,Tipax,تیپاکس کن,تهران,تهران,5.0,Positive,Happy,Other,Low,90,3 years ago
+415,google_maps,Tipax,تیپاکس کن,تهران,تهران,5.0,Positive,Happy,Other,Low,80,3 years ago
+416,google_maps,Tipax,تیپاکس تجریش,Tajrish,Fowqani,5.0,Positive,Happy,Other,Low,70,6 months ago
+417,google_maps,Tipax,سرویس پوینت تیپاکس صوراسرافیل,تهران,تهران,1.0,Positive,Satisfied,Other,High,100,a year ago
+418,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,3 years ago
+419,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Delay,High,100,6 years ago
+420,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,2.0,Negative,Disappointed,Other,Medium,100,10 months ago
+421,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+422,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Other,High,100,5 years ago
+423,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Other,High,100,5 years ago
+424,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,2.0,Negative,Disappointed,Delay,High,100,2 years ago
+425,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,5.0,Positive,Happy,Other,Low,90,6 years ago
+426,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,1.0,Negative,Angry,Other,High,90,3 years ago
+427,google_maps,Tipax,تیپاکس مهرشهر,تهران,تهران,5.0,Positive,Happy,Other,Low,80,5 years ago
+428,google_maps,Tipax,تیپاکس قلمستان,کرج,البرز,1.0,Negative,Angry,Other,High,90,a month ago
+429,google_maps,Tipax,تیپاکس قلمستان,کرج,البرز,1.0,Negative,Angry,Other,High,100,2 months ago
+430,google_maps,Tipax,تیپاکس گوهردشت,کرج,البرز,3.0,Positive,Satisfied,Other,Low,100,5 months ago
+431,google_maps,Tipax,تیپاکس مهرویلا,NULL,البرز,1.0,Positive,Satisfied,Other,High,100,2 months ago
+432,google_maps,Tipax,تیپاکس مهرویلا,NULL,البرز,5.0,Positive,Happy,Other,Low,80,7 months ago
+433,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Positive,Satisfied,Other,High,90,3 years ago
+434,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,90,a year ago
+435,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Delay,High,90,a year ago
+436,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,100,2 years ago
+437,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,90,10 months ago
+438,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,90,2 years ago
+439,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,90,2 years ago
+440,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Staff Behavior,High,80,3 years ago
+441,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Staff Behavior,High,80,3 years ago
+442,google_maps,Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,Negative,Angry,Other,High,80,2 years ago
+443,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+444,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,5.0,Positive,Happy,Other,Low,90,a year ago
+445,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,2.0,Negative,Frustrated,Delay,High,90,2 years ago
+446,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,5.0,Positive,Happy,Other,Low,80,2 years ago
+447,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,1.0,Negative,Angry,Other,High,90,2 years ago
+448,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,5.0,Positive,Happy,Other,Low,90,2 years ago
+449,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,1.0,Negative,Angry,Other,High,80,2 years ago
+450,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,5.0,Positive,Happy,Other,Low,80,a year ago
+451,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,4.0,Positive,Satisfied,Other,Low,80,2 years ago
+452,google_maps,Tipax,تیپاکس کیانمهر,کرج,البرز,5.0,Positive,Happy,Other,Low,80,a year ago
+453,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Staff Behavior,High,90,9 months ago
+454,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Delay,High,90,a year ago
+455,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Other,High,90,a year ago
+456,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Other,High,90,a year ago
+457,google_maps,Tipax,تیپاکس مهستان,ری,البرز,5.0,Positive,Happy,Other,Low,90,6 months ago
+458,google_maps,Tipax,تیپاکس مهستان,ری,البرز,5.0,Positive,Happy,Other,Low,90,11 months ago
+459,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Other,High,90,9 months ago
+460,google_maps,Tipax,تیپاکس مهستان,ری,البرز,1.0,Negative,Angry,Other,High,90,5 months ago
+461,google_maps,Tipax,تیپاکس مهستان,ری,البرز,4.0,Positive,Satisfied,Other,Low,80,6 months ago
+462,google_maps,Tipax,تیپاکس مهستان,ری,البرز,2.0,Positive,Satisfied,Other,Low,80,a month ago
+463,google_maps,Tipax,تیپاکس باغستان,تهران,تهران,1.0,Negative,Angry,Other,High,80,2 years ago
+464,google_maps,Tipax,تیپاکس باغستان,تهران,تهران,1.0,Negative,Angry,Delay,High,80,2 years ago
+465,google_maps,Tipax,تیپاکس باغستان,تهران,تهران,1.0,Negative,Angry,Other,High,80,9 months ago
+466,google_maps,Tipax,تیپاکس باغستان,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+467,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,5.0,Positive,Happy,Other,Low,100,5 years ago
+468,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,90,a year ago
+469,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Staff Behavior,High,90,11 months ago
+470,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,90,3 years ago
+471,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,80,a year ago
+472,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,90,3 years ago
+473,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,80,a year ago
+474,google_maps,Tipax,تیپاکس هشتگرد,NULL,البرز,1.0,Negative,Angry,Other,High,80,a year ago
+475,google_maps,Tipax,تیپاکس اشتهارد,NULL,البرز,1.0,Positive,Satisfied,Other,High,90,11 months ago
+476,google_maps,Tipax,تیپاکس اشتهارد,NULL,البرز,1.0,Negative,Angry,Staff Behavior,High,100,2 years ago
+477,google_maps,Tipax,تیپاکس اشتهارد,NULL,البرز,2.0,Negative,Disappointed,Staff Behavior,Medium,90,4 years ago
+478,google_maps,Tipax,تیپاکس اشتهارد,NULL,البرز,1.0,Negative,Angry,Other,High,80,2 years ago
+479,google_maps,Tipax,تیپاکس اشتهارد,NULL,البرز,5.0,Positive,Happy,Other,Low,80,3 years ago
+480,google_maps,Tipax,اصفهان خواجو,اصفهان,اصفهان,1.0,Negative,Angry,Customer Support,High,100,a year ago
+481,google_maps,Tipax,اصفهان خواجو,اصفهان,اصفهان,1.0,Positive,Satisfied,Other,High,90,a year ago
+482,google_maps,Tipax,اصفهان خواجو,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,a year ago
+483,google_maps,Tipax,تیپاکس اصفهان رباط,اصفهان,اصفهان,1.0,Negative,Angry,Tracking,High,90,11 months ago
+484,google_maps,Tipax,تیپاکس باغ غدیر,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,5 months ago
+485,google_maps,Tipax,تیپاکس باغ غدیر,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,a year ago
+486,google_maps,Tipax,تیپاکس باغ غدیر,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,9 months ago
+487,google_maps,Tipax,پیشخوان و تیپاکس,اصفهان,اصفهان,4.0,Positive,Satisfied,Other,Low,80,a year ago
+488,google_maps,Tipax,پیشخوان و تیپاکس,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+489,google_maps,Tipax,Tayeb -Shams Abadi- Taleghani,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,6 years ago
+490,google_maps,Tipax,Tayeb -Shams Abadi- Taleghani,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,8 years ago
+491,google_maps,Tipax,Tayeb -Shams Abadi- Taleghani,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,8 years ago
+492,google_maps,Tipax,Tayeb -Shams Abadi- Taleghani,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,7 years ago
+493,google_maps,Tipax,تیپاکس شهرک صنعتی جی,اصفهان,اصفهان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+494,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,a year ago
+495,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,100,a year ago
+496,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,90,4 years ago
+497,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,3 years ago
+498,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,Edited 7 years ago
+499,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,4 years ago
+500,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,4 years ago
+501,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,2.0,Positive,Satisfied,Other,Low,80,4 years ago
+502,google_maps,Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,7 months ago
+503,google_maps,Tipax,تیپاکس مجتمع خلیج فارس,NULL,فارس,5.0,Positive,Happy,Other,Low,80,a year ago
+504,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Delay,High,90,7 months ago
+505,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,90,2 years ago
+506,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,100,a year ago
+507,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Delay,High,90,2 years ago
+508,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,100,11 months ago
+509,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,100,a year ago
+510,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,90,a year ago
+511,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Positive,Satisfied,Other,High,90,a year ago
+512,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,100,9 months ago
+513,google_maps,Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,Negative,Angry,Other,High,100,6 months ago
+514,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,7 months ago
+515,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,7 months ago
+516,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,7 months ago
+517,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,90,7 months ago
+518,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,7 months ago
+519,google_maps,Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,Positive,Happy,Other,Low,80,7 months ago
+520,google_maps,Tipax,تیپاکس والفجر,NULL,فارس,4.0,Positive,Satisfied,Other,Low,70,a year ago
+521,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Damaged Package,High,90,11 months ago
+522,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Other,High,90,10 months ago
+523,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Other,High,90,11 months ago
+524,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Staff Behavior,High,90,10 months ago
+525,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Other,High,80,11 months ago
+526,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Other,High,80,8 months ago
+527,google_maps,Tipax,تیپاکس نصر,NULL,فارس,1.0,Negative,Angry,Other,High,80,Edited a year ago
+528,google_maps,Tipax,تی هاب شیراز ( انبار مرکزی تیپاکس ),اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,5 months ago
+529,google_maps,Tipax,تیپاکس میانرود,NULL,فارس,5.0,Positive,Happy,Other,Low,80,10 months ago
+530,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,1.0,Negative,Angry,Other,High,100,11 months ago
+531,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,1.0,Negative,Angry,Other,High,100,10 months ago
+532,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,1.0,Negative,Angry,Other,High,100,a year ago
+533,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,5.0,Positive,Happy,Other,Low,90,a year ago
+534,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,1.0,Positive,Satisfied,Other,High,90,10 months ago
+535,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,1.0,Negative,Angry,Other,High,80,a year ago
+536,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,3.0,Neutral,Satisfied,Other,Low,70,a week ago
+537,google_maps,Tipax,تیپاکس کازرون,کازرون,فارس,5.0,Positive,Happy,Other,Low,80,a year ago
+538,google_maps,Tipax,تیپاکس فسا سرو,NULL,فارس,5.0,Positive,Happy,Other,Low,100,4 years ago
+539,google_maps,Tipax,تیپاکس فسا سرو,NULL,فارس,5.0,Positive,Happy,Other,Low,90,3 years ago
+540,google_maps,Tipax,تیپاکس فسا سرو,NULL,فارس,5.0,Positive,Happy,Other,Low,80,4 years ago
+541,google_maps,Tipax,تیپاکس فسا سرو,NULL,فارس,5.0,Positive,Happy,Other,Low,70,Edited 4 years ago
+542,google_maps,Tipax,تیپاکس آرین,NULL,فارس,5.0,Positive,Happy,Other,Low,90,Edited a month ago
+543,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,1.0,Negative,Angry,Other,High,100,a year ago
+544,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,1.0,Negative,Angry,Mobile App,High,90,3 years ago
+545,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,5.0,Positive,Happy,Other,Low,80,10 months ago
+546,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,5.0,Positive,Happy,Other,Low,70,3 years ago
+547,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,5.0,Positive,Happy,Other,Low,80,5 years ago
+548,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,5.0,Positive,Happy,Other,Low,70,4 years ago
+549,google_maps,Tipax,تیپاکس جهرم,NULL,فارس,5.0,Positive,Happy,Other,Low,70,4 years ago
+550,google_maps,Tipax,تیپاکس فیروزآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,3 years ago
+551,google_maps,Tipax,تیپاکس فیروزآباد,NULL,فارس,5.0,Positive,Happy,Other,Low,80,3 weeks ago
+552,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Pricing,High,90,8 months ago
+553,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Damaged Package,High,90,5 months ago
+554,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Staff Behavior,High,90,7 months ago
+555,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Other,High,90,10 months ago
+556,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Delay,High,90,a year ago
+557,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Damaged Package,High,90,3 years ago
+558,google_maps,Tipax,marvdasht office,NULL,فارس,2.0,Negative,Disappointed,Pricing,Medium,90,2 years ago
+559,google_maps,Tipax,marvdasht office,NULL,فارس,5.0,Positive,Happy,Other,Low,80,4 years ago
+560,google_maps,Tipax,marvdasht office,NULL,فارس,1.0,Negative,Angry,Other,High,80,7 months ago
+561,google_maps,Tipax,marvdasht office,NULL,فارس,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+562,google_maps,Tipax,تیپاکس چهارراه سرداران,NULL,فارس,1.0,Positive,Satisfied,Other,High,100,a year ago
+563,google_maps,Tipax,مشهد فجر تیپاکس,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,80,2 years ago
+564,google_maps,Tipax,مشهد فجر تیپاکس,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,80,2 years ago
+565,google_maps,Tipax,مشهد فجر تیپاکس,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,7 months ago
+566,google_maps,Tipax,تیپاکس شهرک صنعتی کلات,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,90,7 months ago
+567,google_maps,Tipax,تیپاکس شهرک صنعتی کلات,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,a year ago
+568,google_maps,Tipax,تیپاکس شهرک صنعتی کلات,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,2 years ago
+569,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,10 months ago
+570,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,a year ago
+571,google_maps,Tipax,Misaq,NULL,فارس,1.0,Positive,Satisfied,Other,High,90,3 years ago
+572,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,3 years ago
+573,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Delay,High,90,a year ago
+574,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,11 months ago
+575,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,a month ago
+576,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Mobile App,High,90,2 years ago
+577,google_maps,Tipax,Misaq,NULL,فارس,1.0,Negative,Angry,Other,High,90,a year ago
+578,google_maps,Tipax,Misaq,NULL,فارس,4.0,Positive,Satisfied,Other,Low,90,2 years ago
+579,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,2 years ago
+580,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,3 years ago
+581,google_maps,Tipax,hemmat,NULL,خراسان رضوی,3.0,Positive,Satisfied,Other,Low,100,Edited 5 years ago
+582,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,100,3 years ago
+583,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,5 years ago
+584,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,a year ago
+585,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,100,a year ago
+586,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,100,2 years ago
+587,google_maps,Tipax,hemmat,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,3 years ago
+588,google_maps,Tipax,hemmat,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,6 years ago
+589,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Delay,High,90,a year ago
+590,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Positive,Satisfied,Other,High,90,a year ago
+591,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Delay,High,90,2 weeks ago
+592,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Mobile App,High,90,a year ago
+593,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Pricing,High,90,5 months ago
+594,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,100,a week ago
+595,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,90,a year ago
+596,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,100,a week ago
+597,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,90,7 months ago
+598,google_maps,Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,11 months ago
+599,google_maps,Tipax,تیپاکس شاملو - قاسم آباد,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,a month ago
+600,google_maps,Tipax,تی هاب مشهد,مشهد,مرکزی,2.0,Positive,Satisfied,Other,Low,80,7 months ago
+601,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,5.0,Positive,Happy,Other,Low,90,3 years ago
+602,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1.0,Negative,Angry,Pricing,High,90,4 years ago
+603,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1.0,Negative,Angry,Other,High,100,a year ago
+604,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1.0,Negative,Angry,Pricing,High,90,2 years ago
+605,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1.0,Negative,Angry,Other,High,90,2 years ago
+606,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,5.0,Positive,Happy,Other,Low,90,a year ago
+607,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1.0,Negative,Angry,Other,High,100,3 years ago
+608,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,2.0,Negative,Disappointed,Other,Medium,90,3 years ago
+609,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,5.0,Positive,Happy,Other,Low,70,3 years ago
+610,google_maps,Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,3.0,Positive,Satisfied,Other,Low,80,2 years ago
+611,google_maps,Tipax,تی هاب مشهد(انبار مرکزی تیپاکس مشهد),مشهد,مرکزی,1.0,Negative,Angry,Other,High,90,9 months ago
+612,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,90,a year ago
+613,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+614,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,a year ago
+615,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,a year ago
+616,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,a year ago
+617,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,a year ago
+618,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,90,a year ago
+619,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Negative,Angry,Other,High,80,a year ago
+620,google_maps,Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.0,Positive,Satisfied,Other,High,80,Edited a year ago
+621,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,a year ago
+622,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,90,3 years ago
+623,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,100,3 days ago
+624,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,1.0,Positive,Satisfied,Other,High,90,3 years ago
+625,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,80,2 years ago
+626,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,3 years ago
+627,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,3 years ago
+628,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,2 years ago
+629,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,3 years ago
+630,google_maps,Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,3 years ago
+631,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,90,8 months ago
+632,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,100,2 years ago
+633,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,90,2 years ago
+634,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Delay,High,100,3 years ago
+635,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,90,3 years ago
+636,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Pricing,High,80,2 years ago
+637,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,5 years ago
+638,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,2 years ago
+639,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,2.0,Negative,Disappointed,Delay,High,80,4 years ago
+640,google_maps,Tipax,: Kashmar Branch,NULL,خراسان رضوی,1.0,Negative,Angry,Other,High,90,3 years ago
+641,google_maps,Tipax,تیپاکس زرگران,NULL,خراسان رضوی,4.0,Positive,Satisfied,Other,Low,70,a year ago
+642,google_maps,Tipax,تیپاکس قوچان,قوچان,Hafez St,5.0,Positive,Happy,Other,Low,80,4 years ago
+643,google_maps,Tipax,تیپاکس قوچان,قوچان,Hafez St,5.0,Positive,Happy,Other,Low,80,3 years ago
+644,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,3 years ago
+645,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,2 years ago
+646,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Delay,High,90,2 years ago
+647,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,10 months ago
+648,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,80,a year ago
+649,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,80,2 years ago
+650,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Staff Behavior,High,80,3 years ago
+651,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+652,google_maps,Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,70,a year ago
+653,google_maps,Tipax,تیپاکس رشدیه,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,90,a year ago
+654,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,90,2 weeks ago
+655,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,7 months ago
+656,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,a year ago
+657,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,a year ago
+658,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,6 months ago
+659,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Angry,Other,High,80,10 months ago
+660,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,5 months ago
+661,google_maps,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,a year ago
+662,google_maps,Tipax,تیپاکس تبریز شهناز,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,5 months ago
+663,google_maps,Tipax,تیپاکس تبریز شهناز,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,5 months ago
+664,google_maps,Tipax,تیپاکس تبریز شهناز,NULL,آذربایجان شرقی,1.0,Negative,Angry,Delay,High,100,5 months ago
+665,google_maps,Tipax,تیپاکس ورزش,NULL,آذربایجان شرقی,1.0,Negative,Angry,Other,High,80,3 weeks ago
+666,google_maps,Tipax,تیپاکس یاغچیان,29HG+JMJ,Basmenj,1.0,Negative,Angry,Delay,High,100,5 months ago
+667,google_maps,Tipax,تیپاکس جلفا,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,3 years ago
+668,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,90,a year ago
+669,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,4.0,Positive,Satisfied,Other,Low,70,7 years ago
+670,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,3.0,Neutral,Frustrated,Other,Low,80,6 years ago
+671,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,a year ago
+672,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,Edited 6 years ago
+673,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,5 years ago
+674,google_maps,Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,4.0,Positive,Satisfied,Other,Low,80,2 years ago
+675,google_maps,Tipax,تیپاکس میانه 2,NULL,آذربایجان شرقی,1.0,Negative,Angry,Pricing,High,90,2 months ago
+676,google_maps,Tipax,تیپاکس میانه 2,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,90,a year ago
+677,google_maps,Tipax,تیپاکس میانه 2,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,3 years ago
+678,google_maps,Tipax,تیپاکس میانه 2,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,70,2 years ago
+679,google_maps,Tipax,تیپاکس چای کنار,NULL,آذربایجان شرقی,1.0,Positive,Satisfied,Other,High,100,2 years ago
+680,google_maps,Tipax,تیپاکس چای کنار,NULL,آذربایجان شرقی,1.0,Negative,Angry,Delay,High,100,5 months ago
+681,google_maps,Tipax,تیپاکس چای کنار,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,70,Edited 2 years ago
+682,google_maps,Tipax,تیپاکس. کجوار-باغمعروف,NULL,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,70,6 months ago
+683,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Positive,Satisfied,Other,High,90,11 months ago
+684,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Negative,Angry,Staff Behavior,High,90,7 months ago
+685,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,8 months ago
+686,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,7 months ago
+687,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,7 months ago
+688,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,11 months ago
+689,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,a year ago
+690,google_maps,Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,8 months ago
+691,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,2.0,Positive,Satisfied,Other,Low,90,4 years ago
+692,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,5 years ago
+693,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,100,5 years ago
+694,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,4 years ago
+695,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,2.0,Negative,Disappointed,Other,Medium,90,4 years ago
+696,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Delay,High,80,2 years ago
+697,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Customer Support,High,80,2 years ago
+698,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,2 years ago
+699,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,5 years ago
+700,google_maps,Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,9 months ago
+701,google_maps,Tipax,تیپاکس تکاب آذربایجان غربی,NULL,آذربایجان غربی,4.0,Positive,Satisfied,Other,Low,80,4 years ago
+702,google_maps,Tipax,تیپاکس مایسا,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,7 months ago
+703,google_maps,Tipax,تیپاکس باهنر,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,a year ago
+704,google_maps,Tipax,تیپاکس باهنر,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,3 years ago
+705,google_maps,Tipax,تیپاکس باهنر,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,3 years ago
+706,google_maps,Tipax,تیپاکس باهنر,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,3 years ago
+707,google_maps,Tipax,تیپاکس - پیرانشهر,ایرانشهر,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,2 years ago
+708,google_maps,Tipax,تیپاکس - پیرانشهر,ایرانشهر,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,4 years ago
+709,google_maps,Tipax,تیپاکس - پیرانشهر,ایرانشهر,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,a year ago
+710,google_maps,Tipax,تیپاکس سلماس,سلماس,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,2 years ago
+711,google_maps,Tipax,تیپاکس سلماس,سلماس,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,2 years ago
+712,google_maps,Tipax,تیپاکس سلماس,سلماس,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,2 years ago
+713,google_maps,Tipax,تیپاکس نقده,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,2 years ago
+714,google_maps,Tipax,تیپاکس نقده,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,2 years ago
+715,google_maps,Tipax,تیپاکس مهاباد مرکزی _ شاهی جان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,100,a year ago
+716,google_maps,Tipax,تیپاکس مهاباد مرکزی _ شاهی جان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,5 months ago
+717,google_maps,Tipax,تیپاکس مهاباد مرکزی _ شاهی جان,NULL,آذربایجان غربی,1.0,Negative,Angry,Other,High,80,2 years ago
+718,google_maps,Tipax,تیپاکس مهاباد مرکزی _ شاهی جان,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,5 years ago
+719,google_maps,Tipax,تیپاکس سردشت,خمین,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,6 years ago
+720,google_maps,Tipax,تیپاکس سردشت,خمین,آذربایجان غربی,5.0,Positive,Happy,Other,Low,80,3 years ago
+721,google_maps,Tipax,تیپاکس سردشت,خمین,آذربایجان غربی,1.0,Negative,Angry,Other,High,90,4 years ago
+722,google_maps,Tipax,تیپاکس اشنویه,NULL,آذربایجان غربی,1.0,Negative,Angry,Damaged Package,High,100,5 months ago
+723,google_maps,Tipax,تیپاکس اشنویه,NULL,آذربایجان غربی,5.0,Positive,Happy,Other,Low,70,6 years ago
+724,google_maps,Tipax,تیپاکس ملکان,ری,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,90,9 months ago
+725,google_maps,Tipax,تیپاکس ملکان,ری,آذربایجان شرقی,1.0,Negative,Angry,Other,High,80,6 years ago
+726,google_maps,Tipax,تیپاکس ملکان,ری,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,7 months ago
+727,google_maps,Tipax,تیپاکس ملکان,ری,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,4 years ago
+728,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,100,a year ago
+729,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+730,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,2 years ago
+731,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+732,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+733,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,2 years ago
+734,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,100,2 years ago
+735,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+736,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,100,3 years ago
+737,google_maps,Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,Negative,Angry,Other,High,80,a year ago
+738,google_maps,Tipax,تیپاکس کارمانیا( ۹),NULL,کرمان,1.0,Negative,Angry,Other,High,90,a month ago
+739,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,1.0,Negative,Angry,Other,High,90,a month ago
+740,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,1.0,Negative,Angry,Mobile App,High,90,4 years ago
+741,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,1.0,Negative,Angry,Staff Behavior,High,80,3 years ago
+742,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,1.0,Negative,Angry,Other,High,80,3 years ago
+743,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,2.0,Negative,Disappointed,Other,Medium,80,2 years ago
+744,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,1.0,Negative,Angry,Other,High,80,3 years ago
+745,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,a year ago
+746,google_maps,Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,3 years ago
+747,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,1.0,Negative,Angry,Other,High,100,7 months ago
+748,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,1.0,Negative,Angry,Pricing,High,90,5 months ago
+749,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,4.0,Positive,Satisfied,Other,Low,80,7 months ago
+750,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,2 years ago
+751,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,5.0,Positive,Happy,Other,Low,70,a month ago
+752,google_maps,Tipax,تیپاکس نگارخانه,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,2 years ago
+753,google_maps,Tipax,تیپاکس بسطامی,NULL,کرمان,5.0,Positive,Happy,Other,Low,70,a year ago
+754,google_maps,Tipax,تیپاکس مهدیه,NULL,کرمان,4.0,Positive,Satisfied,Other,Low,80,a month ago
+755,google_maps,Tipax,تیپاکس مهدیه,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,a year ago
+756,google_maps,Tipax,تیپاکس مهدیه,NULL,کرمان,2.0,Negative,Disappointed,Other,Medium,90,a year ago
+757,google_maps,Tipax,تیپاکس مهدیه,NULL,کرمان,5.0,Positive,Happy,Other,Low,80,a year ago
+758,google_maps,Tipax,تیپاکس تعاون,NULL,کرمان,1.0,Negative,Angry,Staff Behavior,High,90,2 weeks ago
+759,google_maps,Tipax,تیپاکس ۲,NULL,همدان,1.0,Negative,Angry,Mobile App,High,90,Edited 3 years ago
+760,google_maps,Tipax,تیپاکس ۲,NULL,همدان,1.0,Negative,Angry,Pricing,High,90,4 years ago
+761,google_maps,Tipax,تیپاکس ۲,NULL,همدان,1.0,Negative,Angry,Other,High,100,5 years ago
+762,google_maps,Tipax,تیپاکس ۲,NULL,همدان,1.0,Positive,Satisfied,Other,High,80,5 months ago
+763,google_maps,Tipax,تیپاکس ۲,NULL,همدان,5.0,Positive,Happy,Other,Low,70,a year ago
+764,google_maps,Tipax,تیپاکس ۲,NULL,همدان,2.0,Negative,Disappointed,Other,Medium,80,2 years ago
+765,google_maps,Tipax,تیپاکس ۲,NULL,همدان,1.0,Negative,Angry,Other,High,90,4 years ago
+766,google_maps,Tipax,تیپاکس ۲,NULL,همدان,5.0,Positive,Happy,Other,Low,80,3 years ago
+767,google_maps,Tipax,تیپاکس ۲,NULL,همدان,5.0,Positive,Happy,Other,Low,70,5 years ago
+768,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,1.0,Positive,Satisfied,Other,High,90,2 years ago
+769,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,1.0,Positive,Satisfied,Other,High,90,2 years ago
+770,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,5.0,Positive,Happy,Other,Low,80,4 years ago
+771,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,1.0,Negative,Angry,Other,High,80,9 months ago
+772,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,5.0,Positive,Happy,Other,Low,90,3 years ago
+773,google_maps,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,1.0,Negative,Angry,Other,High,80,3 years ago
+774,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Staff Behavior,High,90,2 weeks ago
+775,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,90,2 years ago
+776,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+777,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,90,a year ago
+778,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,80,2 years ago
+779,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,80,2 years ago
+780,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,80,3 years ago
+781,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,1.0,Negative,Angry,Other,High,80,a year ago
+782,google_maps,Tipax,تیپاکس قم نبوت,یزد,یزد,5.0,Positive,Happy,Other,Low,80,4 years ago
+783,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Staff Behavior,High,100,2 months ago
+784,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Positive,Satisfied,Other,High,100,7 months ago
+785,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Tracking,High,90,7 months ago
+786,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Delay,High,90,7 months ago
+787,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Other,High,90,11 months ago
+788,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Other,High,100,5 months ago
+789,google_maps,Tipax,تیپاکس کلهری,NULL,قم,5.0,Positive,Happy,Other,Low,80,a year ago
+790,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Other,High,80,8 months ago
+791,google_maps,Tipax,تیپاکس کلهری,NULL,قم,5.0,Positive,Happy,Other,Low,80,10 months ago
+792,google_maps,Tipax,تیپاکس کلهری,NULL,قم,1.0,Negative,Angry,Other,High,90,a month ago
+793,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Delay,High,100,3 years ago
+794,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Delay,High,100,3 years ago
+795,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Positive,Satisfied,Other,High,100,Edited 3 years ago
+796,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Other,High,90,5 years ago
+797,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Other,High,90,5 years ago
+798,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Other,High,90,4 years ago
+799,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Other,High,100,3 years ago
+800,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Delay,High,90,5 years ago
+801,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Other,High,80,3 years ago
+802,google_maps,Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,Negative,Angry,Delay,High,80,5 years ago
+803,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,1.0,Negative,Angry,Other,High,100,11 months ago
+804,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,1.0,Positive,Frustrated,Other,High,100,4 years ago
+805,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,3.0,Neutral,Satisfied,Other,Low,90,5 months ago
+806,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,1.0,Negative,Angry,Pricing,High,100,3 years ago
+807,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,1.0,Negative,Angry,Other,High,90,7 months ago
+808,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,5.0,Positive,Happy,Other,Low,80,8 months ago
+809,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,1.0,Negative,Angry,Delay,High,90,10 months ago
+810,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,5.0,Positive,Happy,Other,Low,80,2 years ago
+811,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,5.0,Negative,Disappointed,Other,Medium,90,3 years ago
+812,google_maps,Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,5.0,Positive,Happy,Other,Low,80,4 years ago
+813,google_maps,Tipax,تیپاکس الیگودرز,NULL,لرستان,5.0,Positive,Happy,Other,Low,70,a month ago
+814,google_maps,Tipax,تیپاکس خرم آباد افلاک,ری,لرستان,1.0,Negative,Angry,Other,High,90,11 months ago
+815,google_maps,Tipax,تیپاکس خرم آباد افلاک,ری,لرستان,1.0,Negative,Angry,Other,High,80,11 months ago
+816,google_maps,Tipax,تیپاکس کوهدشت,NULL,لرستان,5.0,Positive,Happy,Other,Low,90,6 years ago
+817,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,90,a year ago
+818,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,100,3 years ago
+819,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,100,2 years ago
+820,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,100,6 months ago
+821,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,80,2 years ago
+822,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,80,2 years ago
+823,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,2.0,Negative,Disappointed,Other,Medium,80,3 years ago
+824,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,90,3 years ago
+825,google_maps,Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.0,Negative,Angry,Other,High,80,3 years ago
+826,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,100,a year ago
+827,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,1.0,Positive,Satisfied,Other,High,100,a year ago
+828,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,1.0,Negative,Angry,Other,High,90,8 months ago
+829,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,70,a year ago
+830,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,70,a year ago
+831,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,80,4 years ago
+832,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,80,a year ago
+833,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,70,3 years ago
+834,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,5.0,Positive,Happy,Other,Low,80,2 years ago
+835,google_maps,Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,3.0,Positive,Satisfied,Other,Low,80,a year ago
+836,google_maps,Tipax,تیپاکس 3اهواز,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,7 months ago
+837,google_maps,Tipax,تیپاکس 3اهواز,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,5 years ago
+838,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,100,6 years ago
+839,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,90,7 years ago
+840,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Other,High,100,a year ago
+841,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+842,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Positive,Satisfied,Other,High,90,6 years ago
+843,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+844,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+845,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,100,a year ago
+846,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Positive,Satisfied,Other,High,90,6 years ago
+847,google_maps,Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,Negative,Angry,Other,High,100,3 months ago
+848,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Staff Behavior,High,90,5 years ago
+849,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Other,High,90,3 years ago
+850,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Pricing,High,90,5 years ago
+851,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,4.0,Positive,Satisfied,Other,Low,80,3 years ago
+852,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,5.0,Positive,Happy,Other,Low,80,4 years ago
+853,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Other,High,80,2 years ago
+854,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Other,High,80,a year ago
+855,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Other,High,80,3 years ago
+856,google_maps,Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.0,Negative,Angry,Other,High,80,3 years ago
+857,google_maps,Tipax,تیپاکس سرپرستی اهواز,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+858,google_maps,Tipax,"تیپاکس نیوساید اهواز (,NEWSIDE)",NULL,خوزستان,5.0,Positive,Happy,Other,Low,70,6 months ago
+859,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+860,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,10 months ago
+861,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,11 months ago
+862,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,5.0,Positive,Happy,Other,Low,100,9 months ago
+863,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,a year ago
+864,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,6 months ago
+865,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,2.0,Negative,Disappointed,Other,Medium,80,a year ago
+866,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,a year ago
+867,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,a year ago
+868,google_maps,Tipax,تیپاکس کوی نفت,NULL,خوزستان,1.0,Negative,Angry,Staff Behavior,High,80,8 months ago
+869,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+870,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+871,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+872,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Damaged Package,High,80,10 months ago
+873,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,a year ago
+874,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,5.0,Positive,Happy,Other,Low,70,a year ago
+875,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,3 years ago
+876,google_maps,Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,2 years ago
+877,google_maps,Tipax,تیپاکس کیان آباد_وهابی,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,2 years ago
+878,google_maps,Tipax,تیپاکس پاداد,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+879,google_maps,Tipax,تیپاکس پاداد,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,11 months ago
+880,google_maps,Tipax,تیپاکس پاداد,NULL,خوزستان,5.0,Positive,Happy,Other,Low,70,6 months ago
+881,google_maps,Tipax,تیپاکس پادادشهر,Ahvaz، ‫معلم غربی، 7MRR+6R7,Iran,1.0,Negative,Angry,Other,High,80,a month ago
+882,google_maps,Tipax,تیپاکس اروند ماهشهر,NULL,خوزستان,5.0,Positive,Happy,Other,Low,90,a year ago
+883,google_maps,Tipax,تیپاکس اروند ماهشهر,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,a year ago
+884,google_maps,Tipax,تیپاکس دزفول کمیل,دزفول,خوزستان,1.0,Negative,Angry,Other,High,100,a year ago
+885,google_maps,Tipax,تیپاکس دزفول کمیل,دزفول,خوزستان,5.0,Positive,Happy,Other,Low,70,3 years ago
+886,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,1.0,Negative,Angry,Other,High,100,3 years ago
+887,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,1.0,Negative,Angry,Other,High,90,a year ago
+888,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,1.0,Negative,Angry,Customer Support,High,90,11 months ago
+889,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,1.0,Negative,Angry,Other,High,90,a year ago
+890,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,5.0,Positive,Happy,Other,Low,70,8 months ago
+891,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,5.0,Positive,Happy,Other,Low,70,2 years ago
+892,google_maps,Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,5.0,Positive,Happy,Other,Low,80,3 years ago
+893,google_maps,Tipax,تیپاکس باهنر,Ahvaz، ‫بلوار ناصح شرقی،دفتر تیپاکس، بلوار معلم، پلاک ابتدای,Iran,5.0,Positive,Happy,Other,Low,80,a month ago
+894,google_maps,Tipax,پست تیپاکس کوروش,NULL,خوزستان,4.0,Positive,Satisfied,Other,Low,80,10 months ago
+895,google_maps,Tipax,پست تیپاکس کوروش,NULL,خوزستان,5.0,Positive,Frustrated,Other,Low,90,2 years ago
+896,google_maps,Tipax,پست تیپاکس کوروش,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,a year ago
+897,google_maps,Tipax,پست تیپاکس کوروش,NULL,خوزستان,5.0,Positive,Happy,Other,Low,70,6 months ago
+898,google_maps,Tipax,پست تیپاکس کوروش,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+899,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+900,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+901,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Other,High,90,10 months ago
+902,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+903,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,5.0,Positive,Happy,Other,Low,90,6 years ago
+904,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,4.0,Positive,Satisfied,Other,Low,90,6 years ago
+905,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Other,High,90,5 years ago
+906,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+907,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+908,google_maps,Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+909,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+910,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+911,google_maps,Tipax,behbahan,NULL,خوزستان,2.0,Negative,Disappointed,Other,Medium,90,6 years ago
+912,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Staff Behavior,High,100,2 years ago
+913,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+914,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,a year ago
+915,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,6 years ago
+916,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,5 years ago
+917,google_maps,Tipax,behbahan,NULL,خوزستان,1.0,Negative,Angry,Pricing,High,80,5 years ago
+918,google_maps,Tipax,behbahan,NULL,خوزستان,5.0,Positive,Happy,Other,Low,70,8 years ago
+919,google_maps,Tipax,Izeh agency,ایذه,خوزستان,1.0,Negative,Angry,Other,High,90,8 months ago
+920,google_maps,Tipax,Izeh agency,ایذه,خوزستان,3.0,Positive,Satisfied,Other,Low,90,4 years ago
+921,google_maps,Tipax,Izeh agency,ایذه,خوزستان,1.0,Negative,Angry,Other,High,100,9 months ago
+922,google_maps,Tipax,Izeh agency,ایذه,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+923,google_maps,Tipax,Izeh agency,ایذه,خوزستان,1.0,Negative,Angry,Other,High,90,3 years ago
+924,google_maps,Tipax,Izeh agency,ایذه,خوزستان,5.0,Positive,Happy,Other,Low,80,5 years ago
+925,google_maps,Tipax,Izeh agency,ایذه,خوزستان,4.0,Positive,Satisfied,Other,Low,70,6 years ago
+926,google_maps,Tipax,Izeh agency,ایذه,خوزستان,1.0,Negative,Angry,Other,High,80,a year ago
+927,google_maps,Tipax,تیپاکس گتوند,NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,100,2 years ago
+928,google_maps,Tipax,تیپاکس گتوند,NULL,خوزستان,2.0,Negative,Disappointed,Staff Behavior,Medium,100,a year ago
+929,google_maps,Tipax,تیپاکس گتوند,NULL,خوزستان,1.0,Negative,Angry,Mobile App,High,90,3 years ago
+930,google_maps,Tipax,تیپاکس گتوند,NULL,خوزستان,1.0,Negative,Angry,Damaged Package,High,80,3 years ago
+931,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,1.0,Negative,Angry,Other,High,100,5 years ago
+932,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,Edited 5 years ago
+933,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,6 years ago
+934,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,1.0,Negative,Angry,Other,High,80,5 years ago
+935,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,2 years ago
+936,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+937,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,4.0,Positive,Satisfied,Other,Low,70,5 years ago
+938,google_maps,Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,4.0,Positive,Satisfied,Other,Low,70,2 years ago
+939,google_maps,Tipax,تیپاکس رامهرمز,NULL,خوزستان,1.0,Positive,Satisfied,Other,High,90,a year ago
+940,google_maps,Tipax,تیپاکس رامهرمز,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+941,google_maps,Tipax,تیپاکس رامهرمز,NULL,خوزستان,5.0,Positive,Happy,Other,Low,90,a year ago
+942,google_maps,Tipax,تیپاکس رامهرمز,NULL,خوزستان,1.0,Negative,Angry,Other,High,90,2 years ago
+943,google_maps,Tipax,تیپاکس رامهرمز,NULL,خوزستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+944,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Delay,High,90,5 years ago
+945,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Delay,High,90,5 years ago
+946,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Positive,Satisfied,Other,High,90,6 years ago
+947,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,6 years ago
+948,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Other,High,100,4 years ago
+949,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,6 years ago
+950,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,5 years ago
+951,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,5.0,Positive,Happy,Other,Low,80,6 years ago
+952,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Staff Behavior,High,80,6 years ago
+953,google_maps,Tipax,تیپاکس بوشهر,NULL,بوشهر,1.0,Negative,Angry,Other,High,80,5 years ago
+954,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,3 years ago
+955,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,2.0,Negative,Disappointed,Mobile App,High,90,3 years ago
+956,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,3 years ago
+957,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.0,Negative,Angry,Other,High,100,3 years ago
+958,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.0,Negative,Angry,Other,High,90,3 years ago
+959,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.0,Negative,Angry,Other,High,80,4 years ago
+960,google_maps,Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,5.0,Positive,Happy,Other,Low,80,3 years ago
+961,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Pricing,High,90,11 months ago
+962,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Pricing,High,90,a year ago
+963,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Other,High,100,9 months ago
+964,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,5.0,Positive,Happy,Other,Low,90,5 years ago
+965,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+966,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Other,High,90,a month ago
+967,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+968,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,4.0,Positive,Satisfied,Other,Low,70,2 years ago
+969,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,5.0,Positive,Happy,Other,Low,70,4 years ago
+970,google_maps,Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,5.0,Positive,Happy,Other,Low,70,2 years ago
+971,google_maps,Tipax,تیپاکس ملوان,NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,11 months ago
+972,google_maps,Tipax,تیپاکس ملوان,NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,a year ago
+973,google_maps,Tipax,تیپاکس ملوان,NULL,هرمزگان,5.0,Positive,Happy,Other,Low,80,2 years ago
+974,google_maps,Tipax,تیپاکس ملوان,NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,a year ago
+975,google_maps,Tipax,تیپاکس ملوان,NULL,هرمزگان,5.0,Positive,Happy,Other,Low,70,3 years ago
+976,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,1.0,Negative,Angry,Staff Behavior,High,90,9 months ago
+977,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+978,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,1.0,Negative,Angry,Other,High,80,2 years ago
+979,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,5.0,Positive,Happy,Other,Low,80,a year ago
+980,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,5.0,Positive,Happy,Other,Low,70,5 months ago
+981,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,1.0,Negative,Angry,Other,High,80,2 years ago
+982,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,3.0,Neutral,Satisfied,Other,Low,80,2 years ago
+983,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,4.0,Positive,Satisfied,Other,Low,80,4 years ago
+984,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,5.0,Positive,Happy,Other,Low,80,4 years ago
+985,google_maps,Tipax,تیپاکس ایثار,اراک,هرمزگان,5.0,Positive,Happy,Other,Low,80,a year ago
+986,google_maps,Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,1.0,Negative,Angry,Other,High,90,a year ago
+987,google_maps,Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,1.0,Negative,Angry,Other,High,90,a year ago
+988,google_maps,Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,1.0,Positive,Satisfied,Other,High,80,3 years ago
+989,google_maps,Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,1.0,Negative,Angry,Other,High,80,7 months ago
+990,google_maps,Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,5.0,Positive,Happy,Other,Low,70,3 years ago
+991,google_maps,Tipax,تیپاکس ( جاسک),NULL,هرمزگان,1.0,Negative,Angry,Other,High,100,3 years ago
+992,google_maps,Tipax,تیپاکس ( جاسک),NULL,هرمزگان,3.0,Neutral,Satisfied,Other,Low,70,5 years ago
+993,google_maps,Tipax,تیپاکس ( جاسک),NULL,هرمزگان,1.0,Negative,Angry,Mobile App,High,80,2 years ago
+994,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Damaged Package,High,90,a year ago
+995,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+996,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,5.0,Positive,Happy,Other,Low,80,a year ago
+997,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Other,High,100,11 months ago
+998,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,10 months ago
+999,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,4 years ago
+1000,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Lost Package,High,90,2 years ago
+1001,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,4.0,Positive,Satisfied,Other,Low,70,4 years ago
+1002,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,3 years ago
+1003,google_maps,Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,5.0,Positive,Happy,Other,Low,80,4 years ago
+1004,google_maps,Tipax,پست تیپاکس سرپرستی,ری,هرمزگان,1.0,Negative,Angry,Other,High,90,3 years ago
+1005,google_maps,Tipax,پست تیپاکس سرپرستی,ری,هرمزگان,1.0,Negative,Angry,Other,High,80,2 years ago
+1006,google_maps,Tipax,پست تیپاکس سرپرستی,ری,هرمزگان,1.0,Negative,Angry,Other,High,80,3 years ago
+1007,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,5.0,Positive,Happy,Other,Low,90,2 years ago
+1008,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,7 months ago
+1009,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,3.0,Neutral,Satisfied,Other,Low,80,5 years ago
+1010,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,1.0,Negative,Angry,Lost Package,High,90,a month ago
+1011,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,3.0,Positive,Satisfied,Other,Low,80,6 years ago
+1012,google_maps,Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,3.0,Positive,Satisfied,Other,Low,80,4 years ago
+1013,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Pricing,High,90,2 years ago
+1014,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+1015,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Delay,High,100,2 years ago
+1016,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,5.0,Positive,Happy,Other,High,90,2 years ago
+1017,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+1018,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Lost Package,High,90,8 months ago
+1019,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Delay,High,90,2 years ago
+1020,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1021,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,2 years ago
+1022,google_maps,Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,2.0,Negative,Disappointed,Other,Medium,80,a year ago
+1023,google_maps,Tipax,TPG,اهر,هرمزگان,5.0,Positive,Happy,Other,Low,80,3 years ago
+1024,google_maps,Tipax,تیپاکس شهرک های صنعتی,NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,a year ago
+1025,google_maps,Tipax,تیپاکس شهرک های صنعتی,NULL,هرمزگان,5.0,Positive,Happy,Other,Low,80,3 years ago
+1026,google_maps,Tipax,تیپاکس توکهور هشتبندی,NULL,هرمزگان,1.0,Negative,Angry,Other,High,90,2 years ago
+1027,google_maps,Tipax,تیپاکس توکهور هشتبندی,NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,a year ago
+1028,google_maps,Tipax,تیپاکس توکهور هشتبندی,NULL,هرمزگان,1.0,Negative,Angry,Other,High,80,a year ago
+1029,google_maps,Tipax,تیپاکس سیریک,ری,هرمزگان,5.0,Positive,Happy,Other,Low,80,3 years ago
+1030,google_maps,Tipax,تیپاکس سیریک,ری,هرمزگان,5.0,Positive,Happy,Other,Low,70,3 years ago
+1031,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Damaged Package,High,100,a year ago
+1032,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Pricing,High,100,4 years ago
+1033,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,4 years ago
+1034,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,3 years ago
+1035,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,100,2 years ago
+1036,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,2 years ago
+1037,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,a year ago
+1038,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,5.0,Negative,Angry,Other,High,100,2 years ago
+1039,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,2 years ago
+1040,google_maps,Tipax,zabol,زابل,سیستان و بلوچستان,5.0,Positive,Happy,Other,Low,80,10 months ago
+1041,google_maps,Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,5.0,Negative,Disappointed,Delay,High,100,a year ago
+1042,google_maps,Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,7 months ago
+1043,google_maps,Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,2 weeks ago
+1044,google_maps,Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,80,a year ago
+1045,google_maps,Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,80,8 months ago
+1046,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,2 years ago
+1047,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,a year ago
+1048,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,2 years ago
+1049,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,a year ago
+1050,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,7 months ago
+1051,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,a year ago
+1052,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,5 months ago
+1053,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,90,a year ago
+1054,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Staff Behavior,High,80,a year ago
+1055,google_maps,Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,5.0,Positive,Happy,Other,Low,70,6 years ago
+1056,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,1.0,Negative,Angry,Other,High,90,4 years ago
+1057,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,1.0,Negative,Angry,Other,High,80,2 years ago
+1058,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,1.0,Negative,Angry,Other,High,80,2 years ago
+1059,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,1.0,Negative,Angry,Other,High,80,3 years ago
+1060,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,5.0,Positive,Happy,Other,Low,70,3 years ago
+1061,google_maps,Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+1062,google_maps,Tipax,شرکت تیپاکس,خمین,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,80,3 years ago
+1063,google_maps,Tipax,سرویس پوینت تیپاکس رزمجو,NULL,سیستان و بلوچستان,1.0,Positive,Satisfied,Other,High,90,2 years ago
+1064,google_maps,Tipax,سرویس پوینت تیپاکس رزمجو,NULL,سیستان و بلوچستان,1.0,Negative,Angry,Delay,High,80,2 years ago
+1065,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,1.0,Negative,Angry,Other,High,90,3 years ago
+1066,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,1.0,Negative,Angry,Other,High,80,2 years ago
+1067,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,5.0,Positive,Happy,Other,Low,70,a year ago
+1068,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,1.0,Negative,Angry,Other,High,80,7 months ago
+1069,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,4.0,Positive,Satisfied,Other,Low,70,2 years ago
+1070,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,5.0,Positive,Happy,Other,Low,80,3 years ago
+1071,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,5.0,Positive,Happy,Other,Low,80,11 months ago
+1072,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,1.0,Negative,Angry,Other,High,80,2 years ago
+1073,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,1.0,Negative,Angry,Other,High,80,3 years ago
+1074,google_maps,Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,5.0,Positive,Happy,Other,Low,80,2 years ago
+1075,google_maps,Tipax,تیپاکس بنجار,خمین,سیستان و بلوچستان,1.0,Negative,Angry,Other,High,80,3 years ago
+1076,google_maps,Tipax,تیپاکس ۲ سنندج,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+1077,google_maps,Tipax,تیپاکس ۲ سنندج,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+1078,google_maps,Tipax,تیپاکس ۲ سنندج,NULL,کردستان,2.0,Negative,Disappointed,Other,Medium,80,3 years ago
+1079,google_maps,Tipax,تیپاکس ۲ سنندج,NULL,کردستان,1.0,Positive,Satisfied,Other,High,80,3 years ago
+1080,google_maps,Tipax,تیپاکس کامیاران,NULL,کردستان,1.0,Negative,Angry,Other,High,80,7 months ago
+1081,google_maps,Tipax,تیپاکس کامیاران,NULL,کردستان,5.0,Positive,Happy,Other,Low,70,4 years ago
+1082,google_maps,Tipax,تیپاکس کامیاران,NULL,کردستان,1.0,Negative,Angry,Other,High,80,11 months ago
+1083,google_maps,Tipax,تیپاکس کامیاران,NULL,کردستان,4.0,Positive,Satisfied,Other,Low,70,4 years ago
+1084,google_maps,Tipax,تیپاکس کامیاران,NULL,کردستان,3.0,Positive,Satisfied,Other,Low,80,4 years ago
+1085,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,3 years ago
+1086,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+1087,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,90,3 years ago
+1088,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+1089,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,90,a year ago
+1090,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,90,4 years ago
+1091,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,90,6 years ago
+1092,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+1093,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,90,a year ago
+1094,google_maps,Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,Negative,Angry,Other,High,80,Edited 7 months ago
+1095,google_maps,Tipax,تیپاکس بیجار,NULL,کردستان,1.0,Negative,Angry,Other,High,80,2 months ago
+1096,google_maps,Tipax,تیپاکس,ری,ایلام,1.0,Negative,Angry,Other,High,90,11 months ago
+1097,google_maps,Tipax,تیپاکس,ری,ایلام,1.0,Negative,Angry,Other,High,100,2 years ago
+1098,google_maps,Tipax,تیپاکس,ری,ایلام,1.0,Negative,Angry,Other,High,100,7 months ago
+1099,google_maps,Tipax,تیپاکس,ری,ایلام,1.0,Negative,Angry,Other,High,90,a year ago
+1100,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,80,a month ago
+1101,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,90,a year ago
+1102,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,80,2 years ago
+1103,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,70,2 years ago
+1104,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,70,a year ago
+1105,google_maps,Tipax,تیپاکس,ری,ایلام,5.0,Positive,Happy,Other,Low,80,a year ago
+1106,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Pricing,High,90,6 years ago
+1107,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Staff Behavior,High,90,3 years ago
+1108,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Other,High,90,2 years ago
+1109,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,2.0,Negative,Disappointed,Delay,High,90,5 years ago
+1110,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Other,High,90,6 years ago
+1111,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Delay,High,90,5 years ago
+1112,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Positive,Satisfied,Other,High,90,6 years ago
+1113,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.0,Negative,Angry,Customer Support,High,80,4 years ago
+1114,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,2.0,Negative,Disappointed,Tracking,Medium,80,6 years ago
+1115,google_maps,Tipax,Tipax,ری,کهگیلویه و بویراحمد,4.0,Positive,Satisfied,Other,Low,70,a year ago
+1116,google_maps,Tipax,تیپاکس زاگرس / میرآباد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Other,High,90,7 months ago
+1117,google_maps,Tipax,تیپاکس زاگرس / میرآباد,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Delay,High,90,a year ago
+1118,google_maps,Tipax,تیپاکس زاگرس / میرآباد,اهر,چهارمحال و بختیاری,5.0,Positive,Happy,Other,Low,90,7 months ago
+1119,google_maps,Tipax,تیپاکس لردگان,ری,چهارمحال و بختیاری,5.0,Positive,Happy,Other,Low,80,a year ago
+1120,google_maps,Tipax,تیپاکس لردگان,ری,چهارمحال و بختیاری,1.0,Positive,Satisfied,Other,High,90,a year ago
+1121,google_maps,Tipax,باربری تیپاکس,اهر,چهارمحال و بختیاری,1.0,Negative,Angry,Pricing,High,80,6 years ago
+1122,google_maps,Tipax,تیپاکس رشت صنعتی,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,6 months ago
+1123,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Positive,Satisfied,Other,High,90,a year ago
+1124,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Pricing,High,90,a year ago
+1125,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1126,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,6 months ago
+1127,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,10 months ago
+1128,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Delay,High,90,a year ago
+1129,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,a year ago
+1130,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,11 months ago
+1131,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,7 months ago
+1132,google_maps,Tipax,تیپاکس رشت رشتیان,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1133,google_maps,Tipax,office,رشت,گیلان,5.0,Positive,Happy,Other,Low,70,2 years ago
+1134,google_maps,Tipax,تیپاکس دیلمان,رشت,خیابان آرام,3.0,Positive,Satisfied,Other,Low,80,8 months ago
+1135,google_maps,Tipax,تیپاکس دیلمان,رشت,خیابان آرام,5.0,Positive,Happy,Other,Low,70,11 months ago
+1136,google_maps,Tipax,تیپاکس دیلمان,رشت,خیابان آرام,5.0,Positive,Happy,Other,Low,80,7 months ago
+1137,google_maps,Tipax,تیپاکس گلسار رشت,NULL,گیلان,1.0,Negative,Angry,Damaged Package,High,90,a year ago
+1138,google_maps,Tipax,تیپاکس گلسار رشت,NULL,گیلان,3.0,Neutral,Satisfied,Other,Low,80,7 months ago
+1139,google_maps,Tipax,تیپاکس گلسار رشت,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,9 months ago
+1140,google_maps,Tipax,تیپاکس گلسار رشت,NULL,گیلان,1.0,Negative,Angry,Other,High,80,3 years ago
+1141,google_maps,Tipax,تیپاکس گلسار رشت,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,7 months ago
+1142,google_maps,Tipax,تیپاکس رستم آباد,NULL,گیلان,2.0,Negative,Disappointed,Other,Medium,100,5 years ago
+1143,google_maps,Tipax,تیپاکس رستم آباد,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,5 years ago
+1144,google_maps,Tipax,تیپاکس رستم آباد,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,5 years ago
+1145,google_maps,Tipax,تیپاکس جانبازان رشت,NULL,گیلان,1.0,Negative,Angry,Other,High,100,2 years ago
+1146,google_maps,Tipax,تیپاکس جانبازان رشت,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,a year ago
+1147,google_maps,Tipax,تیپاکس جانبازان رشت,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,Edited a year ago
+1148,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,4 years ago
+1149,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,4 years ago
+1150,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,4 years ago
+1151,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,9 months ago
+1152,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,5 years ago
+1153,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,4 years ago
+1154,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,5 years ago
+1155,google_maps,Tipax,تیپاکس منجیل,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,4 years ago
+1156,google_maps,Tipax,تیپاکس لنگرود آزادی,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,3 years ago
+1157,google_maps,Tipax,تیپاکس لنگرود آزادی,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,a year ago
+1158,google_maps,Tipax,تیپاکس پره سر,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,4 years ago
+1159,google_maps,Tipax,تیپاکس پره سر,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,4 years ago
+1160,google_maps,Tipax,تیپاکس حمیدیان,Rasht، خیابان امام رضا جنب دفتر پیشخوان، چهارراه جمهوری، 7H82+4R4,Iran,1.0,Negative,Angry,Delay,High,90,7 months ago
+1161,google_maps,Tipax,تیپاکس کوچصفهان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,a year ago
+1162,google_maps,Tipax,تیپاکس کوچصفهان,NULL,گیلان,1.0,Negative,Angry,Other,High,90,a year ago
+1163,google_maps,Tipax,تیپاکس کوچصفهان,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1164,google_maps,Tipax,تیپاکس رحیم آباد,خمین,گیلان,4.0,Positive,Satisfied,Other,Low,80,3 years ago
+1165,google_maps,Tipax,تیپاکس فومن,NULL,گیلان,2.0,Negative,Disappointed,Other,Medium,80,3 years ago
+1166,google_maps,Tipax,تیپاکس فومن,NULL,گیلان,3.0,Neutral,Satisfied,Other,Low,70,5 years ago
+1167,google_maps,Tipax,تیپاکس فومن,NULL,گیلان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1168,google_maps,Tipax,تیپاکس اسالم,ری,گیلان,5.0,Positive,Happy,Other,Low,80,3 years ago
+1169,google_maps,Tipax,تیپاکس اسالم,ری,گیلان,5.0,Positive,Happy,Other,Low,70,a year ago
+1170,google_maps,Tipax,تیپاکس اسالم,ری,گیلان,5.0,Positive,Happy,Other,Low,80,a year ago
+1171,google_maps,Tipax,تیپاکس اسالم,ری,گیلان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1172,google_maps,Tipax,تیپاکس سیاهکل,NULL,گیلان,1.0,Negative,Angry,Other,High,90,Edited 2 years ago
+1173,google_maps,Tipax,تیپاکس سیاهکل,NULL,گیلان,1.0,Negative,Angry,Pricing,High,90,a year ago
+1174,google_maps,Tipax,تیپاکس سیاهکل,NULL,گیلان,1.0,Negative,Angry,Other,High,100,3 years ago
+1175,google_maps,Tipax,تیپاکس ماسال,NULL,گیلان,1.0,Negative,Angry,Other,High,80,9 months ago
+1176,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,1.0,Negative,Angry,Other,High,90,4 years ago
+1177,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,3 years ago
+1178,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,1.0,Negative,Angry,Other,High,90,a year ago
+1179,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,5.0,Positive,Happy,Other,Low,90,a year ago
+1180,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,4.0,Positive,Satisfied,Other,Low,90,3 years ago
+1181,google_maps,Tipax,تیپاکس کلاچای,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,2 years ago
+1182,google_maps,Tipax,تیپاکس نور,NULL,مازندران,1.0,Negative,Angry,Pricing,High,100,a year ago
+1183,google_maps,Tipax,تیپاکس نور,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,80,5 years ago
+1184,google_maps,Tipax,تیپاکس نور,NULL,مازندران,5.0,Positive,Happy,Other,Low,70,5 years ago
+1185,google_maps,Tipax,تیپاکس نور,NULL,مازندران,2.0,Negative,Disappointed,Other,Medium,80,2 years ago
+1186,google_maps,Tipax,تیپاکس نور,NULL,مازندران,3.0,Positive,Satisfied,Other,Low,80,3 years ago
+1187,google_maps,Tipax,تیپاکس نور,NULL,مازندران,1.0,Negative,Angry,Other,High,80,4 years ago
+1188,google_maps,Tipax,تیپاکس نور,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,3 years ago
+1189,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Staff Behavior,High,90,5 months ago
+1190,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Other,High,90,3 years ago
+1191,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Other,High,90,5 years ago
+1192,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Pricing,High,90,5 years ago
+1193,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Other,High,90,3 years ago
+1194,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,90,Edited 3 years ago
+1195,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,5.0,Positive,Happy,Other,Low,90,6 years ago
+1196,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Other,High,90,2 years ago
+1197,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,1.0,Negative,Angry,Other,High,90,4 years ago
+1198,google_maps,Tipax,تیپاکس بابل,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,5 years ago
+1199,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,1.0,Negative,Angry,Other,High,90,a month ago
+1200,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,5.0,Negative,Disappointed,Other,Medium,100,3 years ago
+1201,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,5.0,Positive,Happy,Other,Low,90,10 months ago
+1202,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,1.0,Negative,Angry,Delay,High,90,5 months ago
+1203,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,1.0,Negative,Angry,Other,High,80,6 years ago
+1204,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,5 years ago
+1205,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,80,7 years ago
+1206,google_maps,Tipax,تیپاکس بابلسر,NULL,مازندران,3.0,Neutral,Satisfied,Other,Low,70,8 years ago
+1207,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Delay,High,90,9 months ago
+1208,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Other,High,100,a year ago
+1209,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+1210,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1211,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1212,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Other,High,90,7 months ago
+1213,google_maps,Tipax,TePox,نوشهر,مازندران,1.0,Negative,Angry,Other,High,100,2 years ago
+1214,google_maps,Tipax,TePox,نوشهر,مازندران,3.0,Neutral,Satisfied,Other,Low,80,6 years ago
+1215,google_maps,Tipax,TePox,نوشهر,مازندران,5.0,Positive,Happy,Other,Low,90,3 years ago
+1216,google_maps,Tipax,TePox,نوشهر,مازندران,5.0,Positive,Happy,Other,Low,70,5 years ago
+1217,google_maps,Tipax,تیپاکس شیرگاه,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,Edited 7 months ago
+1218,google_maps,Tipax,تیپاکس شیرگاه,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,2 years ago
+1219,google_maps,Tipax,تیپاکس محمودآباد,NULL,مازندران,1.0,Negative,Angry,Staff Behavior,High,90,3 years ago
+1220,google_maps,Tipax,تیپاکس محمودآباد,NULL,مازندران,1.0,Negative,Angry,Staff Behavior,High,90,2 years ago
+1221,google_maps,Tipax,تیپاکس محمودآباد,NULL,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1222,google_maps,Tipax,تیپاکس محمودآباد,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,7 years ago
+1223,google_maps,Tipax,تیپاکس محمودآباد,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,7 years ago
+1224,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,90,6 years ago
+1225,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,1.0,Negative,Angry,Other,High,90,10 months ago
+1226,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,1.0,Positive,Satisfied,Other,High,100,8 months ago
+1227,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,1.0,Negative,Angry,Tracking,High,90,5 years ago
+1228,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,a year ago
+1229,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,2.0,Negative,Disappointed,Other,Medium,90,5 years ago
+1230,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,80,6 years ago
+1231,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,2.0,Negative,Disappointed,Staff Behavior,Medium,90,2 years ago
+1232,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,1.0,Negative,Angry,Other,High,90,9 months ago
+1233,google_maps,Tipax,تیپاکس رامسر,NULL,مازندران,1.0,Negative,Angry,Other,High,90,10 months ago
+1234,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,1.0,Negative,Angry,Other,High,90,5 months ago
+1235,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,1.0,Negative,Angry,Other,High,90,9 months ago
+1236,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1237,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,1.0,Negative,Angry,Other,High,80,a year ago
+1238,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,1.0,Negative,Angry,Other,High,80,a year ago
+1239,google_maps,Tipax,تیپاکس جویبار,NULL,مازندران,5.0,Positive,Happy,Other,Low,70,6 years ago
+1240,google_maps,Tipax,تیپاکس فریدونکنار,ری,مازندران,5.0,Positive,Happy,Other,Low,90,11 months ago
+1241,google_maps,Tipax,تیپاکس فریدونکنار,ری,مازندران,5.0,Positive,Happy,Other,Low,80,a year ago
+1242,google_maps,Tipax,تیپاکس فریدونکنار,ری,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1243,google_maps,Tipax,تیپاکس فریدونکنار,ری,مازندران,5.0,Positive,Happy,Other,Low,90,a month ago
+1244,google_maps,Tipax,تیپاکس ساحل طلایی,تنکابن,مازندران,5.0,Positive,Happy,Other,Low,100,3 years ago
+1245,google_maps,Tipax,تیپاکس ساحل طلایی,تنکابن,مازندران,5.0,Positive,Happy,Other,Low,90,3 years ago
+1246,google_maps,Tipax,تیپاکس ساحل طلایی,تنکابن,مازندران,3.0,Neutral,Satisfied,Other,Low,80,2 years ago
+1247,google_maps,Tipax,تیپاکس ساحل طلایی,تنکابن,مازندران,5.0,Positive,Happy,Other,Low,70,2 years ago
+1248,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Delay,High,90,a year ago
+1249,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Delay,High,90,a year ago
+1250,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+1251,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Other,High,80,8 months ago
+1252,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,5.0,Positive,Happy,Other,Low,80,7 months ago
+1253,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Other,High,80,4 years ago
+1254,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,1.0,Negative,Angry,Other,High,80,3 years ago
+1255,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,5.0,Positive,Happy,Other,Low,80,3 years ago
+1256,google_maps,Tipax,تیپاکس نواب,بابل,مازندران,3.0,Neutral,Satisfied,Other,Low,70,3 years ago
+1257,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,1.0,Negative,Angry,Other,High,90,7 months ago
+1258,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,1.0,Negative,Angry,Other,High,90,a year ago
+1259,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,2.0,Negative,Disappointed,Other,Medium,90,Edited 2 months ago
+1260,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,1.0,Negative,Angry,Other,High,100,3 years ago
+1261,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,5.0,Positive,Happy,Other,Low,70,Edited a year ago
+1262,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,1.0,Negative,Angry,Other,High,80,2 years ago
+1263,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,1.0,Negative,Angry,Other,High,80,3 years ago
+1264,google_maps,Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,5.0,Positive,Happy,Other,Low,70,3 years ago
+1265,google_maps,Tipax,سرویس پوینت تیپاکس رویان,NULL,مازندران,1.0,Negative,Angry,Tracking,High,90,a month ago
+1266,google_maps,Tipax,سرویس پوینت تیپاکس رویان,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,90,4 years ago
+1267,google_maps,Tipax,سرویس پوینت تیپاکس رویان,NULL,مازندران,1.0,Negative,Angry,Other,High,80,4 years ago
+1268,google_maps,Tipax,سرویس پوینت تیپاکس رویان,NULL,مازندران,5.0,Positive,Happy,Other,Low,70,2 years ago
+1269,google_maps,Tipax,تیپاکس سورک,Surak,جنب سوپرمارکت شمال دفتر تیپاکس,2.0,Positive,Satisfied,Other,Low,80,2 years ago
+1270,google_maps,Tipax,Monfared,NULL,مازندران,1.0,Negative,Angry,Other,High,90,11 months ago
+1271,google_maps,Tipax,Monfared,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,2 years ago
+1272,google_maps,Tipax,تیپاکس سرخرود,سرخرود،,، خ دانش، جنب پارک,5.0,Positive,Happy,Other,Low,80,3 years ago
+1273,google_maps,Tipax,تیپاکس سرخرود,سرخرود،,، خ دانش، جنب پارک,2.0,Negative,Disappointed,Other,Medium,80,2 days ago
+1274,google_maps,Tipax,تیپاکس سرخرود,سرخرود،,، خ دانش، جنب پارک,5.0,Positive,Happy,Other,Low,70,2 years ago
+1275,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,4.0,Positive,Satisfied,Other,Low,100,6 years ago
+1276,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Negative,Angry,Delay,High,100,a year ago
+1277,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Positive,Satisfied,Other,High,100,a year ago
+1278,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,5.0,Positive,Happy,Other,Low,90,Edited a year ago
+1279,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Negative,Angry,Other,High,90,3 years ago
+1280,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,5.0,Positive,Happy,Other,Low,100,a year ago
+1281,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,3.0,Positive,Satisfied,Other,Low,100,5 years ago
+1282,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Positive,Satisfied,Other,High,90,3 years ago
+1283,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Negative,Angry,Other,High,90,2 years ago
+1284,google_maps,Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,1.0,Negative,Angry,Other,High,100,4 years ago
+1285,google_maps,Tipax,تیپاکس گلشهر کاظمیه زنجان,NULL,زنجان,1.0,Negative,Angry,Staff Behavior,High,90,5 months ago
+1286,google_maps,Tipax,تیپاکس گلشهر کاظمیه زنجان,NULL,زنجان,1.0,Negative,Angry,Delay,High,90,10 months ago
+1287,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,100,a day ago
+1288,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,1.0,Negative,Angry,Damaged Package,High,90,7 months ago
+1289,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,100,7 months ago
+1290,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,1.0,Negative,Angry,Other,High,90,7 months ago
+1291,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,1.0,Negative,Angry,Staff Behavior,High,90,7 months ago
+1292,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,90,a day ago
+1293,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,1.0,Negative,Angry,Customer Support,High,90,7 months ago
+1294,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,70,3 years ago
+1295,google_maps,Tipax,تیپاکس فاروج,NULL,خراسان شمالی,5.0,Positive,Happy,Other,Low,80,4 years ago
+1296,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Positive,Satisfied,Other,High,100,2 years ago
+1297,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Negative,Angry,Delay,High,100,4 years ago
+1298,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Negative,Angry,Other,High,90,a year ago
+1299,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Positive,Satisfied,Other,High,90,a year ago
+1300,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Negative,Angry,Other,High,80,a year ago
+1301,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,1.0,Negative,Angry,Other,High,80,2 years ago
+1302,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,5.0,Positive,Happy,Other,Low,70,a year ago
+1303,google_maps,Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,5.0,Positive,Happy,Other,Low,80,a year ago
+1304,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Negative,Angry,Delay,High,100,5 years ago
+1305,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Positive,Satisfied,Other,High,100,5 years ago
+1306,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Negative,Angry,Delay,High,100,5 years ago
+1307,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Positive,Satisfied,Other,High,90,4 years ago
+1308,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Negative,Angry,Other,High,90,4 years ago
+1309,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,3.0,Neutral,Satisfied,Other,Low,70,5 years ago
+1310,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,3.0,Neutral,Satisfied,Other,Low,70,5 years ago
+1311,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.0,Negative,Angry,Other,High,80,4 years ago
+1312,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,5.0,Positive,Happy,Other,Low,70,2 years ago
+1313,google_maps,Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,2.0,Negative,Disappointed,Delay,High,80,5 years ago
+1314,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,9 months ago
+1315,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 months ago
+1316,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Positive,Satisfied,Other,High,100,7 months ago
+1317,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Negative,Angry,Other,High,90,5 months ago
+1318,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,6 months ago
+1319,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Negative,Angry,Other,High,100,2 months ago
+1320,google_maps,Tipax,تیپاکس,تهران,تهران,1.0,Negative,Angry,Damaged Package,High,90,2 months ago
+1321,google_maps,Tipax,تیپاکس,تهران,تهران,5.0,Positive,Happy,Other,Low,90,4 years ago
+1322,google_maps,Tipax,تیپاکس,تهران,تهران,5.0,Positive,Happy,Other,Low,80,4 years ago
+1323,google_maps,Tipax,تیپاکس,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,3 years ago
+1324,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Other,High,100,4 years ago
+1325,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Other,High,90,9 months ago
+1326,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Other,High,90,3 years ago
+1327,google_maps,Tipax,Tipax,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,100,Edited 6 years ago
+1328,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Other,High,90,8 years ago
+1329,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,a year ago
+1330,google_maps,Tipax,Tipax,تهران,تهران,1.0,Negative,Angry,Delay,High,100,5 years ago
+1331,google_maps,Tipax,Tipax,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2 years ago
+1332,google_maps,Tipax,Tipax,تهران,تهران,2.0,Negative,Disappointed,Other,Medium,80,3 years ago
+1333,google_maps,Tipax,Tipax,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,6 years ago
+1334,google_maps,Tipax,HQ,تهران,تهران,1.0,Negative,Angry,Delay,High,90,2026-07-23
+1335,google_maps,Tipax,HQ,تهران,تهران,4.0,Positive,Satisfied,Other,Low,90,2026-07-24
+1336,google_maps,Tipax,HQ,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2026-07-20
+1337,google_maps,Tipax,HQ,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,2026-06-07
+1338,google_maps,Tipax,HQ,تهران,تهران,2.0,Negative,Disappointed,Delay,High,90,2026-06-12
+1339,google_maps,Tipax,HQ,تهران,تهران,2.0,Negative,Disappointed,Damaged Package,High,90,2026-07-28
+1340,google_maps,Tipax,HQ,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2026-07-25
+1341,google_maps,Tipax,HQ,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,2026-05-19
+1342,google_maps,Tipax,Vanak,تهران,تهران,1.0,Negative,Angry,Delay,High,90,2026-07-04
+1343,google_maps,Tipax,Vanak,تهران,تهران,4.0,Positive,Satisfied,Other,Low,90,2026-07-14
+1344,google_maps,Tipax,Vanak,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2026-07-17
+1345,google_maps,Tipax,Vanak,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,2026-05-23
+1346,google_maps,Tipax,Vanak,تهران,تهران,2.0,Negative,Disappointed,Delay,High,90,2026-06-25
+1347,google_maps,Tipax,Vanak,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2026-06-23
+1348,google_maps,Tipax,Vanak,تهران,تهران,2.0,Negative,Disappointed,Damaged Package,High,90,2026-06-15
+1349,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,4.0,Positive,Satisfied,Other,Low,90,2026-07-27
+1350,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,2026-05-30
+1351,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,1.0,Negative,Angry,Pricing,High,90,2026-07-17
+1352,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,3.0,Neutral,Satisfied,Other,Low,70,2026-05-16
+1353,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,2.0,Negative,Disappointed,Delay,High,90,2026-06-19
+1354,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,2026-06-04
+1355,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,2.0,Negative,Disappointed,Damaged Package,High,90,2026-07-09
+1356,google_maps,Tipax,Mashhad,مشهد,خراسان رضوی,3.0,Neutral,Satisfied,Other,Low,70,2026-06-03
+1357,google_maps,Tipax,Isfahan,اصفهان,اصفهان,1.0,Negative,Angry,Delay,High,90,2026-07-05
+1358,google_maps,Tipax,Isfahan,اصفهان,اصفهان,4.0,Positive,Satisfied,Other,Low,90,2026-05-08
+1359,google_maps,Tipax,Isfahan,اصفهان,اصفهان,1.0,Negative,Angry,Pricing,High,90,2026-07-21
+1360,google_maps,Tipax,Isfahan,اصفهان,اصفهان,3.0,Neutral,Satisfied,Other,Low,70,2026-06-02
+1361,google_maps,Tipax,Isfahan,اصفهان,اصفهان,2.0,Negative,Disappointed,Delay,High,90,2026-05-15
+1362,google_maps,Tipax,Isfahan,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,2026-06-04
+1363,google_maps,Tipax,Isfahan,اصفهان,اصفهان,2.0,Negative,Disappointed,Damaged Package,High,90,2026-06-12
+1364,google_maps,Tipax,Isfahan,اصفهان,اصفهان,4.0,Positive,Satisfied,Other,Low,90,2026-06-26
+1365,google_maps,Tipax,Isfahan,اصفهان,اصفهان,3.0,Neutral,Satisfied,Other,Low,70,2026-07-30
+1366,google_maps,Chapar,Chaparnet,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,7 months ago
+1367,google_maps,Chapar,Chaparnet,تهران,تهران,1.0,Negative,Angry,Mobile App,High,90,11 months ago
+1368,google_maps,Chapar,Chaparnet,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,5 months ago
+1369,google_maps,Chapar,Chaparnet,تهران,تهران,1.0,Negative,Angry,Other,High,90,7 months ago
+1370,google_maps,Chapar,Chaparnet,تهران,تهران,2.0,Negative,Frustrated,Delay,High,90,a year ago
+1371,google_maps,Chapar,Chaparnet,تهران,تهران,1.0,Negative,Angry,Delay,High,90,a year ago
+1372,google_maps,Chapar,Chaparnet,تهران,تهران,5.0,Positive,Happy,Other,Low,90,11 months ago
+1373,google_maps,Chapar,Chaparnet,تهران,تهران,5.0,Positive,Happy,Other,Low,70,2 years ago
+1374,google_maps,Chapar,Chaparnet,تهران,تهران,5.0,Positive,Happy,Other,Low,80,Edited 8 years ago
+1375,google_maps,Chapar,Chaparnet,تهران,تهران,5.0,Positive,Happy,Other,Low,70,4 years ago
+1376,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,a year ago
+1377,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,100,2 years ago
+1378,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+1379,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+1380,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,100,2 years ago
+1381,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,2.0,Negative,Disappointed,Tracking,Medium,90,2 years ago
+1382,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,2 years ago
+1383,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,5.0,Positive,Happy,Other,Low,80,4 years ago
+1384,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,100,3 years ago
+1385,google_maps,Chapar,کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+1386,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Customer Support,High,100,2 months ago
+1387,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,9 months ago
+1388,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+1389,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,a year ago
+1390,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Tracking,High,90,2 years ago
+1391,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,3.0,Positive,Satisfied,Other,Low,90,a year ago
+1392,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Pricing,High,90,a year ago
+1393,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+1394,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Delay,High,100,a year ago
+1395,google_maps,Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.0,Negative,Angry,Other,High,90,10 months ago
+1396,google_maps,Chapar,چاپار مطهری (کالارسان چاپار مطهری),تهران,تهران,1.0,Negative,Angry,Pricing,High,100,10 months ago
+1397,google_maps,Chapar,چاپار مطهری (کالارسان چاپار مطهری),تهران,تهران,1.0,Negative,Angry,Other,High,80,8 months ago
+1398,google_maps,Chapar,کالا رسانان چاپار ساری,NULL,مازندران,5.0,Positive,Happy,Other,Low,80,a year ago
+1399,google_maps,Chapar,کالا رسانان چاپار ساری,NULL,مازندران,5.0,Positive,Happy,Other,Low,100,2 years ago
+1400,google_maps,Chapar,کالا رسانان چاپار ساری,NULL,مازندران,4.0,Positive,Satisfied,Other,Low,80,2 years ago
+1401,google_maps,Chapar,System,NULL,گیلان,1.0,Positive,Satisfied,Other,High,90,a year ago
+1402,google_maps,Chapar,System,NULL,گیلان,5.0,Positive,Happy,Other,Low,70,7 years ago
+1403,google_maps,Chapar,چاپار پاسداران مجیدیه هروی,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,a year ago
+1404,google_maps,Chapar,کالارسانان چاپار پیروزی,تهران,تهران,1.0,Negative,Angry,Delay,High,90,a year ago
+1405,google_maps,Chapar,کالارسانان چاپار پیروزی,تهران,تهران,1.0,Negative,Angry,Mobile App,High,100,a year ago
+1406,google_maps,Chapar,کالارسانان چاپار پیروزی,تهران,تهران,1.0,Negative,Angry,Delay,High,90,3 years ago
+1407,google_maps,Chapar,کالارسانان چاپار پیروزی,تهران,تهران,1.0,Negative,Angry,Other,High,80,9 months ago
+1408,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Positive,Satisfied,Other,High,90,4 years ago
+1409,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Staff Behavior,High,100,8 months ago
+1410,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,5.0,Positive,Happy,Other,Low,100,a year ago
+1411,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Pricing,High,100,3 years ago
+1412,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Positive,Satisfied,Other,High,100,4 years ago
+1413,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Other,High,80,7 months ago
+1414,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Other,High,90,a year ago
+1415,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Delay,High,80,4 years ago
+1416,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,1.0,Negative,Angry,Delay,High,80,2 years ago
+1417,google_maps,Chapar,شرکت کالارسانان چاپار,قم,قم,4.0,Negative,Disappointed,Other,Medium,90,9 years ago
+1418,google_maps,Chapar,موسسه توریستی چاپار,تهران,تهران,5.0,Positive,Happy,Other,Low,80,7 years ago
+1419,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,Mobile App,High,90,a year ago
+1420,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,Delay,High,90,2 years ago
+1421,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,Other,High,90,2 months ago
+1422,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,Other,High,90,2 years ago
+1423,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,Other,High,90,2 years ago
+1424,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,Other,Low,100,3 years ago
+1425,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,Other,Low,90,2 years ago
+1426,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,Other,Low,80,2 years ago
+1427,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,Other,Low,70,a year ago
+1428,google_maps,Chapar,چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,Other,Low,80,a year ago
+1429,google_maps,Chapar,انبار چاپار,F9V6+PG8,Kahrizak,3.0,Neutral,Satisfied,Other,Low,70,5 months ago
+1430,google_maps,Chapar,Center,تهران,تهران,4.0,Positive,Satisfied,Other,Low,90,2026-05-23
+1431,google_maps,Chapar,Center,تهران,تهران,2.0,Negative,Disappointed,Delay,High,90,2026-06-05
+1432,google_maps,Chapar,Center,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,2026-07-15
+1433,google_maps,Chapar,Center,تهران,تهران,2.0,Negative,Disappointed,Damaged Package,High,90,2026-05-09
+1434,google_maps,Chapar,Center,تهران,تهران,4.0,Positive,Satisfied,Other,Low,90,2026-07-22
+1435,google_maps,Chapar,Center,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,2026-05-06
+1436,google_maps,Chapar,Shiraz,شیراز,فارس,1.0,Negative,Angry,Delay,High,90,2026-06-04
+1437,google_maps,Chapar,Shiraz,شیراز,فارس,4.0,Positive,Satisfied,Other,Low,90,2026-05-25
+1438,google_maps,Chapar,Shiraz,شیراز,فارس,5.0,Positive,Happy,Other,Low,80,2026-05-14
+1439,google_maps,Chapar,Shiraz,شیراز,فارس,2.0,Negative,Disappointed,Delay,High,90,2026-05-05
+1440,google_maps,Chapar,Shiraz,شیراز,فارس,5.0,Positive,Happy,Other,Low,80,2026-06-22
+1441,google_maps,Chapar,Shiraz,شیراز,فارس,2.0,Negative,Disappointed,Damaged Package,High,90,2026-07-24
+1442,google_maps,Chapar,Shiraz,شیراز,فارس,4.0,Positive,Satisfied,Other,Low,90,2026-05-12
+1443,google_maps,Chapar,Shiraz,شیراز,فارس,3.0,Neutral,Satisfied,Other,Low,70,2026-05-15
+1444,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,1.0,Negative,Angry,Delay,High,90,2026-07-23
+1445,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,4.0,Positive,Satisfied,Other,Low,90,2026-07-13
+1446,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,1.0,Negative,Angry,Pricing,High,90,2026-06-19
+1447,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,2026-07-20
+1448,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,3.0,Neutral,Satisfied,Other,Low,70,2026-06-18
+1449,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,80,2026-07-26
+1450,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,2.0,Negative,Disappointed,Damaged Package,High,90,2026-05-15
+1451,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,4.0,Positive,Satisfied,Other,Low,90,2026-07-17
+1452,google_maps,Chapar,Tabriz,تبریز,آذربایجان شرقی,3.0,Neutral,Satisfied,Other,Low,70,2026-05-15
+1453,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,10 months ago
+1454,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,a month ago
+1455,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Delay,High,90,7 months ago
+1456,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,10 months ago
+1457,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Positive,Satisfied,Other,High,90,a year ago
+1458,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Tracking,High,90,8 months ago
+1459,google_maps,AloPeyk,Alopeyk,تهران,تهران,1.0,Negative,Angry,Other,High,90,8 months ago
+1460,google_maps,AloPeyk,Alopeyk,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,90,8 years ago
+1461,google_maps,AloPeyk,Alopeyk,تهران,تهران,3.0,Neutral,Satisfied,Other,Low,70,7 years ago
+1462,google_maps,AloPeyk,Alopeyk,تهران,تهران,2.0,Negative,Disappointed,Other,Medium,90,6 years ago
+1463,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,100,7 years ago
+1464,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,1.0,Negative,Angry,Staff Behavior,High,90,6 years ago
+1465,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,90,6 years ago
+1466,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,4.0,Positive,Satisfied,Other,Low,70,Edited 7 years ago
+1467,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,8 years ago
+1468,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,2 years ago
+1469,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,8 years ago
+1470,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,70,8 years ago
+1471,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,1.0,Positive,Satisfied,Other,High,80,Edited 8 years ago
+1472,google_maps,AloPeyk,Alopeyk,NULL,خراسان رضوی,5.0,Positive,Happy,Other,Low,80,6 years ago
+1473,google_maps,AloPeyk,الوپیک,تهران,تهران,2.0,Negative,Disappointed,Other,Medium,90,a year ago
+1474,google_maps,AloPeyk,الوپیک,تهران,تهران,1.0,Negative,Angry,Other,High,80,3 days ago
+1475,google_maps,AloPeyk,پیک موتوری ثابت,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,6 years ago
+1476,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,90,7 years ago
+1477,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,80,7 years ago
+1478,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,1.0,Negative,Angry,Other,High,80,7 years ago
+1479,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,8 years ago
+1480,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,7 years ago
+1481,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,5.0,Positive,Happy,Other,Low,70,8 years ago
+1482,google_maps,AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,2.0,Negative,Disappointed,Other,Medium,80,7 years ago
+1483,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,5.0,Positive,Happy,Other,Low,70,4 years ago
+1484,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,5.0,Positive,Happy,Other,Low,70,8 years ago
+1485,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,3.0,Neutral,Satisfied,Other,Low,70,8 years ago
+1486,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,5.0,Positive,Happy,Other,Low,70,8 years ago
+1487,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,1.0,Negative,Angry,Other,High,80,7 years ago
+1488,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,5.0,Positive,Happy,Other,Low,70,2 years ago
+1489,google_maps,AloPeyk,الوپیک شیراز,NULL,فارس,5.0,Positive,Happy,Other,Low,70,8 years ago
+1490,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Pricing,High,100,7 months ago
+1491,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,90,a month ago
+1492,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Mobile App,High,90,a year ago
+1493,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Delay,High,90,a year ago
+1494,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,90,a year ago
+1495,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,100,11 months ago
+1496,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,90,5 months ago
+1497,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,100,7 months ago
+1498,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,90,a year ago
+1499,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Delay,High,100,8 months ago
+1500,google_maps,Mahex,Mahex,تهران,تهران,5.0,Positive,Happy,Other,Low,90,a year ago
+1501,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Customer Support,High,90,11 months ago
+1502,google_maps,Mahex,Mahex,تهران,تهران,5.0,Positive,Happy,Other,Low,90,7 months ago
+1503,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,80,8 months ago
+1504,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Delay,High,80,a year ago
+1505,google_maps,Mahex,Mahex,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a year ago
+1506,google_maps,Mahex,Mahex,تهران,تهران,1.0,Negative,Angry,Other,High,80,11 months ago
+1507,google_maps,Mahex,Mahex,تهران,تهران,5.0,Positive,Happy,Other,Low,80,7 months ago
+1508,google_maps,Mahex,Mahex,تهران,تهران,5.0,Positive,Happy,Other,Low,80,7 months ago
+1509,google_maps,Mahex,ماهکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,100,6 months ago
+1510,google_maps,Mahex,ماهکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,70,5 months ago
+1511,google_maps,Mahex,ماهکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,70,5 months ago
+1512,google_maps,Mahex,ماهکس لاله زار,تهران,تهران,5.0,Positive,Happy,Other,Low,80,6 months ago
+1513,google_maps,Mahex,ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,5.0,Positive,Happy,Other,Low,70,a year ago
+1514,google_maps,Mahex,پست ماهکس,تهران,تهران,1.0,Negative,Angry,Other,High,80,5 months ago
+1515,google_maps,Mahex,ماهکس انقلاب,تهران,تهران,5.0,Positive,Happy,Other,Low,70,a month ago
+1516,google_maps,Mahex,ماهکس خلخال,اردبیل,اردبیل,5.0,Positive,Happy,Other,Low,70,8 months ago
+1517,google_maps,Mahex,ماهکس خلخال,اردبیل,اردبیل,5.0,Positive,Happy,Other,Low,80,8 months ago
+1518,google_maps,Mahex,ماهکس خلخال,اردبیل,اردبیل,5.0,Positive,Happy,Other,Low,70,8 months ago
+1519,google_maps,Mahex,ماهکس بهار,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,100,a year ago
+1520,google_maps,Mahex,ماهکس بهار,تهران,تهران,1.0,Negative,Angry,Mobile App,High,100,2 years ago
+1521,google_maps,Mahex,ماهکس بهار,تهران,تهران,1.0,Negative,Angry,Other,High,90,2 years ago
+1522,google_maps,Mahex,ماهکس بهار,تهران,تهران,5.0,Positive,Happy,Other,Low,80,a year ago
+1523,google_maps,Mahex,ماهکس بهار,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+1524,google_maps,Mahex,ماهکس بهار,تهران,تهران,1.0,Negative,Angry,Other,High,80,a year ago
+1525,google_maps,Mahex,ماهکس,ری,آذربایجان شرقی,5.0,Positive,Happy,Other,Low,100,2 years ago
+1526,google_maps,Mahex,ماهکس,ری,آذربایجان شرقی,1.0,Negative,Angry,Other,High,90,a year ago
+1527,google_maps,Mahex,ماهکس,ری,آذربایجان شرقی,4.0,Positive,Satisfied,Other,Low,80,2 years ago
+1528,google_maps,Mahex,ماهکس,ری,آذربایجان شرقی,1.0,Negative,Angry,Customer Support,High,90,a year ago
+1529,google_maps,Mahex,ماهکس,ری,آذربایجان شرقی,1.0,Negative,Angry,Customer Support,High,80,a year ago
+1530,google_maps,Mahex,jannat abad,تهران,تهران,1.0,Negative,Angry,Mobile App,High,90,a year ago
+1531,google_maps,Mahex,jannat abad,تهران,تهران,1.0,Negative,Angry,Staff Behavior,High,80,7 months ago
+1532,google_maps,Mahex,jannat abad,تهران,تهران,5.0,Positive,Happy,Other,Low,70,2 years ago
+1533,google_maps,Mahex,ماهکس شمال خوزستان,NULL,خوزستان,5.0,Positive,Happy,Other,Low,80,7 months ago
+1534,balad,Tipax,تیپاکس ونک,تهران,تهران,2.0,Negative,Frustrated,Delay,High,90,2026-06-01
+1535,neshan,Chapar,چاپار مرکز,تهران,تهران,4.0,Positive,Satisfied,Other,Low,80,2026-06-10
+1536,neshan,Mahex,ماهکس شیراز,شیراز,فارس,1.0,Negative,Angry,Damaged Package,High,80,2026-05-20
+1537,balad,Iran Post,پست مرکزی اصفهان,اصفهان,اصفهان,3.0,Neutral,Satisfied,Other,Low,70,2026-07-01
+1538,balad,AloPeyk,الوپیک ونک,تهران,تهران,5.0,Positive,Happy,Other,Low,80,2026-07-05
+1539,cafebazaar,Tipax,App,NULL,NULL,2.0,Negative,Disappointed,Mobile App,High,80,2026-04-12
+1540,myket,Tipax,App,NULL,NULL,5.0,Positive,Happy,Other,Low,80,2026-07-20
+1541,cafebazaar,Chapar,App,NULL,NULL,4.0,Positive,Frustrated,Other,Low,80,2026-05-02
+1542,cafebazaar,AloPeyk,App,NULL,NULL,1.0,Negative,Angry,Mobile App,High,80,2026-06-18
+1543,myket,Iran Post,Iran App,NULL,NULL,2.0,Negative,Disappointed,Mobile App,Medium,80,2026-07-11
+1544,myket,Mahex,App,NULL,NULL,3.0,Neutral,Satisfied,Other,Low,80,2026-03-22

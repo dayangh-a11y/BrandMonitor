@@ -15,8 +15,9 @@ def build_source(
     """
     Factory for crawl sources.
 
-    Additional sources (Snapp Map, Balad, company websites) can register here
-    without changing Scoring/AI/API layers.
+    Additional sources (Neshan, Balad, Cafe Bazaar, Myket, …) register via
+    collectors.providers — Maps live crawl stays here; import providers are
+    used by scripts/run_multisource_pipeline.py.
     """
     key = (source_id or "google_maps").strip().lower()
     if key in {"google_maps", "google", "gmaps"}:
@@ -28,9 +29,13 @@ def build_source(
             max_reviews_per_branch=max_reviews_per_branch,
             search_queries=search_queries,
         )
+    # Non-Maps providers are not Playwright BranchReviewSource crawlers.
+    # Use collectors.providers.build_provider for unified multi-source ingest.
     raise ValueError(
-        f"Unknown crawl source {source_id!r}. "
-        "Supported today: google_maps (extensible via collectors.sources.registry)."
+        f"Unknown live crawl source {source_id!r}. "
+        "Supported live crawl: google_maps. "
+        "For neshan/balad/cafebazaar/myket use collectors.providers.build_provider "
+        "or scripts/run_multisource_pipeline.py (manual_import / future official_api)."
     )
 
 

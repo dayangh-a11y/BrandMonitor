@@ -1,0 +1,155 @@
+{
+  "failed_requests": 0,
+  "missing_branches": 0,
+  "invalid_reviews": 501,
+  "duplicate_reviews": 58,
+  "collected_by_source": {
+    "google_maps": 2091,
+    "neshan": 3,
+    "balad": 3,
+    "cafebazaar": 3,
+    "myket": 3
+  },
+  "providers": [
+    {
+      "source_id": "google_maps",
+      "display_name": "Google Maps",
+      "mode": "live_maps",
+      "implemented": true,
+      "notes": "Existing Playwright collector + DB adapter"
+    },
+    {
+      "source_id": "neshan",
+      "display_name": "نشان",
+      "mode": "manual_import",
+      "implemented": true,
+      "notes": "No stable public API — import adapter only"
+    },
+    {
+      "source_id": "balad",
+      "display_name": "بلد",
+      "mode": "manual_import",
+      "implemented": true,
+      "notes": "No stable public API — import adapter only"
+    },
+    {
+      "source_id": "cafebazaar",
+      "display_name": "کافه بازار",
+      "mode": "manual_import",
+      "implemented": true,
+      "notes": "No stable public API — import adapter only"
+    },
+    {
+      "source_id": "myket",
+      "display_name": "مایکت",
+      "mode": "manual_import",
+      "implemented": true,
+      "notes": "No stable public API — import adapter only"
+    },
+    {
+      "source_id": "google_play",
+      "display_name": "Google Play",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "app_store",
+      "display_name": "Apple App Store",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "instagram",
+      "display_name": "Instagram",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "x_twitter",
+      "display_name": "X (Twitter)",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "reddit",
+      "display_name": "Reddit",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "linkedin",
+      "display_name": "LinkedIn",
+      "mode": "official_api",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "official_website",
+      "display_name": "Official Website",
+      "mode": "compliant_extractor",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "news",
+      "display_name": "News",
+      "mode": "compliant_extractor",
+      "implemented": false,
+      "notes": "Planned"
+    },
+    {
+      "source_id": "complaint_portal",
+      "display_name": "Complaint Portal",
+      "mode": "compliant_extractor",
+      "implemented": false,
+      "notes": "Planned"
+    }
+  ],
+  "started_at": "2026-08-03T15:30:00.356739+00:00",
+  "finished_at": "2026-08-03T15:30:01.241730+00:00",
+  "raw_count": 2103,
+  "normalized_count": 1602,
+  "final_count": 1544,
+  "brands": [
+    "AloPeyk",
+    "Chapar",
+    "Iran Post",
+    "Mahex",
+    "Tipax"
+  ],
+  "sources_present": [
+    "balad",
+    "cafebazaar",
+    "google_maps",
+    "myket",
+    "neshan"
+  ],
+  "coverage": {
+    "branch_count": 310,
+    "review_count": 1544,
+    "city_count": 49,
+    "province_count": 47,
+    "pct_with_coordinates": 95.85,
+    "pct_with_date": 100.0,
+    "pct_with_company_reply": 0.26,
+    "brands": [
+      "AloPeyk",
+      "Chapar",
+      "Iran Post",
+      "Mahex",
+      "Tipax"
+    ],
+    "sources": [
+      "balad",
+      "cafebazaar",
+      "google_maps",
+      "myket",
+      "neshan"
+    ]
+  }
+}

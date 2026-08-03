@@ -15,6 +15,8 @@ class AnalyticsFilter:
     province: str | None = None
     city: str | None = None
     branch_id: int | None = None
+    brand: str | None = None
+    source: str | None = None
     rating_min: float | None = None
     rating_max: float | None = None
     sentiment: str | None = None
@@ -57,6 +59,8 @@ class AnalyticsFilter:
             province=_f("province") or None,
             city=_f("city") or None,
             branch_id=_int("branch_id"),
+            brand=_f("brand") or None,
+            source=_f("source") or None,
             rating_min=_float("rating_min"),
             rating_max=_float("rating_max"),
             sentiment=_f("sentiment") or None,
@@ -79,6 +83,10 @@ def row_matches(row: dict[str, Any], filt: AnalyticsFilter) -> bool:
         return False
     if filt.branch_id is not None and int(row.get("branch_id") or 0) != filt.branch_id:
         return False
+    if filt.brand and (row.get("company_name") or row.get("brand") or "").lower() != filt.brand.lower():
+        return False
+    if filt.source and (row.get("source") or row.get("review_source") or "").lower() != filt.source.lower():
+        return False
     rating = float(row.get("review_rating") or 0)
     if filt.rating_min is not None and rating < filt.rating_min:
         return False
@@ -89,7 +97,9 @@ def row_matches(row: dict[str, Any], filt: AnalyticsFilter) -> bool:
     complaints = row.get("complaint_categories") or []
     positives = row.get("positive_categories") or []
     if filt.complaint_category and filt.complaint_category not in complaints:
-        return False
+        # also allow unified string category
+        if filt.complaint_category != (row.get("complaint_category") or ""):
+            return False
     if filt.positive_category and filt.positive_category not in positives:
         return False
     return True

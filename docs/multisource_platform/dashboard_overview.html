@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><title>BrandMonitor Multi-Source Platform</title>
+<style>
+body{font-family:IBM Plex Sans,Segoe UI,sans-serif;margin:0;background:#0b1220;color:#e8eef8}
+header{padding:24px 28px;background:linear-gradient(135deg,#1c3358,#0b1220)}
+h1{margin:0;font-size:1.8rem} .sub{color:#93a4bd}
+main{padding:20px 28px;display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.panel{background:#172033;border:1px solid #2a3a55;border-radius:12px;padding:14px}
+.panel h2{margin:0 0 10px;font-size:1rem}
+.kpis{display:flex;gap:10px;flex-wrap:wrap;grid-column:1/-1}
+.kpi{background:#121a2b;border:1px solid #2a3a55;border-radius:10px;padding:10px 14px;min-width:120px}
+.kpi b{display:block;font-size:1.3rem}
+.bars .row{display:grid;grid-template-columns:110px 1fr 70px;gap:8px;align-items:center;margin:6px 0;font-size:.9rem}
+.track{background:#0b1220;height:10px;border-radius:6px;overflow:hidden}
+.fill{height:100%}
+.lab{color:#93a4bd}
+.wide{grid-column:1/-1}
+</style></head><body>
+<header>
+  <h1>BrandMonitor · Multi-Source Intelligence</h1>
+  <p class="sub">Tipax · Iran Post · Chapar · AloPeyk · Mahex — Google Maps + Neshan + Balad + Cafe Bazaar + Myket</p>
+</header>
+<main>
+  <div class="kpis">
+    <div class="kpi"><span>Reviews</span><b>1544</b></div>
+    <div class="kpi"><span>Branches</span><b>310</b></div>
+    <div class="kpi"><span>Cities</span><b>49</b></div>
+    <div class="kpi"><span>Provinces</span><b>47</b></div>
+    <div class="kpi"><span>Coords %</span><b>95.85</b></div>
+    <div class="kpi"><span>Date %</span><b>100.0</b></div>
+  </div>
+  <section class="panel"><h2>Brand ranking (total reviews)</h2><div class="bars">
+<div class="row"><span class="lab">Tipax</span><div class="track"><div class="fill" style="width:100.0%;background:#3d9cf0"></div></div><span class="val">1368.0</span></div>
+<div class="row"><span class="lab">Chapar</span><div class="track"><div class="fill" style="width:6.5%;background:#3d9cf0"></div></div><span class="val">89.0</span></div>
+<div class="row"><span class="lab">Mahex</span><div class="track"><div class="fill" style="width:3.4%;background:#3d9cf0"></div></div><span class="val">46.0</span></div>
+<div class="row"><span class="lab">AloPeyk</span><div class="track"><div class="fill" style="width:2.9%;background:#3d9cf0"></div></div><span class="val">39.0</span></div>
+<div class="row"><span class="lab">Iran Post</span><div class="track"><div class="fill" style="width:0.1%;background:#3d9cf0"></div></div><span class="val">2.0</span></div>
+</div></section>
+  <section class="panel"><h2>Brand overall rating</h2><div class="bars">
+<div class="row"><span class="lab">AloPeyk</span><div class="track"><div class="fill" style="width:100.0%;background:#3ecf8e"></div></div><span class="val">3.2564</span></div>
+<div class="row"><span class="lab">Mahex</span><div class="track"><div class="fill" style="width:82.1%;background:#3ecf8e"></div></div><span class="val">2.6739</span></div>
+<div class="row"><span class="lab">Iran Post</span><div class="track"><div class="fill" style="width:76.8%;background:#3ecf8e"></div></div><span class="val">2.5</span></div>
+<div class="row"><span class="lab">Chapar</span><div class="track"><div class="fill" style="width:76.3%;background:#3ecf8e"></div></div><span class="val">2.4831</span></div>
+<div class="row"><span class="lab">Tipax</span><div class="track"><div class="fill" style="width:72.9%;background:#3ecf8e"></div></div><span class="val">2.3735</span></div>
+</div></section>
+  <section class="panel"><h2>Source comparison</h2><div class="bars">
+<div class="row"><span class="lab">balad</span><div class="track"><div class="fill" style="width:0.2%;background:#f0b429"></div></div><span class="val">3.0</span></div>
+<div class="row"><span class="lab">cafebazaar</span><div class="track"><div class="fill" style="width:0.2%;background:#f0b429"></div></div><span class="val">3.0</span></div>
+<div class="row"><span class="lab">google_maps</span><div class="track"><div class="fill" style="width:100.0%;background:#f0b429"></div></div><span class="val">1533.0</span></div>
+<div class="row"><span class="lab">myket</span><div class="track"><div class="fill" style="width:0.2%;background:#f0b429"></div></div><span class="val">3.0</span></div>
+<div class="row"><span class="lab">neshan</span><div class="track"><div class="fill" style="width:0.1%;background:#f0b429"></div></div><span class="val">2.0</span></div>
+</div></section>
+  <section class="panel"><h2>Sentiment distribution</h2><div class="bars">
+<div class="row"><span class="lab">Negative</span><div class="track"><div class="fill" style="width:100.0%;background:#f07178"></div></div><span class="val">915.0</span></div>
+<div class="row"><span class="lab">Positive</span><div class="track"><div class="fill" style="width:64.2%;background:#f07178"></div></div><span class="val">587.0</span></div>
+<div class="row"><span class="lab">Neutral</span><div class="track"><div class="fill" style="width:4.6%;background:#f07178"></div></div><span class="val">42.0</span></div>
+</div></section>
+  <section class="panel wide"><h2>Complaint distribution</h2><div class="bars">
+<div class="row"><span class="lab">Other</span><div class="track"><div class="fill" style="width:100.0%;background:#adb5bd"></div></div><span class="val">1213.0</span></div>
+<div class="row"><span class="lab">Delay</span><div class="track"><div class="fill" style="width:8.8%;background:#adb5bd"></div></div><span class="val">107.0</span></div>
+<div class="row"><span class="lab">Staff Behavior</span><div class="track"><div class="fill" style="width:6.8%;background:#adb5bd"></div></div><span class="val">82.0</span></div>
+<div class="row"><span class="lab">Pricing</span><div class="track"><div class="fill" style="width:4.0%;background:#adb5bd"></div></div><span class="val">49.0</span></div>
+<div class="row"><span class="lab">Mobile App</span><div class="track"><div class="fill" style="width:2.6%;background:#adb5bd"></div></div><span class="val">31.0</span></div>
+<div class="row"><span class="lab">Damaged Package</span><div class="track"><div class="fill" style="width:2.0%;background:#adb5bd"></div></div><span class="val">24.0</span></div>
+<div class="row"><span class="lab">Customer Support</span><div class="track"><div class="fill" style="width:1.4%;background:#adb5bd"></div></div><span class="val">17.0</span></div>
+<div class="row"><span class="lab">Tracking</span><div class="track"><div class="fill" style="width:0.9%;background:#adb5bd"></div></div><span class="val">11.0</span></div>
+<div class="row"><span class="lab">Lost Package</span><div class="track"><div class="fill" style="width:0.8%;background:#adb5bd"></div></div><span class="val">10.0</span></div>
+</div></section>
+</main>
+</body></html>
