@@ -1,15 +1,15 @@
 {
   "totals": {
-    "branches": 425,
-    "reviews": 4292,
+    "branches": 477,
+    "reviews": 2504,
     "companies": 6,
-    "avg_overall_confidence": 0.448
+    "avg_overall_confidence": 0.487
   },
   "companies": [
     {
       "slug": "tipax",
       "name": "Tipax",
-      "branches": 373,
+      "branches": 369,
       "cities": 42,
       "provinces": 29,
       "province_list": [
@@ -87,13 +87,11 @@
         "همدان",
         "یزد"
       ],
-      "reviews": 3732,
+      "reviews": 1804,
       "province_coverage_pct": 93.55,
       "city_coverage_pct": 42.0,
       "branch_coverage_vs_target_pct": 100.0,
       "sources": [
-        "analytics_demo.db",
-        "postal_intelligence.db",
         "tipax_iran.db"
       ],
       "official_missing": [
@@ -119,14 +117,14 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 3732,
+            "value": 1804,
             "confidence": 1.0,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": true
           },
           "branches": {
-            "value": 373,
+            "value": 369,
             "confidence": 1.0,
             "rule": "min(1, n/200)",
             "coverage_vs_target_pct": 100.0
@@ -166,10 +164,11 @@
     {
       "slug": "chapar",
       "name": "Chapar",
-      "branches": 19,
-      "cities": 7,
-      "provinces": 8,
+      "branches": 28,
+      "cities": 8,
+      "provinces": 9,
       "province_list": [
+        "Alborz",
         "East Azerbaijan",
         "Fars",
         "Gilan",
@@ -182,20 +181,21 @@
       "city_list": [
         "Bijar",
         "F9V6+PG8",
+        "Karaj",
         "Qom",
         "Shiraz",
         "Tabriz",
         "Tehran",
         "کرمان"
       ],
-      "reviews": 244,
-      "province_coverage_pct": 25.81,
-      "city_coverage_pct": 7.0,
-      "branch_coverage_vs_target_pct": 9.5,
+      "reviews": 217,
+      "province_coverage_pct": 29.03,
+      "city_coverage_pct": 8.0,
+      "branch_coverage_vs_target_pct": 14.0,
       "sources": [
         "analytics_demo.db",
-        "phase11_multisource.db",
-        "postal_intelligence.db"
+        "chapar_coverage.db",
+        "phase11_multisource.db"
       ],
       "official_missing": [
         "coverage",
@@ -219,28 +219,28 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 244,
+            "value": 217,
             "confidence": 1.0,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": true
           },
           "branches": {
-            "value": 19,
-            "confidence": 0.095,
+            "value": 28,
+            "confidence": 0.14,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 9.5
+            "coverage_vs_target_pct": 14.0
           },
           "cities": {
-            "value": 7,
-            "confidence": 0.07,
-            "coverage_pct": 7.0,
+            "value": 8,
+            "confidence": 0.08,
+            "coverage_pct": 8.0,
             "rule": "min(1, n/100)"
           },
           "provinces": {
-            "value": 8,
-            "confidence": 0.258,
-            "coverage_pct": 25.81,
+            "value": 9,
+            "confidence": 0.29,
+            "coverage_pct": 29.03,
             "rule": "min(1, n/31)"
           },
           "official_profile": {
@@ -250,7 +250,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.528,
+        "overall_dataset_confidence": 0.546,
         "targets": {
           "reviews": 100,
           "branches": 200,
@@ -266,24 +266,27 @@
     {
       "slug": "post",
       "name": "Post",
-      "branches": 8,
-      "cities": 2,
-      "provinces": 2,
+      "branches": 32,
+      "cities": 3,
+      "provinces": 4,
       "province_list": [
+        "Alborz",
+        "Isfahan",
         "Tehran",
         "West Azerbaijan"
       ],
       "city_list": [
+        "Isfahan",
         "Tehran",
         "Urmia"
       ],
-      "reviews": 110,
-      "province_coverage_pct": 6.45,
-      "city_coverage_pct": 2.0,
-      "branch_coverage_vs_target_pct": 4.0,
+      "reviews": 248,
+      "province_coverage_pct": 12.9,
+      "city_coverage_pct": 3.0,
+      "branch_coverage_vs_target_pct": 16.0,
       "sources": [
         "phase11_multisource.db",
-        "postal_intelligence.db"
+        "post_coverage.db"
       ],
       "official_missing": [
         "branches",
@@ -304,28 +307,28 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 110,
+            "value": 248,
             "confidence": 1.0,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": true
           },
           "branches": {
-            "value": 8,
-            "confidence": 0.04,
+            "value": 32,
+            "confidence": 0.16,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 4.0
+            "coverage_vs_target_pct": 16.0
           },
           "cities": {
-            "value": 2,
-            "confidence": 0.02,
-            "coverage_pct": 2.0,
+            "value": 3,
+            "confidence": 0.03,
+            "coverage_pct": 3.0,
             "rule": "min(1, n/100)"
           },
           "provinces": {
-            "value": 2,
-            "confidence": 0.065,
-            "coverage_pct": 6.45,
+            "value": 4,
+            "confidence": 0.129,
+            "coverage_pct": 12.9,
             "rule": "min(1, n/31)"
           },
           "official_profile": {
@@ -335,7 +338,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.372,
+        "overall_dataset_confidence": 0.412,
         "targets": {
           "reviews": 100,
           "branches": 200,
@@ -351,10 +354,11 @@
     {
       "slug": "mahex",
       "name": "Mahex",
-      "branches": 17,
-      "cities": 4,
-      "provinces": 7,
+      "branches": 30,
+      "cities": 5,
+      "provinces": 8,
       "province_list": [
+        "Alborz",
         "Ardabil",
         "East Azerbaijan",
         "Khuzestan",
@@ -365,17 +369,18 @@
       ],
       "city_list": [
         "Ardabil",
+        "Karaj",
         "Qazvin",
         "Tehran",
         "خیابان فاطمی خیابان علیزاده"
       ],
-      "reviews": 120,
-      "province_coverage_pct": 22.58,
-      "city_coverage_pct": 4.0,
-      "branch_coverage_vs_target_pct": 8.5,
+      "reviews": 102,
+      "province_coverage_pct": 25.81,
+      "city_coverage_pct": 5.0,
+      "branch_coverage_vs_target_pct": 15.0,
       "sources": [
-        "phase11_multisource.db",
-        "postal_intelligence.db"
+        "mahex_coverage.db",
+        "phase11_multisource.db"
       ],
       "official_missing": [
         "coverage",
@@ -402,28 +407,28 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 120,
+            "value": 102,
             "confidence": 1.0,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": true
           },
           "branches": {
-            "value": 17,
-            "confidence": 0.085,
+            "value": 30,
+            "confidence": 0.15,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 8.5
+            "coverage_vs_target_pct": 15.0
           },
           "cities": {
-            "value": 4,
-            "confidence": 0.04,
-            "coverage_pct": 4.0,
+            "value": 5,
+            "confidence": 0.05,
+            "coverage_pct": 5.0,
             "rule": "min(1, n/100)"
           },
           "provinces": {
-            "value": 7,
-            "confidence": 0.226,
-            "coverage_pct": 22.58,
+            "value": 8,
+            "confidence": 0.258,
+            "coverage_pct": 25.81,
             "rule": "min(1, n/31)"
           },
           "official_profile": {
@@ -433,7 +438,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.477,
+        "overall_dataset_confidence": 0.499,
         "targets": {
           "reviews": 100,
           "branches": 200,
@@ -449,7 +454,7 @@
     {
       "slug": "alopeyk",
       "name": "AloPeyk",
-      "branches": 8,
+      "branches": 9,
       "cities": 3,
       "provinces": 4,
       "province_list": [
@@ -463,13 +468,13 @@
         "Tehran",
         "اصفهان"
       ],
-      "reviews": 86,
+      "reviews": 93,
       "province_coverage_pct": 12.9,
       "city_coverage_pct": 3.0,
-      "branch_coverage_vs_target_pct": 4.0,
+      "branch_coverage_vs_target_pct": 4.5,
       "sources": [
-        "phase11_multisource.db",
-        "postal_intelligence.db"
+        "alopeyk_coverage.db",
+        "phase11_multisource.db"
       ],
       "official_missing": [
         "branches",
@@ -495,17 +500,17 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 86,
-            "confidence": 0.86,
+            "value": 93,
+            "confidence": 0.93,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": false
           },
           "branches": {
-            "value": 8,
-            "confidence": 0.04,
+            "value": 9,
+            "confidence": 0.045,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 4.0
+            "coverage_vs_target_pct": 4.5
           },
           "cities": {
             "value": 3,
@@ -526,7 +531,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.388,
+        "overall_dataset_confidence": 0.414,
         "targets": {
           "reviews": 100,
           "branches": 200,
@@ -542,16 +547,28 @@
     {
       "slug": "pishro",
       "name": "Pishro",
-      "branches": 0,
-      "cities": 0,
-      "provinces": 0,
-      "province_list": [],
-      "city_list": [],
-      "reviews": 0,
-      "province_coverage_pct": 0.0,
-      "city_coverage_pct": 0.0,
-      "branch_coverage_vs_target_pct": 0.0,
-      "sources": [],
+      "branches": 9,
+      "cities": 4,
+      "provinces": 4,
+      "province_list": [
+        "Kerman",
+        "Razavi Khorasan",
+        "Tehran",
+        "Yazd"
+      ],
+      "city_list": [
+        "Kerman",
+        "Mashhad",
+        "Tehran",
+        "یزد"
+      ],
+      "reviews": 40,
+      "province_coverage_pct": 12.9,
+      "city_coverage_pct": 4.0,
+      "branch_coverage_vs_target_pct": 4.5,
+      "sources": [
+        "pishro_coverage.db"
+      ],
       "official_missing": [
         "branches",
         "services",
@@ -571,28 +588,28 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 0,
-            "confidence": 0.05,
+            "value": 40,
+            "confidence": 0.4,
             "rule": "min(1, n/100)",
-            "sufficient_for_stats": false,
+            "sufficient_for_stats": true,
             "strong_for_stats": false
           },
           "branches": {
-            "value": 0,
-            "confidence": 0.05,
+            "value": 9,
+            "confidence": 0.045,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 0.0
+            "coverage_vs_target_pct": 4.5
           },
           "cities": {
-            "value": 0,
-            "confidence": 0.05,
-            "coverage_pct": 0.0,
+            "value": 4,
+            "confidence": 0.04,
+            "coverage_pct": 4.0,
             "rule": "min(1, n/100)"
           },
           "provinces": {
-            "value": 0,
-            "confidence": 0.05,
-            "coverage_pct": 0.0,
+            "value": 4,
+            "confidence": 0.129,
+            "coverage_pct": 12.9,
             "rule": "min(1, n/31)"
           },
           "official_profile": {
@@ -602,7 +619,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.042,
+        "overall_dataset_confidence": 0.175,
         "targets": {
           "reviews": 100,
           "branches": 200,
