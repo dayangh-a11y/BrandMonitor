@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Company Ranking · BrandMonitor Postal Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+:root {
+  --bg: #0f1a17;
+  --panel: #16241f;
+  --line: #2a433a;
+  --text: #e7f2ec;
+  --muted: #9bb5a8;
+  --accent: #2f9e7a;
+  --good: #3ecf8e;
+  --warn: #e0b44e;
+  --bad: #e07171;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--text); font-family: var(--sans);
+  background:
+    radial-gradient(800px 420px at 0% 0%, #1d3b32 0%, transparent 55%),
+    radial-gradient(700px 380px at 100% 0%, #243018 0%, transparent 50%),
+    linear-gradient(180deg, #0c1412, var(--bg));
+  min-height: 100vh;
+}
+a { color: #7dd3b0; text-decoration: none; }
+header { padding: 24px 28px 8px; }
+.brand { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; letter-spacing: -0.02em; }
+.sub { color: var(--muted); margin-top: 4px; }
+nav { padding: 0 28px 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+nav a { color: var(--muted); }
+nav a:hover, nav a.active { color: var(--text); }
+main { padding: 8px 28px 40px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 14px 0 18px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.kpi .label { color: var(--muted); font-size: .75rem; }
+.kpi .value { font-family: var(--serif); font-size: 1.6rem; margin-top: 4px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+.card { background: rgba(22,36,31,.92); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.card h2 { margin: 0 0 10px; font-size: 1rem; font-weight: 600; }
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
+@media (max-width: 900px) {
+  .span-8, .span-6, .span-4 { grid-column: span 12; }
+}
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+.bar {
+  height: 8px; border-radius: 99px; background: #24352e; overflow: hidden;
+}
+.bar > span { display:block; height:100%; background: linear-gradient(90deg, #2f9e7a, #7dd3b0); }
+#map { height: 420px; border-radius: 12px; border: 1px solid var(--line); }
+.muted { color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<header>
+  <p class="brand">BrandMonitor</p>
+  <p class="sub">Postal Intelligence Platform — Company Ranking</p>
+</header>
+<nav><a class="" href="index.html">Overview</a> <a class="active" href="company_ranking.html">Company Ranking</a> <a class="" href="branch_ranking.html">Branch Ranking</a> <a class="" href="province_ranking.html">Province Ranking</a> <a class="" href="complaints.html">Complaints</a> <a class="" href="sentiment.html">Sentiment</a> <a class="" href="trends.html">Trends</a> <a class="" href="map.html">Interactive Map</a> <a class="" href="comparison.html">Comparison</a></nav>
+<main>
+
+<section class="card span-12">
+  <h2>Company Ranking — dimension breakdown</h2>
+  <p class="muted">Hover dimension cells for formula explanations. Score = Σ weight × dimension.</p>
+  <div style="overflow:auto">
+  <table>
+    <tr>
+      <th>#</th><th>Company</th><th>Score</th>
+      <th>Sat</th><th>Speed</th><th>Coverage</th><th>Price</th>
+      <th>Variety</th><th>Transparency</th><th>Complaints</th><th>Branches</th>
+    </tr>
+    <tr><td>1</td><td>Tipax</td><td><strong>69.68</strong></td><td title="CSI=45.9 from 822/68/976 (pos/neu/neg) over 1866 analyzed reviews; rating_score=54.2 from avg 2.71/5 → 49.2.">49.19</td><td title="Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.">83.33</td><td title="Coverage from cities=250, provinces=31, branches_eff=450 → 100.0.">100.0</td><td title="Official price_index=1.05 mapped to 50.0 (lower is better).">50.0</td><td title="Offers 10/12 catalog services → 83.3.">83.33</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="Complaint events/reviews=0.52, neg_share=52.30% → 62.3 (higher is better / fewer complaints).">62.34</td><td title="Branch quality via mean(branch_intelligence.branch_score) → 50.3 across 373 branches.">50.34</td></tr><tr><td>2</td><td>Chapar</td><td><strong>69.34</strong></td><td title="CSI=47.1 from 53/9/60 (pos/neu/neg) over 122 analyzed reviews; rating_score=54.1 from avg 2.70/5 → 49.9.">49.92</td><td title="Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.">83.33</td><td title="Coverage from cities=200, provinces=31, branches_eff=320 → 93.0.">93.0</td><td title="Official price_index=1.00 mapped to 57.1 (lower is better).">57.14</td><td title="Offers 9/12 catalog services → 75.0.">75.0</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="Complaint events/reviews=0.49, neg_share=49.18% → 64.6 (higher is better / fewer complaints).">64.59</td><td title="Branch quality via mean(branch_intelligence.branch_score) → 50.5 across 19 branches.">50.53</td></tr><tr><td>3</td><td>Mahex</td><td><strong>65.86</strong></td><td title="CSI=55.0 from 33/0/27 (pos/neu/neg) over 60 analyzed reviews; rating_score=63.3 from avg 3.17/5 → 58.3.">58.33</td><td title="Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.">83.33</td><td title="Coverage from cities=120, provinces=28, branches_eff=180 → 62.3.">62.33</td><td title="Official price_index=1.10 mapped to 42.9 (lower is better).">42.86</td><td title="Offers 8/12 catalog services → 66.7.">66.67</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="Complaint events/reviews=0.45, neg_share=45.00% → 67.6 (higher is better / fewer complaints).">67.6</td><td title="Branch quality via mean(branch_intelligence.branch_score) → 51.3 across 17 branches.">51.27</td></tr><tr><td>4</td><td>Post</td><td><strong>62.91</strong></td><td title="CSI=31.8 from 16/3/36 (pos/neu/neg) over 55 analyzed reviews; rating_score=42.2 from avg 2.11/5 → 36.0.">35.96</td><td title="Official intercity typical delivery 4.0 days (benchmarks 1.0→100, 7.0→0) → 50.0.">50.0</td><td title="Coverage from cities=1200, provinces=31, branches_eff=9000 → 100.0.">100.0</td><td title="Official price_index=0.85 mapped to 78.6 (lower is better).">78.57</td><td title="Offers 9/12 catalog services → 75.0.">75.0</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="Complaint events/reviews=0.65, neg_share=65.45% → 52.9 (higher is better / fewer complaints).">52.87</td><td title="Branch quality via mean(branch_intelligence.branch_score) → 48.3 across 8 branches.">48.31</td></tr><tr><td>5</td><td>Pishro</td><td><strong>60.15</strong></td><td title="No customer reviews available; using neutral prior 50.">50.0</td><td title="Official intercity typical delivery 3.0 days (benchmarks 1.0→100, 7.0→0) → 66.7.">66.67</td><td title="Coverage from cities=90, provinces=25, branches_eff=140 → 50.4.">50.41</td><td title="Official price_index=0.95 mapped to 64.3 (lower is better).">64.29</td><td title="Offers 8/12 catalog services → 66.7.">66.67</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="No reviews to estimate complaint rate; prior 50.">50.0</td><td title="No branch quality evidence; prior 50.">50.0</td></tr><tr><td>6</td><td>AloPeyk</td><td><strong>59.4</strong></td><td title="CSI=66.3 from 27/3/13 (pos/neu/neg) over 43 analyzed reviews; rating_score=70.2 from avg 3.51/5 → 67.9.">67.86</td><td title="Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.">83.33</td><td title="Coverage from cities=20, provinces=10, branches_eff=15 → 13.4.">13.38</td><td title="Official price_index=1.25 mapped to 21.4 (lower is better).">21.43</td><td title="Offers 5/12 catalog services → 41.7.">41.67</td><td title="Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.">100.0</td><td title="Complaint events/reviews=0.30, neg_share=30.23% → 78.2 (higher is better / fewer complaints).">78.23</td><td title="Branch quality via mean(branch_intelligence.branch_score) → 52.8 across 8 branches.">52.82</td></tr>
+  </table>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

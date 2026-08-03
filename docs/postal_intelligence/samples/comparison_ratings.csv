@@ -1,0 +1,7 @@
+name,score,avg_review_rating,review_count,sentiment
+Tipax,69.68,2.708,1866,"{""Negative"": 976, ""Neutral"": 68, ""Positive"": 822}"
+Chapar,69.34,2.705,122,"{""Negative"": 60, ""Neutral"": 9, ""Positive"": 53}"
+Mahex,65.86,3.167,60,"{""Negative"": 27, ""Positive"": 33}"
+Post,62.91,2.109,55,"{""Negative"": 36, ""Neutral"": 3, ""Positive"": 16}"
+Pishro,60.15,0.0,0,{}
+AloPeyk,59.4,3.512,43,"{""Negative"": 13, ""Neutral"": 3, ""Positive"": 27}"

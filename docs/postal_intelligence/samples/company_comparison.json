@@ -1,0 +1,723 @@
+{
+  "kind": "all_companies",
+  "companies": [
+    {
+      "company_id": 1,
+      "slug": "tipax",
+      "name": "Tipax",
+      "name_fa": "تیپاکس",
+      "score": 69.68,
+      "prices": {
+        "price_index": 1.05,
+        "base_parcel_0_to_1kg_toman": 85000,
+        "extra_kg_toman": 25000
+      },
+      "services": {
+        "list": [
+          "domestic_express",
+          "domestic_economy",
+          "door_to_door",
+          "branch_to_branch",
+          "international",
+          "packaging",
+          "insurance",
+          "cod",
+          "tracking",
+          "pickup"
+        ],
+        "count": 10,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 250,
+        "provinces_official": 31,
+        "branches_official": 450,
+        "branches_observed": 373
+      },
+      "delivery_time": {
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 4
+      },
+      "ratings": {
+        "avg_review_rating": 2.708,
+        "review_count": 1866,
+        "sentiment": {
+          "Negative": 976,
+          "Neutral": 68,
+          "Positive": 822
+        }
+      },
+      "complaint_distribution": {
+        "other": 0.7121,
+        "delivery_delay": 0.1014,
+        "staff_behavior": 0.0789,
+        "price": 0.0533,
+        "package_damage": 0.0256,
+        "lost_package": 0.0102,
+        "support": 0.0102,
+        "tracking": 0.0082
+      },
+      "branch_count": {
+        "official": 450,
+        "observed": 373
+      }
+    },
+    {
+      "company_id": 2,
+      "slug": "chapar",
+      "name": "Chapar",
+      "name_fa": "چاپار",
+      "score": 69.34,
+      "prices": {
+        "price_index": 1.0,
+        "base_parcel_0_to_1kg_toman": 80000,
+        "extra_kg_toman": 22000
+      },
+      "services": {
+        "list": [
+          "domestic_express",
+          "domestic_economy",
+          "door_to_door",
+          "branch_to_branch",
+          "international",
+          "insurance",
+          "cod",
+          "tracking",
+          "packaging"
+        ],
+        "count": 9,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 200,
+        "provinces_official": 31,
+        "branches_official": 320,
+        "branches_observed": 19
+      },
+      "delivery_time": {
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 5
+      },
+      "ratings": {
+        "avg_review_rating": 2.705,
+        "review_count": 122,
+        "sentiment": {
+          "Negative": 60,
+          "Neutral": 9,
+          "Positive": 53
+        }
+      },
+      "complaint_distribution": {
+        "other": 0.4167,
+        "delivery_delay": 0.25,
+        "price": 0.1,
+        "package_damage": 0.0833,
+        "staff_behavior": 0.0833,
+        "support": 0.0333,
+        "tracking": 0.0333
+      },
+      "branch_count": {
+        "official": 320,
+        "observed": 19
+      }
+    },
+    {
+      "company_id": 4,
+      "slug": "mahex",
+      "name": "Mahex",
+      "name_fa": "ماهکس",
+      "score": 65.86,
+      "prices": {
+        "price_index": 1.1,
+        "base_parcel_0_to_1kg_toman": 90000,
+        "extra_kg_toman": 28000
+      },
+      "services": {
+        "list": [
+          "domestic_express",
+          "door_to_door",
+          "branch_to_branch",
+          "insurance",
+          "cod",
+          "tracking",
+          "packaging",
+          "pickup"
+        ],
+        "count": 8,
+        "international": false,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 120,
+        "provinces_official": 28,
+        "branches_official": 180,
+        "branches_observed": 17
+      },
+      "delivery_time": {
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 4
+      },
+      "ratings": {
+        "avg_review_rating": 3.167,
+        "review_count": 60,
+        "sentiment": {
+          "Negative": 27,
+          "Positive": 33
+        }
+      },
+      "complaint_distribution": {
+        "other": 0.5185,
+        "staff_behavior": 0.1481,
+        "delivery_delay": 0.1111,
+        "price": 0.1111,
+        "support": 0.1111
+      },
+      "branch_count": {
+        "official": 180,
+        "observed": 17
+      }
+    },
+    {
+      "company_id": 3,
+      "slug": "post",
+      "name": "Post",
+      "name_fa": "شرکت ملی پست",
+      "score": 62.91,
+      "prices": {
+        "price_index": 0.85,
+        "base_parcel_0_to_1kg_toman": 55000,
+        "extra_kg_toman": 15000
+      },
+      "services": {
+        "list": [
+          "domestic_economy",
+          "domestic_express",
+          "registered_mail",
+          "international",
+          "insurance",
+          "cod",
+          "tracking",
+          "packaging",
+          "branch_to_branch"
+        ],
+        "count": 9,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 1200,
+        "provinces_official": 31,
+        "branches_official": 9000,
+        "branches_observed": 8
+      },
+      "delivery_time": {
+        "same_city_days": 2,
+        "intercity_typical_days": 4,
+        "remote_typical_days": 8
+      },
+      "ratings": {
+        "avg_review_rating": 2.109,
+        "review_count": 55,
+        "sentiment": {
+          "Negative": 36,
+          "Neutral": 3,
+          "Positive": 16
+        }
+      },
+      "complaint_distribution": {
+        "other": 0.75,
+        "delivery_delay": 0.0833,
+        "tracking": 0.0833,
+        "lost_package": 0.0278,
+        "package_damage": 0.0278,
+        "staff_behavior": 0.0278
+      },
+      "branch_count": {
+        "official": 9000,
+        "observed": 8
+      }
+    },
+    {
+      "company_id": 6,
+      "slug": "pishro",
+      "name": "Pishro",
+      "name_fa": "پیشرو",
+      "score": 60.15,
+      "prices": {
+        "price_index": 0.95,
+        "base_parcel_0_to_1kg_toman": 75000,
+        "extra_kg_toman": 20000
+      },
+      "services": {
+        "list": [
+          "domestic_express",
+          "domestic_economy",
+          "door_to_door",
+          "branch_to_branch",
+          "insurance",
+          "tracking",
+          "packaging",
+          "cod"
+        ],
+        "count": 8,
+        "international": false,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 90,
+        "provinces_official": 25,
+        "branches_official": 140,
+        "branches_observed": 0
+      },
+      "delivery_time": {
+        "same_city_days": 1,
+        "intercity_typical_days": 3,
+        "remote_typical_days": 5
+      },
+      "ratings": {
+        "avg_review_rating": 0.0,
+        "review_count": 0,
+        "sentiment": {}
+      },
+      "complaint_distribution": {},
+      "branch_count": {
+        "official": 140,
+        "observed": 0
+      }
+    },
+    {
+      "company_id": 5,
+      "slug": "alopeyk",
+      "name": "AloPeyk",
+      "name_fa": "الوپیک",
+      "score": 59.4,
+      "prices": {
+        "price_index": 1.25,
+        "base_parcel_0_to_1kg_toman": 120000,
+        "extra_kg_toman": 0
+      },
+      "services": {
+        "list": [
+          "urban_ondemand",
+          "door_to_door",
+          "tracking",
+          "pickup",
+          "packaging"
+        ],
+        "count": 5,
+        "international": false,
+        "cod": false,
+        "insurance": true,
+        "tracking": true
+      },
+      "coverage": {
+        "cities_official": 20,
+        "provinces_official": 10,
+        "branches_official": 15,
+        "branches_observed": 8
+      },
+      "delivery_time": {
+        "same_city_days": 0.2,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 3
+      },
+      "ratings": {
+        "avg_review_rating": 3.512,
+        "review_count": 43,
+        "sentiment": {
+          "Negative": 13,
+          "Neutral": 3,
+          "Positive": 27
+        }
+      },
+      "complaint_distribution": {
+        "other": 0.5385,
+        "support": 0.2308,
+        "delivery_delay": 0.0769,
+        "staff_behavior": 0.0769,
+        "tracking": 0.0769
+      },
+      "branch_count": {
+        "official": 15,
+        "observed": 8
+      }
+    }
+  ],
+  "tables": {
+    "prices": [
+      {
+        "name": "Tipax",
+        "price_index": 1.05,
+        "base_1kg_toman": 85000,
+        "extra_kg_toman": 25000
+      },
+      {
+        "name": "Chapar",
+        "price_index": 1.0,
+        "base_1kg_toman": 80000,
+        "extra_kg_toman": 22000
+      },
+      {
+        "name": "Mahex",
+        "price_index": 1.1,
+        "base_1kg_toman": 90000,
+        "extra_kg_toman": 28000
+      },
+      {
+        "name": "Post",
+        "price_index": 0.85,
+        "base_1kg_toman": 55000,
+        "extra_kg_toman": 15000
+      },
+      {
+        "name": "Pishro",
+        "price_index": 0.95,
+        "base_1kg_toman": 75000,
+        "extra_kg_toman": 20000
+      },
+      {
+        "name": "AloPeyk",
+        "price_index": 1.25,
+        "base_1kg_toman": 120000,
+        "extra_kg_toman": 0
+      }
+    ],
+    "services": [
+      {
+        "name": "Tipax",
+        "service_count": 10,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      {
+        "name": "Chapar",
+        "service_count": 9,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      {
+        "name": "Mahex",
+        "service_count": 8,
+        "international": false,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      {
+        "name": "Post",
+        "service_count": 9,
+        "international": true,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      {
+        "name": "Pishro",
+        "service_count": 8,
+        "international": false,
+        "cod": true,
+        "insurance": true,
+        "tracking": true
+      },
+      {
+        "name": "AloPeyk",
+        "service_count": 5,
+        "international": false,
+        "cod": false,
+        "insurance": true,
+        "tracking": true
+      }
+    ],
+    "coverage": [
+      {
+        "name": "Tipax",
+        "cities": 250,
+        "provinces": 31,
+        "branches_official": 450,
+        "branches_observed": 373
+      },
+      {
+        "name": "Chapar",
+        "cities": 200,
+        "provinces": 31,
+        "branches_official": 320,
+        "branches_observed": 19
+      },
+      {
+        "name": "Mahex",
+        "cities": 120,
+        "provinces": 28,
+        "branches_official": 180,
+        "branches_observed": 17
+      },
+      {
+        "name": "Post",
+        "cities": 1200,
+        "provinces": 31,
+        "branches_official": 9000,
+        "branches_observed": 8
+      },
+      {
+        "name": "Pishro",
+        "cities": 90,
+        "provinces": 25,
+        "branches_official": 140,
+        "branches_observed": 0
+      },
+      {
+        "name": "AloPeyk",
+        "cities": 20,
+        "provinces": 10,
+        "branches_official": 15,
+        "branches_observed": 8
+      }
+    ],
+    "delivery_time": [
+      {
+        "name": "Tipax",
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 4
+      },
+      {
+        "name": "Chapar",
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 5
+      },
+      {
+        "name": "Mahex",
+        "same_city_days": 1,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 4
+      },
+      {
+        "name": "Post",
+        "same_city_days": 2,
+        "intercity_typical_days": 4,
+        "remote_typical_days": 8
+      },
+      {
+        "name": "Pishro",
+        "same_city_days": 1,
+        "intercity_typical_days": 3,
+        "remote_typical_days": 5
+      },
+      {
+        "name": "AloPeyk",
+        "same_city_days": 0.2,
+        "intercity_typical_days": 2,
+        "remote_typical_days": 3
+      }
+    ],
+    "ratings": [
+      {
+        "name": "Tipax",
+        "score": 69.68,
+        "avg_review_rating": 2.708,
+        "review_count": 1866,
+        "sentiment": {
+          "Negative": 976,
+          "Neutral": 68,
+          "Positive": 822
+        }
+      },
+      {
+        "name": "Chapar",
+        "score": 69.34,
+        "avg_review_rating": 2.705,
+        "review_count": 122,
+        "sentiment": {
+          "Negative": 60,
+          "Neutral": 9,
+          "Positive": 53
+        }
+      },
+      {
+        "name": "Mahex",
+        "score": 65.86,
+        "avg_review_rating": 3.167,
+        "review_count": 60,
+        "sentiment": {
+          "Negative": 27,
+          "Positive": 33
+        }
+      },
+      {
+        "name": "Post",
+        "score": 62.91,
+        "avg_review_rating": 2.109,
+        "review_count": 55,
+        "sentiment": {
+          "Negative": 36,
+          "Neutral": 3,
+          "Positive": 16
+        }
+      },
+      {
+        "name": "Pishro",
+        "score": 60.15,
+        "avg_review_rating": 0.0,
+        "review_count": 0,
+        "sentiment": {}
+      },
+      {
+        "name": "AloPeyk",
+        "score": 59.4,
+        "avg_review_rating": 3.512,
+        "review_count": 43,
+        "sentiment": {
+          "Negative": 13,
+          "Neutral": 3,
+          "Positive": 27
+        }
+      }
+    ],
+    "complaint_distribution": [
+      {
+        "name": "Tipax",
+        "distribution": {
+          "other": 0.7121,
+          "delivery_delay": 0.1014,
+          "staff_behavior": 0.0789,
+          "price": 0.0533,
+          "package_damage": 0.0256,
+          "lost_package": 0.0102,
+          "support": 0.0102,
+          "tracking": 0.0082
+        }
+      },
+      {
+        "name": "Chapar",
+        "distribution": {
+          "other": 0.4167,
+          "delivery_delay": 0.25,
+          "price": 0.1,
+          "package_damage": 0.0833,
+          "staff_behavior": 0.0833,
+          "support": 0.0333,
+          "tracking": 0.0333
+        }
+      },
+      {
+        "name": "Mahex",
+        "distribution": {
+          "other": 0.5185,
+          "staff_behavior": 0.1481,
+          "delivery_delay": 0.1111,
+          "price": 0.1111,
+          "support": 0.1111
+        }
+      },
+      {
+        "name": "Post",
+        "distribution": {
+          "other": 0.75,
+          "delivery_delay": 0.0833,
+          "tracking": 0.0833,
+          "lost_package": 0.0278,
+          "package_damage": 0.0278,
+          "staff_behavior": 0.0278
+        }
+      },
+      {
+        "name": "Pishro",
+        "distribution": {}
+      },
+      {
+        "name": "AloPeyk",
+        "distribution": {
+          "other": 0.5385,
+          "support": 0.2308,
+          "delivery_delay": 0.0769,
+          "staff_behavior": 0.0769,
+          "tracking": 0.0769
+        }
+      }
+    ],
+    "branch_count": [
+      {
+        "name": "Tipax",
+        "official": 450,
+        "observed": 373
+      },
+      {
+        "name": "Chapar",
+        "official": 320,
+        "observed": 19
+      },
+      {
+        "name": "Mahex",
+        "official": 180,
+        "observed": 17
+      },
+      {
+        "name": "Post",
+        "official": 9000,
+        "observed": 8
+      },
+      {
+        "name": "Pishro",
+        "official": 140,
+        "observed": 0
+      },
+      {
+        "name": "AloPeyk",
+        "official": 15,
+        "observed": 8
+      }
+    ]
+  },
+  "ranked_by_score": [
+    {
+      "rank": 1,
+      "name": "Tipax",
+      "score": 69.68
+    },
+    {
+      "rank": 2,
+      "name": "Chapar",
+      "score": 69.34
+    },
+    {
+      "rank": 3,
+      "name": "Mahex",
+      "score": 65.86
+    },
+    {
+      "rank": 4,
+      "name": "Post",
+      "score": 62.91
+    },
+    {
+      "rank": 5,
+      "name": "Pishro",
+      "score": 60.15
+    },
+    {
+      "rank": 6,
+      "name": "AloPeyk",
+      "score": 59.4
+    }
+  ],
+  "calculated_at": "2026-08-03T19:51:35.783094+00:00"
+}

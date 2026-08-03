@@ -13,6 +13,7 @@ data/
 *.db
 *.sqlite
 *.sqlite3
+!docs/postal_intelligence/postal_intelligence.sample.db
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

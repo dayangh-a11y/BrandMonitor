@@ -1,0 +1,435 @@
+# Official / curated reference profiles for Iranian postal & logistics companies.
+# Stored separately from user reviews. Fields marked source: curated_public
+# should be refreshed from company websites / published tariffs when available.
+# Currency for prices: IRR thousands (تومان) where noted; price_index is relative (1.0 = market mid).
+
+companies:
+  - slug: tipax
+    name: Tipax
+    name_fa: تیپاکس
+    website: https://tipaxco.com
+    founded_year: 2007
+    headquarters: Tehran
+    ownership: private
+    description: Private express courier with nationwide retail branches and door-to-door parcel services.
+    description_fa: شرکت پست خصوصی با شبکه شعب خرده‌فروشی و ارسال درب‌به‌درب در سراسر کشور.
+    customer_support:
+      phone: ["021-96616"]
+      email: ["info@tipaxco.com"]
+      website_chat: true
+      social: ["instagram"]
+    working_hours:
+      weekdays: "08:00–20:00"
+      thursday: "08:00–18:00"
+      friday: "closed_or_limited"
+      notes: Hours vary by branch; hub hours may differ.
+    branch_count_official: 450
+    cities_covered_official: 250
+    provinces_covered_official: 31
+    services:
+      - domestic_express
+      - domestic_economy
+      - door_to_door
+      - branch_to_branch
+      - international
+      - packaging
+      - insurance
+      - cod
+      - tracking
+      - pickup
+    domestic_services:
+      - name: Express
+        delivery_days_typical: 1
+        delivery_days_max: 3
+      - name: Economy
+        delivery_days_typical: 2
+        delivery_days_max: 5
+    international_services:
+      enabled: true
+      regions: ["Middle East", "Europe", "Asia"]
+      notes: Via partners; transit times vary by destination.
+    insurance:
+      available: true
+      default_coverage: declared_value_optional
+      notes: Optional cargo insurance at booking.
+    cod:
+      available: true
+      notes: Cash on delivery for eligible domestic shipments.
+    tracking:
+      available: true
+      channels: ["website", "app", "sms"]
+    packaging:
+      available: true
+      notes: Branch packaging materials and boxing assistance.
+    official_pricing:
+      price_index: 1.05
+      base_parcel_0_to_1kg_toman: 85000
+      extra_kg_toman: 25000
+      currency_note: Approximate public list; city/remote surcharges apply.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 1
+      intercity_typical_days: 2
+      remote_typical_days: 4
+    weight_limits:
+      max_kg_standard: 50
+      max_kg_special: 100
+    size_limits:
+      max_side_cm: 150
+      max_girth_cm: 300
+    data_quality: curated_v1
+
+  - slug: chapar
+    name: Chapar
+    name_fa: چاپار
+    website: https://chaparnet.com
+    founded_year: 2000
+    headquarters: Tehran
+    ownership: private
+    description: Established private postal operator focused on parcel and document delivery.
+    description_fa: اپراتور پست خصوصی با تمرکز بر مرسوله و اسناد.
+    customer_support:
+      phone: ["021-96612"]
+      email: ["info@chaparnet.com"]
+      website_chat: true
+      social: []
+    working_hours:
+      weekdays: "08:00–18:00"
+      thursday: "08:00–16:00"
+      friday: "closed"
+      notes: Branch-dependent.
+    branch_count_official: 320
+    cities_covered_official: 200
+    provinces_covered_official: 31
+    services:
+      - domestic_express
+      - domestic_economy
+      - door_to_door
+      - branch_to_branch
+      - international
+      - insurance
+      - cod
+      - tracking
+      - packaging
+    domestic_services:
+      - name: Express
+        delivery_days_typical: 1
+        delivery_days_max: 3
+      - name: Standard
+        delivery_days_typical: 3
+        delivery_days_max: 6
+    international_services:
+      enabled: true
+      regions: ["CIS", "Europe", "Middle East"]
+      notes: Partner network.
+    insurance:
+      available: true
+      default_coverage: declared_value_optional
+      notes: Optional.
+    cod:
+      available: true
+      notes: Domestic COD where enabled.
+    tracking:
+      available: true
+      channels: ["website", "sms"]
+    packaging:
+      available: true
+      notes: Available at larger branches.
+    official_pricing:
+      price_index: 1.00
+      base_parcel_0_to_1kg_toman: 80000
+      extra_kg_toman: 22000
+      currency_note: Approximate public list.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 1
+      intercity_typical_days: 2
+      remote_typical_days: 5
+    weight_limits:
+      max_kg_standard: 40
+      max_kg_special: 80
+    size_limits:
+      max_side_cm: 140
+      max_girth_cm: 280
+    data_quality: curated_v1
+
+  - slug: post
+    name: Post
+    name_fa: شرکت ملی پست
+    website: https://post.ir
+    founded_year: 1876
+    headquarters: Tehran
+    ownership: state
+    description: National postal operator with the widest physical network in Iran.
+    description_fa: اپراتور ملی پست با گسترده‌ترین شبکه فیزیکی در ایران.
+    customer_support:
+      phone: ["193"]
+      email: ["info@post.ir"]
+      website_chat: false
+      social: []
+    working_hours:
+      weekdays: "07:30–15:30"
+      thursday: "07:30–13:30"
+      friday: "closed"
+      notes: Government office calendar; local variance.
+    branch_count_official: 9000
+    cities_covered_official: 1200
+    provinces_covered_official: 31
+    services:
+      - domestic_economy
+      - domestic_express
+      - registered_mail
+      - international
+      - insurance
+      - cod
+      - tracking
+      - packaging
+      - branch_to_branch
+    domestic_services:
+      - name: Pishtaz
+        delivery_days_typical: 2
+        delivery_days_max: 5
+      - name: Ordinary / Custom
+        delivery_days_typical: 4
+        delivery_days_max: 10
+    international_services:
+      enabled: true
+      regions: ["Worldwide UPU"]
+      notes: UPU network; EMS and parcel products.
+    insurance:
+      available: true
+      default_coverage: product_dependent
+      notes: Registered / insured products.
+    cod:
+      available: true
+      notes: COD products where offered.
+    tracking:
+      available: true
+      channels: ["website", "sms", "app"]
+    packaging:
+      available: true
+      notes: Counter packaging.
+    official_pricing:
+      price_index: 0.85
+      base_parcel_0_to_1kg_toman: 55000
+      extra_kg_toman: 15000
+      currency_note: Tariff schedule; often lowest list price.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 2
+      intercity_typical_days: 4
+      remote_typical_days: 8
+    weight_limits:
+      max_kg_standard: 30
+      max_kg_special: 50
+    size_limits:
+      max_side_cm: 150
+      max_girth_cm: 300
+    data_quality: curated_v1
+
+  - slug: mahex
+    name: Mahex
+    name_fa: ماهکس
+    website: https://mahex.com
+    founded_year: 2010
+    headquarters: Tehran
+    ownership: private
+    description: Private courier emphasizing express B2B and retail parcels.
+    description_fa: پست خصوصی با تمرکز بر ارسال سریع سازمانی و خرده‌فروشی.
+    customer_support:
+      phone: ["021-91001212"]
+      email: ["info@mahex.com"]
+      website_chat: true
+      social: []
+    working_hours:
+      weekdays: "08:00–19:00"
+      thursday: "08:00–17:00"
+      friday: "closed"
+      notes: Hub-dependent.
+    branch_count_official: 180
+    cities_covered_official: 120
+    provinces_covered_official: 28
+    services:
+      - domestic_express
+      - door_to_door
+      - branch_to_branch
+      - insurance
+      - cod
+      - tracking
+      - packaging
+      - pickup
+    domestic_services:
+      - name: Express
+        delivery_days_typical: 1
+        delivery_days_max: 3
+    international_services:
+      enabled: false
+      regions: []
+      notes: Primarily domestic.
+    insurance:
+      available: true
+      default_coverage: declared_value_optional
+      notes: Optional.
+    cod:
+      available: true
+      notes: Domestic.
+    tracking:
+      available: true
+      channels: ["website", "app"]
+    packaging:
+      available: true
+      notes: Selected branches.
+    official_pricing:
+      price_index: 1.10
+      base_parcel_0_to_1kg_toman: 90000
+      extra_kg_toman: 28000
+      currency_note: Approximate public list.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 1
+      intercity_typical_days: 2
+      remote_typical_days: 4
+    weight_limits:
+      max_kg_standard: 40
+      max_kg_special: 70
+    size_limits:
+      max_side_cm: 130
+      max_girth_cm: 260
+    data_quality: curated_v1
+
+  - slug: alopeyk
+    name: AloPeyk
+    name_fa: الوپیک
+    website: https://alopeyk.com
+    founded_year: 2015
+    headquarters: Tehran
+    ownership: private
+    description: On-demand urban courier / logistics marketplace (bike & van), not a classic postal retail network.
+    description_fa: پیک و ارسال شهری مبتنی بر اپلیکیشن.
+    customer_support:
+      phone: ["021-91000100"]
+      email: ["support@alopeyk.com"]
+      website_chat: true
+      social: ["instagram"]
+    working_hours:
+      weekdays: "24/7 app"
+      thursday: "24/7 app"
+      friday: "24/7 app"
+      notes: Courier availability is marketplace-driven.
+    branch_count_official: 15
+    cities_covered_official: 20
+    provinces_covered_official: 10
+    services:
+      - urban_ondemand
+      - door_to_door
+      - tracking
+      - pickup
+      - packaging
+    domestic_services:
+      - name: Same-city on-demand
+        delivery_days_typical: 0.1
+        delivery_days_max: 1
+    international_services:
+      enabled: false
+      regions: []
+      notes: Urban / selected cities.
+    insurance:
+      available: true
+      default_coverage: trip_dependent
+      notes: Limited shipment protection per trip rules.
+    cod:
+      available: false
+      notes: Not classic COD postal product.
+    tracking:
+      available: true
+      channels: ["app", "sms"]
+    packaging:
+      available: false
+      notes: Sender-prepared typical.
+    official_pricing:
+      price_index: 1.25
+      base_parcel_0_to_1kg_toman: 120000
+      extra_kg_toman: 0
+      currency_note: Dynamic distance/time pricing; index is illustrative.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 0.2
+      intercity_typical_days: 2
+      remote_typical_days: 3
+    weight_limits:
+      max_kg_standard: 20
+      max_kg_special: 50
+    size_limits:
+      max_side_cm: 80
+      max_girth_cm: 200
+    data_quality: curated_v1
+
+  - slug: pishro
+    name: Pishro
+    name_fa: پیشرو
+    website: https://pishro.net
+    founded_year: 2005
+    headquarters: Tehran
+    ownership: private
+    description: Private courier with express and distribution services.
+    description_fa: شرکت ارسال مرسوله خصوصی.
+    customer_support:
+      phone: ["021-91007000"]
+      email: ["info@pishro.net"]
+      website_chat: false
+      social: []
+    working_hours:
+      weekdays: "08:00–18:00"
+      thursday: "08:00–16:00"
+      friday: "closed"
+      notes: Branch-dependent.
+    branch_count_official: 140
+    cities_covered_official: 90
+    provinces_covered_official: 25
+    services:
+      - domestic_express
+      - domestic_economy
+      - door_to_door
+      - branch_to_branch
+      - insurance
+      - tracking
+      - packaging
+      - cod
+    domestic_services:
+      - name: Express
+        delivery_days_typical: 2
+        delivery_days_max: 4
+    international_services:
+      enabled: false
+      regions: []
+      notes: Primarily domestic.
+    insurance:
+      available: true
+      default_coverage: declared_value_optional
+      notes: Optional.
+    cod:
+      available: true
+      notes: Where enabled.
+    tracking:
+      available: true
+      channels: ["website"]
+    packaging:
+      available: true
+      notes: Selected branches.
+    official_pricing:
+      price_index: 0.95
+      base_parcel_0_to_1kg_toman: 75000
+      extra_kg_toman: 20000
+      currency_note: Approximate public list.
+      source: curated_public
+    official_delivery_times:
+      same_city_days: 1
+      intercity_typical_days: 3
+      remote_typical_days: 5
+    weight_limits:
+      max_kg_standard: 35
+      max_kg_special: 60
+    size_limits:
+      max_side_cm: 140
+      max_girth_cm: 270
+    data_quality: curated_v1

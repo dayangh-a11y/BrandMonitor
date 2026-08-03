@@ -1,12 +1,16 @@
 # BrandMonitor
 
-AI-powered logistics review intelligence platform (Iran MVP).
+AI-powered **Postal Intelligence Platform** for Iranian logistics companies.
 
-## MVP status (demonstrable)
+## Platform status
 
-End-to-end path works locally:
+BrandMonitor compares postal companies using:
 
-**reviews → AI analysis → insights → score_v1 → API / demo**
+- explainable **0–100 postal scores** (weighted dimensions, not ratings alone)
+- a curated **official company dataset** (services, pricing, coverage, COD, …)
+- **branch intelligence**, geo rankings, comparison tables, and dashboards
+
+Review collection remains available; Phase 2 focuses on intelligence & comparison.
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -19,11 +23,11 @@ export AI_PROVIDER=fake   # or openai + OPENAI_API_KEY
 export DB_PATH=data/brandmonitor.db
 export PYTHONPATH=.
 
-# Seed demo company/branches/reviews + analyze + score
-python3 scripts/seed_demo_data.py --db "$DB_PATH"
+# Build Postal Intelligence Platform (official data + existing review DBs)
+python3 scripts/build_postal_intelligence.py
 
-# Or refresh any DB: analyze pending + rescore everything
-python3 scripts/run_mvp_pipeline.py --db "$DB_PATH"
+# Legacy MVP seed (reviews → AI → score_v1)
+python3 scripts/seed_demo_data.py --db "$DB_PATH"
 
 # Serve
 uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1
@@ -31,49 +35,50 @@ uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1
 
 Open:
 
+- Postal dashboards: `output/postal_intelligence/dashboards/index.html` (or `docs/postal_intelligence/dashboards/`)
+- Postal API: `/postal/*` (requires `X-API-Token`)
 - Demo: http://127.0.0.1:8000/demo
 - API docs: http://127.0.0.1:8000/docs
+- Executive analytics: `/analytics/ui`
 - Admin: http://127.0.0.1:8000/admin/monitoring?token=dev-admin-token
-- API calls need header `X-API-Token: dev-api-token`
 
 ## Modules
 
 | Area | Status |
 |------|--------|
-| Google Maps collector + production crawl | Ready (live review yield may be limited by Google) |
+| Postal Intelligence scoring (`postal_score_v1`) | Ready (`postal/`, configurable weights) |
+| Official company dataset | Ready (`config/official_companies.yaml`) |
+| Branch intelligence + geo rankings | Ready |
+| Company comparison tables | Ready |
+| Postal dashboards + map | Ready (`output/postal_intelligence/dashboards`) |
+| Google Maps collector + production crawl | Ready |
 | AI analysis (`FakeAdapter` / `OpenAIAdapter`) | Ready |
-| score_v1 engine | Ready (`scoring/`) |
-| Insights generator | Ready (template from analyses) |
+| Legacy score_v1 engine | Ready (`scoring/`) |
 | REST read API | Ready (`API_TOKEN` gate) |
-| Demo HTML | Ready |
-| Admin ops pages | Ready |
-| Private beta cycle | Ready (`scripts/run_beta_cycle.py`) |
 | Executive analytics dashboards | Ready (`/analytics/ui`, Phase 7) |
 
 ## Key commands
 
 ```bash
+python3 scripts/build_postal_intelligence.py
 python3 scripts/run_production_crawl.py --company تیپاکس --mode incremental --max-branches 3
 python3 scripts/run_scheduler.py manual --company تیپاکس --mode incremental
-python3 scripts/run_scheduler.py all-companies --max-branches 3
 python3 scripts/run_ai_analysis.py --limit 100
 python3 scripts/run_scoring.py --insights
 python3 scripts/run_mvp_pipeline.py
-python3 scripts/run_beta_cycle.py --max-branches 3
-python3 scripts/backup_export.py --format all
 python3 -m pytest tests/ -q
 ```
 
-Company registry (no hardcoded names): `config/companies.yaml` — see `docs/PHASE6_COLLECTION.md`.
+Company registry: `config/companies.yaml`. Scoring weights: `config/scoring_weights.yaml`.
 
 ## Docs
 
+- `docs/POSTAL_INTELLIGENCE.md` — platform architecture
+- `docs/SCORING_METHODOLOGY.md` — every score formula (no black box)
 - `docs/PRODUCTION.md` — deploy / env
-- `docs/PRIVATE_BETA.md` — API auth, beta cycle, browser session, durable metrics
-- `docs/PHASE7_ANALYTICS.md` — executive analytics dashboards & API
-- `docs/PHASE6_AI.md` — OpenAI adapter & prompts
-- `docs/MVP_ENGINEERING_REPORT.md` — latest MVP integration report
-- `docs/REMAINING_BEFORE_LAUNCH.md` — public launch checklist
+- `docs/PRIVATE_BETA.md` — API auth, beta cycle
+- `docs/PHASE7_ANALYTICS.md` — executive analytics
+- `docs/MVP_ENGINEERING_REPORT.md` — MVP integration report
 
 ## Architecture
 
