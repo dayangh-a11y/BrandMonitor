@@ -19,6 +19,7 @@ from api.errors import (
     http_exception_handler,
     unhandled_error_handler,
 )
+from api.iran_post_routes import router as iran_post_router
 from api.postal_routes import router as postal_router
 from api.pricing_routes import router as pricing_router
 from api.routes import router
@@ -76,6 +77,7 @@ app.include_router(analytics_router)
 app.include_router(analytics_ui_router)
 app.include_router(postal_router)
 app.include_router(pricing_router)
+app.include_router(iran_post_router)
 
 
 @app.get("/health", response_model=HealthOut, tags=["system"])

@@ -1,0 +1,169 @@
+{
+  "mode": "fair_comparison",
+  "generated_at": "2026-08-03T23:57:07.420245+00:00",
+  "selected_slugs": [
+    "chapar",
+    "mahex",
+    "post",
+    "tipax"
+  ],
+  "common_cities": [
+    "tehran"
+  ],
+  "rows": [
+    {
+      "slug": "chapar",
+      "company": "Chapar",
+      "name_fa": "چاپار",
+      "role": "private_carrier",
+      "score": 70.43,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 6.45,
+      "coverage_percentage_official": null,
+      "number_of_branches": 16,
+      "number_of_reviews": 71,
+      "confidence_score": 0.354,
+      "city_count_observed": 1,
+      "province_count_observed": 2,
+      "avg_rating": 2.338,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "fair_rank": 1,
+      "fair_city_universe": [
+        "tehran"
+      ]
+    },
+    {
+      "slug": "tipax",
+      "company": "Tipax",
+      "name_fa": "تیپاکس",
+      "role": "private_carrier",
+      "score": 69.68,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 9.68,
+      "coverage_percentage_official": null,
+      "number_of_branches": 52,
+      "number_of_reviews": 292,
+      "confidence_score": 0.506,
+      "city_count_observed": 1,
+      "province_count_observed": 3,
+      "avg_rating": 2.538,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "fair_rank": 2,
+      "fair_city_universe": [
+        "tehran"
+      ]
+    },
+    {
+      "slug": "mahex",
+      "company": "Mahex",
+      "name_fa": "ماهکس",
+      "role": "private_carrier",
+      "score": 68.96,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 3.23,
+      "coverage_percentage_official": null,
+      "number_of_branches": 21,
+      "number_of_reviews": 57,
+      "confidence_score": 0.307,
+      "city_count_observed": 1,
+      "province_count_observed": 1,
+      "avg_rating": 3.175,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "fair_rank": 3,
+      "fair_city_universe": [
+        "tehran"
+      ]
+    },
+    {
+      "slug": "post",
+      "company": "Iran Post",
+      "name_fa": "شرکت ملی پست",
+      "role": "national_postal_operator",
+      "score": 62.86,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 3.23,
+      "coverage_percentage_official": 100.0,
+      "number_of_branches": 10,
+      "number_of_reviews": 52,
+      "confidence_score": 0.35,
+      "city_count_observed": 1,
+      "province_count_observed": 1,
+      "avg_rating": 2.231,
+      "official_coverage": {
+        "provinces_official": 31,
+        "cities_official": 1200,
+        "branches_official": 9000
+      },
+      "is_iran_post": true,
+      "fair_rank": 4,
+      "fair_city_universe": [
+        "tehran"
+      ]
+    }
+  ],
+  "warnings": [
+    "Iran Post is included as national_postal_operator. Fair mode uses Maps-observed post-office cities only (not the full official 9000-branch claim)."
+  ],
+  "display": {
+    "columns": [
+      "fair_rank",
+      "company",
+      "role",
+      "score",
+      "coverage_percentage",
+      "number_of_branches",
+      "number_of_reviews",
+      "confidence_score"
+    ],
+    "rows": [
+      [
+        1,
+        "Chapar",
+        "private_carrier",
+        70.43,
+        6.45,
+        16,
+        71,
+        0.354
+      ],
+      [
+        2,
+        "Tipax",
+        "private_carrier",
+        69.68,
+        9.68,
+        52,
+        292,
+        0.506
+      ],
+      [
+        3,
+        "Mahex",
+        "private_carrier",
+        68.96,
+        3.23,
+        21,
+        57,
+        0.307
+      ],
+      [
+        4,
+        "Iran Post",
+        "national_postal_operator",
+        62.86,
+        3.23,
+        10,
+        52,
+        0.35
+      ]
+    ],
+    "common_cities": [
+      "tehran"
+    ]
+  },
+  "eligible": true,
+  "message": null
+}

@@ -1,0 +1,203 @@
+{
+  "mode": "national_ranking",
+  "generated_at": "2026-08-03T23:57:07.411523+00:00",
+  "rows": [
+    {
+      "slug": "chapar",
+      "company": "Chapar",
+      "name_fa": "چاپار",
+      "role": "private_carrier",
+      "score": 70.43,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 32.26,
+      "coverage_percentage_official": null,
+      "number_of_branches": 28,
+      "number_of_reviews": 148,
+      "confidence_score": 0.516,
+      "city_count_observed": 8,
+      "province_count_observed": 10,
+      "avg_rating": 2.872,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "national_rank": 1
+    },
+    {
+      "slug": "tipax",
+      "company": "Tipax",
+      "name_fa": "تیپاکس",
+      "role": "private_carrier",
+      "score": 69.68,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 100.0,
+      "coverage_percentage_official": null,
+      "number_of_branches": 373,
+      "number_of_reviews": 1866,
+      "confidence_score": 0.863,
+      "city_count_observed": 38,
+      "province_count_observed": 65,
+      "avg_rating": 2.708,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "national_rank": 2
+    },
+    {
+      "slug": "mahex",
+      "company": "Mahex",
+      "name_fa": "ماهکس",
+      "role": "private_carrier",
+      "score": 68.96,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 29.03,
+      "coverage_percentage_official": null,
+      "number_of_branches": 30,
+      "number_of_reviews": 84,
+      "confidence_score": 0.455,
+      "city_count_observed": 5,
+      "province_count_observed": 9,
+      "avg_rating": 3.595,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "national_rank": 3
+    },
+    {
+      "slug": "pishro",
+      "company": "Pishro",
+      "name_fa": "پیشرو",
+      "role": "private_carrier",
+      "score": 66.02,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 12.9,
+      "coverage_percentage_official": null,
+      "number_of_branches": 9,
+      "number_of_reviews": 40,
+      "confidence_score": 0.25,
+      "city_count_observed": 4,
+      "province_count_observed": 4,
+      "avg_rating": 3.4,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "national_rank": 4
+    },
+    {
+      "slug": "post",
+      "company": "Iran Post",
+      "name_fa": "شرکت ملی پست",
+      "role": "national_postal_operator",
+      "score": 62.86,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 12.9,
+      "coverage_percentage_official": 100.0,
+      "number_of_branches": 32,
+      "number_of_reviews": 242,
+      "confidence_score": 0.562,
+      "city_count_observed": 3,
+      "province_count_observed": 4,
+      "avg_rating": 2.169,
+      "official_coverage": {
+        "provinces_official": 31,
+        "cities_official": 1200,
+        "branches_official": 9000
+      },
+      "is_iran_post": true,
+      "national_rank": 5
+    },
+    {
+      "slug": "alopeyk",
+      "company": "AloPeyk",
+      "name_fa": "الوپیک",
+      "role": "private_carrier",
+      "score": 58.9,
+      "algorithm_version": "postal_score_v1",
+      "coverage_percentage": 12.9,
+      "coverage_percentage_official": null,
+      "number_of_branches": 9,
+      "number_of_reviews": 53,
+      "confidence_score": 0.293,
+      "city_count_observed": 2,
+      "province_count_observed": 4,
+      "avg_rating": 3.472,
+      "official_coverage": null,
+      "is_iran_post": false,
+      "national_rank": 6
+    }
+  ],
+  "warnings": [
+    "Unequal geographic coverage detected (observed province coverage gap 87.1 percentage points). National Ranking can mislead when networks do not overlap. Prefer Fair Comparison Mode for route-level decisions.",
+    "Iran Post is the national postal operator, not a regular private carrier. Its official claimed network scale differs from Maps-observed private footprints. Do not treat official branch counts and observed private branch counts as equivalent.",
+    "Iran Post official branch_count is an order of magnitude larger than observed private networks in this warehouse — unequal coverage warning."
+  ],
+  "display": {
+    "columns": [
+      "national_rank",
+      "company",
+      "role",
+      "score",
+      "coverage_percentage",
+      "number_of_branches",
+      "number_of_reviews",
+      "confidence_score"
+    ],
+    "rows": [
+      [
+        1,
+        "Chapar",
+        "private_carrier",
+        70.43,
+        32.26,
+        28,
+        148,
+        0.516
+      ],
+      [
+        2,
+        "Tipax",
+        "private_carrier",
+        69.68,
+        100.0,
+        373,
+        1866,
+        0.863
+      ],
+      [
+        3,
+        "Mahex",
+        "private_carrier",
+        68.96,
+        29.03,
+        30,
+        84,
+        0.455
+      ],
+      [
+        4,
+        "Pishro",
+        "private_carrier",
+        66.02,
+        12.9,
+        9,
+        40,
+        0.25
+      ],
+      [
+        5,
+        "Iran Post",
+        "national_postal_operator",
+        62.86,
+        12.9,
+        32,
+        242,
+        0.562
+      ],
+      [
+        6,
+        "AloPeyk",
+        "private_carrier",
+        58.9,
+        12.9,
+        9,
+        53,
+        0.293
+      ]
+    ]
+  }
+}

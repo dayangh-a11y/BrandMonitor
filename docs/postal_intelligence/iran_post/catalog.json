@@ -1,0 +1,40 @@
+{
+  "module": "iran_post",
+  "role": "national_postal_operator",
+  "not_a_regular_carrier": true,
+  "treat_as_regular_carrier": false,
+  "maintains": [
+    "official_services",
+    "official_pricing",
+    "official_delivery_estimates",
+    "branch_directory",
+    "service_coverage",
+    "weight_and_size_limits",
+    "insurance_rules",
+    "tracking_information_public",
+    "working_hours",
+    "google_maps_reviews_post_offices"
+  ],
+  "comparison_modes": [
+    {
+      "id": "national_ranking",
+      "description": "Compare all companies using all available data (national view)."
+    },
+    {
+      "id": "fair_comparison",
+      "description": "Compare only cities/routes where all selected companies operate."
+    }
+  ],
+  "display_metrics": [
+    "coverage_percentage",
+    "number_of_branches",
+    "number_of_reviews",
+    "confidence_score"
+  ],
+  "coverage_warning_policy": "Never compare companies with unequal geographic coverage without warning the user.",
+  "website": "https://post.ir",
+  "tracking_public_url": "https://tracking.post.ir/",
+  "services_count": 9,
+  "pricing_note": "Approximate curated public list derived from published tariff schedules. Not a live calculator quote. Prefer merchant e-commerce API or official نرخنامه PDF for transactional pricing.\n",
+  "tracking_public_only": true
+}
