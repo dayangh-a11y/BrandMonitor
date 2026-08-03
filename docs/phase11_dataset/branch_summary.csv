@@ -1,4 +1,45 @@
 ﻿brand_name,branch_name,city,province,review_count,average_rating,sentiment_score,complaint_rate,positive_rate,negative_rate,data_confidence
+Chapar,Chaparnet,Tehran,Tehran,10,2.7,40.0,60.0,40.0,60.0,زیاد
+Chapar,کالا رسانان چاپار,Tehran,Tehran,10,1.5,30.0,70.0,30.0,70.0,زیاد
+Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,10,1.5,20.0,80.0,20.0,80.0,زیاد
+Chapar,ایمن رسانان چاپار(احمدی),Tehran,Tehran,1,1.0,0.0,100.0,0.0,100.0,کم
+Chapar,چاپار مطهری (کالارسان چاپار شعبه مطهری),Tehran,Tehran,2,1.0,0.0,100.0,0.0,100.0,متوسط
+Chapar,کالا رسانان چاپار ساری chapar,NULL,Mazandaran,4,3.75,75.0,25.0,75.0,25.0,متوسط
+Chapar,Chapar System,NULL,Gilan,3,2.6667,66.67,33.33,66.67,33.33,متوسط
+Chapar,دفتر نمایندگی چاپار پاسداران مجیدیه هروی,Tehran,Tehran,2,4.0,50.0,0.0,50.0,0.0,متوسط
+Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,5,1.0,0.0,100.0,0.0,100.0,زیاد
+Chapar,شرکت کالارسانان چاپار,Qom,Qom,10,1.7,30.0,70.0,30.0,70.0,زیاد
+Chapar,موسسه توریستی چاپار,Tehran,Tehran,1,5.0,100.0,0.0,100.0,0.0,کم
+Chapar,کالا رسانان چاپار بیجار,Bijar,Kurdistan,1,5.0,100.0,0.0,100.0,0.0,کم
+Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,10,3.0,50.0,50.0,50.0,50.0,زیاد
+Chapar,انبار چاپار,F9V6+PG8,Kahrizak,1,3.0,0.0,0.0,0.0,0.0,کم
+Post,Iran Mall Post Office,Tehran,Tehran,10,1.8,10.0,90.0,10.0,90.0,زیاد
+Post,شرکت ملی پست ایران,Tehran,Tehran,3,2.6667,33.33,66.67,33.33,66.67,متوسط
+Post,Post Department of Tehran District 13,Tehran,Tehran,10,2.3,30.0,60.0,30.0,60.0,زیاد
+Post,Post Office,Tehran,Tehran,1,3.0,0.0,0.0,0.0,0.0,کم
+Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,10,1.0,10.0,90.0,10.0,90.0,زیاد
+Post,Post Office Urmia,NULL,West Azerbaijan,10,1.0,10.0,90.0,10.0,90.0,زیاد
+Post,Urmia Post Office,NULL,West Azerbaijan,4,2.75,75.0,25.0,75.0,25.0,متوسط
+Mahex,Mahex,Tehran,Tehran,20,2.0,25.0,75.0,25.0,75.0,زیاد
+Mahex,نمایندگی ماهکس پونک,Tehran,Tehran,1,5.0,100.0,0.0,100.0,0.0,کم
+Mahex,ماهکس لاله زار,Tehran,Tehran,5,5.0,100.0,0.0,100.0,0.0,زیاد
+Mahex,نمایندگی ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,2,4.5,100.0,0.0,100.0,0.0,متوسط
+Mahex,پست ماهکس,Tehran,Tehran,2,3.0,50.0,50.0,50.0,50.0,متوسط
+Mahex,ماهکس انقلاب,Tehran,Tehran,1,5.0,100.0,0.0,100.0,0.0,کم
+Mahex,نمایندگی ماهکس خلخال,Ardabil,Ardabil,3,5.0,100.0,0.0,100.0,0.0,متوسط
+Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,7,1.5714,14.29,85.71,14.29,85.71,زیاد
+Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,6,2.8333,50.0,50.0,50.0,50.0,زیاد
+Mahex,Mahex jannat abad,Tehran,Tehran,4,3.0,50.0,50.0,50.0,50.0,متوسط
+Mahex,Mahex Sanandaj,NULL,Kurdistan,1,5.0,100.0,0.0,100.0,0.0,کم
+Mahex,پست ماهکس ساری,NULL,Mazandaran,1,5.0,100.0,0.0,100.0,0.0,کم
+Mahex,mahex,Qazvin,Qazvin,1,5.0,100.0,0.0,100.0,0.0,کم
+Mahex,نمایندگی ماهکس شمال خوزستان,NULL,Khuzestan,2,5.0,100.0,0.0,100.0,0.0,متوسط
+AloPeyk,Alopeyk,Tehran,Tehran,10,1.5,10.0,70.0,10.0,70.0,زیاد
+AloPeyk,Alopeyk,NULL,Razavi Khorasan,10,4.1,90.0,10.0,90.0,10.0,زیاد
+AloPeyk,الوپیک,Tehran,Tehran,2,1.5,0.0,100.0,0.0,100.0,متوسط
+AloPeyk,پیک موتوری ثابت,اصفهان,اصفهان,1,5.0,100.0,0.0,100.0,0.0,کم
+AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,8,4.125,75.0,25.0,75.0,25.0,زیاد
+AloPeyk,الوپیک شیراز,شیراز,Fars,7,4.1429,71.43,14.29,71.43,14.29,زیاد
 Chapar,Chapar Center,Tehran,Tehran Province,6,3.0,33.33,33.33,33.33,33.33,زیاد
 Chapar,Chapar Shiraz,Shiraz,Fars,8,3.25,50.0,37.5,50.0,37.5,زیاد
 Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,9,3.1111,44.44,33.33,44.44,33.33,زیاد

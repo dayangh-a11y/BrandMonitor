@@ -1,4 +1,216 @@
 ﻿review_id,brand,branch_name,city,province,rating,sentiment,emotion,complaint_category,urgency,confidence_score,review_source,review_date,latitude,longitude,branch_review_count,branch_average_rating,branch_sentiment_score,branch_complaint_rate,branch_data_confidence
+687fdef04121d6b1,Chapar,Chaparnet,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+34959569a297a60b,Chapar,Chaparnet,Tehran,Tehran,2.0,Negative,Frustrated,delivery_delay,High,90,google_maps,a year ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+2a7af40e3611461a,Chapar,Chaparnet,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,2 years ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+8d69e8e07e352190,Chapar,Chaparnet,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,Edited 8 years ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+faa6a6cc2a9a74df,Chapar,Chaparnet,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,4 years ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+01546c050d597468,Chapar,Chaparnet,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,High,90,google_maps,5 months ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+2b602764e9b2246c,Chapar,Chaparnet,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,7 months ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+bf8f72b4165c108a,Chapar,Chaparnet,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,Critical,100,google_maps,7 months ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+d3ea0a3cdcfe2a1e,Chapar,Chaparnet,Tehran,Tehran,1.0,Negative,Angry,support,High,90,google_maps,11 months ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+11b899397dfb7ee9,Chapar,Chaparnet,Tehran,Tehran,5.0,Positive,Happy,tracking,Low,90,google_maps,11 months ago,35.7077191,51.2104082,10,2.7,40.0,60.0,زیاد
+f31e68e35f51cf2e,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Positive,Satisfied,other,High,90,google_maps,a year ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+8347a2615473d56c,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+da803be9e5faa865,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+8a69f6b367c1b662,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,Critical,100,google_maps,2 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+ca318709653dd6ec,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Positive,Satisfied,other,High,90,google_maps,2 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+62042db1c4666cbb,Chapar,کالا رسانان چاپار,Tehran,Tehran,2.0,Negative,Disappointed,tracking,Medium,90,google_maps,2 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+aa71288e739a803b,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,3 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+f4f8cf4ed5171c54,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,2 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+68787fdef8a36da3,Chapar,کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+dbc466cdff103889,Chapar,کالا رسانان چاپار,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,4 years ago,35.8405724,50.956068,10,1.5,30.0,70.0,زیاد
+feac0bd39c897a3f,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,support,High,100,google_maps,2 months ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+5f230c1b4b8c6fbb,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,Critical,100,google_maps,a year ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+505e0a2b452efa9d,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,High,100,google_maps,9 months ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+013148eb956aba84,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,price,High,90,google_maps,a year ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+d721251ee39279f4,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,3.0,Positive,Satisfied,other,Low,90,google_maps,a year ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+ebd0e45c349f3061,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,4.0,Positive,Satisfied,other,Low,80,google_maps,a year ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+a08ca8d77e7e65f3,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,Critical,100,google_maps,a year ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+1367923e74adb997,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,tracking,High,90,google_maps,2 years ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+1b6a9dc17624d842,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+71e5cd6a53650948,Chapar,شرکت کالا رسانان چاپار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,10 months ago,35.6946284,51.4149964,10,1.5,20.0,80.0,زیاد
+d13b72baf2c92e65,Chapar,ایمن رسانان چاپار(احمدی),Tehran,Tehran,1.0,Negative,Angry,other,High,65,google_maps,6 months ago,35.7084818,51.2111898,1,1.0,0.0,100.0,کم
+25d3ce657b574af0,Chapar,چاپار مطهری (کالارسان چاپار شعبه مطهری),Tehran,Tehran,1.0,Negative,Angry,price,Critical,100,google_maps,10 months ago,35.7299604,51.4267195,2,1.0,0.0,100.0,متوسط
+9ece7a58e94ebabe,Chapar,چاپار مطهری (کالارسان چاپار شعبه مطهری),Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,8 months ago,35.7299604,51.4267195,2,1.0,0.0,100.0,متوسط
+067a9112375d3763,Chapar,کالا رسانان چاپار ساری chapar,NULL,Mazandaran,4.0,Positive,Satisfied,other,Low,80,google_maps,2 years ago,36.5689877,53.0402203,4,3.75,75.0,25.0,متوسط
+25df062c94f78e60,Chapar,کالا رسانان چاپار ساری chapar,NULL,Mazandaran,5.0,Positive,Happy,other,Low,80,google_maps,a year ago,36.5689877,53.0402203,4,3.75,75.0,25.0,متوسط
+cbb50785f13ac96e,Chapar,کالا رسانان چاپار ساری chapar,NULL,Mazandaran,5.0,Positive,Happy,price,Low,100,google_maps,2 years ago,36.5689877,53.0402203,4,3.75,75.0,25.0,متوسط
+318c6f29b583558c,Chapar,کالا رسانان چاپار ساری chapar,NULL,Mazandaran,1.0,Negative,Angry,other,High,65,google_maps,a year ago,36.5689877,53.0402203,4,3.75,75.0,25.0,متوسط
+d92cfea67696de69,Chapar,Chapar System,NULL,Gilan,1.0,Positive,Satisfied,other,High,90,google_maps,a year ago,37.2044362,50.0034249,3,2.6667,66.67,33.33,متوسط
+d52c31e2d1c029bd,Chapar,Chapar System,NULL,Gilan,5.0,Positive,Happy,other,Low,70,google_maps,7 years ago,37.2044362,50.0034249,3,2.6667,66.67,33.33,متوسط
+40112e9f09702690,Chapar,Chapar System,NULL,Gilan,2.0,Negative,Disappointed,other,Medium,65,google_maps,a year ago,37.2044362,50.0034249,3,2.6667,66.67,33.33,متوسط
+0add2ae2c6968c81,Chapar,دفتر نمایندگی چاپار پاسداران مجیدیه هروی,Tehran,Tehran,3.0,Neutral,Satisfied,other,Low,70,google_maps,a year ago,35.7601424,51.4744802,2,4.0,50.0,0.0,متوسط
+48a88b63497bda1a,Chapar,دفتر نمایندگی چاپار پاسداران مجیدیه هروی,Tehran,Tehran,5.0,Positive,Happy,other,Low,55,google_maps,a year ago,35.7601424,51.4744802,2,4.0,50.0,0.0,متوسط
+f58e35952b1bf8d4,Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,35.6918401,51.4779059,5,1.0,0.0,100.0,زیاد
+67c8d5bf80ab93e9,Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,1.0,Negative,Angry,other,Critical,100,google_maps,a year ago,35.6918401,51.4779059,5,1.0,0.0,100.0,زیاد
+4393290725acf40c,Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,3 years ago,35.6918401,51.4779059,5,1.0,0.0,100.0,زیاد
+558b3ddd0b8a017f,Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,9 months ago,35.6918401,51.4779059,5,1.0,0.0,100.0,زیاد
+7cae0834dc7948d9,Chapar,کالارسانان چاپار نمایندگی پیروزی,Tehran,Tehran,1.0,Negative,Angry,other,High,65,google_maps,a year ago,35.6918401,51.4779059,5,1.0,0.0,100.0,زیاد
+2705512632c9f24d,Chapar,شرکت کالارسانان چاپار,Qom,Qom,4.0,Negative,Disappointed,other,Medium,90,google_maps,9 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+16552067272539c7,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,other,High,80,google_maps,7 months ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+dc4345057ec36970,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,staff_behavior,High,100,google_maps,8 months ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+e01b93a617583004,Chapar,شرکت کالارسانان چاپار,Qom,Qom,5.0,Positive,Happy,price,Low,100,google_maps,a year ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+7c7666e01461da2d,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Positive,Satisfied,other,High,90,google_maps,4 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+446987df73916089,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,price,High,100,google_maps,3 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+5ae33abb7872025a,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Positive,Satisfied,delivery_delay,High,100,google_maps,4 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+68288726fb79245d,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,other,High,90,google_maps,a year ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+9e006c213b711625,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,delivery_delay,High,80,google_maps,2 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+404a58847a8a518a,Chapar,شرکت کالارسانان چاپار,Qom,Qom,1.0,Negative,Angry,delivery_delay,High,80,google_maps,4 years ago,34.6294497,50.8365057,10,1.7,30.0,70.0,زیاد
+34ecf06f69beafe5,Chapar,موسسه توریستی چاپار,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,7 years ago,35.7106348,51.3696633,1,5.0,100.0,0.0,کم
+168eeaae646df4e6,Chapar,کالا رسانان چاپار بیجار,Bijar,Kurdistan,5.0,Positive,Happy,other,Low,55,google_maps,5 months ago,35.8704231,47.5967377,1,5.0,100.0,0.0,کم
+3b11f3223a583305,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,other,High,90,google_maps,a year ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+70a54b3d645bb177,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,other,High,90,google_maps,2 months ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+a8cea6185385cea4,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,delivery_delay,High,90,google_maps,2 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+1966bacbc6ecf9ac,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+eaa9129bc79838ba,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+7bfa3991035b3083,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,other,Low,80,google_maps,2 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+1f47e02f000ece74,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,staff_behavior,Low,100,google_maps,3 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+1c3aadd7dbf0fb82,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,other,Low,80,google_maps,a year ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+d4293dff6f025916,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,other,Low,90,google_maps,2 years ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+36c61179047d63f2,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,5.0,Positive,Happy,other,Low,70,google_maps,a year ago,34.3714444,47.1205504,10,3.0,50.0,50.0,زیاد
+5f34cec956345a68,Chapar,انبار چاپار,F9V6+PG8,Kahrizak,3.0,Neutral,Satisfied,other,Low,70,google_maps,5 months ago,35.4942778,51.3613314,1,3.0,0.0,0.0,کم
+721fdb6e558a7b9d,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+33ecaad65d94fe3c,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+241354136d7100da,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,9 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+1ea88952595b0f81,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,other,Critical,100,google_maps,7 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+f778843fad4e2f86,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,tracking,High,90,google_maps,7 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+4abfca85cc29d23e,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,tracking,High,90,google_maps,5 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+2c06ef3cb02fc3ed,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+5901f8f789b867c0,Post,Iran Mall Post Office,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,11 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+7b7ce57dbd5fff85,Post,Iran Mall Post Office,Tehran,Tehran,5.0,Negative,Disappointed,other,Medium,100,google_maps,10 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+a81842da9e1ae0c4,Post,Iran Mall Post Office,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,11 months ago,35.753391,51.1895949,10,1.8,10.0,90.0,زیاد
+3aa6af602e521db0,Post,شرکت ملی پست ایران,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,6 years ago,35.7339547,51.444931,3,2.6667,33.33,66.67,متوسط
+31a5080151b1dff1,Post,شرکت ملی پست ایران,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,4 years ago,35.7339547,51.444931,3,2.6667,33.33,66.67,متوسط
+b705d719f3ee99c6,Post,شرکت ملی پست ایران,Tehran,Tehran,2.0,Negative,Disappointed,other,Medium,65,google_maps,5 years ago,35.7339547,51.444931,3,2.6667,33.33,66.67,متوسط
+58f6b27b8abc50ac,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,a year ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+8331787eaf0f3da9,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,5 years ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+1e5a92184e7028c2,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+096e71538323e44e,Post,Post Department of Tehran District 13,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,7 months ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+cdb91132881bbac4,Post,Post Department of Tehran District 13,Tehran,Tehran,3.0,Neutral,Satisfied,other,Low,80,google_maps,6 years ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+65adce7e8ea7950c,Post,Post Department of Tehran District 13,Tehran,Tehran,4.0,Positive,Satisfied,staff_behavior,Low,100,google_maps,3 years ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+49a6938c7b431ac4,Post,Post Department of Tehran District 13,Tehran,Tehran,5.0,Positive,Happy,staff_behavior,Low,80,google_maps,a year ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+6a8a95becb1fcb83,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,2 years ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+a57183c0aee9b6b2,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+3bbf759b4c8eb37a,Post,Post Department of Tehran District 13,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,4 years ago,35.6831293,51.3928611,10,2.3,30.0,60.0,زیاد
+314bfb6fce3c9d0e,Post,Post Office,Tehran,Tehran,3.0,Neutral,Satisfied,other,Low,55,google_maps,5 years ago,35.7025857,51.4203093,1,3.0,0.0,0.0,کم
+f3a300e37acdf222,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+35a1a60451d9a704,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,11 months ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+4628e794d5297521,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,package_damage,High,90,google_maps,11 months ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+3d8348c8bc2d4006,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Positive,Satisfied,other,High,90,google_maps,10 months ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+be8b6a2f7582ff58,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+c70ba6910ba4ae34,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+5cd6e8d79bfcc905,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+06e6aeeeec199a08,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+e493bbc242febd78,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+46005df297d497ee,Post,اداره کل پست استان آذربایجان غربی,Urmia,West Azerbaijan,1.0,Negative,Angry,tracking,High,90,google_maps,2 years ago,37.5426647,45.038684,10,1.0,10.0,90.0,زیاد
+e8ae18a0abd7913a,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a month ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+dcbea870449bcce3,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,7 months ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+8b439cefd0c05c4f,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,80,google_maps,2 months ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+73c8322c49f755c9,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,lost_package,Critical,90,google_maps,10 months ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+d2f54bd4d2224af2,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,9 months ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+c7242452153b53ba,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Positive,Satisfied,other,High,90,google_maps,a year ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+a08b058401cd906e,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+4032c8e59ccb6028,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,10 months ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+032b2c5c5f91775a,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,100,google_maps,a year ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+04ee82c828b0b1a4,Post,Post Office Urmia,NULL,West Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,37.5556697,45.0494096,10,1.0,10.0,90.0,زیاد
+1d7fb2c611af2541,Post,Urmia Post Office,NULL,West Azerbaijan,5.0,Positive,Happy,other,Low,80,google_maps,8 months ago,37.540126,45.0467761,4,2.75,75.0,25.0,متوسط
+3ff7f1bd8c9decd0,Post,Urmia Post Office,NULL,West Azerbaijan,1.0,Positive,Satisfied,staff_behavior,High,100,google_maps,Edited a year ago,37.540126,45.0467761,4,2.75,75.0,25.0,متوسط
+d218355dba6a9b42,Post,Urmia Post Office,NULL,West Azerbaijan,1.0,Negative,Angry,staff_behavior,High,90,google_maps,2 years ago,37.540126,45.0467761,4,2.75,75.0,25.0,متوسط
+37d77f74d712eb92,Post,Urmia Post Office,NULL,West Azerbaijan,4.0,Positive,Satisfied,other,Low,55,google_maps,3 years ago,37.540126,45.0467761,4,2.75,75.0,25.0,متوسط
+d68ae4f820dedd3f,Mahex,Mahex,Tehran,Tehran,5.0,Positive,Happy,other,Low,90,google_maps,a year ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+a7ff708e47906dab,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a month ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+608c6405038106dc,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,Critical,100,google_maps,7 months ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+46bcd81720c85df5,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,5 months ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+7a99ed5618385008,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,price,High,90,google_maps,a year ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+7e7962e61002a5f6,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,High,90,google_maps,a year ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+020dd97d43f1d874,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,a year ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+5e509e15d150f586,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,High,80,google_maps,8 months ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+859ee4f0b80a663c,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,80,google_maps,a year ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+9f316688d200daba,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,65,google_maps,a day ago,35.7780856,51.3703535,20,2.0,25.0,75.0,زیاد
+60a1a64e224eb430,Mahex,نمایندگی ماهکس پونک,Tehran,Tehran,5.0,Positive,Happy,other,Low,55,google_maps,4 days ago,35.7605846,51.332727,1,5.0,100.0,0.0,کم
+0b7549f313af5f76,Mahex,ماهکس لاله زار,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,5 months ago,35.6899996,51.4227386,5,5.0,100.0,0.0,زیاد
+e6903619a3281e44,Mahex,ماهکس لاله زار,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,5 months ago,35.6899996,51.4227386,5,5.0,100.0,0.0,زیاد
+8121517cd6218a7e,Mahex,ماهکس لاله زار,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,6 months ago,35.6899996,51.4227386,5,5.0,100.0,0.0,زیاد
+85cdb8184c205970,Mahex,ماهکس لاله زار,Tehran,Tehran,5.0,Positive,Happy,price,Low,100,google_maps,6 months ago,35.6899996,51.4227386,5,5.0,100.0,0.0,زیاد
+e5041ab6e19069be,Mahex,ماهکس لاله زار,Tehran,Tehran,5.0,Positive,Happy,other,Low,55,google_maps,7 months ago,35.6899996,51.4227386,5,5.0,100.0,0.0,زیاد
+cdb1839176fc8016,Mahex,نمایندگی ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,5.0,Positive,Happy,other,Low,70,google_maps,a year ago,35.7174346,51.400767,2,4.5,100.0,0.0,متوسط
+94f29b1c4d57a9ca,Mahex,نمایندگی ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,4.0,Positive,Satisfied,other,Low,55,google_maps,a year ago,35.7174346,51.400767,2,4.5,100.0,0.0,متوسط
+469ce24b314e0f2a,Mahex,پست ماهکس,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,5 months ago,35.6833014,51.4724523,2,3.0,50.0,50.0,متوسط
+db7d5e4ae6fa564e,Mahex,پست ماهکس,Tehran,Tehran,5.0,Positive,Happy,other,Low,55,google_maps,a year ago,35.6833014,51.4724523,2,3.0,50.0,50.0,متوسط
+40c86c277a9d001c,Mahex,ماهکس انقلاب,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,a month ago,35.7002431,51.3961032,1,5.0,100.0,0.0,کم
+53ae8005690874c0,Mahex,Mahex,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,a year ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+a8f1c9b0ff462708,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,price,High,100,google_maps,7 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+6aefad4fb2e325be,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,100,google_maps,8 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+cbdebdfc51357868,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,11 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+d6f1397ff625253c,Mahex,Mahex,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,7 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+1497340cc5754c67,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,11 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+c1a4527ea34c6f64,Mahex,Mahex,Tehran,Tehran,5.0,Positive,Happy,other,Low,90,google_maps,7 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+cf55899aef67611c,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,support,High,90,google_maps,11 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+2437f49bfb41ae18,Mahex,Mahex,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,7 months ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+84cbfdccc083756e,Mahex,Mahex,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,a year ago,35.8238427,50.9972041,20,2.0,25.0,75.0,زیاد
+bdf1baf9b6236178,Mahex,نمایندگی ماهکس خلخال,Ardabil,Ardabil,5.0,Positive,Happy,other,Low,80,google_maps,8 months ago,37.621601,48.528274,3,5.0,100.0,0.0,متوسط
+ccf50eea0bf61cc9,Mahex,نمایندگی ماهکس خلخال,Ardabil,Ardabil,5.0,Positive,Happy,other,Low,70,google_maps,8 months ago,37.621601,48.528274,3,5.0,100.0,0.0,متوسط
+6efe505cdedbf963,Mahex,نمایندگی ماهکس خلخال,Ardabil,Ardabil,5.0,Positive,Happy,other,Low,70,google_maps,8 months ago,37.621601,48.528274,3,5.0,100.0,0.0,متوسط
+0bf0a331127c9271,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,5.0,Positive,Happy,other,Low,80,google_maps,a year ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+5bddaea84919239c,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,Critical,100,google_maps,a year ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+6acd587fc538261d,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,other,High,100,google_maps,2 years ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+82ea5e22e4a35544,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,2 years ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+7348ee3965c08e8e,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,a year ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+b42f27004aae945c,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,a year ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+be3e6b04c174b64f,Mahex,نمایندگی ماهکس بهار,Tehran,Tehran,1.0,Negative,Angry,other,High,65,google_maps,a year ago,35.7031708,51.4288649,7,1.5714,14.29,85.71,زیاد
+a747aeef56520b19,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,1.0,Negative,Angry,support,High,90,google_maps,a year ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+332d59935c1bf429,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,1.0,Negative,Angry,other,High,90,google_maps,a year ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+0c048bc1ca32b212,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,5.0,Positive,Happy,price,Low,100,google_maps,2 years ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+821170a9a5936d47,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,4.0,Positive,Satisfied,other,Low,80,google_maps,2 years ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+4648acf808c0106c,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,1.0,Negative,Angry,support,High,80,google_maps,a year ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+632167403a24ee6e,Mahex,دفتر نمایندگی ماهکس,NULL,East Azerbaijan,5.0,Positive,Happy,other,Low,55,google_maps,7 months ago,38.0551558,46.26343,6,2.8333,50.0,50.0,زیاد
+e9d7e12e988bace1,Mahex,Mahex jannat abad,Tehran,Tehran,1.0,Negative,Angry,price,High,90,google_maps,a year ago,35.7481667,51.3035426,4,3.0,50.0,50.0,متوسط
+a490d9c2004d5288,Mahex,Mahex jannat abad,Tehran,Tehran,1.0,Negative,Angry,staff_behavior,High,80,google_maps,7 months ago,35.7481667,51.3035426,4,3.0,50.0,50.0,متوسط
+54215f1bd3ac0bf1,Mahex,Mahex jannat abad,Tehran,Tehran,5.0,Positive,Happy,other,Low,70,google_maps,2 years ago,35.7481667,51.3035426,4,3.0,50.0,50.0,متوسط
+bc825792c7796195,Mahex,Mahex jannat abad,Tehran,Tehran,5.0,Positive,Happy,other,Low,55,google_maps,2 years ago,35.7481667,51.3035426,4,3.0,50.0,50.0,متوسط
+60447b1874d19ef6,Mahex,Mahex Sanandaj,NULL,Kurdistan,5.0,Positive,Happy,other,Low,55,google_maps,3 years ago,35.3066439,47.0455583,1,5.0,100.0,0.0,کم
+71b156e59a67cfd8,Mahex,پست ماهکس ساری,NULL,Mazandaran,5.0,Positive,Happy,other,Low,55,google_maps,7 months ago,36.5633187,53.1044725,1,5.0,100.0,0.0,کم
+5132e8231b914f38,Mahex,mahex,Qazvin,Qazvin,5.0,Positive,Happy,other,Low,55,google_maps,Edited a year ago,36.0749967,49.7054355,1,5.0,100.0,0.0,کم
+6218ff4b98591228,Mahex,نمایندگی ماهکس شمال خوزستان,NULL,Khuzestan,5.0,Positive,Happy,other,Low,80,google_maps,7 months ago,32.4617235,48.363064,2,5.0,100.0,0.0,متوسط
+c6210251a7025998,Mahex,نمایندگی ماهکس شمال خوزستان,NULL,Khuzestan,5.0,Positive,Happy,other,Low,55,google_maps,7 months ago,32.4617235,48.363064,2,5.0,100.0,0.0,متوسط
+393ba9fcfe5c330f,AloPeyk,Alopeyk,Tehran,Tehran,3.0,Neutral,Satisfied,staff_behavior,Low,90,google_maps,8 years ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+eadd6978c3984eb8,AloPeyk,Alopeyk,Tehran,Tehran,3.0,Neutral,Satisfied,other,Low,70,google_maps,7 years ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+cc7a833731cd5d31,AloPeyk,Alopeyk,Tehran,Tehran,2.0,Negative,Disappointed,other,Medium,90,google_maps,6 years ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+1b47a482788754a0,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,support,High,90,google_maps,a month ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+62b4d04f011326a3,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,delivery_delay,High,90,google_maps,7 months ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+d8d057000ca44ee6,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,other,High,90,google_maps,8 months ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+4944725816e17df0,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,tracking,High,90,google_maps,8 months ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+47a0ed5a3a45488b,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,support,High,90,google_maps,10 months ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+5c9b74a2e6fa0410,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Negative,Angry,support,High,90,google_maps,10 months ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+8363dd268c569229,AloPeyk,Alopeyk,Tehran,Tehran,1.0,Positive,Satisfied,other,High,90,google_maps,a year ago,35.7313734,51.4171928,10,1.5,10.0,70.0,زیاد
+3f94be54625bae2f,AloPeyk,Alopeyk,NULL,Razavi Khorasan,1.0,Positive,Satisfied,other,High,80,google_maps,Edited 8 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+5f1524d9e206c219,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+05bf6fdc3fb85f1f,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,80,google_maps,6 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+dda1a4daac432f0d,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+96418afcb9712621,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,tracking,Low,100,google_maps,7 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+5ce2679c5eb014a1,AloPeyk,Alopeyk,NULL,Razavi Khorasan,1.0,Negative,Angry,staff_behavior,High,90,google_maps,6 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+73e32094ffe189a3,AloPeyk,Alopeyk,NULL,Razavi Khorasan,4.0,Positive,Satisfied,other,Low,70,google_maps,Edited 7 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+e8ceb5ac5d138717,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+495d81f3594131e4,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,90,google_maps,6 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+eb379ade2d1f3be3,AloPeyk,Alopeyk,NULL,Razavi Khorasan,5.0,Positive,Happy,other,Low,70,google_maps,2 years ago,36.3034438,59.5938871,10,4.1,90.0,10.0,زیاد
+1a6d147938c2b0df,AloPeyk,الوپیک,Tehran,Tehran,1.0,Negative,Angry,other,High,80,google_maps,3 days ago,35.6730244,51.4152978,2,1.5,0.0,100.0,متوسط
+0124aa9f70e9201b,AloPeyk,الوپیک,Tehran,Tehran,2.0,Negative,Disappointed,other,Medium,90,google_maps,a year ago,35.6730244,51.4152978,2,1.5,0.0,100.0,متوسط
+8a38e390d7ba7cde,AloPeyk,پیک موتوری ثابت,اصفهان,اصفهان,5.0,Positive,Happy,other,Low,70,google_maps,6 years ago,32.6575174,51.700651,1,5.0,100.0,0.0,کم
+ec1515a98a95f486,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,90,google_maps,7 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+ba5f323bb62da859,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,70,google_maps,7 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+6f570c748052c72b,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,80,google_maps,7 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+da5c8c48f02fb088,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,1.0,Negative,Angry,other,High,80,google_maps,7 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+866a7db957ad025d,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+a15d9eb5537dee13,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,2.0,Negative,Disappointed,other,Medium,80,google_maps,7 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+e5354cb1d7deddba,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+45bfc7c8b137ed6f,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,5.0,Positive,Happy,other,Low,55,google_maps,6 years ago,32.6529278,51.6961704,8,4.125,75.0,25.0,زیاد
+0f6d07240a7dd409,AloPeyk,الوپیک شیراز,شیراز,Fars,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+87f0ce39f1b7b38b,AloPeyk,الوپیک شیراز,شیراز,Fars,3.0,Neutral,Satisfied,other,Low,70,google_maps,8 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+99b24401abf70fa0,AloPeyk,الوپیک شیراز,شیراز,Fars,5.0,Positive,Happy,other,Low,70,google_maps,2 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+c10fdad5eb792e98,AloPeyk,الوپیک شیراز,شیراز,Fars,5.0,Positive,Happy,other,Low,70,google_maps,4 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+1c1a8f3f6a82c383,AloPeyk,الوپیک شیراز,شیراز,Fars,1.0,Negative,Angry,other,High,80,google_maps,7 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+7da0bf0c50c00f87,AloPeyk,الوپیک شیراز,شیراز,Fars,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
+26fd9814b64aa752,AloPeyk,الوپیک شیراز,شیراز,Fars,5.0,Positive,Happy,other,Low,70,google_maps,8 years ago,29.6157392,52.5660181,7,4.1429,71.43,14.29,زیاد
 4448e786cd34eda1,Chapar,Chapar Center,Tehran,Tehran Province,2.0,Negative,Disappointed,delivery_delay,High,90,analytics_demo,2026-06-05,NULL,NULL,6,3.0,33.33,33.33,زیاد
 9e965b14950fbce0,Chapar,Chapar Center,Tehran,Tehran Province,4.0,Positive,Satisfied,staff_behavior,Low,90,analytics_demo,2026-05-23,NULL,NULL,6,3.0,33.33,33.33,زیاد
 e1bd95c6122b625a,Chapar,Chapar Center,Tehran,Tehran Province,3.0,Neutral,Satisfied,other,Low,70,analytics_demo,2026-05-06,NULL,NULL,6,3.0,33.33,33.33,زیاد

@@ -1,18 +1,22 @@
 {
-  "generated_at": "2026-08-03T13:58:17.104186+00:00",
+  "generated_at": "2026-08-03T14:28:13.575719+00:00",
   "brands": [
-    "Chapar"
+    "AloPeyk",
+    "Chapar",
+    "Mahex",
+    "Post"
   ],
-  "branch_count": 3,
-  "review_count": 23,
-  "city_count": 3,
-  "province_count": 3,
-  "pct_with_coordinates": 0.0,
+  "branch_count": 43,
+  "review_count": 235,
+  "city_count": 14,
+  "province_count": 18,
+  "pct_with_coordinates": 90.21,
   "pct_with_date": 100.0,
   "pct_with_company_reply": 0.0,
   "sources": [
-    "analytics_demo"
+    "analytics_demo",
+    "google_maps"
   ],
-  "duplicates_dropped": 18,
-  "input_rows_before_dedupe": 41
+  "duplicates_dropped": 45,
+  "input_rows_before_dedupe": 280
 }
