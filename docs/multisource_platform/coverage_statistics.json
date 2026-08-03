@@ -1,0 +1,23 @@
+{
+  "branch_count": 310,
+  "review_count": 1544,
+  "city_count": 49,
+  "province_count": 47,
+  "pct_with_coordinates": 95.85,
+  "pct_with_date": 100.0,
+  "pct_with_company_reply": 0.26,
+  "brands": [
+    "AloPeyk",
+    "Chapar",
+    "Iran Post",
+    "Mahex",
+    "Tipax"
+  ],
+  "sources": [
+    "balad",
+    "cafebazaar",
+    "google_maps",
+    "myket",
+    "neshan"
+  ]
+}

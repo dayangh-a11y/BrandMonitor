@@ -1,0 +1,311 @@
+﻿brand,branch,city,province,average_rating,total_reviews,complaint_count,complaint_distribution,sentiment_distribution,last_review_date,sources
+Tipax,TIHUB,تهران,تهران,1.0,10,8,"{""Lost Package"": 1, ""Other"": 6, ""Delay"": 1}","{""Positive"": 2, ""Negative"": 8}",a year ago,google_maps
+Tipax,Tipax,NULL,خراسان شمالی,3.2,10,4,"{""Other"": 2, ""Delay"": 2}","{""Negative"": 4, ""Neutral"": 1, ""Positive"": 5}",Edited 7 years ago,google_maps
+Tipax,tipax,NULL,همدان,2.5,2,1,"{""Other"": 1}","{""Neutral"": 1, ""Negative"": 1}",7 months ago,google_maps
+Tipax,تیپاکس 4,58J3+Q8R نصر 1,Bandar Abbas,1.0,5,5,"{""Mobile App"": 1, ""Pricing"": 1, ""Other"": 3}","{""Negative"": 5}",Edited 2 years ago,google_maps
+Tipax,تیپاکس,NULL,خراسان شمالی,2.75,4,3,"{""Other"": 3}","{""Negative"": 3, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس کشاورز,اصفهان,اصفهان,1.4,10,8,"{""Delay"": 3, ""Other"": 2, ""Staff Behavior"": 3}","{""Positive"": 2, ""Negative"": 8}",a year ago,google_maps
+Tipax,تیپاکس فیاض بخش,تهران,تهران,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a year ago,google_maps
+Tipax,سالن سورتینگ تیپاکس ( تی هاب ),اصفهان,اصفهان,1.3,10,7,"{""Staff Behavior"": 1, ""Other"": 4, ""Pricing"": 1, ""Delay"": 1}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس ملاصدرا,NULL,فارس,2.0,8,6,"{""Other"": 3, ""Delay"": 2, ""Pricing"": 1}","{""Negative"": 6, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس قم| مرکزی,NULL,قم,1.6,10,8,"{""Delay"": 2, ""Mobile App"": 1, ""Staff Behavior"": 1, ""Other"": 3, ""Pricing"": 1}","{""Negative"": 8, ""Positive"": 1, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس خواجو اصفهان,اصفهان,اصفهان,1.0,1,1,"{""Tracking"": 1}","{""Negative"": 1}",7 months ago,google_maps
+Tipax,تیپاکس وحدت,تهران,تهران,1.0,2,2,"{""Other"": 1, ""Staff Behavior"": 1}","{""Negative"": 2}",a year ago,google_maps
+Tipax,تیپاکس رهنان,اصفهان,اصفهان,1.8,10,9,"{""Other"": 7, ""Delay"": 1, ""Pricing"": 1}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس امام خمینی,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس نقش جهان,اصفهان,اصفهان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",2 years ago,google_maps
+Tipax,ارسال با تیپاکس. نگارسرام,تهران,تهران,2.6,5,3,"{""Other"": 1, ""Pricing"": 1, ""Delay"": 1}","{""Negative"": 3, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس آرژانتین,تهران,تهران,1.8,10,8,"{""Other"": 7, ""Delay"": 1}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس سبلان,تهران,تهران,1.8,5,3,"{""Delay"": 1, ""Tracking"": 1, ""Other"": 1}","{""Negative"": 3, ""Positive"": 2}",a year ago,google_maps
+Tipax,مرکزی تیپاکس,اصفهان,اصفهان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",11 months ago,google_maps
+Tipax,تیپاکس فیض اصفهان,روبروی مسجد رکن الملک،,Feiz St,2.6,10,6,"{""Lost Package"": 1, ""Staff Behavior"": 1, ""Other"": 3, ""Delay"": 1}","{""Negative"": 6, ""Positive"": 4}",Edited 6 years ago,google_maps
+Tipax,تیپاکس شیراز شهرک صنعتی,NULL,فارس,2.0,8,6,"{""Other"": 3, ""Staff Behavior"": 1, ""Lost Package"": 1, ""Delay"": 1}","{""Negative"": 6, ""Positive"": 2}",a month ago,google_maps
+Tipax,اکسس پوینت تیپاکس شیراز خیابان فلاح,NULL,فارس,5.0,1,0,{},"{""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس قادرآباد,Qaderabad,Boulevard Imam,3.0,2,1,"{""Staff Behavior"": 1}","{""Negative"": 1, ""Positive"": 1}",5 months ago,google_maps
+Tipax,تیپاکس سمیرم,اصفهان,اصفهان,3.0,1,0,{},"{""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس بهارستان غربی,اصفهان,اصفهان,1.0,5,5,"{""Staff Behavior"": 2, ""Mobile App"": 1, ""Other"": 2}","{""Negative"": 5}",a year ago,google_maps
+Tipax,تیپاکس آریا,اصفهان,اصفهان,4.0,3,1,"{""Lost Package"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس محله کوجان,اصفهان,اصفهان,5.0,3,0,{},"{""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس آتشگاه اصفهان,اصفهان,اصفهان,2.1,10,7,"{""Delay"": 2, ""Other"": 3, ""Damaged Package"": 1, ""Pricing"": 1}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس مشتاق,اصفهان,اصفهان,3.6667,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس نازی آباد,تهران,تهران,2.5556,9,5,"{""Other"": 4, ""Damaged Package"": 1}","{""Negative"": 5, ""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس گلستان,NULL,گلستان,1.8,10,7,"{""Other"": 5, ""Delay"": 1, ""Pricing"": 1}","{""Positive"": 3, ""Negative"": 7}",a year ago,google_maps
+Tipax,تیپاکس شیراز پاسارگاد,NULL,فارس,1.8,10,7,"{""Pricing"": 1, ""Staff Behavior"": 1, ""Other"": 3, ""Lost Package"": 1, ""Mobile App"": 1}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس خمینی شهر همایون,اصفهان,اصفهان,1.0,4,4,"{""Other"": 1, ""Delay"": 1, ""Staff Behavior"": 2}","{""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس آزادشهر,NULL,یزد,2.3333,3,2,"{""Other"": 1, ""Staff Behavior"": 1}","{""Negative"": 2, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس ورزنه,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس هرات,NULL,یزد,5.0,1,0,{},"{""Positive"": 1}",3 years ago,google_maps
+Tipax,انبار تیپاکس,اصفهان,اصفهان,1.0,2,2,"{""Other"": 2}","{""Negative"": 2}",a year ago,google_maps
+Tipax,TIPAX,اصفهان,اصفهان,1.0,10,9,"{""Delay"": 2, ""Customer Support"": 2, ""Tracking"": 1, ""Other"": 4}","{""Positive"": 1, ""Negative"": 9}",a year ago,google_maps
+Tipax,تیپاکس نورآباد,NULL,فارس,4.5,8,2,"{""Other"": 2}","{""Positive"": 6, ""Negative"": 2}",7 years ago,google_maps
+Tipax,اکسس پوینت تیپاکس ابوذر غفاری,شیراز,فارس,4.5,2,1,"{""Pricing"": 1}","{""Negative"": 1, ""Positive"": 1}",9 months ago,google_maps
+Tipax,تیپاکس شاهپور جدید,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",a week ago,google_maps
+Tipax,تیپاکس زینبیه,اصفهان,اصفهان,2.0,1,1,"{""Other"": 1}","{""Negative"": 1}",2 years ago,google_maps
+Tipax,تیپاکس قرچک,تهران,تهران,1.5,10,9,"{""Other"": 9}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس سمن,اصفهان,اصفهان,5.0,2,0,{},"{""Positive"": 2}",a month ago,google_maps
+Tipax,تیپاکس هرند,اصفهان,اصفهان,1.0,1,0,{},"{""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس خوراسگان(نیک پور),اصفهان,اصفهان,1.0,4,4,"{""Other"": 4}","{""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,5.0,4,0,{},"{""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس ۱ نجف آباد,نجف آباد,Riazi St، روبه روی حلال احمر,1.6,10,8,"{""Pricing"": 2, ""Other"": 6}","{""Positive"": 2, ""Negative"": 8}",a year ago,google_maps
+Tipax,تیپاکس آمل ۱۷شهریور - Amol Branch,آمل,ده متری اول,4.2,10,2,"{""Pricing"": 1, ""Other"": 1}","{""Negative"": 2, ""Positive"": 8}",7 months ago,google_maps
+Tipax,تیپاکس آبشار (شرق اصفهان ),اصفهان,اصفهان,3.0,2,1,"{""Delay"": 1}","{""Positive"": 1, ""Negative"": 1}",9 months ago,google_maps
+Tipax,تیپاکس فارابی شهرکرد,اهر,چهارمحال و بختیاری,1.6667,6,5,"{""Pricing"": 1, ""Other"": 4}","{""Negative"": 5, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس ملک شهر,اصفهان,اصفهان,2.6,10,7,"{""Other"": 7}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس کاشان مشفق,اصفهان,اصفهان,2.6,5,3,"{""Other"": 3}","{""Positive"": 2, ""Negative"": 3}",a year ago,google_maps
+Tipax,تیپاکس شهرک صنعتی,NULL,یزد,4.0,1,0,{},"{""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس عبدالرزاق,اصفهان,اصفهان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a month ago,google_maps
+Tipax,تیپاکس کاشان امیرکبیر,اصفهان,اصفهان,1.1111,9,8,"{""Other"": 6, ""Damaged Package"": 2}","{""Negative"": 8, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس صنعت,اصفهان,اصفهان,1.0,1,1,"{""Mobile App"": 1}","{""Negative"": 1}",a year ago,google_maps
+Tipax,تیپاکس چهلستون,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",5 months ago,google_maps
+Tipax,تیپاکس فاطمی,تهران,تهران,4.0,10,4,"{""Staff Behavior"": 1, ""Other"": 3}","{""Positive"": 6, ""Negative"": 4}",4 years ago,google_maps
+Tipax,تیپاکس نواب,تهران,تهران,1.6667,3,2,"{""Other"": 2}","{""Negative"": 2, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس شادمان,تهران,تهران,1.8,5,4,"{""Staff Behavior"": 2, ""Other"": 2}","{""Negative"": 4, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس تهرانسر,تهران,تهران,2.0,4,3,"{""Other"": 2, ""Lost Package"": 1}","{""Negative"": 3, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس عباس آباد,تهران,تهران,2.9,10,3,"{""Delay"": 1, ""Staff Behavior"": 1, ""Other"": 1}","{""Negative"": 3, ""Positive"": 6, ""Neutral"": 1}",a year ago,google_maps
+Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,تهران,تهران,5.0,4,0,{},"{""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس بهمنیار,تهران,تهران,2.0,1,1,"{""Delay"": 1}","{""Negative"": 1}",6 months ago,google_maps
+Tipax,Gisha,تهران,تهران,5.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس افسریه,تهران,تهران,3.4,5,2,"{""Delay"": 1, ""Other"": 1}","{""Negative"": 2, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس حکیمیه,تهران,تهران,3.3,10,4,"{""Mobile App"": 2, ""Other"": 2}","{""Negative"": 4, ""Positive"": 6}",7 months ago,google_maps
+Tipax,تیپاکس لاله زار,تهران,تهران,5.0,2,0,{},"{""Positive"": 2}",3 years ago,google_maps
+Tipax,تیپاکس فلکه اول تهرانپارس,تهران,تهران,2.0,4,3,"{""Pricing"": 1, ""Customer Support"": 1, ""Other"": 1}","{""Negative"": 3, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس خاوران,تهران,تهران,3.6667,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس مجتمع تجاری امال,تهران,تهران,5.0,2,1,"{""Other"": 1}","{""Positive"": 1, ""Negative"": 1}",8 months ago,google_maps
+Tipax,تیپاکس دهکده المپیک,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,2.3333,6,4,"{""Delay"": 1, ""Other"": 2, ""Mobile App"": 1}","{""Negative"": 4, ""Positive"": 2}",a month ago,google_maps
+Tipax,تیپاکس چهاردانگه,تهران,تهران,3.4,10,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 8}",Edited 4 years ago,google_maps
+Tipax,تیپاکس فلاح,تهران,تهران,5.0,3,0,{},"{""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس مشیریه,تهران,تهران,1.4,10,8,"{""Staff Behavior"": 1, ""Customer Support"": 1, ""Other"": 6}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس (پیروزی-نیروهوایی),تهران,تهران,3.6667,3,1,"{""Mobile App"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس راه آهن,تهران,تهران,1.5714,7,6,"{""Damaged Package"": 1, ""Pricing"": 1, ""Other"": 3, ""Delay"": 1}","{""Negative"": 6, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس یاس,تهران,تهران,3.0,2,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس واوان تهران,تهران,تهران,1.4444,9,8,"{""Lost Package"": 1, ""Other"": 4, ""Delay"": 1, ""Staff Behavior"": 1, ""Pricing"": 1}","{""Negative"": 8, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس پونک,تهران,تهران,1.0,6,5,"{""Staff Behavior"": 3, ""Other"": 2}","{""Negative"": 5, ""Positive"": 1}",a year ago,google_maps
+Tipax,30 Metri Jey Branch,تهران,تهران,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a year ago,google_maps
+Tipax,تیپاکس کن,تهران,تهران,3.6667,3,0,{},"{""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس تجریش,Tajrish,Fowqani,5.0,1,0,{},"{""Positive"": 1}",6 months ago,google_maps
+Tipax,سرویس پوینت تیپاکس صوراسرافیل,تهران,تهران,1.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس مهرشهر,تهران,تهران,2.0,10,8,"{""Staff Behavior"": 1, ""Delay"": 2, ""Other"": 5}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس قلمستان,کرج,البرز,1.0,2,2,"{""Other"": 2}","{""Negative"": 2}",a month ago,google_maps
+Tipax,تیپاکس گوهردشت,کرج,البرز,3.0,1,0,{},"{""Positive"": 1}",5 months ago,google_maps
+Tipax,تیپاکس مهرویلا,NULL,البرز,3.0,2,0,{},"{""Positive"": 2}",7 months ago,google_maps
+Tipax,تیپاکس نظرآباد,NULL,البرز,1.0,10,9,"{""Other"": 6, ""Delay"": 1, ""Staff Behavior"": 2}","{""Positive"": 1, ""Negative"": 9}",a year ago,google_maps
+Tipax,تیپاکس کیانمهر,کرج,البرز,3.4,10,4,"{""Staff Behavior"": 1, ""Delay"": 1, ""Other"": 2}","{""Negative"": 4, ""Positive"": 6}",a year ago,google_maps
+Tipax,تیپاکس مهستان,ری,البرز,2.2,10,6,"{""Staff Behavior"": 1, ""Delay"": 1, ""Other"": 4}","{""Negative"": 6, ""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس باغستان,تهران,تهران,1.0,4,4,"{""Other"": 3, ""Delay"": 1}","{""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس هشتگرد,NULL,البرز,1.5,8,7,"{""Other"": 6, ""Staff Behavior"": 1}","{""Positive"": 1, ""Negative"": 7}",a year ago,google_maps
+Tipax,تیپاکس اشتهارد,NULL,البرز,2.0,5,3,"{""Staff Behavior"": 2, ""Other"": 1}","{""Positive"": 2, ""Negative"": 3}",4 years ago,google_maps
+Tipax,اصفهان خواجو,اصفهان,اصفهان,1.0,3,2,"{""Customer Support"": 1, ""Other"": 1}","{""Negative"": 2, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس اصفهان رباط,اصفهان,اصفهان,1.0,1,1,"{""Tracking"": 1}","{""Negative"": 1}",11 months ago,google_maps
+Tipax,تیپاکس باغ غدیر,اصفهان,اصفهان,3.6667,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,پیشخوان و تیپاکس,اصفهان,اصفهان,4.5,2,0,{},"{""Positive"": 2}",a year ago,google_maps
+Tipax,Tayeb -Shams Abadi- Taleghani,اصفهان,اصفهان,3.0,4,2,"{""Delay"": 1, ""Other"": 1}","{""Positive"": 2, ""Negative"": 2}",8 years ago,google_maps
+Tipax,تیپاکس شهرک صنعتی جی,اصفهان,اصفهان,1.0,1,1,"{""Staff Behavior"": 1}","{""Negative"": 1}",2 years ago,google_maps
+Tipax,تیپاکس فلاورجان,اصفهان,اصفهان,3.3333,9,3,"{""Other"": 3}","{""Positive"": 6, ""Negative"": 3}",a year ago,google_maps
+Tipax,تیپاکس مجتمع خلیج فارس,NULL,فارس,5.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,Central Office(انبار مرکزی شیراز),NULL,فارس,1.0,10,9,"{""Delay"": 2, ""Other"": 7}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس مرکزی صدرا,NULL,فارس,5.0,6,0,{},"{""Positive"": 6}",7 months ago,google_maps
+Tipax,تیپاکس والفجر,NULL,فارس,4.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس نصر,NULL,فارس,1.0,7,7,"{""Damaged Package"": 1, ""Other"": 5, ""Staff Behavior"": 1}","{""Negative"": 7}",Edited a year ago,google_maps
+Tipax,تی هاب شیراز ( انبار مرکزی تیپاکس ),اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",5 months ago,google_maps
+Tipax,تیپاکس میانرود,NULL,فارس,5.0,1,0,{},"{""Positive"": 1}",10 months ago,google_maps
+Tipax,تیپاکس کازرون,کازرون,فارس,2.25,8,4,"{""Other"": 4}","{""Negative"": 4, ""Positive"": 3, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس فسا سرو,NULL,فارس,5.0,4,0,{},"{""Positive"": 4}",Edited 4 years ago,google_maps
+Tipax,تیپاکس آرین,NULL,فارس,5.0,1,0,{},"{""Positive"": 1}",Edited a month ago,google_maps
+Tipax,تیپاکس جهرم,NULL,فارس,3.8571,7,2,"{""Other"": 1, ""Mobile App"": 1}","{""Negative"": 2, ""Positive"": 5}",a year ago,google_maps
+Tipax,تیپاکس فیروزآباد,NULL,فارس,5.0,2,0,{},"{""Positive"": 2}",3 years ago,google_maps
+Tipax,marvdasht office,NULL,فارس,1.7,10,8,"{""Pricing"": 2, ""Damaged Package"": 2, ""Staff Behavior"": 1, ""Other"": 2, ""Delay"": 1}","{""Negative"": 8, ""Positive"": 1, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس چهارراه سرداران,NULL,فارس,1.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,مشهد فجر تیپاکس,NULL,خراسان رضوی,2.3333,3,2,"{""Delay"": 2}","{""Negative"": 2, ""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس شهرک صنعتی کلات,مشهد,خراسان رضوی,1.0,3,3,"{""Other"": 3}","{""Negative"": 3}",a year ago,google_maps
+Tipax,Misaq,NULL,فارس,1.3,10,8,"{""Other"": 6, ""Delay"": 1, ""Mobile App"": 1}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,hemmat,NULL,خراسان رضوی,1.6,10,8,"{""Other"": 8}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس پیروزی رضاشهر,مشهد,خراسان رضوی,1.0,10,9,"{""Delay"": 2, ""Mobile App"": 1, ""Pricing"": 1, ""Other"": 5}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس شاملو - قاسم آباد,NULL,خراسان رضوی,5.0,1,0,{},"{""Positive"": 1}",a month ago,google_maps
+Tipax,تی هاب مشهد,مشهد,مرکزی,2.0,1,0,{},"{""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس طرقبه و شاندیز,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,2.5,10,6,"{""Pricing"": 2, ""Other"": 4}","{""Positive"": 4, ""Negative"": 6}",a year ago,google_maps
+Tipax,تی هاب مشهد(انبار مرکزی تیپاکس مشهد),مشهد,مرکزی,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",9 months ago,google_maps
+Tipax,تیپاکس هنرور,مشهد,خراسان رضوی,1.4444,9,7,"{""Other"": 6, ""Staff Behavior"": 1}","{""Negative"": 7, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس نیشابور بینالود,NULL,خراسان رضوی,3.8,10,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 8}",a year ago,google_maps
+Tipax,: Kashmar Branch,NULL,خراسان رضوی,2.3,10,7,"{""Delay"": 5, ""Pricing"": 1, ""Other"": 1}","{""Negative"": 7, ""Positive"": 3}",8 months ago,google_maps
+Tipax,تیپاکس زرگران,NULL,خراسان رضوی,4.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس قوچان,قوچان,Hafez St,5.0,2,0,{},"{""Positive"": 2}",4 years ago,google_maps
+Tipax,تیپاکس صائب تبریزی,NULL,آذربایجان شرقی,1.4444,9,8,"{""Other"": 5, ""Delay"": 1, ""Staff Behavior"": 2}","{""Negative"": 8, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس رشدیه,NULL,آذربایجان شرقی,5.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),NULL,آذربایجان شرقی,4.0,8,2,"{""Other"": 2}","{""Positive"": 6, ""Negative"": 2}",a year ago,google_maps
+Tipax,تیپاکس تبریز شهناز,NULL,آذربایجان شرقی,1.0,3,3,"{""Other"": 2, ""Delay"": 1}","{""Negative"": 3}",5 months ago,google_maps
+Tipax,تیپاکس ورزش,NULL,آذربایجان شرقی,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",3 weeks ago,google_maps
+Tipax,تیپاکس یاغچیان,29HG+JMJ,Basmenj,1.0,1,1,"{""Delay"": 1}","{""Negative"": 1}",5 months ago,google_maps
+Tipax,تیپاکس جلفا,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",3 years ago,google_maps
+Tipax,تیپاکس میانه,NULL,آذربایجان شرقی,4.4286,7,0,{},"{""Positive"": 6, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس میانه 2,NULL,آذربایجان شرقی,4.0,4,1,"{""Pricing"": 1}","{""Negative"": 1, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس چای کنار,NULL,آذربایجان شرقی,2.3333,3,1,"{""Delay"": 1}","{""Positive"": 2, ""Negative"": 1}",Edited 2 years ago,google_maps
+Tipax,تیپاکس. کجوار-باغمعروف,NULL,آذربایجان شرقی,5.0,1,0,{},"{""Positive"": 1}",6 months ago,google_maps
+Tipax,تیپاکس منتظری ارومیه جدید,NULL,آذربایجان غربی,2.0,8,5,"{""Staff Behavior"": 1, ""Other"": 4}","{""Positive"": 3, ""Negative"": 5}",a year ago,google_maps
+Tipax,تیپاکس بوکان,NULL,آذربایجان غربی,1.2,10,9,"{""Other"": 7, ""Delay"": 1, ""Customer Support"": 1}","{""Positive"": 1, ""Negative"": 9}",9 months ago,google_maps
+Tipax,تیپاکس تکاب آذربایجان غربی,NULL,آذربایجان غربی,4.0,1,0,{},"{""Positive"": 1}",4 years ago,google_maps
+Tipax,تیپاکس مایسا,NULL,آذربایجان غربی,5.0,1,0,{},"{""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس باهنر,NULL,آذربایجان غربی,1.0,4,4,"{""Other"": 4}","{""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس - پیرانشهر,ایرانشهر,آذربایجان غربی,3.6667,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس سلماس,سلماس,آذربایجان غربی,5.0,3,0,{},"{""Positive"": 3}",2 years ago,google_maps
+Tipax,تیپاکس نقده,NULL,آذربایجان غربی,3.0,2,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس مهاباد مرکزی _ شاهی جان,NULL,آذربایجان غربی,2.0,4,3,"{""Other"": 3}","{""Negative"": 3, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس سردشت,خمین,آذربایجان غربی,2.3333,3,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 1}",6 years ago,google_maps
+Tipax,تیپاکس اشنویه,NULL,آذربایجان غربی,3.0,2,1,"{""Damaged Package"": 1}","{""Negative"": 1, ""Positive"": 1}",6 years ago,google_maps
+Tipax,تیپاکس ملکان,ری,آذربایجان شرقی,4.0,4,1,"{""Other"": 1}","{""Positive"": 3, ""Negative"": 1}",9 months ago,google_maps
+Tipax,تیپاکس صفائیه یزد,NULL,یزد,1.0,10,10,"{""Other"": 10}","{""Negative"": 10}",a year ago,google_maps
+Tipax,تیپاکس کارمانیا( ۹),NULL,کرمان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a month ago,google_maps
+Tipax,تیپاکس الغدیر کرمان,NULL,کرمان,2.125,8,6,"{""Other"": 4, ""Mobile App"": 1, ""Staff Behavior"": 1}","{""Negative"": 6, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس نگارخانه,NULL,کرمان,3.5,6,2,"{""Other"": 1, ""Pricing"": 1}","{""Negative"": 2, ""Positive"": 4}",a month ago,google_maps
+Tipax,تیپاکس بسطامی,NULL,کرمان,5.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس مهدیه,NULL,کرمان,4.0,4,1,"{""Other"": 1}","{""Positive"": 3, ""Negative"": 1}",a year ago,google_maps
+Tipax,تیپاکس تعاون,NULL,کرمان,1.0,1,1,"{""Staff Behavior"": 1}","{""Negative"": 1}",2 weeks ago,google_maps
+Tipax,تیپاکس ۲,NULL,همدان,2.4444,9,5,"{""Mobile App"": 1, ""Pricing"": 1, ""Other"": 3}","{""Negative"": 5, ""Positive"": 4}",a year ago,google_maps
+Tipax,سرپرستی تیپاکس همدان,همدان,همدان,2.3333,6,2,"{""Other"": 2}","{""Positive"": 4, ""Negative"": 2}",9 months ago,google_maps
+Tipax,تیپاکس قم نبوت,یزد,یزد,1.4444,9,8,"{""Staff Behavior"": 1, ""Other"": 7}","{""Negative"": 8, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس کلهری,NULL,قم,1.8,10,7,"{""Staff Behavior"": 1, ""Tracking"": 1, ""Delay"": 1, ""Other"": 4}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,مرکزی تیپاکس تهران,تهران,تهران,1.0,10,9,"{""Delay"": 4, ""Other"": 5}","{""Negative"": 9, ""Positive"": 1}",Edited 3 years ago,google_maps
+Tipax,تیپاکس خرم آباد کیو,NULL,لرستان,2.8,10,5,"{""Other"": 3, ""Pricing"": 1, ""Delay"": 1}","{""Negative"": 5, ""Positive"": 4, ""Neutral"": 1}",8 months ago,google_maps
+Tipax,تیپاکس الیگودرز,NULL,لرستان,5.0,1,0,{},"{""Positive"": 1}",a month ago,google_maps
+Tipax,تیپاکس خرم آباد افلاک,ری,لرستان,1.0,2,2,"{""Other"": 2}","{""Negative"": 2}",11 months ago,google_maps
+Tipax,تیپاکس کوهدشت,NULL,لرستان,5.0,1,0,{},"{""Positive"": 1}",6 years ago,google_maps
+Tipax,تیپاکس ( مرکزی اهواز)(سه راه خرمشهر، رو به روی بانک ملت),NULL,خوزستان,1.1111,9,9,"{""Mobile App"": 1, ""Other"": 8}","{""Negative"": 9}",a year ago,google_maps
+Tipax,تیپاکس فرهنگ شهر,اهواز,خوزستان,4.0,10,1,"{""Other"": 1}","{""Positive"": 9, ""Negative"": 1}",a year ago,google_maps
+Tipax,تیپاکس 3اهواز,NULL,خوزستان,1.0,2,2,"{""Other"": 2}","{""Negative"": 2}",7 months ago,google_maps
+Tipax,tippax ahwaz تیپاکس اهواز غرب کارون,NULL,خوزستان,1.0,10,8,"{""Mobile App"": 3, ""Other"": 5}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس اهواز سه,9P2H+P63,Ahvaz,1.7778,9,7,"{""Staff Behavior"": 1, ""Other"": 5, ""Pricing"": 1}","{""Negative"": 7, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس سرپرستی اهواز,NULL,خوزستان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a year ago,google_maps
+Tipax,"تیپاکس نیوساید اهواز (,NEWSIDE)",NULL,خوزستان,5.0,1,0,{},"{""Positive"": 1}",6 months ago,google_maps
+Tipax,تیپاکس کوی نفت,NULL,خوزستان,2.3,10,7,"{""Other"": 6, ""Staff Behavior"": 1}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس زیتون کارگری,NULL,خوزستان,1.5,8,7,"{""Staff Behavior"": 1, ""Other"": 5, ""Damaged Package"": 1}","{""Negative"": 7, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس کیان آباد_وهابی,NULL,خوزستان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",2 years ago,google_maps
+Tipax,تیپاکس پاداد,NULL,خوزستان,2.3333,3,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 1}",6 months ago,google_maps
+Tipax,تیپاکس پادادشهر,Ahvaz، ‫معلم غربی، 7MRR+6R7,Iran,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",a month ago,google_maps
+Tipax,تیپاکس اروند ماهشهر,NULL,خوزستان,5.0,2,0,{},"{""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس دزفول کمیل,دزفول,خوزستان,3.0,2,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 1}",a year ago,google_maps
+Tipax,Mahshahr,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,2.7143,7,4,"{""Other"": 3, ""Customer Support"": 1}","{""Negative"": 4, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس باهنر,Ahvaz، ‫بلوار ناصح شرقی،دفتر تیپاکس، بلوار معلم، پلاک ابتدای,Iran,5.0,1,0,{},"{""Positive"": 1}",a month ago,google_maps
+Tipax,پست تیپاکس کوروش,NULL,خوزستان,3.2,5,2,"{""Other"": 2}","{""Positive"": 3, ""Negative"": 2}",a year ago,google_maps
+Tipax,تیپاکس خرمشهر,فردوس,خوزستان,1.7,10,8,"{""Staff Behavior"": 4, ""Other"": 4}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,behbahan,NULL,خوزستان,1.5,10,9,"{""Other"": 7, ""Staff Behavior"": 1, ""Pricing"": 1}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,Izeh agency,ایذه,خوزستان,2.125,8,5,"{""Other"": 5}","{""Negative"": 5, ""Positive"": 3}",a year ago,google_maps
+Tipax,تیپاکس گتوند,NULL,خوزستان,1.25,4,4,"{""Mobile App"": 2, ""Staff Behavior"": 1, ""Damaged Package"": 1}","{""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس بندر امام خمینی,NULL,خوزستان,3.0,8,3,"{""Other"": 3}","{""Negative"": 3, ""Positive"": 4, ""Neutral"": 1}",Edited 5 years ago,google_maps
+Tipax,تیپاکس رامهرمز,NULL,خوزستان,1.8,5,3,"{""Other"": 2, ""Staff Behavior"": 1}","{""Positive"": 2, ""Negative"": 3}",a year ago,google_maps
+Tipax,تیپاکس بوشهر,NULL,بوشهر,1.4,10,8,"{""Delay"": 2, ""Other"": 5, ""Staff Behavior"": 1}","{""Negative"": 8, ""Positive"": 2}",6 years ago,google_maps
+Tipax,تیپاکس بوشهر سلمان فارسی,NULL,بوشهر,1.7143,7,6,"{""Other"": 5, ""Mobile App"": 1}","{""Negative"": 6, ""Positive"": 1}",4 years ago,google_maps
+Tipax,(Branch No.1 of BandarAbbas),ری,هرمزگان,2.5,10,6,"{""Pricing"": 2, ""Other"": 4}","{""Negative"": 6, ""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس ملوان,NULL,هرمزگان,2.6,5,3,"{""Other"": 3}","{""Negative"": 3, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس ایثار,اراک,هرمزگان,3.1,10,4,"{""Staff Behavior"": 1, ""Other"": 3}","{""Negative"": 4, ""Positive"": 5, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس شهرک نبوت,69Q3+5GP,Bandar Abbas,1.8,5,3,"{""Other"": 3}","{""Negative"": 3, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس ( جاسک),NULL,هرمزگان,1.6667,3,2,"{""Other"": 1, ""Mobile App"": 1}","{""Negative"": 2, ""Neutral"": 1}",5 years ago,google_maps
+Tipax,تیپاکس درگهان (استان هرمزگان),NULL,هرمزگان,2.1,10,7,"{""Damaged Package"": 1, ""Other"": 5, ""Lost Package"": 1}","{""Negative"": 7, ""Positive"": 3}",a year ago,google_maps
+Tipax,پست تیپاکس سرپرستی,ری,هرمزگان,1.0,3,3,"{""Other"": 3}","{""Negative"": 3}",3 years ago,google_maps
+Tipax,تیپاکس بندرلنگه,NULL,هرمزگان,2.6667,6,2,"{""Other"": 1, ""Lost Package"": 1}","{""Positive"": 3, ""Negative"": 2, ""Neutral"": 1}",a month ago,google_maps
+Tipax,تیپاکس قشم ساحل,NULL,هرمزگان,1.9,10,8,"{""Pricing"": 1, ""Staff Behavior"": 1, ""Delay"": 2, ""Other"": 3, ""Lost Package"": 1}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,TPG,اهر,هرمزگان,5.0,1,0,{},"{""Positive"": 1}",3 years ago,google_maps
+Tipax,تیپاکس شهرک های صنعتی,NULL,هرمزگان,3.0,2,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس توکهور هشتبندی,NULL,هرمزگان,1.0,3,3,"{""Other"": 3}","{""Negative"": 3}",a year ago,google_maps
+Tipax,تیپاکس سیریک,ری,هرمزگان,5.0,2,0,{},"{""Positive"": 2}",3 years ago,google_maps
+Tipax,zabol,زابل,سیستان و بلوچستان,1.8,10,9,"{""Damaged Package"": 1, ""Pricing"": 1, ""Other"": 7}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس ایرانشهر,NULL,سیستان و بلوچستان,1.8,5,5,"{""Delay"": 1, ""Other"": 4}","{""Negative"": 5}",a year ago,google_maps
+Tipax,تیپاکس سراوان,NULL,سیستان و بلوچستان,1.4,10,9,"{""Other"": 8, ""Staff Behavior"": 1}","{""Negative"": 9, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس زیباشهر,FV47+X35,Zahedan,2.0,6,4,"{""Other"": 4}","{""Negative"": 4, ""Positive"": 1, ""Neutral"": 1}",4 years ago,google_maps
+Tipax,شرکت تیپاکس,خمین,سیستان و بلوچستان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",3 years ago,google_maps
+Tipax,سرویس پوینت تیپاکس رزمجو,NULL,سیستان و بلوچستان,1.0,2,1,"{""Delay"": 1}","{""Positive"": 1, ""Negative"": 1}",2 years ago,google_maps
+Tipax,تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,2.9,10,5,"{""Other"": 5}","{""Negative"": 5, ""Positive"": 5}",a year ago,google_maps
+Tipax,تیپاکس بنجار,خمین,سیستان و بلوچستان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",3 years ago,google_maps
+Tipax,تیپاکس ۲ سنندج,NULL,کردستان,1.25,4,3,"{""Staff Behavior"": 2, ""Other"": 1}","{""Negative"": 3, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس کامیاران,NULL,کردستان,2.8,5,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 3}",7 months ago,google_maps
+Tipax,تیپاکس ،ارسال سریع پستی,NULL,کردستان,1.0,10,10,"{""Staff Behavior"": 4, ""Other"": 6}","{""Negative"": 10}",a year ago,google_maps
+Tipax,تیپاکس بیجار,NULL,کردستان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",2 months ago,google_maps
+Tipax,تیپاکس,ری,ایلام,3.4,10,4,"{""Other"": 4}","{""Negative"": 4, ""Positive"": 6}",a year ago,google_maps
+Tipax,Tipax,ری,کهگیلویه و بویراحمد,1.5,10,8,"{""Pricing"": 1, ""Staff Behavior"": 1, ""Other"": 2, ""Delay"": 2, ""Customer Support"": 1, ""Tracking"": 1}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس زاگرس / میرآباد,اهر,چهارمحال و بختیاری,2.3333,3,2,"{""Other"": 1, ""Delay"": 1}","{""Negative"": 2, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس لردگان,ری,چهارمحال و بختیاری,3.0,2,0,{},"{""Positive"": 2}",a year ago,google_maps
+Tipax,باربری تیپاکس,اهر,چهارمحال و بختیاری,1.0,1,1,"{""Pricing"": 1}","{""Negative"": 1}",6 years ago,google_maps
+Tipax,تیپاکس رشت صنعتی,NULL,گیلان,5.0,1,0,{},"{""Positive"": 1}",6 months ago,google_maps
+Tipax,تیپاکس رشت رشتیان,NULL,گیلان,1.8,10,7,"{""Pricing"": 1, ""Other"": 5, ""Delay"": 1}","{""Positive"": 3, ""Negative"": 7}",a year ago,google_maps
+Tipax,office,رشت,گیلان,5.0,1,0,{},"{""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس دیلمان,رشت,خیابان آرام,4.3333,3,0,{},"{""Positive"": 3}",8 months ago,google_maps
+Tipax,تیپاکس گلسار رشت,NULL,گیلان,3.0,5,2,"{""Damaged Package"": 1, ""Other"": 1}","{""Negative"": 2, ""Neutral"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس رستم آباد,NULL,گیلان,4.0,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",5 years ago,google_maps
+Tipax,تیپاکس جانبازان رشت,NULL,گیلان,3.6667,3,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس منجیل,NULL,گیلان,5.0,8,0,{},"{""Positive"": 8}",9 months ago,google_maps
+Tipax,تیپاکس لنگرود آزادی,NULL,گیلان,5.0,2,0,{},"{""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس پره سر,NULL,گیلان,5.0,2,0,{},"{""Positive"": 2}",4 years ago,google_maps
+Tipax,تیپاکس حمیدیان,Rasht، خیابان امام رضا جنب دفتر پیشخوان، چهارراه جمهوری، 7H82+4R4,Iran,1.0,1,1,"{""Delay"": 1}","{""Negative"": 1}",7 months ago,google_maps
+Tipax,تیپاکس کوچصفهان,NULL,گیلان,2.3333,3,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس رحیم آباد,خمین,گیلان,4.0,1,0,{},"{""Positive"": 1}",3 years ago,google_maps
+Tipax,تیپاکس فومن,NULL,گیلان,3.3333,3,1,"{""Other"": 1}","{""Negative"": 1, ""Neutral"": 1, ""Positive"": 1}",5 years ago,google_maps
+Tipax,تیپاکس اسالم,ری,گیلان,5.0,4,0,{},"{""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس سیاهکل,NULL,گیلان,1.0,3,3,"{""Other"": 2, ""Pricing"": 1}","{""Negative"": 3}",a year ago,google_maps
+Tipax,تیپاکس ماسال,NULL,گیلان,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",9 months ago,google_maps
+Tipax,تیپاکس کلاچای,NULL,گیلان,3.5,6,2,"{""Other"": 2}","{""Negative"": 2, ""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس نور,NULL,مازندران,3.0,7,3,"{""Pricing"": 1, ""Other"": 2}","{""Negative"": 3, ""Positive"": 4}",a year ago,google_maps
+Tipax,تیپاکس بابل,NULL,مازندران,2.1,10,7,"{""Staff Behavior"": 1, ""Other"": 5, ""Pricing"": 1}","{""Negative"": 7, ""Positive"": 3}",Edited 3 years ago,google_maps
+Tipax,تیپاکس بابلسر,NULL,مازندران,3.125,8,4,"{""Other"": 3, ""Delay"": 1}","{""Negative"": 4, ""Positive"": 3, ""Neutral"": 1}",a month ago,google_maps
+Tipax,TePox,نوشهر,مازندران,2.0,10,7,"{""Delay"": 1, ""Other"": 5, ""Staff Behavior"": 1}","{""Negative"": 7, ""Neutral"": 1, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس شیرگاه,NULL,مازندران,5.0,2,0,{},"{""Positive"": 2}",Edited 7 months ago,google_maps
+Tipax,تیپاکس محمودآباد,NULL,مازندران,2.6,5,3,"{""Staff Behavior"": 2, ""Other"": 1}","{""Negative"": 3, ""Positive"": 2}",a year ago,google_maps
+Tipax,تیپاکس رامسر,NULL,مازندران,2.2,10,6,"{""Other"": 4, ""Tracking"": 1, ""Staff Behavior"": 1}","{""Positive"": 4, ""Negative"": 6}",a year ago,google_maps
+Tipax,تیپاکس جویبار,NULL,مازندران,1.6667,6,5,"{""Other"": 5}","{""Negative"": 5, ""Positive"": 1}",a year ago,google_maps
+Tipax,تیپاکس فریدونکنار,ری,مازندران,4.0,4,1,"{""Other"": 1}","{""Positive"": 3, ""Negative"": 1}",a year ago,google_maps
+Tipax,تیپاکس ساحل طلایی,تنکابن,مازندران,4.5,4,0,{},"{""Positive"": 3, ""Neutral"": 1}",3 years ago,google_maps
+Tipax,تیپاکس نواب,بابل,مازندران,2.1111,9,6,"{""Delay"": 2, ""Staff Behavior"": 1, ""Other"": 3}","{""Negative"": 6, ""Positive"": 2, ""Neutral"": 1}",a year ago,google_maps
+Tipax,تیپاکس بابل (میدان ولایت),بابل,مازندران,2.125,8,6,"{""Other"": 6}","{""Negative"": 6, ""Positive"": 2}",a year ago,google_maps
+Tipax,سرویس پوینت تیپاکس رویان,NULL,مازندران,2.75,4,2,"{""Tracking"": 1, ""Other"": 1}","{""Negative"": 2, ""Positive"": 2}",a month ago,google_maps
+Tipax,تیپاکس سورک,Surak,جنب سوپرمارکت شمال دفتر تیپاکس,2.0,1,0,{},"{""Positive"": 1}",2 years ago,google_maps
+Tipax,Monfared,NULL,مازندران,3.0,2,1,"{""Other"": 1}","{""Negative"": 1, ""Positive"": 1}",2 years ago,google_maps
+Tipax,تیپاکس سرخرود,سرخرود،,، خ دانش، جنب پارک,4.0,3,1,"{""Other"": 1}","{""Positive"": 2, ""Negative"": 1}",3 years ago,google_maps
+Tipax,تیپاکس سمنان 1 قدیمی ترین تیپاکس درشهرسمنان,NULL,سمنان,2.3,10,4,"{""Delay"": 1, ""Other"": 3}","{""Positive"": 6, ""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس گلشهر کاظمیه زنجان,NULL,زنجان,1.0,2,2,"{""Staff Behavior"": 1, ""Delay"": 1}","{""Negative"": 2}",5 months ago,google_maps
+Tipax,تیپاکس فاروج,NULL,خراسان شمالی,2.7778,9,5,"{""Damaged Package"": 1, ""Other"": 2, ""Staff Behavior"": 1, ""Customer Support"": 1}","{""Positive"": 4, ""Negative"": 5}",a day ago,google_maps
+Tipax,تیپاکس حکیم بیرجند,NULL,خراسان جنوبی,2.0,8,4,"{""Delay"": 1, ""Other"": 3}","{""Positive"": 4, ""Negative"": 4}",a year ago,google_maps
+Tipax,تیپاکس بیرجند,ری,خراسان جنوبی,1.9,10,5,"{""Delay"": 3, ""Other"": 2}","{""Negative"": 5, ""Positive"": 3, ""Neutral"": 2}",5 years ago,google_maps
+Tipax,تیپاکس,تهران,تهران,2.1,10,5,"{""Pricing"": 1, ""Other"": 3, ""Damaged Package"": 1}","{""Negative"": 5, ""Positive"": 5}",9 months ago,google_maps
+Tipax,Tipax,تهران,تهران,1.9,10,7,"{""Other"": 5, ""Customer Support"": 1, ""Delay"": 1}","{""Negative"": 7, ""Neutral"": 2, ""Positive"": 1}",a year ago,google_maps
+Tipax,HQ,تهران,تهران,2.875,8,4,"{""Delay"": 2, ""Pricing"": 1, ""Damaged Package"": 1}","{""Negative"": 4, ""Positive"": 3, ""Neutral"": 1}",2026-07-28,google_maps
+Tipax,Vanak,تهران,تهران,2.8571,7,4,"{""Delay"": 2, ""Pricing"": 1, ""Damaged Package"": 1}","{""Negative"": 4, ""Positive"": 3}",2026-07-17,google_maps
+Tipax,Mashhad,مشهد,خراسان رضوی,3.125,8,3,"{""Pricing"": 1, ""Delay"": 1, ""Damaged Package"": 1}","{""Positive"": 3, ""Negative"": 3, ""Neutral"": 2}",2026-07-27,google_maps
+Tipax,Isfahan,اصفهان,اصفهان,2.7778,9,4,"{""Delay"": 2, ""Pricing"": 1, ""Damaged Package"": 1}","{""Negative"": 4, ""Positive"": 3, ""Neutral"": 2}",2026-07-30,google_maps
+Chapar,Chaparnet,تهران,تهران,2.7,10,6,"{""Staff Behavior"": 2, ""Mobile App"": 1, ""Other"": 1, ""Delay"": 2}","{""Negative"": 6, ""Positive"": 4}",a year ago,google_maps
+Chapar,کالا رسانان چاپار,تهران,تهران,1.5,10,7,"{""Other"": 6, ""Tracking"": 1}","{""Positive"": 3, ""Negative"": 7}",a year ago,google_maps
+Chapar,شرکت کالا رسانان چاپار,تهران,تهران,1.5,10,8,"{""Customer Support"": 1, ""Staff Behavior"": 2, ""Tracking"": 1, ""Pricing"": 1, ""Other"": 2, ""Delay"": 1}","{""Negative"": 8, ""Positive"": 2}",a year ago,google_maps
+Chapar,چاپار مطهری (کالارسان چاپار مطهری),تهران,تهران,1.0,2,2,"{""Pricing"": 1, ""Other"": 1}","{""Negative"": 2}",8 months ago,google_maps
+Chapar,کالا رسانان چاپار ساری,NULL,مازندران,4.6667,3,0,{},"{""Positive"": 3}",a year ago,google_maps
+Chapar,System,NULL,گیلان,3.0,2,0,{},"{""Positive"": 2}",a year ago,google_maps
+Chapar,چاپار پاسداران مجیدیه هروی,تهران,تهران,3.0,1,0,{},"{""Neutral"": 1}",a year ago,google_maps
+Chapar,کالارسانان چاپار پیروزی,تهران,تهران,1.0,4,4,"{""Delay"": 2, ""Mobile App"": 1, ""Other"": 1}","{""Negative"": 4}",a year ago,google_maps
+Chapar,شرکت کالارسانان چاپار,قم,قم,1.7,10,7,"{""Staff Behavior"": 1, ""Pricing"": 1, ""Other"": 3, ""Delay"": 2}","{""Positive"": 3, ""Negative"": 7}",a year ago,google_maps
+Chapar,موسسه توریستی چاپار,تهران,تهران,5.0,1,0,{},"{""Positive"": 1}",7 years ago,google_maps
+Chapar,چاپار کرمانشاه,کرمان,کرمان,3.0,10,5,"{""Mobile App"": 1, ""Delay"": 1, ""Other"": 3}","{""Negative"": 5, ""Positive"": 5}",a year ago,google_maps
+Chapar,انبار چاپار,F9V6+PG8,Kahrizak,3.0,1,0,{},"{""Neutral"": 1}",5 months ago,google_maps
+Chapar,Center,تهران,تهران,3.0,6,2,"{""Delay"": 1, ""Damaged Package"": 1}","{""Positive"": 2, ""Negative"": 2, ""Neutral"": 2}",2026-07-22,google_maps
+Chapar,Shiraz,شیراز,فارس,3.25,8,3,"{""Delay"": 2, ""Damaged Package"": 1}","{""Negative"": 3, ""Positive"": 4, ""Neutral"": 1}",2026-07-24,google_maps
+Chapar,Tabriz,تبریز,آذربایجان شرقی,3.1111,9,3,"{""Delay"": 1, ""Pricing"": 1, ""Damaged Package"": 1}","{""Negative"": 3, ""Positive"": 4, ""Neutral"": 2}",2026-07-26,google_maps
+AloPeyk,Alopeyk,تهران,تهران,1.5,10,7,"{""Customer Support"": 3, ""Delay"": 1, ""Tracking"": 1, ""Other"": 2}","{""Negative"": 7, ""Positive"": 1, ""Neutral"": 2}",a year ago,google_maps
+AloPeyk,Alopeyk,NULL,خراسان رضوی,4.1,10,1,"{""Staff Behavior"": 1}","{""Positive"": 9, ""Negative"": 1}",Edited 8 years ago,google_maps
+AloPeyk,الوپیک,تهران,تهران,1.5,2,2,"{""Other"": 2}","{""Negative"": 2}",a year ago,google_maps
+AloPeyk,پیک موتوری ثابت,اصفهان,اصفهان,5.0,1,0,{},"{""Positive"": 1}",6 years ago,google_maps
+AloPeyk,الوپیک اصفهان,اصفهان,اصفهان,4.0,7,2,"{""Other"": 2}","{""Positive"": 5, ""Negative"": 2}",8 years ago,google_maps
+AloPeyk,الوپیک شیراز,NULL,فارس,4.1429,7,1,"{""Other"": 1}","{""Positive"": 5, ""Neutral"": 1, ""Negative"": 1}",8 years ago,google_maps
+Mahex,Mahex,تهران,تهران,2.0526,19,14,"{""Pricing"": 1, ""Other"": 6, ""Mobile App"": 1, ""Delay"": 3, ""Staff Behavior"": 2, ""Customer Support"": 1}","{""Negative"": 14, ""Positive"": 5}",a year ago,google_maps
+Mahex,ماهکس لاله زار,تهران,تهران,5.0,4,0,{},"{""Positive"": 4}",6 months ago,google_maps
+Mahex,ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,5.0,1,0,{},"{""Positive"": 1}",a year ago,google_maps
+Mahex,پست ماهکس,تهران,تهران,1.0,1,1,"{""Other"": 1}","{""Negative"": 1}",5 months ago,google_maps
+Mahex,ماهکس انقلاب,تهران,تهران,5.0,1,0,{},"{""Positive"": 1}",a month ago,google_maps
+Mahex,ماهکس خلخال,اردبیل,اردبیل,5.0,3,0,{},"{""Positive"": 3}",8 months ago,google_maps
+Mahex,ماهکس بهار,تهران,تهران,1.6667,6,5,"{""Staff Behavior"": 1, ""Mobile App"": 1, ""Other"": 3}","{""Negative"": 5, ""Positive"": 1}",a year ago,google_maps
+Mahex,ماهکس,ری,آذربایجان شرقی,2.4,5,3,"{""Other"": 1, ""Customer Support"": 2}","{""Positive"": 2, ""Negative"": 3}",a year ago,google_maps
+Mahex,jannat abad,تهران,تهران,2.3333,3,2,"{""Mobile App"": 1, ""Staff Behavior"": 1}","{""Negative"": 2, ""Positive"": 1}",a year ago,google_maps
+Mahex,ماهکس شمال خوزستان,NULL,خوزستان,5.0,1,0,{},"{""Positive"": 1}",7 months ago,google_maps
+Tipax,تیپاکس ونک,تهران,تهران,2.0,1,1,"{""Delay"": 1}","{""Negative"": 1}",2026-06-01,balad
+Chapar,چاپار مرکز,تهران,تهران,4.0,1,0,{},"{""Positive"": 1}",2026-06-10,neshan
+Mahex,ماهکس شیراز,شیراز,فارس,1.0,1,1,"{""Damaged Package"": 1}","{""Negative"": 1}",2026-05-20,neshan
+Iran Post,پست مرکزی اصفهان,اصفهان,اصفهان,3.0,1,0,{},"{""Neutral"": 1}",2026-07-01,balad
+AloPeyk,الوپیک ونک,تهران,تهران,5.0,1,0,{},"{""Positive"": 1}",2026-07-05,balad
+Tipax,App,NULL,NULL,3.5,2,1,"{""Mobile App"": 1}","{""Negative"": 1, ""Positive"": 1}",2026-07-20,"cafebazaar,myket"
+Chapar,App,NULL,NULL,4.0,1,0,{},"{""Positive"": 1}",2026-05-02,cafebazaar
+AloPeyk,App,NULL,NULL,1.0,1,1,"{""Mobile App"": 1}","{""Negative"": 1}",2026-06-18,cafebazaar
+Iran Post,Iran App,NULL,NULL,2.0,1,1,"{""Mobile App"": 1}","{""Negative"": 1}",2026-07-11,myket
+Mahex,App,NULL,NULL,3.0,1,0,{},"{""Neutral"": 1}",2026-03-22,myket

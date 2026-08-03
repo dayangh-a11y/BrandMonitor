@@ -198,6 +198,8 @@ def _filter_form(action: str, filt: AnalyticsFilter, token_q: str) -> str:
       <div><label>Date to</label><input name="date_to" value="{val('date_to')}" placeholder="YYYY-MM-DD"/></div>
       <div><label>Province</label><input name="province" value="{val('province')}"/></div>
       <div><label>City</label><input name="city" value="{val('city')}"/></div>
+      <div><label>Brand</label><input name="brand" value="{val('brand')}" placeholder="Tipax / Chapar / …"/></div>
+      <div><label>Source</label><input name="source" value="{val('source')}" placeholder="google_maps / neshan / …"/></div>
       <div><label>Branch id</label><input name="branch_id" value="{val('branch_id')}"/></div>
       <div><label>Rating min</label><input name="rating_min" value="{val('rating_min')}"/></div>
       <div><label>Rating max</label><input name="rating_max" value="{val('rating_max')}"/></div>
