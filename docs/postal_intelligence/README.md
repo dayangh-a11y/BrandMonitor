@@ -11,6 +11,10 @@ See **[DEMO.md](DEMO.md)** — investor UI at `/intel` (dashboard, company/branc
 - Research: **[PRICING_CALCULATOR_FEASIBILITY.md](PRICING_CALCULATOR_FEASIBILITY.md)**
 - Engine: **[PRICING_ETA_ENGINE.md](PRICING_ETA_ENGINE.md)** — unified `PricingProvider` interface, adapters, comparison tables
 
+## AI evaluation
+
+- Hostile 50-question eval: **[AI_EVALUATION_REPORT.md](AI_EVALUATION_REPORT.md)** (`scripts/eval_demo_ai_hostile.py`)
+
 ## Live sample ranking (postal_score_v1)
 
 | Rank | Company | Score |
