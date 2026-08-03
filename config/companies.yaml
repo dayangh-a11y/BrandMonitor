@@ -29,6 +29,12 @@ companies:
     enabled: true
     schedule_interval_seconds: 21600
 
+  - name: AloPeyk
+    query: الوپیک
+    source: google_maps
+    enabled: true
+    schedule_interval_seconds: 21600
+
   - name: TipaxBox
     query: تیپاکس باکس
     source: google_maps

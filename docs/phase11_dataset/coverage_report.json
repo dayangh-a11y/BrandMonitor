@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-08-03T14:28:13.575719+00:00",
+  "brands": [
+    "AloPeyk",
+    "Chapar",
+    "Mahex",
+    "Post"
+  ],
+  "branch_count": 43,
+  "review_count": 235,
+  "city_count": 14,
+  "province_count": 18,
+  "pct_with_coordinates": 90.21,
+  "pct_with_date": 100.0,
+  "pct_with_company_reply": 0.0,
+  "sources": [
+    "analytics_demo",
+    "google_maps"
+  ],
+  "duplicates_dropped": 45,
+  "input_rows_before_dedupe": 280
+}
