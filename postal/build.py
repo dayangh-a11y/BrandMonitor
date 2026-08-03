@@ -22,6 +22,13 @@ SOURCE_DBS = (
     ("data/tipax_iran.db", "tipax_iran"),
     ("data/phase11_multisource.db", "phase11"),
     ("data/analytics_demo.db", "analytics_demo"),
+    # Expanded Maps coverage DBs (created by scripts/expand_maps_coverage.py)
+    ("data/coverage_expand/tipax_coverage.db", "coverage_tipax"),
+    ("data/coverage_expand/chapar_coverage.db", "coverage_chapar"),
+    ("data/coverage_expand/post_coverage.db", "coverage_post"),
+    ("data/coverage_expand/mahex_coverage.db", "coverage_mahex"),
+    ("data/coverage_expand/alopeyk_coverage.db", "coverage_alopeyk"),
+    ("data/coverage_expand/pishro_coverage.db", "coverage_pishro"),
 )
 
 

@@ -1,0 +1,771 @@
+{
+  "totals": {
+    "branches": 425,
+    "reviews": 4292,
+    "companies": 6,
+    "avg_overall_confidence": 0.448
+  },
+  "companies": [
+    {
+      "slug": "tipax",
+      "name": "Tipax",
+      "branches": 373,
+      "cities": 42,
+      "provinces": 29,
+      "province_list": [
+        "Alborz",
+        "Bushehr",
+        "Chaharmahal and Bakhtiari",
+        "East Azerbaijan",
+        "Fars",
+        "Gilan",
+        "Golestan",
+        "Hamadan",
+        "Hormozgan",
+        "Ilam",
+        "Isfahan",
+        "Kerman",
+        "Khuzestan",
+        "Kohgiluyeh and Boyer-Ahmad",
+        "Kurdistan",
+        "Lorestan",
+        "Markazi",
+        "Mazandaran",
+        "North Khorasan",
+        "Qazvin",
+        "Qom",
+        "Razavi Khorasan",
+        "Semnan",
+        "Sistan and Baluchestan",
+        "South Khorasan",
+        "Tehran",
+        "West Azerbaijan",
+        "Yazd",
+        "Zanjan"
+      ],
+      "city_list": [
+        "29HG+JMJ",
+        "58J3+Q8R نصر 1",
+        "68FH+832",
+        "69Q3+5GP",
+        "9P2H+P63",
+        "Ahar",
+        "Ahvaz، ‫بلوار ناصح شرقی،دفتر تیپاکس، بلوار معلم، پلاک ابتدای",
+        "Ahvaz، ‫معلم غربی، 7MRR+6R7",
+        "Amol",
+        "Bandar-e Mahshahr، فاز 4، بوستان ششم غربی",
+        "Chenaran، خیابان شهید بهشتی 15، J4MF+6Q2",
+        "FV47+X35",
+        "FW46+P3J",
+        "Isfahan",
+        "JP44+5P3",
+        "Karaj",
+        "Khaf",
+        "Khash، خیابان نیکبخت، 66F7+576",
+        "Khorramabad",
+        "Mashhad",
+        "Najafabad",
+        "Qaderabad",
+        "Quchan",
+        "Rasht",
+        "Rasht، خیابان امام رضا جنب دفتر پیشخوان، چهارراه جمهوری، 7H82+4R4",
+        "Shiraz",
+        "Someh Sara، کوچه رهبر ابراهیمی",
+        "Surak",
+        "Tajrish",
+        "Tehran",
+        "Urmia",
+        "اصفهان",
+        "تهران",
+        "دهکده المپیک خیابان ساحل",
+        "روبروی مسجد رکن الملک،",
+        "سرخرود،",
+        "شیراز",
+        "طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،",
+        "مشهد",
+        "مقابل، همایون پلاک ۱۰، پله نوروزخان، پلاک کوچه",
+        "همدان",
+        "یزد"
+      ],
+      "reviews": 3732,
+      "province_coverage_pct": 93.55,
+      "city_coverage_pct": 42.0,
+      "branch_coverage_vs_target_pct": 100.0,
+      "sources": [
+        "analytics_demo.db",
+        "postal_intelligence.db",
+        "tipax_iran.db"
+      ],
+      "official_missing": [
+        "coverage",
+        "official_pricing",
+        "weight_limits",
+        "size_limits"
+      ],
+      "official_completeness_ratio": 0.636,
+      "official_reachable": true,
+      "official_services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 3732,
+            "confidence": 1.0,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": true,
+            "strong_for_stats": true
+          },
+          "branches": {
+            "value": 373,
+            "confidence": 1.0,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 100.0
+          },
+          "cities": {
+            "value": 42,
+            "confidence": 0.42,
+            "coverage_pct": 42.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 29,
+            "confidence": 0.935,
+            "coverage_pct": 93.55,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.636,
+            "reachable": true,
+            "confidence": 0.636,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.878,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    },
+    {
+      "slug": "chapar",
+      "name": "Chapar",
+      "branches": 19,
+      "cities": 7,
+      "provinces": 8,
+      "province_list": [
+        "East Azerbaijan",
+        "Fars",
+        "Gilan",
+        "Kerman",
+        "Kurdistan",
+        "Mazandaran",
+        "Qom",
+        "Tehran"
+      ],
+      "city_list": [
+        "Bijar",
+        "F9V6+PG8",
+        "Qom",
+        "Shiraz",
+        "Tabriz",
+        "Tehran",
+        "کرمان"
+      ],
+      "reviews": 244,
+      "province_coverage_pct": 25.81,
+      "city_coverage_pct": 7.0,
+      "branch_coverage_vs_target_pct": 9.5,
+      "sources": [
+        "analytics_demo.db",
+        "phase11_multisource.db",
+        "postal_intelligence.db"
+      ],
+      "official_missing": [
+        "coverage",
+        "weight_limits",
+        "size_limits"
+      ],
+      "official_completeness_ratio": 0.727,
+      "official_reachable": true,
+      "official_services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 244,
+            "confidence": 1.0,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": true,
+            "strong_for_stats": true
+          },
+          "branches": {
+            "value": 19,
+            "confidence": 0.095,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 9.5
+          },
+          "cities": {
+            "value": 7,
+            "confidence": 0.07,
+            "coverage_pct": 7.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 8,
+            "confidence": 0.258,
+            "coverage_pct": 25.81,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.727,
+            "reachable": true,
+            "confidence": 0.727,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.528,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    },
+    {
+      "slug": "post",
+      "name": "Post",
+      "branches": 8,
+      "cities": 2,
+      "provinces": 2,
+      "province_list": [
+        "Tehran",
+        "West Azerbaijan"
+      ],
+      "city_list": [
+        "Tehran",
+        "Urmia"
+      ],
+      "reviews": 110,
+      "province_coverage_pct": 6.45,
+      "city_coverage_pct": 2.0,
+      "branch_coverage_vs_target_pct": 4.0,
+      "sources": [
+        "phase11_multisource.db",
+        "postal_intelligence.db"
+      ],
+      "official_missing": [
+        "branches",
+        "services",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "insurance",
+        "tracking",
+        "working_hours",
+        "customer_support"
+      ],
+      "official_completeness_ratio": 0,
+      "official_reachable": false,
+      "official_services": [],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 110,
+            "confidence": 1.0,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": true,
+            "strong_for_stats": true
+          },
+          "branches": {
+            "value": 8,
+            "confidence": 0.04,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 4.0
+          },
+          "cities": {
+            "value": 2,
+            "confidence": 0.02,
+            "coverage_pct": 2.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 2,
+            "confidence": 0.065,
+            "coverage_pct": 6.45,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.0,
+            "reachable": false,
+            "confidence": 0.0,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.372,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    },
+    {
+      "slug": "mahex",
+      "name": "Mahex",
+      "branches": 17,
+      "cities": 4,
+      "provinces": 7,
+      "province_list": [
+        "Ardabil",
+        "East Azerbaijan",
+        "Khuzestan",
+        "Kurdistan",
+        "Mazandaran",
+        "Qazvin",
+        "Tehran"
+      ],
+      "city_list": [
+        "Ardabil",
+        "Qazvin",
+        "Tehran",
+        "خیابان فاطمی خیابان علیزاده"
+      ],
+      "reviews": 120,
+      "province_coverage_pct": 22.58,
+      "city_coverage_pct": 4.0,
+      "branch_coverage_vs_target_pct": 8.5,
+      "sources": [
+        "phase11_multisource.db",
+        "postal_intelligence.db"
+      ],
+      "official_missing": [
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "working_hours"
+      ],
+      "official_completeness_ratio": 0.455,
+      "official_reachable": true,
+      "official_services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 120,
+            "confidence": 1.0,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": true,
+            "strong_for_stats": true
+          },
+          "branches": {
+            "value": 17,
+            "confidence": 0.085,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 8.5
+          },
+          "cities": {
+            "value": 4,
+            "confidence": 0.04,
+            "coverage_pct": 4.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 7,
+            "confidence": 0.226,
+            "coverage_pct": 22.58,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.455,
+            "reachable": true,
+            "confidence": 0.455,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.477,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    },
+    {
+      "slug": "alopeyk",
+      "name": "AloPeyk",
+      "branches": 8,
+      "cities": 3,
+      "provinces": 4,
+      "province_list": [
+        "Fars",
+        "Isfahan",
+        "Razavi Khorasan",
+        "Tehran"
+      ],
+      "city_list": [
+        "Isfahan",
+        "Tehran",
+        "اصفهان"
+      ],
+      "reviews": 86,
+      "province_coverage_pct": 12.9,
+      "city_coverage_pct": 3.0,
+      "branch_coverage_vs_target_pct": 4.0,
+      "sources": [
+        "phase11_multisource.db",
+        "postal_intelligence.db"
+      ],
+      "official_missing": [
+        "branches",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "working_hours"
+      ],
+      "official_completeness_ratio": 0.364,
+      "official_reachable": true,
+      "official_services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "urban_ondemand"
+      ],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 86,
+            "confidence": 0.86,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": true,
+            "strong_for_stats": false
+          },
+          "branches": {
+            "value": 8,
+            "confidence": 0.04,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 4.0
+          },
+          "cities": {
+            "value": 3,
+            "confidence": 0.03,
+            "coverage_pct": 3.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 4,
+            "confidence": 0.129,
+            "coverage_pct": 12.9,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.364,
+            "reachable": true,
+            "confidence": 0.364,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.388,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    },
+    {
+      "slug": "pishro",
+      "name": "Pishro",
+      "branches": 0,
+      "cities": 0,
+      "provinces": 0,
+      "province_list": [],
+      "city_list": [],
+      "reviews": 0,
+      "province_coverage_pct": 0.0,
+      "city_coverage_pct": 0.0,
+      "branch_coverage_vs_target_pct": 0.0,
+      "sources": [],
+      "official_missing": [
+        "branches",
+        "services",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "insurance",
+        "tracking",
+        "working_hours",
+        "customer_support"
+      ],
+      "official_completeness_ratio": 0,
+      "official_reachable": true,
+      "official_services": [],
+      "confidence": {
+        "metrics": {
+          "reviews": {
+            "value": 0,
+            "confidence": 0.05,
+            "rule": "min(1, n/100)",
+            "sufficient_for_stats": false,
+            "strong_for_stats": false
+          },
+          "branches": {
+            "value": 0,
+            "confidence": 0.05,
+            "rule": "min(1, n/200)",
+            "coverage_vs_target_pct": 0.0
+          },
+          "cities": {
+            "value": 0,
+            "confidence": 0.05,
+            "coverage_pct": 0.0,
+            "rule": "min(1, n/100)"
+          },
+          "provinces": {
+            "value": 0,
+            "confidence": 0.05,
+            "coverage_pct": 0.0,
+            "rule": "min(1, n/31)"
+          },
+          "official_profile": {
+            "completeness_ratio": 0.0,
+            "reachable": true,
+            "confidence": 0.0,
+            "rule": "completeness_ratio (capped if site unreachable)"
+          }
+        },
+        "overall_dataset_confidence": 0.042,
+        "targets": {
+          "reviews": 100,
+          "branches": 200,
+          "cities": 100,
+          "provinces": 31
+        },
+        "notes": [
+          "Confidence does not alter postal_score_v1.",
+          "Reviews full confidence at n>=100; statistical minimum treated as n>=30."
+        ]
+      }
+    }
+  ],
+  "harvest_summary": {
+    "harvested_at": "2026-08-03T20:56:37.549644+00:00",
+    "companies": {
+      "tipax": {
+        "reachable": true,
+        "pages_ok": 12,
+        "completeness_ratio": 0.636,
+        "missing": [
+          "coverage",
+          "official_pricing",
+          "weight_limits",
+          "size_limits"
+        ],
+        "services": [
+          "domestic_express",
+          "same_day",
+          "international",
+          "cod",
+          "insurance",
+          "packaging",
+          "tracking",
+          "pickup",
+          "door_to_door",
+          "branch_to_branch"
+        ],
+        "support_phones": [
+          "00008457",
+          "021-41036000",
+          "021-92008457"
+        ]
+      },
+      "chapar": {
+        "reachable": true,
+        "pages_ok": 12,
+        "completeness_ratio": 0.727,
+        "missing": [
+          "coverage",
+          "weight_limits",
+          "size_limits"
+        ],
+        "services": [
+          "domestic_express",
+          "same_day",
+          "international",
+          "cod",
+          "insurance",
+          "packaging",
+          "tracking",
+          "pickup",
+          "door_to_door",
+          "branch_to_branch"
+        ],
+        "support_phones": [
+          "+989046218651",
+          "+989120578019",
+          "021-64085",
+          "02164085"
+        ]
+      },
+      "mahex": {
+        "reachable": true,
+        "pages_ok": 10,
+        "completeness_ratio": 0.455,
+        "missing": [
+          "coverage",
+          "official_delivery_times",
+          "official_pricing",
+          "weight_limits",
+          "size_limits",
+          "working_hours"
+        ],
+        "services": [
+          "domestic_express",
+          "same_day",
+          "international",
+          "cod",
+          "insurance",
+          "packaging",
+          "tracking",
+          "pickup",
+          "door_to_door",
+          "branch_to_branch"
+        ],
+        "support_phones": []
+      },
+      "alopeyk": {
+        "reachable": true,
+        "pages_ok": 6,
+        "completeness_ratio": 0.364,
+        "missing": [
+          "branches",
+          "coverage",
+          "official_delivery_times",
+          "official_pricing",
+          "weight_limits",
+          "size_limits",
+          "working_hours"
+        ],
+        "services": [
+          "domestic_express",
+          "same_day",
+          "international",
+          "insurance",
+          "packaging",
+          "tracking",
+          "pickup",
+          "urban_ondemand"
+        ],
+        "support_phones": []
+      },
+      "pishro": {
+        "reachable": true,
+        "pages_ok": 1,
+        "completeness_ratio": 0.0,
+        "missing": [
+          "branches",
+          "services",
+          "coverage",
+          "official_delivery_times",
+          "official_pricing",
+          "weight_limits",
+          "size_limits",
+          "insurance",
+          "tracking",
+          "working_hours",
+          "customer_support"
+        ],
+        "services": [],
+        "support_phones": []
+      },
+      "post": {
+        "reachable": false,
+        "pages_ok": 0,
+        "completeness_ratio": 0.0,
+        "missing": [
+          "branches",
+          "services",
+          "coverage",
+          "official_delivery_times",
+          "official_pricing",
+          "weight_limits",
+          "size_limits",
+          "insurance",
+          "tracking",
+          "working_hours",
+          "customer_support"
+        ],
+        "services": [],
+        "support_phones": []
+      }
+    }
+  }
+}

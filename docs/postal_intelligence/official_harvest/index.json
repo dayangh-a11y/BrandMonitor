@@ -1,0 +1,788 @@
+{
+  "tipax": [
+    {
+      "url": "https://tipaxco.com",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com.json",
+      "text_len": 8903,
+      "phones": [
+        "000000",
+        "021-8457",
+        "0218457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/services",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_services.json",
+      "text_len": 3272,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/services/domestic-express",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_services_domestic_express.json",
+      "text_len": 5404,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": true
+      }
+    },
+    {
+      "url": "https://tipaxco.com/services/intercity",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_services_intercity.json",
+      "text_len": 6729,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/services/same-day",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_services_same_day.json",
+      "text_len": 4187,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/tracking",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_tracking.json",
+      "text_len": 8043,
+      "phones": [
+        "00008457",
+        "021-8457",
+        "0218457",
+        "036000"
+      ],
+      "emails": [
+        "CS-Support@tipax.ir"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/branches/standardpoint",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_branches_standardpoint.json",
+      "text_len": 1680,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/contactus",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_contactus.json",
+      "text_len": 1929,
+      "phones": [
+        "00008457",
+        "021-41036000",
+        "021-8457",
+        "021-92008457"
+      ],
+      "emails": [
+        "CS-Support@tipax.ir",
+        "info@tipax.ir"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/abouttipax",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_abouttipax.json",
+      "text_len": 6761,
+      "phones": [
+        "021-8457",
+        "0218457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/value-added-services/compensation",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_value_added_services_compensation.json",
+      "text_len": 6594,
+      "phones": [
+        "021-8457",
+        "0218457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/value-added-services/packingexpress",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_value_added_services_packingexpress.json",
+      "text_len": 6989,
+      "phones": [
+        "021-8457"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://tipaxco.com/value-added-services/payexpress",
+      "status": 200,
+      "path": "data/official_harvest/raw/tipax__tipaxco_com_value_added_services_payexpress.json",
+      "text_len": 7629,
+      "phones": [
+        "021-8457",
+        "036000"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    }
+  ],
+  "chapar": [
+    {
+      "url": "https://chaparnet.com",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com.json",
+      "text_len": 5675,
+      "phones": [
+        "021-64085",
+        "085-021"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/about-us",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_about_us.json",
+      "text_len": 5061,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/agencies",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_agencies.json",
+      "text_len": 1706,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/contact-us",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_contact_us.json",
+      "text_len": 1875,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [
+        "info@chaparnet.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": true
+      }
+    },
+    {
+      "url": "https://chaparnet.com/track",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_track.json",
+      "text_len": 1417,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/shipping-cost",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_shipping_cost.json",
+      "text_len": 1320,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/shipping-time",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_shipping_time.json",
+      "text_len": 1383,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/services/internal-shipping",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_services_internal_shipping.json",
+      "text_len": 5099,
+      "phones": [
+        "021-64085",
+        "02164085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/services/international-shipping",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_services_international_shipping.json",
+      "text_len": 7293,
+      "phones": [
+        "+989046218651",
+        "+989120578019",
+        "021-64085",
+        "02164085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/services/cash-on-delivery",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_services_cash_on_delivery.json",
+      "text_len": 5623,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/services/packaging",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_services_packaging.json",
+      "text_len": 3999,
+      "phones": [
+        "021-64085",
+        "02164085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/forbidden-items",
+      "status": 200,
+      "path": "data/official_harvest/raw/chapar__chaparnet_com_forbidden_items.json",
+      "text_len": 2237,
+      "phones": [
+        "021-64085"
+      ],
+      "emails": [],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://chaparnet.com/terms-and-conditions",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  ],
+  "mahex": [
+    {
+      "url": "https://mahex.com",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com.json",
+      "text_len": 7325,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/about-mahex",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_about_mahex.json",
+      "text_len": 3156,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/agents",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_agents.json",
+      "text_len": 909,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/services",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_services.json",
+      "text_len": 2446,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/cash-on-delivery",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_cash_on_delivery.json",
+      "text_len": 4860,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/customer-support",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_customer_support.json",
+      "text_len": 1551,
+      "phones": [
+        "021-9696"
+      ],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/%D8%A8%DB%8C%D9%85%D9%87",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_D8_A8_DB_8C_D9_85_D9_87.json",
+      "text_len": 1914,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/%D8%A8%D8%B3%D8%AA%D9%87-%D8%A8%D9%86%D8%AF%DB%8C",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_D8_A8_D8_B3_D8_AA_D9_87_D8_A8_D9_86_D8_AF_DB_8C.json",
+      "text_len": 1587,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/%D9%BE%D8%B3%D8%AA-%D8%AF%D8%A7%D8%AE%D9%84%DB%8C",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_D9_BE_D8_B3_D8_AA_D8_AF_D8_A7_D8_AE_D9_84_DB_8C.json",
+      "text_len": 6392,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://mahex.com/%D9%BE%D8%B3%D8%AA-%D8%B3%D8%B1%DB%8C%D8%B9-%D9%81%D9%84%D8%B4",
+      "status": 200,
+      "path": "data/official_harvest/raw/mahex__mahex_com_D9_BE_D8_B3_D8_AA_D8_B3_D8_B1_DB_8C_D8_B9_D9_81_D9_84_D8_B4.json",
+      "text_len": 4025,
+      "phones": [],
+      "emails": [
+        "info@mahex.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": true,
+        "has_cod": true,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    }
+  ],
+  "alopeyk": [
+    {
+      "url": "https://alopeyk.com",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com.json",
+      "text_len": 2182,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://alopeyk.com/about-us",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com_about_us.json",
+      "text_len": 2646,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://alopeyk.com/contact-us",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com_contact_us.json",
+      "text_len": 411,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://alopeyk.com/services/alopeyk",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com_services_alopeyk.json",
+      "text_len": 1683,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://alopeyk.com/services/alopost",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com_services_alopost.json",
+      "text_len": 1567,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    },
+    {
+      "url": "https://alopeyk.com/terms",
+      "status": 200,
+      "path": "data/official_harvest/raw/alopeyk__alopeyk_com_terms.json",
+      "text_len": 54089,
+      "phones": [],
+      "emails": [
+        "support@alopeyk.com"
+      ],
+      "flags": {
+        "has_tracking": true,
+        "has_insurance": true,
+        "has_cod": false,
+        "has_packaging": true,
+        "has_pricing": true,
+        "has_hours": false
+      }
+    }
+  ],
+  "pishro": [
+    {
+      "url": "https://pishro.net",
+      "status": 200,
+      "path": "data/official_harvest/raw/pishro__pishro_net.json",
+      "text_len": 20,
+      "phones": [],
+      "emails": [],
+      "flags": {
+        "has_tracking": false,
+        "has_insurance": false,
+        "has_cod": false,
+        "has_packaging": false,
+        "has_pricing": false,
+        "has_hours": false
+      }
+    }
+  ],
+  "post": [
+    {
+      "url": "https://post.ir",
+      "error": "URLError: <urlopen error [Errno 104] Connection reset by peer>"
+    },
+    {
+      "url": "https://www.post.ir",
+      "error": "URLError: <urlopen error [Errno 104] Connection reset by peer>"
+    }
+  ]
+}

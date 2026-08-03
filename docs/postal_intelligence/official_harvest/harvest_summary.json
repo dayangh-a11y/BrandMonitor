@@ -1,0 +1,152 @@
+{
+  "harvested_at": "2026-08-03T20:56:37.549644+00:00",
+  "companies": {
+    "tipax": {
+      "reachable": true,
+      "pages_ok": 12,
+      "completeness_ratio": 0.636,
+      "missing": [
+        "coverage",
+        "official_pricing",
+        "weight_limits",
+        "size_limits"
+      ],
+      "services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "support_phones": [
+        "00008457",
+        "021-41036000",
+        "021-92008457"
+      ]
+    },
+    "chapar": {
+      "reachable": true,
+      "pages_ok": 12,
+      "completeness_ratio": 0.727,
+      "missing": [
+        "coverage",
+        "weight_limits",
+        "size_limits"
+      ],
+      "services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "support_phones": [
+        "+989046218651",
+        "+989120578019",
+        "021-64085",
+        "02164085"
+      ]
+    },
+    "mahex": {
+      "reachable": true,
+      "pages_ok": 10,
+      "completeness_ratio": 0.455,
+      "missing": [
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "working_hours"
+      ],
+      "services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "cod",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "door_to_door",
+        "branch_to_branch"
+      ],
+      "support_phones": []
+    },
+    "alopeyk": {
+      "reachable": true,
+      "pages_ok": 6,
+      "completeness_ratio": 0.364,
+      "missing": [
+        "branches",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "working_hours"
+      ],
+      "services": [
+        "domestic_express",
+        "same_day",
+        "international",
+        "insurance",
+        "packaging",
+        "tracking",
+        "pickup",
+        "urban_ondemand"
+      ],
+      "support_phones": []
+    },
+    "pishro": {
+      "reachable": true,
+      "pages_ok": 1,
+      "completeness_ratio": 0.0,
+      "missing": [
+        "branches",
+        "services",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "insurance",
+        "tracking",
+        "working_hours",
+        "customer_support"
+      ],
+      "services": [],
+      "support_phones": []
+    },
+    "post": {
+      "reachable": false,
+      "pages_ok": 0,
+      "completeness_ratio": 0.0,
+      "missing": [
+        "branches",
+        "services",
+        "coverage",
+        "official_delivery_times",
+        "official_pricing",
+        "weight_limits",
+        "size_limits",
+        "insurance",
+        "tracking",
+        "working_hours",
+        "customer_support"
+      ],
+      "services": [],
+      "support_phones": []
+    }
+  }
+}

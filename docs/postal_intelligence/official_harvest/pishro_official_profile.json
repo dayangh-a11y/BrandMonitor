@@ -1,0 +1,128 @@
+{
+  "slug": "pishro",
+  "website": "https://pishro.net",
+  "harvested_at": "2026-08-03T20:56:27.250650+00:00",
+  "pages_fetched": 1,
+  "pages_ok": 1,
+  "page_errors": {},
+  "reachable": true,
+  "source": "official_website",
+  "services": {
+    "value": [],
+    "present": false,
+    "source_urls": [
+      "https://pishro.net/"
+    ]
+  },
+  "branches": {
+    "locator_page": false,
+    "source_urls": [],
+    "branch_list_extracted": false,
+    "notes": "Agency/branch locator page present; structured branch dump not always in static HTML (JS apps)."
+  },
+  "coverage": {
+    "present": false,
+    "value": null,
+    "notes": "Numeric nationwide coverage counts not extractable as static HTML from official sites in this harvest.",
+    "source_urls": []
+  },
+  "official_delivery_times": {
+    "present": false,
+    "value": null,
+    "source_urls": [],
+    "notes": "No explicit numeric SLA table parsed from HTML."
+  },
+  "official_pricing": {
+    "present": false,
+    "value": {
+      "calculator_available": false,
+      "published_base_rates": false
+    },
+    "notes": "Interactive calculators detected where present; fixed public unit prices rarely listed as plain text.",
+    "source_urls": []
+  },
+  "weight_limits": {
+    "present": false,
+    "value": null,
+    "notes": "No clear max kg table extracted from static HTML.",
+    "source_urls": []
+  },
+  "size_limits": {
+    "present": false,
+    "value": null,
+    "notes": "No clear max dimensions table extracted from static HTML.",
+    "source_urls": []
+  },
+  "insurance": {
+    "present": false,
+    "value": {
+      "available": false
+    },
+    "source_urls": []
+  },
+  "tracking": {
+    "present": false,
+    "value": {
+      "available": false,
+      "channels": [],
+      "source_urls": []
+    },
+    "source_urls": []
+  },
+  "working_hours": {
+    "present": false,
+    "value": {
+      "raw_snippet": null,
+      "present": false,
+      "source_urls": []
+    },
+    "source_urls": []
+  },
+  "customer_support": {
+    "present": false,
+    "value": {
+      "phone": [],
+      "email": [],
+      "website_chat": false,
+      "source_urls": [
+        "https://pishro.net/"
+      ]
+    },
+    "source_urls": [
+      "https://pishro.net/"
+    ]
+  },
+  "packaging": {
+    "available": false
+  },
+  "cod": {
+    "available": false
+  },
+  "missing_official_information": [
+    "branches",
+    "services",
+    "coverage",
+    "official_delivery_times",
+    "official_pricing",
+    "weight_limits",
+    "size_limits",
+    "insurance",
+    "tracking",
+    "working_hours",
+    "customer_support"
+  ],
+  "required_topics": [
+    "branches",
+    "services",
+    "coverage",
+    "official_delivery_times",
+    "official_pricing",
+    "weight_limits",
+    "size_limits",
+    "insurance",
+    "tracking",
+    "working_hours",
+    "customer_support"
+  ],
+  "completeness_ratio": 0.0
+}
