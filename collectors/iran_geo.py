@@ -401,15 +401,34 @@ PROVINCE_CITIES: dict[str, list[GeoCity]] = {
 }
 
 
+_LEVEL_RANK = {
+    "district": 50,
+    "city": 40,
+    "gap_probe": 30,
+    "province": 20,
+    "nationwide": 10,
+}
+
+
 def _dedupe_queries(queries: list[DiscoveryQuery]) -> list[DiscoveryQuery]:
-    seen: set[str] = set()
-    out: list[DiscoveryQuery] = []
-    for q in sorted(queries, key=lambda x: (x.priority, x.level, x.text)):
+    """Deduplicate by text; keep the more specific geo level when phrases collide."""
+    best: dict[str, DiscoveryQuery] = {}
+    for q in queries:
         key = q.text.casefold().strip()
-        if not key or key in seen:
+        if not key:
             continue
-        seen.add(key)
-        out.append(q)
+        prev = best.get(key)
+        if prev is None:
+            best[key] = q
+            continue
+        prev_rank = _LEVEL_RANK.get(prev.level, 0)
+        new_rank = _LEVEL_RANK.get(q.level, 0)
+        # Prefer richer geo tagging / more specific level.
+        if new_rank > prev_rank:
+            best[key] = q
+        elif new_rank == prev_rank and (q.city_fa and not prev.city_fa):
+            best[key] = q
+    out = sorted(best.values(), key=lambda x: (x.priority, _LEVEL_RANK.get(x.level, 0) * -1, x.text))
     return out
 
 
