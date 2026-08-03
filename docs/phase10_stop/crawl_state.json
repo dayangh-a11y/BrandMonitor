@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-08-03T10:44:40.800117+00:00",
+  "run_status": "stop_requested",
+  "discovery_completed": false,
+  "persist_completed": false,
+  "queries_executed": 461,
+  "unique_in_memory": 829,
+  "db_branches": 369,
+  "reviews_db": 1804,
+  "checkpoint_path": "docs/phase10_stop/resume_checkpoint.json"
+}
