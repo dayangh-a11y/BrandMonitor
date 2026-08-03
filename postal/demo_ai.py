@@ -32,6 +32,9 @@ def _conf_label(score: float) -> str:
     return "low"
 
 
+INSUFFICIENT_PHRASE = "I don't have enough data."
+
+
 def _insight(
     text: str,
     *,
@@ -41,8 +44,11 @@ def _insight(
     evidence: list[str] | None = None,
     insufficient: bool = False,
 ) -> dict[str, Any]:
+    body = (text or "").strip()
+    if insufficient and INSUFFICIENT_PHRASE not in body:
+        body = f"{body} {INSUFFICIENT_PHRASE}".strip() if body else INSUFFICIENT_PHRASE
     return {
-        "text": text,
+        "text": body,
         "data_sources": sources,
         "confidence_level": _conf_label(confidence),
         "confidence_score": round(float(confidence), 3),
@@ -606,9 +612,94 @@ class DemoAI:
         ql = q.casefold()
         companies = self.data.snapshot()["companies"]
 
+        # Jailbreak / ignore-data traps
+        if any(
+            k in ql
+            for k in (
+                "ignore your data",
+                "ignore the data",
+                "forget your data",
+                "always #1",
+                "always number 1",
+            )
+        ):
+            leader = companies[0] if companies else None
+            text = (
+                "I will not ignore warehouse evidence. "
+                + (
+                    f"Current postal_score_v1 leader is {leader['name']} "
+                    f"at {leader['score']:.2f} (Tipax is rank #{next(c['rank'] for c in companies if c['slug']=='tipax')})."
+                    if leader
+                    else "Ranking table is empty."
+                )
+            )
+            return {
+                "question": q,
+                "intent": "refuse_jailbreak",
+                "answer": _insight(
+                    text,
+                    sources=["pi_company_scores"],
+                    confidence=float(leader["confidence"]["overall_dataset_confidence"]) if leader else 0.2,
+                    last_updated=updated,
+                    evidence=[f"{c['name']}={c['score']}" for c in companies],
+                    insufficient=leader is None,
+                ),
+            }
+
+        # Live price / ETA / conspiracy / guarantee traps — never invent
+        unsupported_markers = (
+            "how much",
+            "live price",
+            "exact price",
+            "exact eta",
+            "charge for",
+            "tariff",
+            "قیمت",
+            "هزینه ارسال",
+            "guarantee",
+            "zero risk",
+            "arrive in",
+            "arrives in",
+            "package arrive",
+            "tomorrow",
+            "ceo salary",
+            "bribe",
+            "owned by amazon",
+            "predict next month",
+            "2030",
+            "never lose",
+            "never loses",
+            "lose in march",
+            "packages did",
+            "how many packages",
+        )
+        if any(k in ql for k in unsupported_markers):
+            return {
+                "question": q,
+                "intent": "unsupported_operational",
+                "answer": _insight(
+                    "BrandMonitor demo AI answers from the postal intelligence warehouse "
+                    "(scores, reviews, coverage). It does not invent live shipping prices, "
+                    "guaranteed ETAs, ownership claims, private conspiracies, or future rankings.",
+                    sources=["demo_ai policy"],
+                    confidence=0.95,
+                    last_updated=updated,
+                    insufficient=True,
+                ),
+            }
+
+        # Golestan / province-best with thin geo evidence
+        if any(k in ql for k in ("golestan", "گلستان", "gorgan", "گرگان")) and any(
+            k in ql for k in ("best", "بهترین", "which company", "کدام شرکت")
+        ):
+            return {
+                "question": q,
+                "intent": "province_best_golestan",
+                "answer": self._answer_golestan_best(updated),
+            }
+
         # Compare pattern: why is X ranked higher than Y / compare X and Y
-        pair = self._extract_company_pair(ql, companies)
-        if pair and any(
+        compare_asked = any(
             k in ql
             for k in (
                 "why",
@@ -619,16 +710,67 @@ class DemoAI:
                 "compare",
                 "difference",
                 "ranked",
+                "چرا",
+                "بیشتر",
+                "امتیاز",
+                "بهتر",
             )
-        ):
-            result = self.compare(pair[0]["slug"], pair[1]["slug"])
-            return {
-                "question": q,
-                "intent": "compare",
-                "answer": result.get("summary")
-                or result.get("insights", [None])[0],
-                "payload": result,
-            }
+        )
+        pair = self._extract_company_pair(ql, companies)
+        if compare_asked:
+            # Fake / unknown peer in a compare question
+            known_hits = self._extract_all_companies(ql, companies)
+            if "compare" in ql or "vs" in ql or "versus" in ql:
+                # Tipax vs Tipax
+                if len(known_hits) == 1 and known_hits[0]["name"].casefold() in ql and ql.count(known_hits[0]["name"].casefold()) >= 2:
+                    return {
+                        "question": q,
+                        "intent": "compare",
+                        "answer": _insight(
+                            "Select two different companies to compare.",
+                            sources=["ui"],
+                            confidence=1.0,
+                            last_updated=updated,
+                            insufficient=True,
+                        ),
+                    }
+                if len(known_hits) == 1 and any(
+                    tok in ql
+                    for tok in ("fakecourier", "fake", "xyz", "acme", "unknown")
+                ):
+                    return {
+                        "question": q,
+                        "intent": "compare",
+                        "answer": _insight(
+                            f"Cannot compare: peer company in the question is not in the "
+                            f"postal intelligence warehouse (known hit: {known_hits[0]['name']}).",
+                            sources=["pi_companies"],
+                            confidence=1.0,
+                            last_updated=updated,
+                            insufficient=True,
+                        ),
+                    }
+                if len(known_hits) == 0:
+                    return {
+                        "question": q,
+                        "intent": "compare",
+                        "answer": _insight(
+                            "Cannot compare: no supported companies recognized in the question.",
+                            sources=["pi_companies"],
+                            confidence=1.0,
+                            last_updated=updated,
+                            insufficient=True,
+                        ),
+                    }
+            if pair:
+                result = self.compare(pair[0]["slug"], pair[1]["slug"])
+                return {
+                    "question": q,
+                    "intent": "compare",
+                    "answer": result.get("summary")
+                    or result.get("insights", [None])[0],
+                    "payload": result,
+                }
 
         if any(
             k in ql
@@ -639,6 +781,8 @@ class DemoAI:
                 "customer satisfaction",
                 "happiest",
                 "most positive",
+                "رضایت مشتری",
+                "بهترین رضایت",
             )
         ):
             return {
@@ -656,14 +800,28 @@ class DemoAI:
                 "province",
                 "provinces",
             )
-        ) and ("province" in ql or "complaint" in ql):
+        ) and ("province" in ql or "complaint" in ql or "شکایت" in ql):
             return {
                 "question": q,
                 "intent": "province_complaints",
                 "answer": self._answer_province_complaints(updated),
             }
 
-        if any(k in ql for k in ("leader", "best company", "top rank", "highest score", "who leads")):
+        if any(
+            k in ql
+            for k in (
+                "leader",
+                "best company",
+                "top rank",
+                "highest score",
+                "who leads",
+                "#1",
+                "number 1",
+                "market leader",
+                "بهترین شرکت",
+                "رتبه یک",
+            )
+        ) and "گلستان" not in ql and "golestan" not in ql:
             leader = companies[0] if companies else None
             if not leader:
                 ans = _insight(
@@ -674,11 +832,20 @@ class DemoAI:
                     insufficient=True,
                 )
             else:
+                # Correct false premise "is Tipax the leader?"
+                tipax = next((c for c in companies if c["slug"] == "tipax"), None)
+                premise = ""
+                if tipax and "tipax" in ql and tipax["id"] != leader["id"]:
+                    premise = (
+                        f" No. Tipax is rank #{tipax['rank']} at {tipax['score']:.2f}, "
+                        f"behind {leader['name']}."
+                    )
                 ans = _insight(
                     f"By postal_score_v1, {leader['name']} currently leads at "
                     f"{leader['score']:.2f} (rank #1 of {len(companies)}). "
                     f"Dataset confidence: {_conf_label(float(leader['confidence']['overall_dataset_confidence']))} "
-                    f"({leader['confidence']['overall_dataset_confidence']:.0%}).",
+                    f"({leader['confidence']['overall_dataset_confidence']:.0%})."
+                    + premise,
                     sources=["pi_company_scores", "metric_confidence_bundle"],
                     confidence=float(leader["confidence"]["overall_dataset_confidence"]),
                     last_updated=updated,
@@ -686,7 +853,17 @@ class DemoAI:
                 )
             return {"question": q, "intent": "leader", "answer": ans}
 
-        if any(k in ql for k in ("coverage", "most branches", "branch footprint", "widest")):
+        if any(
+            k in ql
+            for k in (
+                "coverage",
+                "most branches",
+                "branch footprint",
+                "widest",
+                "بیشترین شعبه",
+                "بیشترین شعبه را دارد",
+            )
+        ):
             cov = max(companies, key=lambda c: int(c.get("branch_count") or 0))
             return {
                 "question": q,
@@ -701,6 +878,32 @@ class DemoAI:
                     evidence=[
                         f"{c['name']} branches={c['branch_count']}" for c in companies
                     ],
+                ),
+            }
+
+        # Damage / lost absolute claims
+        if any(
+            k in ql
+            for k in (
+                "never loses",
+                "never lose",
+                "damages packages the most",
+                "lowest package_damage",
+                "package_damage rate",
+                "zero risk",
+            )
+        ):
+            return {
+                "question": q,
+                "intent": "risk_claim",
+                "answer": _insight(
+                    "The warehouse has labeled complaint counts (including package_damage / "
+                    "lost_package) but not audited loss rates or guarantees. Absolute safety "
+                    "or 'never loses' claims are not supported.",
+                    sources=["pi_reviews complaint_category"],
+                    confidence=0.4,
+                    last_updated=updated,
+                    insufficient=True,
                 ),
             }
 
@@ -736,6 +939,54 @@ class DemoAI:
             ],
         }
 
+    def _answer_golestan_best(self, updated: str) -> dict[str, Any]:
+        companies = self.data.snapshot()["companies"]
+        rows = []
+        for company in companies:
+            for p in self.data.province_performance(int(company["id"])):
+                name = str(p.get("geo_name") or "")
+                if "golestan" in name.casefold() or "گلستان" in name:
+                    rows.append((company, p))
+        if not rows:
+            return _insight(
+                "No Golestan province rows exist in pi_geo_rankings for any company.",
+                sources=["pi_geo_rankings"],
+                confidence=0.2,
+                last_updated=updated,
+                insufficient=True,
+            )
+        if len(rows) == 1:
+            company, p = rows[0]
+            return _insight(
+                f"Only {company['name']} has a Golestan province geo-ranking in this warehouse "
+                f"(score={p.get('score')}, reviews={p.get('review_count')}, "
+                f"branches={p.get('branch_count')}, avg_rating={p.get('avg_rating')}). "
+                "A quality ranking among all carriers for Golestan is not supported because "
+                "peers lack Golestan province rows here.",
+                sources=["pi_geo_rankings", "pi_companies"],
+                confidence=0.35,
+                last_updated=updated,
+                evidence=[f"{company['name']}:{p}"],
+                insufficient=True,
+            )
+        # multiple — rank by score but caveat sample sizes
+        rows.sort(key=lambda x: float(x[1].get("score") or 0), reverse=True)
+        top_c, top_p = rows[0]
+        listing = "; ".join(
+            f"{c['name']} score={p.get('score')} n={p.get('review_count')}" for c, p in rows
+        )
+        weak = any(int(p.get("review_count") or 0) < 30 for _, p in rows)
+        return _insight(
+            f"Among companies with Golestan geo rows, {top_c['name']} has the highest "
+            f"province score ({top_p.get('score')}). Full set: {listing}."
+            + (" Several samples are below 30 reviews." if weak else ""),
+            sources=["pi_geo_rankings"],
+            confidence=0.4 if weak else 0.55,
+            last_updated=updated,
+            evidence=[listing],
+            insufficient=weak,
+        )
+
     def _extract_company_pair(
         self, ql: str, companies: list[dict[str, Any]]
     ) -> tuple[dict[str, Any], dict[str, Any]] | None:
@@ -757,14 +1008,24 @@ class DemoAI:
             return uniq[0], uniq[1]
         return None
 
+    def _extract_all_companies(
+        self, ql: str, companies: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
+        hits = []
+        seen = set()
+        for c in companies:
+            names = {c["name"].casefold(), c["slug"].casefold()}
+            if c.get("name_fa"):
+                names.add(str(c["name_fa"]).casefold())
+            if any(n and n in ql for n in names) and c["id"] not in seen:
+                hits.append(c)
+                seen.add(c["id"])
+        return hits
+
     def _extract_one_company(
         self, ql: str, companies: list[dict[str, Any]]
     ) -> dict[str, Any] | None:
-        hits = []
-        for c in companies:
-            names = {c["name"].casefold(), c["slug"].casefold()}
-            if any(n and n in ql for n in names):
-                hits.append(c)
+        hits = self._extract_all_companies(ql, companies)
         return hits[0] if len(hits) == 1 else None
 
     def _answer_best_satisfaction(self, updated: str) -> dict[str, Any]:

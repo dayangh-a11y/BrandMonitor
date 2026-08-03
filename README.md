@@ -37,6 +37,7 @@ Open:
 
 - **Postal Intelligence demo:** http://127.0.0.1:8000/intel
 - Pricing calculator feasibility: `docs/postal_intelligence/PRICING_CALCULATOR_FEASIBILITY.md`
+- Pricing & ETA engine: `docs/postal_intelligence/PRICING_ETA_ENGINE.md` (`/postal/pricing/*`)
 - Postal dashboards: `output/postal_intelligence/dashboards/index.html` (or `docs/postal_intelligence/dashboards/`)
 - Postal API: `/postal/*` (requires `X-API-Token`)
 - Legacy review demo: http://127.0.0.1:8000/demo

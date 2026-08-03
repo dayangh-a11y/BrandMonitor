@@ -20,6 +20,7 @@ from api.errors import (
     unhandled_error_handler,
 )
 from api.postal_routes import router as postal_router
+from api.pricing_routes import router as pricing_router
 from api.routes import router
 from api.schemas import HealthOut
 from core.config import load_settings
@@ -74,6 +75,7 @@ app.include_router(admin_router)
 app.include_router(analytics_router)
 app.include_router(analytics_ui_router)
 app.include_router(postal_router)
+app.include_router(pricing_router)
 
 
 @app.get("/health", response_model=HealthOut, tags=["system"])
