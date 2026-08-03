@@ -21,6 +21,8 @@ class CrawlConfig:
     branch_name: str | None = None
     detect_deleted_reviews: bool = True
     detect_deleted_branches: bool = True
+    # When True, discover + upsert branches only (skip review extraction).
+    discovery_only: bool = False
 
 
 @dataclass

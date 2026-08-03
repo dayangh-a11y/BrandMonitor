@@ -84,19 +84,43 @@ class ProductionCrawler:
                 if not checkpoint.get("discovery_completed"):
                     await self._discover_and_enqueue(run_id, company_id, config)
 
-            while True:
-                task = await self.db.claim_next_branch_task(run_id)
-                if task is None:
-                    break
-                await self._crawl_one_branch(run_id, company_id, task, config)
+            if config.discovery_only:
+                # Mark discovery tasks complete without touching review extraction.
+                tasks_after = await self.db.list_crawl_branch_tasks(run_id)
+                for task in tasks_after:
+                    if task.get("status") in {"pending", "running"}:
+                        await self.db.finish_branch_task(
+                            int(task["id"]),
+                            status="succeeded",
+                            branch_id=task.get("branch_id"),
+                        )
                 await self.db.save_checkpoint(
                     run_id,
                     {
                         "discovery_completed": True,
-                        "last_task_id": task["id"],
+                        "discovery_only": True,
                         "updated_at": datetime.now(timezone.utc).isoformat(),
                     },
                 )
+                log.info(
+                    "discovery_only_complete run_id=%s tasks=%s",
+                    run_id,
+                    len(tasks_after),
+                )
+            else:
+                while True:
+                    task = await self.db.claim_next_branch_task(run_id)
+                    if task is None:
+                        break
+                    await self._crawl_one_branch(run_id, company_id, task, config)
+                    await self.db.save_checkpoint(
+                        run_id,
+                        {
+                            "discovery_completed": True,
+                            "last_task_id": task["id"],
+                            "updated_at": datetime.now(timezone.utc).isoformat(),
+                        },
+                    )
 
             progress_tasks = await self.db.list_crawl_branch_tasks(run_id)
             failed = sum(1 for t in progress_tasks if t.get("status") == "failed")
