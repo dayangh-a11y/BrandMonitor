@@ -35,9 +35,10 @@ uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1
 
 Open:
 
+- **Postal Intelligence demo:** http://127.0.0.1:8000/intel
 - Postal dashboards: `output/postal_intelligence/dashboards/index.html` (or `docs/postal_intelligence/dashboards/`)
 - Postal API: `/postal/*` (requires `X-API-Token`)
-- Demo: http://127.0.0.1:8000/demo
+- Legacy review demo: http://127.0.0.1:8000/demo
 - API docs: http://127.0.0.1:8000/docs
 - Executive analytics: `/analytics/ui`
 - Admin: http://127.0.0.1:8000/admin/monitoring?token=dev-admin-token
