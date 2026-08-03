@@ -1,0 +1,7 @@
+name,distribution
+Tipax,"{""other"": 0.7121, ""delivery_delay"": 0.1014, ""staff_behavior"": 0.0789, ""price"": 0.0533, ""package_damage"": 0.0256, ""lost_package"": 0.0102, ""support"": 0.0102, ""tracking"": 0.0082}"
+Chapar,"{""other"": 0.4167, ""delivery_delay"": 0.25, ""price"": 0.1, ""package_damage"": 0.0833, ""staff_behavior"": 0.0833, ""support"": 0.0333, ""tracking"": 0.0333}"
+Mahex,"{""other"": 0.5185, ""staff_behavior"": 0.1481, ""delivery_delay"": 0.1111, ""price"": 0.1111, ""support"": 0.1111}"
+Post,"{""other"": 0.75, ""delivery_delay"": 0.0833, ""tracking"": 0.0833, ""lost_package"": 0.0278, ""package_damage"": 0.0278, ""staff_behavior"": 0.0278}"
+Pishro,{}
+AloPeyk,"{""other"": 0.5385, ""support"": 0.2308, ""delivery_delay"": 0.0769, ""staff_behavior"": 0.0769, ""tracking"": 0.0769}"

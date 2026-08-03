@@ -1,0 +1,10 @@
+component,weight,data_source,formula,required_input_fields,confidence_level,missing_data,possible_bias
+customer_satisfaction,0.22,pi_reviews + rule NLP sentiment/rating,0.60*CSI+0.40*(avg_rating/5*100); prior 50 if n=0,"sentiments, avg_rating, n",low–high by n,human labels; non-Maps channels,Maps selection bias; NLP error
+delivery_speed,0.14,official_delivery_times.intercity_typical_days (curated_v1),"linear map days in [1,7] → [100,0]",intercity_typical_days; excellent_days; poor_days,~0.45 low,measured SLA / transit scans,category mismatch; curated optimism
+service_coverage,0.12,official cities/provinces/branches + observed branches,0.40*Sc+0.25*Sp+0.35*Sb vs targets 200/31/400,"cities, provinces, branches_official, branches_observed",0.4–0.65,verified city list,caps compress Post; optimistic official counts
+pricing,0.1,official_pricing.price_index curated,"linear inverse index [0.7,1.4] → [100,0]",price_index,~0.40 low,live tariff matrices,marketplace dynamics poorly modeled
+service_variety,0.08,official services[] vs 12-item catalog,100*|∩|/12,services list,~0.60,verified catalog depth,equal item weight; cross-category unfairness
+transparency,0.1,official tracking/insurance/pricing/hours/support/cod,100*(#yes)/6 binary checks,six disclosure fields,~0.40–0.50 saturated,accuracy of published info,all companies 100 → constant bias +10
+complaint_rate,0.12,negative review NLP categories + sentiment,0.70*(100-60*rate)+0.30*(100*(1-neg)); prior 50 if n=0,"sentiments, complaints",scales with n,official tickets; severity,double count; other-category dump
+branch_quality,0.12,mean pi_branch_intelligence.branch_score,mean(branch_score); fallback rating; prior 50,branch_scores[] or avg_google_rating,scales with branches/reviews,ops QA,prior shrinkage → ~50 mean
+TOTAL,1.0,,"CompanyScore=round(sum(w_i*D_i),2)",,overall_confidence in SCORE_EXPLAINER.json,,judgmental weights not empirically calibrated

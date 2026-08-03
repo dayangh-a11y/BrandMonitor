@@ -1,0 +1,41 @@
+# BrandMonitor Postal Intelligence — configurable company score weights.
+# Weights MUST sum to 1.0. Each dimension is scored 0–100 independently,
+# then combined as: company_score = Σ (weight_i × dimension_i).
+# See docs/SCORING_METHODOLOGY.md for formulas and worked examples.
+
+algorithm_version: postal_score_v1
+prior_score: 50.0
+min_reviews_for_full_confidence: 20
+
+weights:
+  customer_satisfaction: 0.22
+  delivery_speed: 0.14
+  service_coverage: 0.12
+  pricing: 0.10
+  service_variety: 0.08
+  transparency: 0.10
+  complaint_rate: 0.12
+  branch_quality: 0.12
+
+# Branch score blends (also explainable / configurable)
+branch_weights:
+  rating: 0.35
+  sentiment: 0.30
+  complaint_penalty_scale: 0.20
+  volume_confidence: 0.15
+
+# Normalization anchors (official delivery days → speed score)
+delivery_speed_benchmarks:
+  excellent_days: 1.0   # score ≈ 100
+  poor_days: 7.0        # score ≈ 0
+
+# Pricing: lower official index → higher score
+pricing_benchmarks:
+  best_index: 0.70      # score ≈ 100
+  worst_index: 1.40     # score ≈ 0
+
+# Coverage: relative to best company in the cohort
+coverage_benchmarks:
+  target_cities: 200
+  target_provinces: 31
+  target_branches: 400

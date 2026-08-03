@@ -1,0 +1,83 @@
+{
+  "db_path": "data/postal_intelligence.db",
+  "algorithm_version": "postal_score_v1",
+  "companies": 6,
+  "ingest": {
+    "tipax_iran": {
+      "companies": 0,
+      "branches": 369,
+      "reviews": 1804
+    },
+    "phase11": {
+      "companies": 0,
+      "branches": 49,
+      "reviews": 239
+    },
+    "analytics_demo": {
+      "companies": 0,
+      "branches": 7,
+      "reviews": 103
+    }
+  },
+  "branch_intelligence_rows": 425,
+  "geo_ranking_rows": 205,
+  "company_scores": [
+    {
+      "name": "AloPeyk",
+      "score": 59.4
+    },
+    {
+      "name": "Chapar",
+      "score": 69.34
+    },
+    {
+      "name": "Mahex",
+      "score": 65.86
+    },
+    {
+      "name": "Pishro",
+      "score": 60.15
+    },
+    {
+      "name": "Post",
+      "score": 62.91
+    },
+    {
+      "name": "Tipax",
+      "score": 69.68
+    }
+  ],
+  "comparison_top": [
+    {
+      "rank": 1,
+      "name": "Tipax",
+      "score": 69.68
+    },
+    {
+      "rank": 2,
+      "name": "Chapar",
+      "score": 69.34
+    },
+    {
+      "rank": 3,
+      "name": "Mahex",
+      "score": 65.86
+    },
+    {
+      "rank": 4,
+      "name": "Post",
+      "score": 62.91
+    },
+    {
+      "rank": 5,
+      "name": "Pishro",
+      "score": 60.15
+    },
+    {
+      "rank": 6,
+      "name": "AloPeyk",
+      "score": 59.4
+    }
+  ],
+  "built_at": "2026-08-03T19:51:35.803560+00:00"
+}

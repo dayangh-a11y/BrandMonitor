@@ -1,0 +1,980 @@
+[
+  {
+    "company_id": 1,
+    "slug": "tipax",
+    "name": "Tipax",
+    "name_fa": "تیپاکس",
+    "score": 69.68,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.780379+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 49.19,
+        "inputs": {
+          "sentiments": {
+            "Negative": 976,
+            "Neutral": 68,
+            "Positive": 822
+          },
+          "n": 1866,
+          "csi": 45.87,
+          "avg_rating": 2.708,
+          "rating_score": 54.17
+        },
+        "formula": "0.60 * CSI + 0.40 * (avg_rating/5*100); CSI=(pos+0.5*neu)/n*100",
+        "explanation": "CSI=45.9 from 822/68/976 (pos/neu/neg) over 1866 analyzed reviews; rating_score=54.2 from avg 2.71/5 → 49.2."
+      },
+      "delivery_speed": {
+        "score": 83.33,
+        "inputs": {
+          "intercity_typical_days": 2.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3."
+      },
+      "service_coverage": {
+        "score": 100.0,
+        "inputs": {
+          "cities_official": 250,
+          "provinces_official": 31,
+          "branches_official": 450,
+          "branches_observed": 373,
+          "branch_effective": 450,
+          "city_score": 100.0,
+          "province_score": 100.0,
+          "branch_score": 100.0
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=250, provinces=31, branches_eff=450 → 100.0."
+      },
+      "pricing": {
+        "score": 50.0,
+        "inputs": {
+          "price_index": 1.05,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=1.05 mapped to 50.0 (lower is better)."
+      },
+      "service_variety": {
+        "score": 83.33,
+        "inputs": {
+          "services": [
+            "branch_to_branch",
+            "cod",
+            "domestic_economy",
+            "domestic_express",
+            "door_to_door",
+            "insurance",
+            "international",
+            "packaging",
+            "pickup",
+            "tracking"
+          ],
+          "catalog_size": 12,
+          "matched": 10
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 10/12 catalog services → 83.3."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 62.34,
+        "inputs": {
+          "n": 1866,
+          "complaint_events": 976,
+          "complaint_rate": 0.523,
+          "negative_share": 0.523,
+          "top_complaints": {
+            "other": 695,
+            "delivery_delay": 99,
+            "staff_behavior": 77,
+            "price": 52,
+            "package_damage": 25
+          }
+        },
+        "formula": "0.70*(100-60*complaint_events/n) + 0.30*(100*(1-neg_share))",
+        "explanation": "Complaint events/reviews=0.52, neg_share=52.30% → 62.3 (higher is better / fewer complaints)."
+      },
+      "branch_quality": {
+        "score": 50.34,
+        "inputs": {
+          "branch_count_scored": 373,
+          "mean_branch_score": 50.34,
+          "avg_google_rating": 2.596,
+          "source": "mean(branch_intelligence.branch_score)"
+        },
+        "formula": "mean(branch_score) or (avg_google_rating/5*100)",
+        "explanation": "Branch quality via mean(branch_intelligence.branch_score) → 50.3 across 373 branches."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 69.68 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 49.2 × w=0.22 → 10.82",
+        "  ↳ CSI=45.9 from 822/68/976 (pos/neu/neg) over 1866 analyzed reviews; rating_score=54.2 from avg 2.71/5 → 49.2.",
+        "delivery_speed: 83.3 × w=0.14 → 11.67",
+        "  ↳ Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.",
+        "service_coverage: 100.0 × w=0.12 → 12.00",
+        "  ↳ Coverage from cities=250, provinces=31, branches_eff=450 → 100.0.",
+        "pricing: 50.0 × w=0.10 → 5.00",
+        "  ↳ Official price_index=1.05 mapped to 50.0 (lower is better).",
+        "service_variety: 83.3 × w=0.08 → 6.67",
+        "  ↳ Offers 10/12 catalog services → 83.3.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 62.3 × w=0.12 → 7.48",
+        "  ↳ Complaint events/reviews=0.52, neg_share=52.30% → 62.3 (higher is better / fewer complaints).",
+        "branch_quality: 50.3 × w=0.12 → 6.04",
+        "  ↳ Branch quality via mean(branch_intelligence.branch_score) → 50.3 across 373 branches."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 10.822,
+        "delivery_speed": 11.666,
+        "service_coverage": 12.0,
+        "pricing": 5.0,
+        "service_variety": 6.666,
+        "transparency": 10.0,
+        "complaint_rate": 7.481,
+        "branch_quality": 6.041
+      }
+    }
+  },
+  {
+    "company_id": 2,
+    "slug": "chapar",
+    "name": "Chapar",
+    "name_fa": "چاپار",
+    "score": 69.34,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.775140+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 49.92,
+        "inputs": {
+          "sentiments": {
+            "Negative": 60,
+            "Neutral": 9,
+            "Positive": 53
+          },
+          "n": 122,
+          "csi": 47.13,
+          "avg_rating": 2.705,
+          "rating_score": 54.1
+        },
+        "formula": "0.60 * CSI + 0.40 * (avg_rating/5*100); CSI=(pos+0.5*neu)/n*100",
+        "explanation": "CSI=47.1 from 53/9/60 (pos/neu/neg) over 122 analyzed reviews; rating_score=54.1 from avg 2.70/5 → 49.9."
+      },
+      "delivery_speed": {
+        "score": 83.33,
+        "inputs": {
+          "intercity_typical_days": 2.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3."
+      },
+      "service_coverage": {
+        "score": 93.0,
+        "inputs": {
+          "cities_official": 200,
+          "provinces_official": 31,
+          "branches_official": 320,
+          "branches_observed": 19,
+          "branch_effective": 320,
+          "city_score": 100.0,
+          "province_score": 100.0,
+          "branch_score": 80.0
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=200, provinces=31, branches_eff=320 → 93.0."
+      },
+      "pricing": {
+        "score": 57.14,
+        "inputs": {
+          "price_index": 1.0,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=1.00 mapped to 57.1 (lower is better)."
+      },
+      "service_variety": {
+        "score": 75.0,
+        "inputs": {
+          "services": [
+            "branch_to_branch",
+            "cod",
+            "domestic_economy",
+            "domestic_express",
+            "door_to_door",
+            "insurance",
+            "international",
+            "packaging",
+            "tracking"
+          ],
+          "catalog_size": 12,
+          "matched": 9
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 9/12 catalog services → 75.0."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 64.59,
+        "inputs": {
+          "n": 122,
+          "complaint_events": 60,
+          "complaint_rate": 0.4918,
+          "negative_share": 0.4918,
+          "top_complaints": {
+            "other": 25,
+            "delivery_delay": 15,
+            "price": 6,
+            "package_damage": 5,
+            "staff_behavior": 5
+          }
+        },
+        "formula": "0.70*(100-60*complaint_events/n) + 0.30*(100*(1-neg_share))",
+        "explanation": "Complaint events/reviews=0.49, neg_share=49.18% → 64.6 (higher is better / fewer complaints)."
+      },
+      "branch_quality": {
+        "score": 50.53,
+        "inputs": {
+          "branch_count_scored": 19,
+          "mean_branch_score": 50.53,
+          "avg_google_rating": 2.642,
+          "source": "mean(branch_intelligence.branch_score)"
+        },
+        "formula": "mean(branch_score) or (avg_google_rating/5*100)",
+        "explanation": "Branch quality via mean(branch_intelligence.branch_score) → 50.5 across 19 branches."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 69.34 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 49.9 × w=0.22 → 10.98",
+        "  ↳ CSI=47.1 from 53/9/60 (pos/neu/neg) over 122 analyzed reviews; rating_score=54.1 from avg 2.70/5 → 49.9.",
+        "delivery_speed: 83.3 × w=0.14 → 11.67",
+        "  ↳ Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.",
+        "service_coverage: 93.0 × w=0.12 → 11.16",
+        "  ↳ Coverage from cities=200, provinces=31, branches_eff=320 → 93.0.",
+        "pricing: 57.1 × w=0.10 → 5.71",
+        "  ↳ Official price_index=1.00 mapped to 57.1 (lower is better).",
+        "service_variety: 75.0 × w=0.08 → 6.00",
+        "  ↳ Offers 9/12 catalog services → 75.0.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 64.6 × w=0.12 → 7.75",
+        "  ↳ Complaint events/reviews=0.49, neg_share=49.18% → 64.6 (higher is better / fewer complaints).",
+        "branch_quality: 50.5 × w=0.12 → 6.06",
+        "  ↳ Branch quality via mean(branch_intelligence.branch_score) → 50.5 across 19 branches."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 10.982,
+        "delivery_speed": 11.666,
+        "service_coverage": 11.16,
+        "pricing": 5.714,
+        "service_variety": 6.0,
+        "transparency": 10.0,
+        "complaint_rate": 7.751,
+        "branch_quality": 6.064
+      }
+    }
+  },
+  {
+    "company_id": 4,
+    "slug": "mahex",
+    "name": "Mahex",
+    "name_fa": "ماهکس",
+    "score": 65.86,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.776298+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 58.33,
+        "inputs": {
+          "sentiments": {
+            "Negative": 27,
+            "Positive": 33
+          },
+          "n": 60,
+          "csi": 55.0,
+          "avg_rating": 3.167,
+          "rating_score": 63.33
+        },
+        "formula": "0.60 * CSI + 0.40 * (avg_rating/5*100); CSI=(pos+0.5*neu)/n*100",
+        "explanation": "CSI=55.0 from 33/0/27 (pos/neu/neg) over 60 analyzed reviews; rating_score=63.3 from avg 3.17/5 → 58.3."
+      },
+      "delivery_speed": {
+        "score": 83.33,
+        "inputs": {
+          "intercity_typical_days": 2.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3."
+      },
+      "service_coverage": {
+        "score": 62.33,
+        "inputs": {
+          "cities_official": 120,
+          "provinces_official": 28,
+          "branches_official": 180,
+          "branches_observed": 17,
+          "branch_effective": 180,
+          "city_score": 60.0,
+          "province_score": 90.32,
+          "branch_score": 45.0
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=120, provinces=28, branches_eff=180 → 62.3."
+      },
+      "pricing": {
+        "score": 42.86,
+        "inputs": {
+          "price_index": 1.1,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=1.10 mapped to 42.9 (lower is better)."
+      },
+      "service_variety": {
+        "score": 66.67,
+        "inputs": {
+          "services": [
+            "branch_to_branch",
+            "cod",
+            "domestic_express",
+            "door_to_door",
+            "insurance",
+            "packaging",
+            "pickup",
+            "tracking"
+          ],
+          "catalog_size": 12,
+          "matched": 8
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 8/12 catalog services → 66.7."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 67.6,
+        "inputs": {
+          "n": 60,
+          "complaint_events": 27,
+          "complaint_rate": 0.45,
+          "negative_share": 0.45,
+          "top_complaints": {
+            "other": 14,
+            "staff_behavior": 4,
+            "delivery_delay": 3,
+            "price": 3,
+            "support": 3
+          }
+        },
+        "formula": "0.70*(100-60*complaint_events/n) + 0.30*(100*(1-neg_share))",
+        "explanation": "Complaint events/reviews=0.45, neg_share=45.00% → 67.6 (higher is better / fewer complaints)."
+      },
+      "branch_quality": {
+        "score": 51.27,
+        "inputs": {
+          "branch_count_scored": 17,
+          "mean_branch_score": 51.27,
+          "avg_google_rating": 3.641,
+          "source": "mean(branch_intelligence.branch_score)"
+        },
+        "formula": "mean(branch_score) or (avg_google_rating/5*100)",
+        "explanation": "Branch quality via mean(branch_intelligence.branch_score) → 51.3 across 17 branches."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 65.86 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 58.3 × w=0.22 → 12.83",
+        "  ↳ CSI=55.0 from 33/0/27 (pos/neu/neg) over 60 analyzed reviews; rating_score=63.3 from avg 3.17/5 → 58.3.",
+        "delivery_speed: 83.3 × w=0.14 → 11.67",
+        "  ↳ Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.",
+        "service_coverage: 62.3 × w=0.12 → 7.48",
+        "  ↳ Coverage from cities=120, provinces=28, branches_eff=180 → 62.3.",
+        "pricing: 42.9 × w=0.10 → 4.29",
+        "  ↳ Official price_index=1.10 mapped to 42.9 (lower is better).",
+        "service_variety: 66.7 × w=0.08 → 5.33",
+        "  ↳ Offers 8/12 catalog services → 66.7.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 67.6 × w=0.12 → 8.11",
+        "  ↳ Complaint events/reviews=0.45, neg_share=45.00% → 67.6 (higher is better / fewer complaints).",
+        "branch_quality: 51.3 × w=0.12 → 6.15",
+        "  ↳ Branch quality via mean(branch_intelligence.branch_score) → 51.3 across 17 branches."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 12.833,
+        "delivery_speed": 11.666,
+        "service_coverage": 7.48,
+        "pricing": 4.286,
+        "service_variety": 5.334,
+        "transparency": 10.0,
+        "complaint_rate": 8.112,
+        "branch_quality": 6.152
+      }
+    }
+  },
+  {
+    "company_id": 3,
+    "slug": "post",
+    "name": "Post",
+    "name_fa": "شرکت ملی پست",
+    "score": 62.91,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.777976+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 35.96,
+        "inputs": {
+          "sentiments": {
+            "Negative": 36,
+            "Neutral": 3,
+            "Positive": 16
+          },
+          "n": 55,
+          "csi": 31.82,
+          "avg_rating": 2.109,
+          "rating_score": 42.18
+        },
+        "formula": "0.60 * CSI + 0.40 * (avg_rating/5*100); CSI=(pos+0.5*neu)/n*100",
+        "explanation": "CSI=31.8 from 16/3/36 (pos/neu/neg) over 55 analyzed reviews; rating_score=42.2 from avg 2.11/5 → 36.0."
+      },
+      "delivery_speed": {
+        "score": 50.0,
+        "inputs": {
+          "intercity_typical_days": 4.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 4.0 days (benchmarks 1.0→100, 7.0→0) → 50.0."
+      },
+      "service_coverage": {
+        "score": 100.0,
+        "inputs": {
+          "cities_official": 1200,
+          "provinces_official": 31,
+          "branches_official": 9000,
+          "branches_observed": 8,
+          "branch_effective": 9000,
+          "city_score": 100.0,
+          "province_score": 100.0,
+          "branch_score": 100.0
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=1200, provinces=31, branches_eff=9000 → 100.0."
+      },
+      "pricing": {
+        "score": 78.57,
+        "inputs": {
+          "price_index": 0.85,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=0.85 mapped to 78.6 (lower is better)."
+      },
+      "service_variety": {
+        "score": 75.0,
+        "inputs": {
+          "services": [
+            "branch_to_branch",
+            "cod",
+            "domestic_economy",
+            "domestic_express",
+            "insurance",
+            "international",
+            "packaging",
+            "registered_mail",
+            "tracking"
+          ],
+          "catalog_size": 12,
+          "matched": 9
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 9/12 catalog services → 75.0."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 52.87,
+        "inputs": {
+          "n": 55,
+          "complaint_events": 36,
+          "complaint_rate": 0.6545,
+          "negative_share": 0.6545,
+          "top_complaints": {
+            "other": 27,
+            "delivery_delay": 3,
+            "tracking": 3,
+            "lost_package": 1,
+            "package_damage": 1
+          }
+        },
+        "formula": "0.70*(100-60*complaint_events/n) + 0.30*(100*(1-neg_share))",
+        "explanation": "Complaint events/reviews=0.65, neg_share=65.45% → 52.9 (higher is better / fewer complaints)."
+      },
+      "branch_quality": {
+        "score": 48.31,
+        "inputs": {
+          "branch_count_scored": 8,
+          "mean_branch_score": 48.31,
+          "avg_google_rating": 2.263,
+          "source": "mean(branch_intelligence.branch_score)"
+        },
+        "formula": "mean(branch_score) or (avg_google_rating/5*100)",
+        "explanation": "Branch quality via mean(branch_intelligence.branch_score) → 48.3 across 8 branches."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 62.91 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 36.0 × w=0.22 → 7.91",
+        "  ↳ CSI=31.8 from 16/3/36 (pos/neu/neg) over 55 analyzed reviews; rating_score=42.2 from avg 2.11/5 → 36.0.",
+        "delivery_speed: 50.0 × w=0.14 → 7.00",
+        "  ↳ Official intercity typical delivery 4.0 days (benchmarks 1.0→100, 7.0→0) → 50.0.",
+        "service_coverage: 100.0 × w=0.12 → 12.00",
+        "  ↳ Coverage from cities=1200, provinces=31, branches_eff=9000 → 100.0.",
+        "pricing: 78.6 × w=0.10 → 7.86",
+        "  ↳ Official price_index=0.85 mapped to 78.6 (lower is better).",
+        "service_variety: 75.0 × w=0.08 → 6.00",
+        "  ↳ Offers 9/12 catalog services → 75.0.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 52.9 × w=0.12 → 6.34",
+        "  ↳ Complaint events/reviews=0.65, neg_share=65.45% → 52.9 (higher is better / fewer complaints).",
+        "branch_quality: 48.3 × w=0.12 → 5.80",
+        "  ↳ Branch quality via mean(branch_intelligence.branch_score) → 48.3 across 8 branches."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 7.911,
+        "delivery_speed": 7.0,
+        "service_coverage": 12.0,
+        "pricing": 7.857,
+        "service_variety": 6.0,
+        "transparency": 10.0,
+        "complaint_rate": 6.344,
+        "branch_quality": 5.797
+      }
+    }
+  },
+  {
+    "company_id": 6,
+    "slug": "pishro",
+    "name": "Pishro",
+    "name_fa": "پیشرو",
+    "score": 60.15,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.777087+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 50.0,
+        "inputs": {
+          "sentiments": {},
+          "avg_rating": 0.0,
+          "n": 0
+        },
+        "formula": "prior 50 when no reviews",
+        "explanation": "No customer reviews available; using neutral prior 50."
+      },
+      "delivery_speed": {
+        "score": 66.67,
+        "inputs": {
+          "intercity_typical_days": 3.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 3.0 days (benchmarks 1.0→100, 7.0→0) → 66.7."
+      },
+      "service_coverage": {
+        "score": 50.41,
+        "inputs": {
+          "cities_official": 90,
+          "provinces_official": 25,
+          "branches_official": 140,
+          "branches_observed": 0,
+          "branch_effective": 140,
+          "city_score": 45.0,
+          "province_score": 80.65,
+          "branch_score": 35.0
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=90, provinces=25, branches_eff=140 → 50.4."
+      },
+      "pricing": {
+        "score": 64.29,
+        "inputs": {
+          "price_index": 0.95,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=0.95 mapped to 64.3 (lower is better)."
+      },
+      "service_variety": {
+        "score": 66.67,
+        "inputs": {
+          "services": [
+            "branch_to_branch",
+            "cod",
+            "domestic_economy",
+            "domestic_express",
+            "door_to_door",
+            "insurance",
+            "packaging",
+            "tracking"
+          ],
+          "catalog_size": 12,
+          "matched": 8
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 8/12 catalog services → 66.7."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 50.0,
+        "inputs": {
+          "n": 0,
+          "complaints": {}
+        },
+        "formula": "prior 50 when no reviews",
+        "explanation": "No reviews to estimate complaint rate; prior 50."
+      },
+      "branch_quality": {
+        "score": 50.0,
+        "inputs": {
+          "branch_count": 0
+        },
+        "formula": "prior 50",
+        "explanation": "No branch quality evidence; prior 50."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 60.15 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 50.0 × w=0.22 → 11.00",
+        "  ↳ No customer reviews available; using neutral prior 50.",
+        "delivery_speed: 66.7 × w=0.14 → 9.33",
+        "  ↳ Official intercity typical delivery 3.0 days (benchmarks 1.0→100, 7.0→0) → 66.7.",
+        "service_coverage: 50.4 × w=0.12 → 6.05",
+        "  ↳ Coverage from cities=90, provinces=25, branches_eff=140 → 50.4.",
+        "pricing: 64.3 × w=0.10 → 6.43",
+        "  ↳ Official price_index=0.95 mapped to 64.3 (lower is better).",
+        "service_variety: 66.7 × w=0.08 → 5.33",
+        "  ↳ Offers 8/12 catalog services → 66.7.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 50.0 × w=0.12 → 6.00",
+        "  ↳ No reviews to estimate complaint rate; prior 50.",
+        "branch_quality: 50.0 × w=0.12 → 6.00",
+        "  ↳ No branch quality evidence; prior 50."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 11.0,
+        "delivery_speed": 9.334,
+        "service_coverage": 6.049,
+        "pricing": 6.429,
+        "service_variety": 5.334,
+        "transparency": 10.0,
+        "complaint_rate": 6.0,
+        "branch_quality": 6.0
+      }
+    }
+  },
+  {
+    "company_id": 5,
+    "slug": "alopeyk",
+    "name": "AloPeyk",
+    "name_fa": "الوپیک",
+    "score": 59.4,
+    "algorithm_version": "postal_score_v1",
+    "calculated_at": "2026-08-03T19:51:35.773402+00:00",
+    "dimensions": {
+      "customer_satisfaction": {
+        "score": 67.86,
+        "inputs": {
+          "sentiments": {
+            "Negative": 13,
+            "Neutral": 3,
+            "Positive": 27
+          },
+          "n": 43,
+          "csi": 66.28,
+          "avg_rating": 3.512,
+          "rating_score": 70.23
+        },
+        "formula": "0.60 * CSI + 0.40 * (avg_rating/5*100); CSI=(pos+0.5*neu)/n*100",
+        "explanation": "CSI=66.3 from 27/3/13 (pos/neu/neg) over 43 analyzed reviews; rating_score=70.2 from avg 3.51/5 → 67.9."
+      },
+      "delivery_speed": {
+        "score": 83.33,
+        "inputs": {
+          "intercity_typical_days": 2.0,
+          "excellent_days": 1.0,
+          "poor_days": 7.0
+        },
+        "formula": "linear map: excellent_days→100, poor_days→0 using official intercity_typical_days",
+        "explanation": "Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3."
+      },
+      "service_coverage": {
+        "score": 13.38,
+        "inputs": {
+          "cities_official": 20,
+          "provinces_official": 10,
+          "branches_official": 15,
+          "branches_observed": 8,
+          "branch_effective": 15,
+          "city_score": 10.0,
+          "province_score": 32.26,
+          "branch_score": 3.75
+        },
+        "formula": "0.40*min(cities/target_cities,1)*100 + 0.25*provinces + 0.35*branches",
+        "explanation": "Coverage from cities=20, provinces=10, branches_eff=15 → 13.4."
+      },
+      "pricing": {
+        "score": 21.43,
+        "inputs": {
+          "price_index": 1.25,
+          "best_index": 0.7,
+          "worst_index": 1.4
+        },
+        "formula": "lower official price_index → higher score (best_index→100, worst_index→0)",
+        "explanation": "Official price_index=1.25 mapped to 21.4 (lower is better)."
+      },
+      "service_variety": {
+        "score": 41.67,
+        "inputs": {
+          "services": [
+            "door_to_door",
+            "packaging",
+            "pickup",
+            "tracking",
+            "urban_ondemand"
+          ],
+          "catalog_size": 12,
+          "matched": 5
+        },
+        "formula": "100 * |services ∩ catalog| / |catalog|",
+        "explanation": "Offers 5/12 catalog services → 41.7."
+      },
+      "transparency": {
+        "score": 100.0,
+        "inputs": {
+          "checks": {
+            "tracking_available": true,
+            "insurance_disclosed": true,
+            "pricing_published": true,
+            "hours_published": true,
+            "support_phone": true,
+            "cod_policy_disclosed": true
+          }
+        },
+        "formula": "100 * (# disclosed transparency checks) / 6",
+        "explanation": "Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0."
+      },
+      "complaint_rate": {
+        "score": 78.23,
+        "inputs": {
+          "n": 43,
+          "complaint_events": 13,
+          "complaint_rate": 0.3023,
+          "negative_share": 0.3023,
+          "top_complaints": {
+            "other": 7,
+            "support": 3,
+            "delivery_delay": 1,
+            "staff_behavior": 1,
+            "tracking": 1
+          }
+        },
+        "formula": "0.70*(100-60*complaint_events/n) + 0.30*(100*(1-neg_share))",
+        "explanation": "Complaint events/reviews=0.30, neg_share=30.23% → 78.2 (higher is better / fewer complaints)."
+      },
+      "branch_quality": {
+        "score": 52.82,
+        "inputs": {
+          "branch_count_scored": 8,
+          "mean_branch_score": 52.82,
+          "avg_google_rating": 2.788,
+          "source": "mean(branch_intelligence.branch_score)"
+        },
+        "formula": "mean(branch_score) or (avg_google_rating/5*100)",
+        "explanation": "Branch quality via mean(branch_intelligence.branch_score) → 52.8 across 8 branches."
+      }
+    },
+    "weights": {
+      "customer_satisfaction": 0.22,
+      "delivery_speed": 0.14,
+      "service_coverage": 0.12,
+      "pricing": 0.1,
+      "service_variety": 0.08,
+      "transparency": 0.1,
+      "complaint_rate": 0.12,
+      "branch_quality": 0.12
+    },
+    "explanation": {
+      "why": [
+        "Final score 59.4 = Σ weight_i × dimension_i (postal_score_v1).",
+        "customer_satisfaction: 67.9 × w=0.22 → 14.93",
+        "  ↳ CSI=66.3 from 27/3/13 (pos/neu/neg) over 43 analyzed reviews; rating_score=70.2 from avg 3.51/5 → 67.9.",
+        "delivery_speed: 83.3 × w=0.14 → 11.67",
+        "  ↳ Official intercity typical delivery 2.0 days (benchmarks 1.0→100, 7.0→0) → 83.3.",
+        "service_coverage: 13.4 × w=0.12 → 1.61",
+        "  ↳ Coverage from cities=20, provinces=10, branches_eff=15 → 13.4.",
+        "pricing: 21.4 × w=0.10 → 2.14",
+        "  ↳ Official price_index=1.25 mapped to 21.4 (lower is better).",
+        "service_variety: 41.7 × w=0.08 → 3.33",
+        "  ↳ Offers 5/12 catalog services → 41.7.",
+        "transparency: 100.0 × w=0.10 → 10.00",
+        "  ↳ Transparency checklist: tracking_available=yes, insurance_disclosed=yes, pricing_published=yes, hours_published=yes, support_phone=yes, cod_policy_disclosed=yes → 100.0.",
+        "complaint_rate: 78.2 × w=0.12 → 9.39",
+        "  ↳ Complaint events/reviews=0.30, neg_share=30.23% → 78.2 (higher is better / fewer complaints).",
+        "branch_quality: 52.8 × w=0.12 → 6.34",
+        "  ↳ Branch quality via mean(branch_intelligence.branch_score) → 52.8 across 8 branches."
+      ],
+      "weighted_contribution": {
+        "customer_satisfaction": 14.929,
+        "delivery_speed": 11.666,
+        "service_coverage": 1.606,
+        "pricing": 2.143,
+        "service_variety": 3.334,
+        "transparency": 10.0,
+        "complaint_rate": 9.388,
+        "branch_quality": 6.338
+      }
+    }
+  }
+]

@@ -1,0 +1,97 @@
+geo_level,geo_name,province,rank,company_name,score,review_count,branch_count,avg_rating
+province,Abozar Blvd,Abozar Blvd,1,Tipax,51.83,10,1,3.0
+province,Ahvaz,Ahvaz,1,Tipax,44.7,10,1,1.7
+province,Alborz,Alborz,1,Tipax,51.13,57,8,2.228
+province,Ardabil,Ardabil,1,Mahex,54.82,3,1,5.0
+province,Bandar Abbas,Bandar Abbas,1,Tipax,45.6,18,3,1.889
+province,Basmenj,Basmenj,1,Tipax,48.52,3,1,2.0
+province,Boulevard Imam,Boulevard Imam,1,Tipax,53.38,4,1,4.0
+province,Bushehr,Bushehr,1,Tipax,43.12,20,2,1.65
+province,Chaharmahal and Bakhtiari,Chaharmahal and Bakhtiari,1,Tipax,49.63,17,3,2.471
+province,East Azerbaijan,East Azerbaijan,1,Tipax,66.42,67,13,3.448
+province,East Azerbaijan,East Azerbaijan,2,Chapar,53.69,13,1,3.077
+province,East Azerbaijan,East Azerbaijan,3,Mahex,52.16,7,1,3.143
+province,Emam Khomeini St,Emam Khomeini St,1,Tipax,50.0,0,1,0.0
+province,Emam Reza 2 St,Emam Reza 2 St,1,Tipax,50.0,0,1,0.0
+province,Fars,Fars,1,Tipax,64.41,139,29,3.086
+province,Fars,Fars,2,AloPeyk,60.07,10,1,4.4
+province,Fars,Fars,3,Chapar,56.45,13,1,3.462
+province,Feiz St,Feiz St,1,Tipax,49.53,10,1,2.6
+province,Fowqani,Fowqani,1,Tipax,51.7,1,1,5.0
+province,Gilan,Gilan,1,Tipax,71.32,95,24,3.695
+province,Gilan,Gilan,2,Chapar,58.01,8,1,4.125
+province,Golestan,Golestan,1,Tipax,46.3,10,1,1.8
+province,Hafez St,Hafez St,1,Tipax,59.69,9,1,4.444
+province,Hamadan,Hamadan,1,Tipax,54.7,15,2,3.133
+province,Hormozgan,Hormozgan,1,Tipax,55.06,83,15,2.59
+province,Ilam,Ilam,1,Tipax,54.13,10,1,3.4
+province,Iran,Iran,1,Tipax,52.85,24,8,2.75
+province,Isfahan,Isfahan,1,AloPeyk,58.97,10,1,4.3
+province,Isfahan,Isfahan,2,Tipax,55.6,180,46,2.478
+province,Isfahan Province,Isfahan Province,1,Tipax,52.41,15,1,2.8
+province,Jalq,Jalq,1,Tipax,52.99,2,1,4.5
+province,Kahrizak,Kahrizak,1,Chapar,50.32,1,1,3.0
+province,Kerman,Kerman,1,Tipax,58.72,32,7,3.219
+province,Khuzestan,Khuzestan,1,Mahex,53.31,2,1,5.0
+province,Khuzestan,Khuzestan,2,Tipax,46.94,96,21,1.969
+province,Kohgiluyeh and Boyer-Ahmad,Kohgiluyeh and Boyer-Ahmad,1,Tipax,44.23,10,1,1.5
+province,Kurdistan,Kurdistan,1,Mahex,53.31,2,1,5.0
+province,Kurdistan,Kurdistan,2,Chapar,51.7,1,1,5.0
+province,Kurdistan,Kurdistan,3,Tipax,45.68,29,6,1.931
+province,Lorestan,Lorestan,1,Tipax,56.01,21,7,3.19
+province,Marjan Alley,Marjan Alley,1,Mahex,55.96,4,1,4.75
+province,Mazandaran,Mazandaran,1,Tipax,59.33,96,18,2.856
+province,Mazandaran,Mazandaran,2,Chapar,57.01,7,1,4.143
+province,Mazandaran,Mazandaran,3,Mahex,51.7,1,1,5.0
+province,North Khorasan,North Khorasan,1,Tipax,53.72,27,3,2.889
+province,Qazvin,Qazvin,1,Mahex,51.7,1,1,5.0
+province,Qazvin,Qazvin,2,Tipax,50.0,0,1,0.0
+province,Qom,Qom,1,Chapar,46.07,10,1,1.7
+province,Qom,Qom,2,Tipax,43.95,20,2,1.7
+province,Rasht - Pirbazar Rd,Rasht - Pirbazar Rd,1,Tipax,50.0,0,1,0.0
+province,Razavi Khorasan,Razavi Khorasan,1,AloPeyk,59.87,10,1,4.1
+province,Razavi Khorasan,Razavi Khorasan,2,Tipax,55.75,83,16,2.578
+province,Riazi St، روبه روی حلال احمر,Riazi St، روبه روی حلال احمر,1,Tipax,44.47,10,1,1.6
+province,Saman,Saman,1,Tipax,47.86,3,1,2.0
+province,Semnan,Semnan,1,Tipax,51.57,10,1,2.3
+province,Sistan and Baluchestan,Sistan and Baluchestan,1,Tipax,48.66,32,9,2.281
+province,South Khorasan,South Khorasan,1,Tipax,49.2,20,2,1.95
+province,Tehran,Tehran,1,Tipax,57.58,227,43,2.559
+province,Tehran,Tehran,2,Mahex,52.4,40,10,2.6
+province,Tehran,Tehran,3,Post,50.83,29,4,2.586
+province,Tehran,Tehran,4,Chapar,46.18,44,10,1.909
+province,Tehran,Tehran,5,AloPeyk,43.58,12,2,1.5
+province,Tehran Province,Tehran Province,1,Chapar,52.81,15,1,2.933
+province,Tehran Province,Tehran Province,2,Tipax,52.15,29,2,2.759
+province,Unknown,Unknown,1,Post,50.0,0,1,0.0
+province,Unknown,Unknown,2,AloPeyk,50.0,0,1,0.0
+province,West Azerbaijan,West Azerbaijan,1,Tipax,59.37,64,10,2.938
+province,West Azerbaijan,West Azerbaijan,2,Post,44.1,26,3,1.577
+province,Yazd,Yazd,1,Tipax,47.25,19,8,2.158
+province,Zahedan,Zahedan,1,Tipax,48.57,10,1,2.4
+province,Zanjan,Zanjan,1,Tipax,50.5,4,1,3.0
+province,، خ دانش، جنب پارک,، خ دانش، جنب پارک,1,Tipax,53.67,4,1,4.25
+province,آدرس خیابان پیام نور,آدرس خیابان پیام نور,1,Tipax,51.37,1,1,4.0
+province,آذربایجان غربی,آذربایجان غربی,1,Tipax,56.3,8,2,4.0
+province,اصفهان,اصفهان,1,Tipax,60.46,16,4,3.875
+province,اصفهان,اصفهان,2,AloPeyk,51.7,1,2,5.0
+province,بلوار جمهوری,بلوار جمهوری,1,Tipax,51.99,2,1,4.0
+province,تهران,تهران,1,Tipax,50.09,36,7,2.222
+province,جنب سوپرمارکت شمال دفتر تیپاکس,جنب سوپرمارکت شمال دفتر تیپاکس,1,Tipax,53.91,3,1,4.0
+province,خراسان رضوی,خراسان رضوی,1,Tipax,45.82,3,2,1.0
+province,خوزستان,خوزستان,1,Tipax,61.75,36,4,3.306
+province,خیابان آرام,خیابان آرام,1,Tipax,55.88,5,1,4.2
+province,خیابان فصیح,خیابان فصیح,1,Tipax,51.7,1,1,5.0
+province,خیابان ۴۵، Iran,خیابان ۴۵، Iran,1,Tipax,49.53,10,1,2.6
+province,ده متری اول,ده متری اول,1,Tipax,58.73,10,1,4.2
+province,سیستان و بلوچستان,سیستان و بلوچستان,1,Tipax,43.57,10,1,1.8
+province,شهرک فرهنگیان,شهرک فرهنگیان,1,Tipax,50.32,1,1,3.0
+province,فارس,فارس,1,Tipax,52.93,15,3,2.933
+province,مازندران,مازندران,1,Tipax,51.35,24,3,2.625
+province,مرکزی,مرکزی,1,Tipax,47.91,3,2,1.333
+province,هرمزگان,هرمزگان,1,Tipax,53.31,2,1,5.0
+province,همدان,همدان,1,Tipax,52.03,10,1,2.5
+province,چهارمحال و بختیاری,چهارمحال و بختیاری,1,Tipax,53.6,3,2,3.667
+province,کرمان,کرمان,1,Chapar,51.83,10,1,3.0
+province,گیلان,گیلان,1,Tipax,58.92,11,2,4.091
+province,یزد,یزد,1,Tipax,46.5,11,2,2.091

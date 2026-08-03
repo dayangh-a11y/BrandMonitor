@@ -1,0 +1,14 @@
+{
+  "tables": [
+    "pi_companies",
+    "pi_official_profiles",
+    "pi_branches",
+    "pi_reviews",
+    "pi_company_scores",
+    "pi_branch_intelligence",
+    "pi_geo_rankings",
+    "pi_comparisons",
+    "pi_meta"
+  ],
+  "notes": "Official profiles are stored separately from reviews (pi_official_profiles)."
+}

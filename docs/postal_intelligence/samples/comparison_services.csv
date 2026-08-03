@@ -1,0 +1,7 @@
+name,service_count,international,cod,insurance,tracking
+Tipax,10,True,True,True,True
+Chapar,9,True,True,True,True
+Mahex,8,False,True,True,True
+Post,9,True,True,True,True
+Pishro,8,False,True,True,True
+AloPeyk,5,False,False,True,True

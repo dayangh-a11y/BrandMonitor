@@ -1,0 +1,201 @@
+rank,company,branch,city,province,branch_score,overall_rating,review_count,last_activity
+1,Tipax,نمایندگی تیپاکس فسا سرو,,Fars,63.33,5.0,10,a year ago
+2,Tipax,تیپاکس منجیل,,Gilan,61.03,4.6,10,9 months ago
+3,Tipax,تیپاکس شعبه میانه,,East Azerbaijan,60.93,4.4,10,a year ago
+4,Tipax,تیپاکس مرکزی صدرا,,Fars,60.08,5.0,7,7 months ago
+5,AloPeyk,الوپیک شیراز,,Fars,60.07,4.4,10,8 years ago
+6,AloPeyk,Alopeyk,,Razavi Khorasan,59.87,4.1,10,Edited 8 years ago
+7,Tipax,شعبه تیپاکس قوچان,Quchan,Hafez St,59.69,4.444,9,a year ago
+8,Tipax,تیپاکس شعبه نورآباد,,Fars,59.67,4.6,10,7 years ago
+9,Tipax,تیپاکس فرهنگ شهر,,خوزستان,59.63,4.0,10,a year ago
+10,AloPeyk,الوپیک اصفهان,Isfahan,Isfahan,58.97,4.3,10,8 years ago
+11,Tipax,سرویس پوینت تیپاکس بازار عبدل آباد,Tehran,Tehran,58.88,5.0,6,a year ago
+12,Tipax,تیپاکس نمایندگی فیروزآباد,,Fars,58.88,5.0,6,7 months ago
+13,Tipax,تیپاکس اسالم,,Gilan,58.88,5.0,6,a year ago
+14,Tipax,تیپاکس آمل ۱۷شهریور - Tipax Amol Branch,Amol,ده متری اول,58.73,4.2,10,7 months ago
+15,Tipax,نمایندگی تیپاکس شعبه میانه 2,,East Azerbaijan,58.69,4.222,9,a year ago
+16,Tipax,تیپاکس شعبه ماسال,,Gilan,58.27,4.0,10,a year ago
+17,Chapar,Chapar System,,Gilan,58.01,4.125,8,a year ago
+18,Tipax,تیپاکس آریا,Isfahan,Isfahan,58.0,4.1,10,a year ago
+19,Tipax,تیپاکس کن,تهران,تهران,57.8,4.333,6,a year ago
+20,Tipax,تیپاکس نیشابور شعبه بینالود,,Razavi Khorasan,57.8,3.8,10,a year ago
+21,Tipax,tipax office,,گیلان,57.77,4.0,10,a month ago
+22,Tipax,تیپاکس پل تمدن,اصفهان,اصفهان,57.6,5.0,5,a year ago
+23,Tipax,نمایندگی تیپاکس شیرگاه,,Mazandaran,57.6,5.0,5,a year ago
+24,Mahex,ماهکس لاله زار,Tehran,Tehran,57.6,5.0,5,7 months ago
+25,Tipax,تیپاکس استاد شهریار تبریز (تیپاکس میدان رسالت),,East Azerbaijan,57.55,4.111,9,a year ago
+26,Tipax,تیپاکس مشتاق,Isfahan,Isfahan,57.53,4.429,7,a year ago
+27,Tipax,تیپاکس سمن,Isfahan,Isfahan,57.32,4.8,5,a year ago
+28,Tipax,نمایندگی تیپاکس کلاچای,,Gilan,57.07,3.889,9,a year ago
+29,Chapar,کالا رسانان چاپار ساری chapar,,Mazandaran,57.01,4.143,7,a year ago
+30,Tipax,نمایندگی تیپاکس چهاردانگه,Tehran,Tehran,56.87,3.4,10,Edited 4 years ago
+31,Tipax,تیپاکس شعبه جهرم,,Fars,56.8,3.8,10,a year ago
+32,Chapar,Chapar Shiraz,Shiraz,Fars,56.45,3.462,13,2026-07-25
+33,Tipax,تیپاکس - شعبه پیرانشهر,,West Azerbaijan,56.43,3.8,10,a year ago
+34,Tipax,تیپاکس نمایندگی نگارخانه,,Kerman,56.33,3.6,10,a month ago
+35,Tipax,تیپاکس سلماس,,آذربایجان غربی,56.25,5.0,4,a year ago
+36,Tipax,تیپاکس شعبه نور,,Mazandaran,55.97,3.6,10,a year ago
+37,Mahex,نمایندگی ماهکس فاطمی,خیابان فاطمی خیابان علیزاده,Marjan Alley,55.96,4.75,4,a year ago
+38,Tipax,تیپاکس زرقان,,Fars,55.95,4.167,6,5 years ago
+39,Tipax,تیپاکس دیلمان,Rasht,خیابان آرام,55.88,4.2,5,8 months ago
+40,Tipax,تیپاکس فاطمی,Tehran,Tehran,55.53,4.0,10,4 years ago
+41,Tipax,نمایندگی تیپاکس شعبه ساحل طلایی,,مازندران,55.28,4.2,5,8 months ago
+42,Tipax,تیپاکس کاشان شعبه مشفق,Isfahan,Isfahan,55.17,3.667,9,a year ago
+43,Tipax,تیپاکس زینبیه,Isfahan,Isfahan,55.12,4.4,5,a year ago
+44,Tipax,تیپاکس شعبه نقده,,West Azerbaijan,55.11,4.0,6,a week ago
+45,Tipax,Tipax Mashhad,Mashhad,Razavi Khorasan,55.02,3.167,18,2026-07-27
+46,Tipax,سرویس پوینت تیپاکس رویان,,Mazandaran,55.01,3.625,8,a year ago
+47,Tipax,تیپاکس نمایندگی بندر امام خمینی,,خوزستان,55.0,3.4,10,Edited 5 years ago
+48,Tipax,تیپاکس لاله زار,Tehran,Tehran,54.97,3.857,7,5 years ago
+49,Post,Urmia Post Office,,West Azerbaijan,54.88,3.5,6,a year ago
+50,Tipax,تیپاکس میانرود,,Fars,54.84,4.2,5,a year ago
+51,Tipax,نمایندگی تیپاکس کوار,,Fars,54.84,3.833,6,a year ago
+52,Tipax,تیپاکس محله کوجان,Isfahan,Isfahan,54.82,5.0,3,a year ago
+53,Tipax,تیپاکس چهلستون,Isfahan,Isfahan,54.82,5.0,3,a week ago
+54,Tipax,Tipax Gisha,Tehran,Tehran,54.82,5.0,3,a year ago
+55,Tipax,نمایندگی تیپاکس فلاح,Tehran,Tehran,54.82,5.0,3,a year ago
+56,Tipax,تیپاکس مجتمع خلیج فارس,,فارس,54.82,5.0,3,a year ago
+57,Tipax,نمایندگی تیپاکس شعبه اروند ماهشهر,,Khuzestan,54.82,5.0,3,a year ago
+58,Tipax,تیپاکس رشت صنعتی,,Gilan,54.82,5.0,3,7 months ago
+59,Tipax,تیپاکس لنگرود آزادی,,Gilan,54.82,5.0,3,a year ago
+60,Tipax,نمایندگی تیپاکس پره سر,,Gilan,54.82,5.0,3,4 years ago
+61,Mahex,نمایندگی ماهکس خلخال,Ardabil,Ardabil,54.82,5.0,3,8 months ago
+62,Tipax,نمایندگی تیپاکس هرات,,Yazd,54.52,4.667,3,7 months ago
+63,Tipax,نمایندگی تیپاکس تکاب آذربایجان غربی,,West Azerbaijan,54.52,4.667,3,7 months ago
+64,Tipax,تیپاکس گلسار رشت,,Gilan,54.5,3.4,10,a year ago
+65,Tipax,تیپاکس نمایندگی رستم آباد,,Gilan,54.33,3.75,8,6 years ago
+66,Tipax,تیپاکس مهاباد شعبه مرکزی _ شاهی جان,,West Azerbaijan,54.17,3.444,9,a year ago
+67,Tipax,تیپاکس کیانمهر,Karaj,Alborz,54.13,3.4,10,a year ago
+68,Tipax,تیپاکس,,Ilam,54.13,3.4,10,a year ago
+69,Tipax,tipax,,Hamadan,53.96,4.0,5,9 months ago
+70,Tipax,تیپاکس سورک,Surak,جنب سوپرمارکت شمال دفتر تیپاکس,53.91,4.0,3,3 years ago
+71,Tipax,نمایندگی تیپاکس حکیمیه,Tehran,Tehran,53.9,3.3,10,7 months ago
+72,Tipax,تیپاکس عباس آباد,Tehran,Tehran,53.83,2.9,10,a year ago
+73,Tipax,تیپاکس سردشت,,West Azerbaijan,53.83,3.5,8,7 months ago
+74,Chapar,Chapar Tabriz,Tabriz,East Azerbaijan,53.69,3.077,13,2026-08-01
+75,Tipax,نمایندگی تیپاکس فلاورجان,اصفهان,اصفهان,53.67,3.2,10,a year ago
+76,Tipax,تیپاکس سرخرود,سرخرود،,، خ دانش، جنب پارک,53.67,4.25,4,3 years ago
+77,Tipax,نمایندگی تیپاکس لردگان,,چهارمحال و بختیاری,53.6,3.667,3,a year ago
+78,Tipax,تیپاکس مهدیه,,Kerman,53.57,3.667,6,a year ago
+79,Tipax,تیپاکس بندرلنگه,,Hormozgan,53.57,3.0,10,a month ago
+80,Post,Post Office,Tehran,Tehran,53.56,4.333,3,7 years ago
+81,Tipax,تیپاکس قادرآباد,Qaderabad,Boulevard Imam,53.38,4.0,4,a year ago
+82,Tipax,تیپاکس نمایندگی خاوران,Tehran,Tehran,53.38,4.0,4,a year ago
+83,Tipax,تیپاکس جانبازان رشت,,Gilan,53.38,4.0,4,a year ago
+84,Tipax,Monfared,,Mazandaran,53.38,4.0,4,a month ago
+85,Tipax,اکسس پوینت تیپاکس شیراز خیابان فلاح,,Fars,53.31,5.0,2,a year ago
+86,Tipax,تیپاکس ورزنه,Isfahan,Isfahan,53.31,5.0,2,3 years ago
+87,Tipax,تیپاکس خانه اصفهان - جمع آوری مرسولات پستی,Isfahan,Isfahan,53.31,5.0,2,7 months ago
+88,Tipax,تیپاکس پلاسکو,تهران,تهران,53.31,5.0,2,7 months ago
+89,Tipax,شعبه تیپاکس آجودانیه,Tehran,Tehran,53.31,5.0,2,6 months ago
+90,Tipax,تیپاکس آرین,,Fars,53.31,5.0,2,Edited a month ago
+91,Tipax,تیپاکس. کجوار-باغمعروف,,East Azerbaijan,53.31,5.0,2,a year ago
+92,Tipax,تیپاکس بسطامی,,Kerman,53.31,5.0,2,a year ago
+93,Tipax,تیپاکس الیگودرز,,Lorestan,53.31,5.0,2,a month ago
+94,Tipax,نمایندگی تیپاکس سیریک,,هرمزگان,53.31,5.0,2,3 years ago
+95,Mahex,Mahex Sanandaj,,Kurdistan,53.31,5.0,2,Edited 3 years ago
+96,Mahex,نمایندگی ماهکس شمال خوزستان,,Khuzestan,53.31,5.0,2,7 months ago
+97,Chapar,دفتر نمایندگی چاپار پاسداران مجیدیه هروی,Tehran,Tehran,53.26,4.0,3,a year ago
+98,Tipax,Tipax,,North Khorasan,53.17,3.2,10,Edited 7 years ago
+99,Tipax,نمایندگی مشهد فجر تیپاکس,,Razavi Khorasan,53.17,3.2,10,a year ago
+100,Tipax,نمایندگی تیپاکس ملکان,,East Azerbaijan,53.17,3.2,10,a year ago
+101,Tipax,تیپاکس رودان کد7608,,Hormozgan,53.08,3.75,4,a year ago
+102,Tipax,تیپاکس شهرک صنعتی Tipax,,Yazd,52.99,4.5,2,7 months ago
+103,Tipax,دفتر پیشخوان و نمایندگی تیپاکس,Isfahan,Isfahan,52.99,4.5,2,a year ago
+104,Tipax,تیپاکس نمایندگی والفجر,,Fars,52.99,4.5,2,a year ago
+105,Tipax,تیپاکس جالق,JP44+5P3,Jalq,52.99,4.5,2,a year ago
+106,Tipax,نمایندگی تیپاکس رحیم آباد,,Gilan,52.99,4.5,2,3 years ago
+107,Tipax,Tipax نمایندگی تیپاکس شعبه ایثار,,Hormozgan,52.93,3.1,10,a year ago
+108,Chapar,Chapar Center,Tehran,Tehran Province,52.81,2.933,15,2026-08-01
+109,Tipax,شرکت تیپاکس,,Sistan and Baluchestan,52.79,3.222,9,a year ago
+110,Tipax,نمایندگی تیپاکس دزفول کمیل,,خوزستان,52.72,3.5,6,a year ago
+111,Post,شرکت ملی پست ایران,Tehran,Tehran,52.72,3.5,6,a year ago
+112,Tipax,تیپاکس شعبه ملوان,,Hormozgan,52.42,3.286,7,a year ago
+113,Tipax,Tipax Isfahan,Isfahan,Isfahan Province,52.41,2.8,15,2026-07-30
+114,Mahex,دفتر نمایندگی ماهکس,,East Azerbaijan,52.16,3.143,7,a year ago
+115,Tipax,تیپاکس (پیروزی-نیروهوایی),Tehran,Tehran,52.08,3.4,5,a year ago
+116,Tipax,تیپاکس کوهدشت,,Lorestan,52.08,3.4,5,a year ago
+117,Tipax,نمایندگی تیپاکس هرند,Isfahan,Isfahan,52.03,3.0,2,7 months ago
+118,Tipax,تیپاکس مهرویلا,,Alborz,52.03,3.0,2,7 months ago
+119,Tipax,سرپرستی تیپاکس همدان,همدان,همدان,52.03,2.5,10,a year ago
+120,Tipax,تیپاکس اهر,Ahar,بلوار جمهوری,51.99,4.0,2,6 months ago
+121,Tipax,Mahshahr Tipax,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,51.83,3.0,10,a year ago
+122,Tipax,تیپاکس محمودآباد,,Mazandaran,51.83,3.0,10,a year ago
+123,Chapar,دفتر چاپار کرمانشاه,کرمان,کرمان,51.83,3.0,10,a year ago
+124,Tipax,تیپاکس یاس,Tehran,Tehran,51.82,3.667,3,a year ago
+125,Tipax,تیپاکس شعبه ورزش,,East Azerbaijan,51.82,3.667,3,a year ago
+126,Tipax,نمایندگی تیپاکس جلفا,Isfahan,Isfahan,51.82,3.667,3,a year ago
+127,Tipax,نمایندگی تیپاکس شهرک های صنعتی,,Hormozgan,51.82,3.667,3,a year ago
+128,Tipax,سرویس پوینت تیپاکس لوشان,,Gilan,51.82,3.667,3,a year ago
+129,Tipax,تیپاکس امام خمینی,Isfahan,Isfahan,51.7,5.0,1,2 years ago
+130,Tipax,نمایندگی تیپاکس تفت,یزد,یزد,51.7,5.0,1,2 years ago
+131,Tipax,نمایندگی تیپاکس سپیدان,,Fars,51.7,5.0,1,3 years ago
+132,Tipax,تیپاکس آل محمد اصفهان,Isfahan,Isfahan,51.7,5.0,1,3 weeks ago
+133,Tipax,تیپاکس شاهپور جدید,Isfahan,Isfahan,51.7,5.0,1,a week ago
+134,Tipax,نمایندگی تیپاکس آذری,Tehran,Tehran,51.7,5.0,1,2 weeks ago
+135,Tipax,تیپاکس تجریش,Tajrish,Fowqani,51.7,5.0,1,6 months ago
+136,Tipax,تی هاب شیراز ( انبار مرکزی تیپاکس ),اصفهان,اصفهان,51.7,5.0,1,5 months ago
+137,Tipax,نمایندگی تیپاکس فراشبند,,Fars,51.7,5.0,1,4 years ago
+138,Tipax,تیپاکس ساجدی,,Razavi Khorasan,51.7,5.0,1,a month ago
+139,Tipax,تیپاکس شاملو - قاسم آباد,,Razavi Khorasan,51.7,5.0,1,a month ago
+140,Tipax,نمایندگی تیپاکس فیض آباد,,Razavi Khorasan,51.7,5.0,1,5 years ago
+141,Tipax,تیپاکس چناران,Chenaran، خیابان شهید بهشتی 15، J4MF+6Q2,Iran,51.7,5.0,1,7 months ago
+142,Tipax,نمایندگی تیپاکس خواف,Khaf,خیابان فصیح,51.7,5.0,1,a year ago
+143,Tipax,تیپاکس سنگان,,Razavi Khorasan,51.7,5.0,1,a year ago
+144,Tipax,تیپاکس اسکو,,East Azerbaijan,51.7,5.0,1,5 months ago
+145,Tipax,تیپاکس رشدیه,,East Azerbaijan,51.7,5.0,1,a year ago
+146,Tipax,تیپاکس مایسا,,West Azerbaijan,51.7,5.0,1,7 months ago
+147,Tipax,"تیپاکس نیوساید اهواز (TIPAX,NEWSIDE)",,Khuzestan,51.7,5.0,1,6 months ago
+148,Tipax,تیپاکس هفتکل,,Khuzestan,51.7,5.0,1,a year ago
+149,Tipax,تیپاکس باهنر,Ahvaz، ‫بلوار ناصح شرقی،دفتر تیپاکس، بلوار معلم، پلاک ابتدای,Iran,51.7,5.0,1,a month ago
+150,Tipax,دفتر پیشخوان دولت نمایندگی پست و تیپاکس,,Khuzestan,51.7,5.0,1,6 months ago
+151,Tipax,نمایندگی تیپاکس جناح هرمزگان,,Hormozgan,51.7,5.0,1,3 years ago
+152,Tipax,دفتر تیپاکس کوی نیایش,68FH+832,Bandar Abbas,51.7,5.0,1,a year ago
+153,Tipax,تیپاکس شعبه نورانی,,Gilan,51.7,5.0,1,a year ago
+154,Tipax,تیپاکس کومله,,گیلان,51.7,5.0,1,4 years ago
+155,Chapar,موسسه توریستی چاپار,Tehran,Tehran,51.7,5.0,1,7 years ago
+156,Chapar,کالا رسانان چاپار بیجار,Bijar,Kurdistan,51.7,5.0,1,5 months ago
+157,Mahex,نمایندگی ماهکس پونک,Tehran,Tehran,51.7,5.0,1,4 days ago
+158,Mahex,ماهکس انقلاب,Tehran,Tehran,51.7,5.0,1,a month ago
+159,Mahex,پست ماهکس ساری,,Mazandaran,51.7,5.0,1,7 months ago
+160,Mahex,mahex,Qazvin,Qazvin,51.7,5.0,1,Edited a year ago
+161,AloPeyk,پیک موتوری ثابت,اصفهان,اصفهان,51.7,5.0,1,6 years ago
+162,Tipax,نمایندگی تیپاکس خاش,Khash، خیابان نیکبخت، 66F7+576,Iran,51.6,2.9,10,a year ago
+163,Tipax,نمایندگی تیپاکس بابلسر,,Mazandaran,51.57,3.1,10,a year ago
+164,Tipax,تیپاکس سمنان شعبه 1 قدیمی ترین شعبه تیپاکس درشهرسمنان,,Semnan,51.57,2.3,10,a year ago
+165,Tipax,تیپاکس مجتمع تجاری امال,Tehran,Tehran,51.44,5.0,2,8 months ago
+166,Tipax,نمایندگی تیپاکس نازی آباد,Tehran,Tehran,51.37,2.8,10,a year ago
+167,Tipax,تیپاکس تبریز شهناز,,East Azerbaijan,51.37,3.0,8,a year ago
+168,Tipax,تیپاکس رشت,Rasht,آدرس خیابان پیام نور,51.37,4.0,1,a year ago
+169,Tipax,تیپاکس ساری خیابان دانش,,Mazandaran,51.37,4.0,1,7 months ago
+170,Tipax,تیپاکس فومن,,Gilan,51.25,3.25,4,5 years ago
+171,Tipax,تیپاکس شعبه ۲,,Hamadan,51.13,2.7,10,a year ago
+172,Tipax,اکسس پوینت تیپاکس ابوذر غفاری,شیراز,فارس,51.12,4.5,2,9 months ago
+173,Tipax,پست تیپاکس نمایندگی کوروش,,Khuzestan,51.12,2.875,8,a year ago
+174,Tipax,تیپاکس گوهردشت,Karaj,Alborz,51.03,3.0,1,5 months ago
+175,Tipax,تیپاکس زاگرس / میرآباد,,Chaharmahal and Bakhtiari,50.91,3.0,6,a year ago
+176,Tipax,نمایندگی تیپاکس خرم آباد کیو,,Lorestan,50.87,2.8,10,8 months ago
+177,Tipax,نمایندگی تیپاکس کامیاران,,Kurdistan,50.62,2.625,8,a month ago
+178,Tipax,Tipax Vanak,Tehran,Tehran Province,50.61,2.8,15,2026-07-19
+179,Tipax,سرویس پوینت تیپاکس صوراسرافیل,Tehran,Tehran,50.6,2.333,3,a year ago
+180,Tipax,تیپاکس باغ غدیر,Isfahan,Isfahan,50.5,3.0,4,a year ago
+181,Tipax,تیپاکس اشنویه,,آذربایجان غربی,50.5,3.0,4,a year ago
+182,Tipax,نمایندگی تیپاکس خرم آباد افلاک,,Lorestan,50.5,3.0,4,a year ago
+183,Tipax,تیپاکس پاداد,,Khuzestan,50.5,3.0,4,6 months ago
+184,Tipax,تیپاکس گلشهر کاظمیه زنجان,,Zanjan,50.5,3.0,4,a year ago
+185,Mahex,Mahex jannat abad,Tehran,Tehran,50.5,3.0,4,a year ago
+186,Tipax,TPG post,,Hormozgan,50.49,3.5,2,6 years ago
+187,Tipax,نمایندگی تیپاکس چهارراه سرداران,,Fars,50.37,1.0,1,a year ago
+188,Tipax,تیپاکس نمایندگی سمیرم,Isfahan,Isfahan,50.32,3.0,1,a year ago
+189,Tipax,تیپاکس شعبه تربیت ارومیه,Urmia,شهرک فرهنگیان,50.32,3.0,1,7 months ago
+190,Chapar,انبار چاپار,F9V6+PG8,Kahrizak,50.32,3.0,1,5 months ago
+191,Tipax,Tipax HQ,Tehran,Tehran Province,50.28,2.714,14,2026-07-28
+192,Tipax,تیپاکس مکران,,Sistan and Baluchestan,50.26,2.667,3,a week ago
+193,Tipax,باربری تیپاکس,,Chaharmahal and Bakhtiari,50.26,2.667,3,6 years ago
+194,Tipax,تیپاکس فیاض بخش,Tehran,Tehran,50.17,3.0,2,a year ago
+195,Tipax,نمایندگی تیپاکس آبشار (شرق اصفهان ),Isfahan,Isfahan,50.17,3.0,2,9 months ago
+196,Tipax,تیپاکس تعاون,,Kerman,50.17,3.0,2,3 weeks ago
+197,Tipax,نمایندگی تیپاکس بیجار,,Kurdistan,50.17,3.0,2,8 months ago
+198,Mahex,پست ماهکس,Tehran,Tehran,50.17,3.0,2,a year ago
+199,Tipax,نمایندگی تیپاکس اشتهارد,,Alborz,50.11,2.5,6,a year ago
+200,Tipax,تیپاکس نمایندگی پامنار,مقابل، همایون پلاک ۱۰، پله نوروزخان، پلاک کوچه,Iran,50.0,0.0,0,

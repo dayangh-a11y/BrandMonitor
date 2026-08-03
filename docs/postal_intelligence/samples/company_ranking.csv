@@ -1,0 +1,7 @@
+rank,company,slug,score,algorithm
+1,Tipax,tipax,69.68,postal_score_v1
+2,Chapar,chapar,69.34,postal_score_v1
+3,Mahex,mahex,65.86,postal_score_v1
+4,Post,post,62.91,postal_score_v1
+5,Pishro,pishro,60.15,postal_score_v1
+6,AloPeyk,alopeyk,59.4,postal_score_v1

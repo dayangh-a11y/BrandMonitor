@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sentiment · BrandMonitor Postal Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+:root {
+  --bg: #0f1a17;
+  --panel: #16241f;
+  --line: #2a433a;
+  --text: #e7f2ec;
+  --muted: #9bb5a8;
+  --accent: #2f9e7a;
+  --good: #3ecf8e;
+  --warn: #e0b44e;
+  --bad: #e07171;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--text); font-family: var(--sans);
+  background:
+    radial-gradient(800px 420px at 0% 0%, #1d3b32 0%, transparent 55%),
+    radial-gradient(700px 380px at 100% 0%, #243018 0%, transparent 50%),
+    linear-gradient(180deg, #0c1412, var(--bg));
+  min-height: 100vh;
+}
+a { color: #7dd3b0; text-decoration: none; }
+header { padding: 24px 28px 8px; }
+.brand { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; letter-spacing: -0.02em; }
+.sub { color: var(--muted); margin-top: 4px; }
+nav { padding: 0 28px 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+nav a { color: var(--muted); }
+nav a:hover, nav a.active { color: var(--text); }
+main { padding: 8px 28px 40px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 14px 0 18px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.kpi .label { color: var(--muted); font-size: .75rem; }
+.kpi .value { font-family: var(--serif); font-size: 1.6rem; margin-top: 4px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+.card { background: rgba(22,36,31,.92); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.card h2 { margin: 0 0 10px; font-size: 1rem; font-weight: 600; }
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
+@media (max-width: 900px) {
+  .span-8, .span-6, .span-4 { grid-column: span 12; }
+}
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+.bar {
+  height: 8px; border-radius: 99px; background: #24352e; overflow: hidden;
+}
+.bar > span { display:block; height:100%; background: linear-gradient(90deg, #2f9e7a, #7dd3b0); }
+#map { height: 420px; border-radius: 12px; border: 1px solid var(--line); }
+.muted { color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<header>
+  <p class="brand">BrandMonitor</p>
+  <p class="sub">Postal Intelligence Platform — Sentiment</p>
+</header>
+<nav><a class="" href="index.html">Overview</a> <a class="" href="company_ranking.html">Company Ranking</a> <a class="" href="branch_ranking.html">Branch Ranking</a> <a class="" href="province_ranking.html">Province Ranking</a> <a class="" href="complaints.html">Complaints</a> <a class="active" href="sentiment.html">Sentiment</a> <a class="" href="trends.html">Trends</a> <a class="" href="map.html">Interactive Map</a> <a class="" href="comparison.html">Comparison</a></nav>
+<main>
+
+<section class="card">
+  <h2>Sentiment Dashboard</h2>
+  <canvas id="sChart" height="120"></canvas>
+</section>
+<script>
+new Chart(document.getElementById('sChart'), {
+  type: 'bar',
+  data: {
+    labels: ["AloPeyk", "Chapar", "Mahex", "Pishro", "Post", "Tipax"],
+    datasets: [
+      { label: 'Positive', data: [27, 53, 33, 0, 16, 822], backgroundColor: '#3ecf8e' },
+      { label: 'Neutral', data: [3, 9, 0, 0, 3, 68], backgroundColor: '#e0b44e' },
+      { label: 'Negative', data: [13, 60, 27, 0, 36, 976], backgroundColor: '#e07171' }
+    ]
+  },
+  options: {
+    scales: {
+      x: { stacked: true, ticks: { color: '#e7f2ec' }, grid: { color: '#2a433a' } },
+      y: { stacked: true, ticks: { color: '#9bb5a8' }, grid: { color: '#2a433a' } }
+    },
+    plugins: { legend: { labels: { color: '#e7f2ec' } } }
+  }
+});
+</script>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,110 @@
+geo_level,geo_name,province,rank,company_name,score,review_count,branch_count,avg_rating
+city,29HG+JMJ,Basmenj,1,Tipax,48.52,3,1,2.0
+city,58J3+Q8R نصر 1,Bandar Abbas,1,Tipax,42.63,10,1,1.4
+city,68FH+832,Bandar Abbas,1,Tipax,51.7,1,1,5.0
+city,69Q3+5GP,Bandar Abbas,1,Tipax,48.82,7,1,2.143
+city,9P2H+P63,Ahvaz,1,Tipax,44.7,10,1,1.7
+city,Ahar,بلوار جمهوری,1,Tipax,51.99,2,1,4.0
+city,Ahvaz، ‫بلوار ناصح شرقی،دفتر تیپاکس، بلوار معلم، پلاک ابتدای,Iran,1,Tipax,51.7,1,1,5.0
+city,Ahvaz، ‫معلم غربی، 7MRR+6R7,Iran,1,Tipax,48.41,1,1,1.0
+city,Amol,ده متری اول,1,Tipax,58.73,10,1,4.2
+city,Ardabil,Ardabil,1,Mahex,54.82,3,1,5.0
+city,Bandar-e Mahshahr، فاز 4، بوستان ششم غربی,Abozar Blvd,1,Tipax,51.83,10,1,3.0
+city,Bijar,Kurdistan,1,Chapar,51.7,1,1,5.0
+city,Chenaran، خیابان شهید بهشتی 15، J4MF+6Q2,Iran,1,Tipax,51.7,1,1,5.0
+city,F9V6+PG8,Kahrizak,1,Chapar,50.32,1,1,3.0
+city,FV47+X35,Zahedan,1,Tipax,48.57,10,1,2.4
+city,FW46+P3J,Saman,1,Tipax,47.86,3,1,2.0
+city,Isfahan,Isfahan,1,AloPeyk,58.97,10,1,4.3
+city,Isfahan,Isfahan Province,1,Tipax,52.41,15,1,2.8
+city,Isfahan,Isfahan,2,Tipax,55.6,180,46,2.478
+city,JP44+5P3,Jalq,1,Tipax,52.99,2,1,4.5
+city,Karaj,Alborz,1,Tipax,52.38,19,3,2.737
+city,Khaf,خیابان فصیح,1,Tipax,51.7,1,1,5.0
+city,Khash، خیابان نیکبخت، 66F7+576,Iran,1,Tipax,51.6,10,1,2.9
+city,Khorramabad,Iran,1,Tipax,50.0,0,1,0.0
+city,Mashhad,Razavi Khorasan,1,Tipax,48.74,37,3,2.162
+city,Najafabad,Riazi St، روبه روی حلال احمر,1,Tipax,44.47,10,1,1.6
+city,Qaderabad,Boulevard Imam,1,Tipax,53.38,4,1,4.0
+city,Qazvin,Qazvin,1,Mahex,51.7,1,1,5.0
+city,Qom,Qom,1,Chapar,46.07,10,1,1.7
+city,Quchan,Hafez St,1,Tipax,59.69,9,1,4.444
+city,Rasht,Rasht - Pirbazar Rd,1,Tipax,50.0,0,1,0.0
+city,Rasht,آدرس خیابان پیام نور,1,Tipax,51.37,1,1,4.0
+city,Rasht,خیابان آرام,1,Tipax,55.88,5,1,4.2
+city,Rasht، خیابان امام رضا جنب دفتر پیشخوان، چهارراه جمهوری، 7H82+4R4,Iran,1,Tipax,48.41,1,1,1.0
+city,Shiraz,Fars,1,Chapar,56.45,13,1,3.462
+city,Shiraz,Fars,2,Tipax,50.0,0,2,0.0
+city,Someh Sara، کوچه رهبر ابراهیمی,Emam Khomeini St,1,Tipax,50.0,0,1,0.0
+city,Surak,جنب سوپرمارکت شمال دفتر تیپاکس,1,Tipax,53.91,3,1,4.0
+city,Tabriz,East Azerbaijan,1,Chapar,53.69,13,1,3.077
+city,Tajrish,Fowqani,1,Tipax,51.7,1,1,5.0
+city,Tehran,Tehran,1,Tipax,57.58,227,43,2.559
+city,Tehran,Tehran Province,1,Chapar,52.81,15,1,2.933
+city,Tehran,Tehran,2,Mahex,52.4,40,10,2.6
+city,Tehran,Tehran Province,2,Tipax,52.15,29,2,2.759
+city,Tehran,Tehran,3,Post,50.83,29,4,2.586
+city,Tehran,Tehran,4,Chapar,46.18,44,10,1.909
+city,Tehran,Tehran,5,AloPeyk,43.58,12,2,1.5
+city,Unknown,Alborz,1,Tipax,47.82,38,5,1.974
+city,Unknown,Bushehr,1,Tipax,43.12,20,2,1.65
+city,Unknown,Chaharmahal and Bakhtiari,1,Tipax,49.63,17,3,2.471
+city,Unknown,East Azerbaijan,1,Tipax,66.42,67,13,3.448
+city,Unknown,Fars,1,Tipax,64.41,139,27,3.086
+city,Unknown,Gilan,1,Tipax,71.32,95,24,3.695
+city,Unknown,Golestan,1,Tipax,46.3,10,1,1.8
+city,Unknown,Hamadan,1,Tipax,54.7,15,2,3.133
+city,Unknown,Hormozgan,1,Tipax,55.06,83,15,2.59
+city,Unknown,Ilam,1,Tipax,54.13,10,1,3.4
+city,Unknown,Kerman,1,Tipax,58.72,32,7,3.219
+city,Unknown,Khuzestan,1,Mahex,53.31,2,1,5.0
+city,Unknown,Kohgiluyeh and Boyer-Ahmad,1,Tipax,44.23,10,1,1.5
+city,Unknown,Kurdistan,1,Mahex,53.31,2,1,5.0
+city,Unknown,Lorestan,1,Tipax,56.01,21,7,3.19
+city,Unknown,Mazandaran,1,Tipax,59.33,96,18,2.856
+city,Unknown,North Khorasan,1,Tipax,53.72,27,3,2.889
+city,Unknown,Qazvin,1,Tipax,50.0,0,1,0.0
+city,Unknown,Qom,1,Tipax,43.95,20,2,1.7
+city,Unknown,Razavi Khorasan,1,AloPeyk,59.87,10,1,4.1
+city,Unknown,Semnan,1,Tipax,51.57,10,1,2.3
+city,Unknown,Sistan and Baluchestan,1,Tipax,48.66,32,9,2.281
+city,Unknown,South Khorasan,1,Tipax,49.2,20,2,1.95
+city,Unknown,West Azerbaijan,1,Tipax,59.37,64,10,2.938
+city,Unknown,Yazd,1,Tipax,47.25,19,8,2.158
+city,Unknown,Zanjan,1,Tipax,50.5,4,1,3.0
+city,Unknown,آذربایجان غربی,1,Tipax,56.3,8,2,4.0
+city,Unknown,خراسان رضوی,1,Tipax,50.0,0,1,0.0
+city,Unknown,خوزستان,1,Tipax,61.75,36,4,3.306
+city,Unknown,سیستان و بلوچستان,1,Tipax,43.57,10,1,1.8
+city,Unknown,فارس,1,Tipax,51.84,13,2,2.692
+city,Unknown,مازندران,1,Tipax,51.35,24,3,2.625
+city,Unknown,مرکزی,1,Tipax,47.91,3,2,1.333
+city,Unknown,هرمزگان,1,Tipax,53.31,2,1,5.0
+city,Unknown,چهارمحال و بختیاری,1,Tipax,53.6,3,2,3.667
+city,Unknown,گیلان,1,Tipax,58.92,11,2,4.091
+city,Unknown,East Azerbaijan,2,Mahex,52.16,7,1,3.143
+city,Unknown,Fars,2,AloPeyk,60.07,10,1,4.4
+city,Unknown,Gilan,2,Chapar,58.01,8,1,4.125
+city,Unknown,Khuzestan,2,Tipax,46.94,96,21,1.969
+city,Unknown,Kurdistan,2,Tipax,45.68,29,6,1.931
+city,Unknown,Mazandaran,2,Chapar,57.01,7,1,4.143
+city,Unknown,Razavi Khorasan,2,Tipax,57.6,46,13,2.913
+city,Unknown,West Azerbaijan,2,Post,47.6,16,2,1.938
+city,Unknown,Mazandaran,3,Mahex,51.7,1,1,5.0
+city,Urmia,Emam Reza 2 St,1,Tipax,50.0,0,1,0.0
+city,Urmia,West Azerbaijan,1,Post,41.7,10,1,1.0
+city,Urmia,شهرک فرهنگیان,1,Tipax,50.32,1,1,3.0
+city,اصفهان,اصفهان,1,Tipax,60.46,16,4,3.875
+city,اصفهان,اصفهان,2,AloPeyk,51.7,1,2,5.0
+city,تهران,تهران,1,Tipax,50.09,36,7,2.222
+city,خیابان فاطمی خیابان علیزاده,Marjan Alley,1,Mahex,55.96,4,1,4.75
+city,دهکده المپیک خیابان ساحل,خیابان ۴۵، Iran,1,Tipax,49.53,10,1,2.6
+city,روبروی مسجد رکن الملک،,Feiz St,1,Tipax,49.53,10,1,2.6
+city,سرخرود،,، خ دانش، جنب پارک,1,Tipax,53.67,4,1,4.25
+city,شیراز,فارس,1,Tipax,51.12,2,1,4.5
+city,طرقبه، طرقبه بعد از پمپ بنزین، امام خمینی ۵، قطعه سوم،,Iran,1,Tipax,49.3,10,1,2.5
+city,مشهد,خراسان رضوی,1,Tipax,45.82,3,1,1.0
+city,مقابل، همایون پلاک ۱۰، پله نوروزخان، پلاک کوچه,Iran,1,Tipax,50.0,0,1,0.0
+city,همدان,همدان,1,Tipax,52.03,10,1,2.5
+city,کرمان,کرمان,1,Chapar,51.83,10,1,3.0
+city,یزد,یزد,1,Tipax,46.5,11,2,2.091

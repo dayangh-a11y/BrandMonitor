@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Province Ranking · BrandMonitor Postal Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+:root {
+  --bg: #0f1a17;
+  --panel: #16241f;
+  --line: #2a433a;
+  --text: #e7f2ec;
+  --muted: #9bb5a8;
+  --accent: #2f9e7a;
+  --good: #3ecf8e;
+  --warn: #e0b44e;
+  --bad: #e07171;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--text); font-family: var(--sans);
+  background:
+    radial-gradient(800px 420px at 0% 0%, #1d3b32 0%, transparent 55%),
+    radial-gradient(700px 380px at 100% 0%, #243018 0%, transparent 50%),
+    linear-gradient(180deg, #0c1412, var(--bg));
+  min-height: 100vh;
+}
+a { color: #7dd3b0; text-decoration: none; }
+header { padding: 24px 28px 8px; }
+.brand { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; letter-spacing: -0.02em; }
+.sub { color: var(--muted); margin-top: 4px; }
+nav { padding: 0 28px 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+nav a { color: var(--muted); }
+nav a:hover, nav a.active { color: var(--text); }
+main { padding: 8px 28px 40px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 14px 0 18px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.kpi .label { color: var(--muted); font-size: .75rem; }
+.kpi .value { font-family: var(--serif); font-size: 1.6rem; margin-top: 4px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+.card { background: rgba(22,36,31,.92); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.card h2 { margin: 0 0 10px; font-size: 1rem; font-weight: 600; }
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
+@media (max-width: 900px) {
+  .span-8, .span-6, .span-4 { grid-column: span 12; }
+}
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+.bar {
+  height: 8px; border-radius: 99px; background: #24352e; overflow: hidden;
+}
+.bar > span { display:block; height:100%; background: linear-gradient(90deg, #2f9e7a, #7dd3b0); }
+#map { height: 420px; border-radius: 12px; border: 1px solid var(--line); }
+.muted { color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<header>
+  <p class="brand">BrandMonitor</p>
+  <p class="sub">Postal Intelligence Platform — Province Ranking</p>
+</header>
+<nav><a class="" href="index.html">Overview</a> <a class="" href="company_ranking.html">Company Ranking</a> <a class="" href="branch_ranking.html">Branch Ranking</a> <a class="active" href="province_ranking.html">Province Ranking</a> <a class="" href="complaints.html">Complaints</a> <a class="" href="sentiment.html">Sentiment</a> <a class="" href="trends.html">Trends</a> <a class="" href="map.html">Interactive Map</a> <a class="" href="comparison.html">Comparison</a></nav>
+<main>
+
+<section class="card">
+  <h2>Province leaders (rank #1 per province)</h2>
+  <table>
+    <tr><th>Province</th><th>Leading company</th><th>Score</th><th>Reviews</th><th>Branches</th></tr>
+    <tr><td>Gilan</td><td>Tipax</td><td>71.32</td><td>95</td><td>24</td></tr><tr><td>East Azerbaijan</td><td>Tipax</td><td>66.42</td><td>67</td><td>13</td></tr><tr><td>Fars</td><td>Tipax</td><td>64.41</td><td>139</td><td>29</td></tr><tr><td>خوزستان</td><td>Tipax</td><td>61.75</td><td>36</td><td>4</td></tr><tr><td>اصفهان</td><td>Tipax</td><td>60.46</td><td>16</td><td>4</td></tr><tr><td>Razavi Khorasan</td><td>AloPeyk</td><td>59.87</td><td>10</td><td>1</td></tr><tr><td>Hafez St</td><td>Tipax</td><td>59.69</td><td>9</td><td>1</td></tr><tr><td>West Azerbaijan</td><td>Tipax</td><td>59.37</td><td>64</td><td>10</td></tr><tr><td>Mazandaran</td><td>Tipax</td><td>59.33</td><td>96</td><td>18</td></tr><tr><td>Isfahan</td><td>AloPeyk</td><td>58.97</td><td>10</td><td>1</td></tr><tr><td>گیلان</td><td>Tipax</td><td>58.92</td><td>11</td><td>2</td></tr><tr><td>ده متری اول</td><td>Tipax</td><td>58.73</td><td>10</td><td>1</td></tr><tr><td>Kerman</td><td>Tipax</td><td>58.72</td><td>32</td><td>7</td></tr><tr><td>Tehran</td><td>Tipax</td><td>57.58</td><td>227</td><td>43</td></tr><tr><td>آذربایجان غربی</td><td>Tipax</td><td>56.3</td><td>8</td><td>2</td></tr><tr><td>Lorestan</td><td>Tipax</td><td>56.01</td><td>21</td><td>7</td></tr><tr><td>Marjan Alley</td><td>Mahex</td><td>55.96</td><td>4</td><td>1</td></tr><tr><td>خیابان آرام</td><td>Tipax</td><td>55.88</td><td>5</td><td>1</td></tr><tr><td>Hormozgan</td><td>Tipax</td><td>55.06</td><td>83</td><td>15</td></tr><tr><td>Ardabil</td><td>Mahex</td><td>54.82</td><td>3</td><td>1</td></tr><tr><td>Hamadan</td><td>Tipax</td><td>54.7</td><td>15</td><td>2</td></tr><tr><td>Ilam</td><td>Tipax</td><td>54.13</td><td>10</td><td>1</td></tr><tr><td>جنب سوپرمارکت شمال دفتر تیپاکس</td><td>Tipax</td><td>53.91</td><td>3</td><td>1</td></tr><tr><td>North Khorasan</td><td>Tipax</td><td>53.72</td><td>27</td><td>3</td></tr><tr><td>، خ دانش، جنب پارک</td><td>Tipax</td><td>53.67</td><td>4</td><td>1</td></tr><tr><td>چهارمحال و بختیاری</td><td>Tipax</td><td>53.6</td><td>3</td><td>2</td></tr><tr><td>Boulevard Imam</td><td>Tipax</td><td>53.38</td><td>4</td><td>1</td></tr><tr><td>Khuzestan</td><td>Mahex</td><td>53.31</td><td>2</td><td>1</td></tr><tr><td>Kurdistan</td><td>Mahex</td><td>53.31</td><td>2</td><td>1</td></tr><tr><td>هرمزگان</td><td>Tipax</td><td>53.31</td><td>2</td><td>1</td></tr><tr><td>Jalq</td><td>Tipax</td><td>52.99</td><td>2</td><td>1</td></tr><tr><td>فارس</td><td>Tipax</td><td>52.93</td><td>15</td><td>3</td></tr><tr><td>Iran</td><td>Tipax</td><td>52.85</td><td>24</td><td>8</td></tr><tr><td>Tehran Province</td><td>Chapar</td><td>52.81</td><td>15</td><td>1</td></tr><tr><td>Isfahan Province</td><td>Tipax</td><td>52.41</td><td>15</td><td>1</td></tr><tr><td>همدان</td><td>Tipax</td><td>52.03</td><td>10</td><td>1</td></tr><tr><td>بلوار جمهوری</td><td>Tipax</td><td>51.99</td><td>2</td><td>1</td></tr><tr><td>Abozar Blvd</td><td>Tipax</td><td>51.83</td><td>10</td><td>1</td></tr><tr><td>کرمان</td><td>Chapar</td><td>51.83</td><td>10</td><td>1</td></tr><tr><td>Fowqani</td><td>Tipax</td><td>51.7</td><td>1</td><td>1</td></tr>
+  </table>
+</section>
+
+</main>
+</body>
+</html>

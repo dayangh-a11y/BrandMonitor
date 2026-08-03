@@ -11,6 +11,7 @@ from api.analytics_routes import router as analytics_router
 from api.analytics_ui import router as analytics_ui_router
 from api.demo import router as demo_router
 from api.deps import close_db, init_db
+from api.intel_demo import router as intel_demo_router
 from api.errors import (
     APIError,
     api_error_handler,
@@ -18,6 +19,7 @@ from api.errors import (
     http_exception_handler,
     unhandled_error_handler,
 )
+from api.postal_routes import router as postal_router
 from api.routes import router
 from api.schemas import HealthOut
 from core.config import load_settings
@@ -41,8 +43,8 @@ async def lifespan(_: FastAPI):
 settings = load_settings()
 app = FastAPI(
     title="BrandMonitor API",
-    version="0.7.0",
-    description="BrandMonitor REST API with executive analytics dashboards.",
+    version="0.8.0",
+    description="BrandMonitor Postal Intelligence Platform API.",
     lifespan=lifespan,
     debug=settings.api_debug,
 )
@@ -67,9 +69,11 @@ async def validation_exception_handler(_, exc: RequestValidationError):
 
 app.include_router(router)
 app.include_router(demo_router)
+app.include_router(intel_demo_router)
 app.include_router(admin_router)
 app.include_router(analytics_router)
 app.include_router(analytics_ui_router)
+app.include_router(postal_router)
 
 
 @app.get("/health", response_model=HealthOut, tags=["system"])
