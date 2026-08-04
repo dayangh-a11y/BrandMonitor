@@ -1,0 +1,113 @@
+# Dedicated Iran Post (شرکت ملی پست) official profile.
+# Treated as the national postal operator — NOT a regular private carrier.
+# Sources: curated public / UPU-style product knowledge + BrandMonitor warehouse.
+# Live post.ir HTML harvest is often unreachable; fields are labeled by source.
+
+slug: post
+role: national_postal_operator
+name: Iran Post
+name_fa: شرکت ملی پست
+website: https://post.ir
+tracking_public_url: https://tracking.post.ir/
+ecommerce_portal: https://ecommerce.post.ir/
+founded_year: 1876
+ownership: state
+headquarters: Tehran
+
+customer_support:
+  phone: ["193"]
+  email: ["info@post.ir"]
+  source: curated_public
+
+working_hours:
+  weekdays: "07:30–15:30"
+  thursday: "07:30–13:30"
+  friday: closed
+  notes: Government office calendar; local post-office variance is common.
+  source: curated_public
+
+official_services:
+  - code: pishtaz
+    name: Pishtaz (Express)
+    name_fa: پیشتاز
+    delivery_days_typical: 2
+    delivery_days_max: 5
+  - code: ordinary
+    name: Ordinary / Custom
+    name_fa: سفارشی / عادی
+    delivery_days_typical: 4
+    delivery_days_max: 10
+  - code: registered_mail
+    name: Registered mail
+    name_fa: سفارشی ثبتی
+  - code: international
+    name: International (UPU / EMS / parcel)
+    name_fa: بین‌الملل
+  - code: insurance
+    name: Insured / registered products
+  - code: cod
+    name: Cash on delivery (where offered)
+  - code: tracking
+    name: Public tracking
+  - code: packaging
+    name: Counter packaging
+  - code: branch_to_branch
+    name: Counter-to-counter
+
+official_pricing:
+  currency: IRR
+  price_index: 0.85
+  base_parcel_0_to_1kg_toman: 55000
+  extra_kg_toman: 15000
+  notes: >
+    Approximate curated public list derived from published tariff schedules.
+    Not a live calculator quote. Prefer merchant e-commerce API or official
+    نرخنامه PDF for transactional pricing.
+  source: curated_public
+  calculator_status: merchant_or_pdf_only
+
+official_delivery_estimates:
+  same_city_days: 2
+  intercity_typical_days: 4
+  remote_typical_days: 8
+  source: curated_public
+  notes: Product-dependent; Pishtaz typically faster than ordinary.
+
+service_coverage:
+  provinces_official: 31
+  cities_covered_official: 1200
+  branch_count_official: 9000
+  notes: National retail network — official claimed footprint, not Maps-observed count.
+  source: curated_public
+
+weight_limits:
+  max_kg_standard: 30
+  max_kg_special: 50
+  source: curated_public
+
+size_limits:
+  max_side_cm: 150
+  max_girth_cm: 300
+  source: curated_public
+
+insurance_rules:
+  available: true
+  default_coverage: product_dependent
+  notes: Registered / insured postal products; coverage depends on selected service.
+  source: curated_public
+
+tracking:
+  available: true
+  public_only: true
+  channels: [website, sms, app]
+  public_url: https://tracking.post.ir/
+  notes: Only publicly available tracking surfaces are referenced — no private APIs.
+  source: curated_public
+
+comparison_policy:
+  treat_as_regular_carrier: false
+  national_ranking_warning: >
+    Iran Post's official network is national-scale. Comparing it to private
+    carriers on unequal observed geographic coverage without Fair Comparison
+    Mode can mislead users.
+  fair_mode_required_when_coverage_gap_pct: 25

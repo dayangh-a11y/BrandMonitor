@@ -1,9 +1,9 @@
 {
   "totals": {
-    "branches": 477,
-    "reviews": 2504,
+    "branches": 706,
+    "reviews": 3083,
     "companies": 6,
-    "avg_overall_confidence": 0.487
+    "avg_overall_confidence": 0.54
   },
   "companies": [
     {
@@ -266,24 +266,59 @@
     {
       "slug": "post",
       "name": "Post",
-      "branches": 32,
-      "cities": 3,
-      "provinces": 4,
+      "branches": 261,
+      "cities": 19,
+      "provinces": 23,
       "province_list": [
         "Alborz",
+        "Ardabil",
+        "Bushehr",
+        "Chaharmahal and Bakhtiari",
+        "East Azerbaijan",
+        "Fars",
+        "Gilan",
+        "Hamadan",
+        "Hormozgan",
+        "Ilam",
         "Isfahan",
+        "Kerman",
+        "Khuzestan",
+        "Kohgiluyeh and Boyer-Ahmad",
+        "Kurdistan",
+        "Lorestan",
+        "Markazi",
+        "Mazandaran",
+        "Qazvin",
+        "Qom",
+        "Sistan and Baluchestan",
         "Tehran",
         "West Azerbaijan"
       ],
       "city_list": [
+        "Amlash",
+        "Ardabil",
+        "Bandar Abbas",
+        "Bushehr",
+        "Hamadan",
+        "Ilam",
         "Isfahan",
+        "Kerman",
+        "Khomein",
+        "Qazvin",
+        "Qom",
+        "Shiraz",
         "Tehran",
-        "Urmia"
+        "Urmia",
+        "اردبیل",
+        "ایلام",
+        "تهران",
+        "خیابان نجف پور غربی نبش خیابان محصل یا حیبیب نژاد دیزجی پ ۱۶۰، خیابان عادلی",
+        "ری"
       ],
-      "reviews": 248,
-      "province_coverage_pct": 12.9,
-      "city_coverage_pct": 3.0,
-      "branch_coverage_vs_target_pct": 16.0,
+      "reviews": 827,
+      "province_coverage_pct": 74.19,
+      "city_coverage_pct": 19.0,
+      "branch_coverage_vs_target_pct": 100.0,
       "sources": [
         "phase11_multisource.db",
         "post_coverage.db"
@@ -307,28 +342,28 @@
       "confidence": {
         "metrics": {
           "reviews": {
-            "value": 248,
+            "value": 827,
             "confidence": 1.0,
             "rule": "min(1, n/100)",
             "sufficient_for_stats": true,
             "strong_for_stats": true
           },
           "branches": {
-            "value": 32,
-            "confidence": 0.16,
+            "value": 261,
+            "confidence": 1.0,
             "rule": "min(1, n/200)",
-            "coverage_vs_target_pct": 16.0
+            "coverage_vs_target_pct": 100.0
           },
           "cities": {
-            "value": 3,
-            "confidence": 0.03,
-            "coverage_pct": 3.0,
+            "value": 19,
+            "confidence": 0.19,
+            "coverage_pct": 19.0,
             "rule": "min(1, n/100)"
           },
           "provinces": {
-            "value": 4,
-            "confidence": 0.129,
-            "coverage_pct": 12.9,
+            "value": 23,
+            "confidence": 0.742,
+            "coverage_pct": 74.19,
             "rule": "min(1, n/31)"
           },
           "official_profile": {
@@ -338,7 +373,7 @@
             "rule": "completeness_ratio (capped if site unreachable)"
           }
         },
-        "overall_dataset_confidence": 0.412,
+        "overall_dataset_confidence": 0.73,
         "targets": {
           "reviews": 100,
           "branches": 200,

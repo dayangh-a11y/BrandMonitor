@@ -205,13 +205,15 @@ class ProductionCrawler:
             if config.branch_name and branch.name.casefold() != config.branch_name.casefold():
                 continue
             seen_keys.add(key)
-            branch_id = None
-            if key in existing_by_key:
-                branch_id = int(existing_by_key[key]["id"])
-                # Refresh metadata for known branches.
+            try:
                 branch_id = await self.db.upsert_branch(company_id, branch)
-            else:
-                branch_id = await self.db.upsert_branch(company_id, branch)
+            except Exception as exc:  # noqa: BLE001
+                log.warning(
+                    "branch_upsert_failed name=%s error=%s",
+                    branch.name,
+                    exc,
+                )
+                continue
             if key not in tasked_keys:
                 await self.db.add_crawl_branch_task(
                     run_id,

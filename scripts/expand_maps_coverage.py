@@ -32,6 +32,18 @@ from models.branch import Branch
 
 log = get_logger("coverage_expand")
 
+# Extra Post seeds — Maps often labels offices as اداره پست / Post Office
+# rather than شرکت ملی پست alone.
+POST_QUERY_ALIASES = [
+    "شرکت ملی پست",
+    "اداره پست",
+    "دفتر پست",
+    "پستخانه",
+    "Iran Post",
+    "Post Office Iran",
+    "پست ایران",
+]
+
 BRANDS = [
     {
         "name": "Pishro",
@@ -42,8 +54,30 @@ BRANDS = [
     {
         "name": "Post",
         "query": "شرکت ملی پست",
-        "include": [r"پست", r"post"],
-        "exclude": [r"تیپاکس", r"tipax", r"چاپار", r"ماهکس", r"الوپیک", r"پیشرو", r"pishro", r"alopeyk"],
+        "aliases": POST_QUERY_ALIASES,
+        # Prefer real post-office labels; still allow "post" / "پست" in name/address.
+        "include": [
+            r"اداره\s*پست",
+            r"شرکت\s*ملی\s*پست",
+            r"پست\s*ایران",
+            r"post\s*office",
+            r"iran\s*post",
+            r"\bpost\b",
+            r"پست",
+        ],
+        "exclude": [
+            r"تیپاکس",
+            r"tipax",
+            r"چاپار",
+            r"ماهکس",
+            r"الوپیک",
+            r"پیشرو",
+            r"pishro",
+            r"alopeyk",
+            r"پست\s*بانک",
+            r"post\s*bank",
+            r"بانک\s*پست",
+        ],
     },
     {
         "name": "AloPeyk",
@@ -77,13 +111,35 @@ MAJOR_CITIES_FA = [
 ]
 
 
-def brand_queries(brand_query: str, *, provinces: int = 20) -> list[str]:
-    q = brand_query.strip()
-    out = [q, f"نمایندگی {q}", f"شعبه {q}"]
-    for province in IRAN_PROVINCES[: max(0, provinces)]:
-        out.append(f"{q} {province['fa']}")
-    for city in MAJOR_CITIES_FA[:12]:
-        out.append(f"{q} {city}")
+def brand_queries(
+    brand_query: str,
+    *,
+    provinces: int = 20,
+    aliases: list[str] | None = None,
+    cities: int = 16,
+) -> list[str]:
+    seeds = [s.strip() for s in (aliases or [brand_query]) if s and s.strip()]
+    if brand_query.strip() and brand_query.strip() not in seeds:
+        seeds.insert(0, brand_query.strip())
+    out: list[str] = []
+    for q in seeds:
+        out.append(q)
+        out.append(f"نمایندگی {q}")
+        out.append(f"شعبه {q}")
+        if not q.casefold().startswith("اداره"):
+            out.append(f"اداره {q}")
+    # Geo sweeps use the strongest FA seeds to keep query budget sane.
+    preferred_geo = [
+        s
+        for s in seeds
+        if any(tok in s for tok in ("اداره پست", "شرکت ملی پست", "پست ایران"))
+    ]
+    geo_seeds = (preferred_geo or seeds)[:2]
+    for q in geo_seeds:
+        for province in IRAN_PROVINCES[: max(0, provinces)]:
+            out.append(f"{q} {province['fa']}")
+        for city in MAJOR_CITIES_FA[: max(0, cities)]:
+            out.append(f"{q} {city}")
     seen: set[str] = set()
     uniq = []
     for item in out:
@@ -113,13 +169,38 @@ class FilteredMapsSource:
     async def discover_branches(self, company_name: str) -> list[Branch]:
         found = await self.inner.discover_branches(company_name)
         kept = [b for b in found if relevant(b, self.include, self.exclude)]
+        # Collapse identical name+address cards (Maps often omits address).
+        by_na: dict[tuple[str, str], Branch] = {}
+        for b in kept:
+            key = (b.name.casefold().strip(), (b.address or "").casefold().strip())
+            prev = by_na.get(key)
+            if prev is None:
+                by_na[key] = b
+                continue
+            # Prefer place_id, then higher review_count, then non-empty address/city.
+            score = (
+                1 if b.place_id else 0,
+                int(b.review_count or 0),
+                1 if b.address else 0,
+                1 if b.city else 0,
+            )
+            prev_score = (
+                1 if prev.place_id else 0,
+                int(prev.review_count or 0),
+                1 if prev.address else 0,
+                1 if prev.city else 0,
+            )
+            if score > prev_score:
+                by_na[key] = b
+        deduped = list(by_na.values())
         log.info(
-            "maps_filter company=%s found=%s kept=%s",
+            "maps_filter company=%s found=%s kept=%s deduped=%s",
             company_name,
             len(found),
             len(kept),
+            len(deduped),
         )
-        return kept
+        return deduped
 
     async def collect_reviews(self, branch: Branch):
         return await self.inner.collect_reviews(branch)
@@ -136,6 +217,7 @@ async def collect_brand(
     max_reviews_per_branch: int | None,
     provinces: int,
     headless: bool,
+    per_query_branches: int | None = None,
 ) -> dict:
     settings = load_settings()
     setup_logging(settings)
@@ -143,11 +225,18 @@ async def collect_brand(
     db = Database(db_path)
     await db.connect()
     monitor = CrawlMonitor()
-    queries = brand_queries(brand["query"], provinces=provinces)
+    queries = brand_queries(
+        brand["query"],
+        provinces=provinces,
+        aliases=brand.get("aliases"),
+        cities=16 if brand["name"].lower() == "post" else 12,
+    )
     log.info("coverage_queries brand=%s n=%s", brand["name"], len(queries))
+    # Per-query card cap for the browser collector; total keep-cap is separate.
+    per_q = per_query_branches or min(40, max_branches or 40)
     inner = GoogleMapsBranchReviewSource(
         headless=headless,
-        max_branches=max_branches,
+        max_branches=per_q,
         max_reviews_per_branch=max_reviews_per_branch,
         search_queries=queries,
     )
@@ -196,6 +285,7 @@ async def main_async(args: argparse.Namespace) -> dict:
                 max_reviews_per_branch=args.max_reviews_per_branch,
                 provinces=args.provinces,
                 headless=not args.headed,
+                per_query_branches=args.per_query_branches,
             )
             results.append(result)
             log.info("coverage_collect_done brand=%s", brand["name"])
@@ -215,6 +305,12 @@ def main() -> int:
     parser.add_argument("--out-dir", default="data/coverage_expand")
     parser.add_argument("--company", default="", help="Comma-separated brand names (order preserved)")
     parser.add_argument("--max-branches", type=int, default=30)
+    parser.add_argument(
+        "--per-query-branches",
+        type=int,
+        default=40,
+        help="Max Maps cards parsed per search query (default 40)",
+    )
     parser.add_argument("--max-reviews-per-branch", type=int, default=30)
     parser.add_argument("--provinces", type=int, default=20)
     parser.add_argument("--fresh", action="store_true")

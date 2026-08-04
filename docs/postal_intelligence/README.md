@@ -11,6 +11,11 @@ See **[DEMO.md](DEMO.md)** — investor UI at `/intel` (dashboard, company/branc
 - Research: **[PRICING_CALCULATOR_FEASIBILITY.md](PRICING_CALCULATOR_FEASIBILITY.md)**
 - Engine: **[PRICING_ETA_ENGINE.md](PRICING_ETA_ENGINE.md)** — unified `PricingProvider` interface, adapters, comparison tables
 
+## Iran Post (national operator)
+
+- Dedicated module: **[IRAN_POST_MODULE.md](IRAN_POST_MODULE.md)** — not a regular carrier; National Ranking + Fair Comparison; `/postal/iran-post/*`
+- Sample exports: `iran_post/` (`catalog.json`, `national_ranking.json`, `fair_comparison.json`, …)
+
 ## AI evaluation
 
 - Hostile 50-question eval: **[AI_EVALUATION_REPORT.md](AI_EVALUATION_REPORT.md)** (`scripts/eval_demo_ai_hostile.py`)
@@ -26,7 +31,7 @@ See **[DEMO.md](DEMO.md)** — investor UI at `/intel` (dashboard, company/branc
 | 5 | Pishro | 60.15 |
 | 6 | AloPeyk | 59.40 |
 
-Coverage in sample DB: **6 companies**, **425 branches**, **2146 reviews**, **205 geo ranking rows**.
+Coverage in sample DB: **6 companies**, **~650+ branches** (Post Maps-expanded), reviews refreshed — see `iran_post/` and `coverage_snapshot.json`.
 
 ## Screenshots
 
