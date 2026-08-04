@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -459,48 +460,92 @@ class Database:
             )
             existing = await cursor.fetchone()
             if existing:
-                await self.update_branch_metadata(int(existing["id"]), branch)
-                return int(existing["id"])
-        await self._conn.execute(
+                return await self.update_branch_metadata(int(existing["id"]), branch)
+        # Name+address hit (common when Maps omits address on list cards).
+        cursor = await self._conn.execute(
             """
-            INSERT INTO branches (
-                company_id, name, address, rating, review_count,
-                maps_url, place_id, collected_at,
-                phone, latitude, longitude, city, province, metadata_json
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(company_id, name, address) DO UPDATE SET
-                rating = excluded.rating,
-                review_count = excluded.review_count,
-                maps_url = excluded.maps_url,
-                place_id = excluded.place_id,
-                collected_at = excluded.collected_at,
-                phone = excluded.phone,
-                latitude = excluded.latitude,
-                longitude = excluded.longitude,
-                city = excluded.city,
-                province = excluded.province,
-                metadata_json = excluded.metadata_json,
-                is_deleted = 0
+            SELECT id FROM branches
+            WHERE company_id = ? AND name = ? AND address = ?
+            LIMIT 1
             """,
-            (
-                company_id,
-                branch.name,
-                branch.address,
-                branch.rating,
-                branch.review_count,
-                branch.maps_url,
-                branch.place_id,
-                now,
-                branch.phone or "",
-                branch.latitude,
-                branch.longitude,
-                branch.city or "",
-                branch.province or "",
-                json.dumps(branch.metadata or {}, ensure_ascii=False),
-            ),
+            (company_id, branch.name, branch.address),
         )
-        await self._conn.commit()
+        by_name = await cursor.fetchone()
+        if by_name:
+            return await self.update_branch_metadata(int(by_name["id"]), branch)
+        try:
+            await self._conn.execute(
+                """
+                INSERT INTO branches (
+                    company_id, name, address, rating, review_count,
+                    maps_url, place_id, collected_at,
+                    phone, latitude, longitude, city, province, metadata_json
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(company_id, name, address) DO UPDATE SET
+                    rating = excluded.rating,
+                    review_count = excluded.review_count,
+                    maps_url = excluded.maps_url,
+                    place_id = CASE
+                        WHEN TRIM(excluded.place_id) != '' THEN excluded.place_id
+                        ELSE branches.place_id
+                    END,
+                    collected_at = excluded.collected_at,
+                    phone = excluded.phone,
+                    latitude = COALESCE(excluded.latitude, branches.latitude),
+                    longitude = COALESCE(excluded.longitude, branches.longitude),
+                    city = CASE
+                        WHEN TRIM(excluded.city) != '' THEN excluded.city
+                        ELSE branches.city
+                    END,
+                    province = CASE
+                        WHEN TRIM(excluded.province) != '' THEN excluded.province
+                        ELSE branches.province
+                    END,
+                    metadata_json = excluded.metadata_json,
+                    is_deleted = 0
+                """,
+                (
+                    company_id,
+                    branch.name,
+                    branch.address,
+                    branch.rating,
+                    branch.review_count,
+                    branch.maps_url,
+                    branch.place_id,
+                    now,
+                    branch.phone or "",
+                    branch.latitude,
+                    branch.longitude,
+                    branch.city or "",
+                    branch.province or "",
+                    json.dumps(branch.metadata or {}, ensure_ascii=False),
+                ),
+            )
+            await self._conn.commit()
+        except (sqlite3.IntegrityError, aiosqlite.IntegrityError):
+            # Rare place_id unique-ish races: resolve by name/address or place_id.
+            cursor = await self._conn.execute(
+                """
+                SELECT id FROM branches
+                WHERE company_id = ? AND (
+                    (name = ? AND address = ?)
+                    OR (TRIM(?) != '' AND place_id = ?)
+                )
+                LIMIT 1
+                """,
+                (
+                    company_id,
+                    branch.name,
+                    branch.address,
+                    branch.place_id or "",
+                    branch.place_id or "",
+                ),
+            )
+            row = await cursor.fetchone()
+            if not row:
+                raise
+            return await self.update_branch_metadata(int(row["id"]), branch)
         cursor = await self._conn.execute(
             """
             SELECT id FROM branches
@@ -512,9 +557,24 @@ class Database:
         assert row is not None
         return int(row["id"])
 
-    async def update_branch_metadata(self, branch_id: int, branch: Branch) -> None:
+    async def update_branch_metadata(self, branch_id: int, branch: Branch) -> int:
         assert self._conn is not None
         now = datetime.now(timezone.utc).isoformat()
+        # Avoid UNIQUE(company_id, name, address) collisions when refreshing
+        # a place_id row to a name/address already owned by another row.
+        cursor = await self._conn.execute(
+            """
+            SELECT id FROM branches
+            WHERE company_id = (
+                SELECT company_id FROM branches WHERE id = ?
+            )
+              AND name = ? AND address = ? AND id != ?
+            LIMIT 1
+            """,
+            (branch_id, branch.name, branch.address, branch_id),
+        )
+        collided = await cursor.fetchone()
+        target_id = int(collided["id"]) if collided else branch_id
         await self._conn.execute(
             """
             UPDATE branches SET
@@ -523,13 +583,16 @@ class Database:
                 rating = ?,
                 review_count = ?,
                 maps_url = ?,
-                place_id = ?,
+                place_id = CASE
+                    WHEN TRIM(?) != '' THEN ?
+                    ELSE place_id
+                END,
                 collected_at = ?,
                 phone = ?,
-                latitude = ?,
-                longitude = ?,
-                city = ?,
-                province = ?,
+                latitude = COALESCE(?, latitude),
+                longitude = COALESCE(?, longitude),
+                city = CASE WHEN TRIM(?) != '' THEN ? ELSE city END,
+                province = CASE WHEN TRIM(?) != '' THEN ? ELSE province END,
                 metadata_json = ?,
                 is_deleted = 0,
                 last_seen_at = ?
@@ -541,19 +604,30 @@ class Database:
                 branch.rating,
                 branch.review_count,
                 branch.maps_url,
-                branch.place_id,
+                branch.place_id or "",
+                branch.place_id or "",
                 now,
                 branch.phone or "",
                 branch.latitude,
                 branch.longitude,
                 branch.city or "",
+                branch.city or "",
+                branch.province or "",
                 branch.province or "",
                 json.dumps(branch.metadata or {}, ensure_ascii=False),
                 now,
-                branch_id,
+                target_id,
             ),
         )
         await self._conn.commit()
+        if collided and target_id != branch_id:
+            # Soft-delete the superseded place_id row to keep one canonical office.
+            await self._conn.execute(
+                "UPDATE branches SET is_deleted = 1, last_seen_at = ? WHERE id = ?",
+                (now, branch_id),
+            )
+            await self._conn.commit()
+        return target_id
 
     async def upsert_review(self, branch_id: int, review: Review) -> int:
         assert self._conn is not None

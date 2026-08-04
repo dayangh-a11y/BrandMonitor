@@ -169,13 +169,38 @@ class FilteredMapsSource:
     async def discover_branches(self, company_name: str) -> list[Branch]:
         found = await self.inner.discover_branches(company_name)
         kept = [b for b in found if relevant(b, self.include, self.exclude)]
+        # Collapse identical name+address cards (Maps often omits address).
+        by_na: dict[tuple[str, str], Branch] = {}
+        for b in kept:
+            key = (b.name.casefold().strip(), (b.address or "").casefold().strip())
+            prev = by_na.get(key)
+            if prev is None:
+                by_na[key] = b
+                continue
+            # Prefer place_id, then higher review_count, then non-empty address/city.
+            score = (
+                1 if b.place_id else 0,
+                int(b.review_count or 0),
+                1 if b.address else 0,
+                1 if b.city else 0,
+            )
+            prev_score = (
+                1 if prev.place_id else 0,
+                int(prev.review_count or 0),
+                1 if prev.address else 0,
+                1 if prev.city else 0,
+            )
+            if score > prev_score:
+                by_na[key] = b
+        deduped = list(by_na.values())
         log.info(
-            "maps_filter company=%s found=%s kept=%s",
+            "maps_filter company=%s found=%s kept=%s deduped=%s",
             company_name,
             len(found),
             len(kept),
+            len(deduped),
         )
-        return kept
+        return deduped
 
     async def collect_reviews(self, branch: Branch):
         return await self.inner.collect_reviews(branch)
