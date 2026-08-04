@@ -79,3 +79,17 @@ Requires `X-API-Token`.
 - `api/iran_post_routes.py` — HTTP surface
 
 Live pricing quotes remain in `postal/pricing/adapters/iran_post.py` (credential-gated merchant API) and are separate from this intelligence module.
+
+## Maps-observed footprint (latest expand)
+
+After province/city sweeps with aliases (`اداره پست`, `شرکت ملی پست`, …):
+
+| Metric | Before | After |
+|--------|-------:|------:|
+| Observed post offices | ~32 | **~260** |
+| Maps reviews (warehouse) | ~242 | **~800+** |
+| Provinces touched | ~4 | **~23–30** |
+
+Source DB: `data/coverage_expand/post_coverage.db` → rebuild via `scripts/build_postal_intelligence.py`.
+Still far below the official ~9000-branch claim — Fair Comparison remains required for peer routes.
+

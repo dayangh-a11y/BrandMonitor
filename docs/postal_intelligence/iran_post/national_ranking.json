@@ -1,6 +1,6 @@
 {
   "mode": "national_ranking",
-  "generated_at": "2026-08-03T23:57:07.411523+00:00",
+  "generated_at": "2026-08-04T03:30:18.152345+00:00",
   "rows": [
     {
       "slug": "chapar",
@@ -83,16 +83,16 @@
       "company": "Iran Post",
       "name_fa": "شرکت ملی پست",
       "role": "national_postal_operator",
-      "score": 62.86,
+      "score": 65.25,
       "algorithm_version": "postal_score_v1",
-      "coverage_percentage": 12.9,
+      "coverage_percentage": 93.55,
       "coverage_percentage_official": 100.0,
-      "number_of_branches": 32,
-      "number_of_reviews": 242,
-      "confidence_score": 0.562,
-      "city_count_observed": 3,
-      "province_count_observed": 4,
-      "avg_rating": 2.169,
+      "number_of_branches": 262,
+      "number_of_reviews": 809,
+      "confidence_score": 0.908,
+      "city_count_observed": 18,
+      "province_count_observed": 29,
+      "avg_rating": 2.4,
       "official_coverage": {
         "provinces_official": 31,
         "cities_official": 1200,
@@ -182,11 +182,11 @@
         5,
         "Iran Post",
         "national_postal_operator",
-        62.86,
-        12.9,
-        32,
-        242,
-        0.562
+        65.25,
+        93.55,
+        262,
+        809,
+        0.908
       ],
       [
         6,

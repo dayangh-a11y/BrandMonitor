@@ -9,9 +9,9 @@
 | Metric | Value |
 |--------|------:|
 | Companies | 6 |
-| Branches (deduped) | 477 |
-| Reviews | 2504 |
-| Avg overall dataset confidence | 0.487 |
+| Branches (deduped) | 706 |
+| Reviews | 3083 |
+| Avg overall dataset confidence | 0.54 |
 
 Targets used for confidence: reviews≥100 full, branches≥200, cities≥100, provinces≥31.
 Statistical minimum for review metrics: **n≥30** (strong: n≥100).
@@ -22,7 +22,7 @@ Statistical minimum for review metrics: **n≥30** (strong: n≥100).
 |---|---:|---:|---:|---:|---:|---:|---:|:---:|
 | Tipax | 369 | 42 | 29 | 1804 | 93.55 | 0.636 | 0.878 | yes |
 | Chapar | 28 | 8 | 9 | 217 | 29.03 | 0.727 | 0.546 | yes |
-| Post | 32 | 3 | 4 | 248 | 12.9 | 0 | 0.412 | yes |
+| Post | 261 | 19 | 23 | 827 | 74.19 | 0 | 0.73 | yes |
 | Mahex | 30 | 5 | 8 | 102 | 25.81 | 0.455 | 0.499 | yes |
 | AloPeyk | 9 | 3 | 4 | 93 | 12.9 | 0.364 | 0.414 | yes |
 | Pishro | 9 | 4 | 4 | 40 | 12.9 | 0 | 0.175 | yes |
@@ -71,23 +71,23 @@ Metric confidence:
 
 ### Post
 
-- Branches covered: **32**
-- Cities: **3**
-- Provinces: **4** (12.9% of 31)
-- Reviews: **248**
-- Coverage vs branch target (200): **16.0%**
+- Branches covered: **261**
+- Cities: **19**
+- Provinces: **23** (74.19% of 31)
+- Reviews: **827**
+- Coverage vs branch target (200): **100.0%**
 - Sources: phase11_multisource.db, post_coverage.db
 
 Metric confidence:
 
 | Metric | Value | Confidence |
 |--------|------:|-----------:|
-| reviews | 248 | 1.0 |
-| branches | 32 | 0.16 |
-| cities | 3 | 0.03 |
-| provinces | 4 | 0.129 |
+| reviews | 827 | 1.0 |
+| branches | 261 | 1.0 |
+| cities | 19 | 0.19 |
+| provinces | 23 | 0.742 |
 | official_profile | 0.0 | 0.0 |
-| overall | — | 0.412 |
+| overall | — | 0.73 |
 
 ### Mahex
 
@@ -203,7 +203,7 @@ Harvested from official domains only (`tipaxco.com`, `chaparnet.com`, `mahex.com
 |---|---:|---:|---:|---:|
 | Tipax | 93.55 | 42.0 | 100.0 | 1.0 |
 | Chapar | 29.03 | 8.0 | 14.0 | 1.0 |
-| Post | 12.9 | 3.0 | 16.0 | 1.0 |
+| Post | 74.19 | 19.0 | 100.0 | 1.0 |
 | Mahex | 25.81 | 5.0 | 15.0 | 1.0 |
 | AloPeyk | 12.9 | 3.0 | 4.5 | 0.93 |
 | Pishro | 12.9 | 4.0 | 4.5 | 0.4 |
@@ -221,43 +221,3 @@ Harvested from official domains only (`tipaxco.com`, `chaparnet.com`, `mahex.com
 ## postal_score_v1 status
 
 **Unchanged.** This report and metric confidence layer are dataset quality instruments only.
-
-## Before → after this coverage pass
-
-Baseline = pre-expansion warehouses (`tipax_iran` + `phase11` + demo). After = baseline ∪ `data/coverage_expand/*` + official website harvest.
-
-| Company | Branches before→after | Reviews before→after | Provinces before→after | Dataset confidence before→after | Stats-ready |
-|---|---|---|---|---|---|
-| Tipax | 369→**369** | 1804→**1804** | 29→**29** | 0.878→**0.878** | yes |
-| Chapar | 19→**28** | 122→**217** | 8→**9** | 0.528→**0.546** | yes |
-| Post | 8→**32** | 55→**248** | 2→**4** | 0.372→**0.412** | yes |
-| Mahex | 17→**30** | 60→**102** | 7→**8** | 0.477→**0.499** | yes |
-| AloPeyk | 8→**9** | 43→**93** | 4→**4** | 0.388→**0.414** | yes |
-| Pishro | 0→**9** | 0→**40** | 0→**4** | 0.042→**0.175** | yes |
-
-Note: Tipax counts use `tipax_iran.db` only (no expansion this pass). Earlier 1866 figures double-counted overlapping DBs and were corrected.
-
-### New Maps collection this pass
-
-| Brand | Branches stored | Reviews new | Discovery kept/found |
-|---|---:|---:|---|
-| Chapar | 25 | 95 | 169/175 |
-| Mahex | 25 | 42 | 85/92 |
-| AloPeyk | 6 | 50 | 6/17 |
-| Post | 25 | 193 | 136/142 |
-| Pishro | 9 | 40 | 9/169 |
-
-### Official website harvest completeness
-
-| Company | Reachable | Completeness | Missing topics |
-|---|---|---:|---|
-| tipax | True | 0.636 | coverage, official_pricing, weight_limits, size_limits |
-| chapar | True | 0.727 | coverage, weight_limits, size_limits |
-| mahex | True | 0.455 | coverage, official_delivery_times, official_pricing, weight_limits, size_limits, working_hours |
-| alopeyk | True | 0.364 | branches, coverage, official_delivery_times, official_pricing, weight_limits, size_limits, working_hours |
-| pishro | True | 0.0 | branches, services, coverage, official_delivery_times, official_pricing, weight_limits, size_limits, insurance, tracking, working_hours, customer_support |
-| post | False | 0.0 | branches, services, coverage, official_delivery_times, official_pricing, weight_limits, size_limits, insurance, tracking, working_hours, customer_support |
-
-### postal_score_v1
-
-**Algorithm/weights unchanged.** Point scores may move when underlying review/official inputs change; that is data refresh, not a scoring-method change.

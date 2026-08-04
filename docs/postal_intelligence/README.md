@@ -31,7 +31,7 @@ See **[DEMO.md](DEMO.md)** — investor UI at `/intel` (dashboard, company/branc
 | 5 | Pishro | 60.15 |
 | 6 | AloPeyk | 59.40 |
 
-Coverage in sample DB: **6 companies**, **425 branches**, **2146 reviews**, **205 geo ranking rows**.
+Coverage in sample DB: **6 companies**, **~650+ branches** (Post Maps-expanded), reviews refreshed — see `iran_post/` and `coverage_snapshot.json`.
 
 ## Screenshots
 
