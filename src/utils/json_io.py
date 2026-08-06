@@ -22,7 +22,7 @@ def write_json(path: Path | str, data: BaseModel | dict[str, Any] | list[Any]) -
     ensure_dir(target.parent)
 
     if isinstance(data, BaseModel):
-        payload = data.model_dump(mode="json")
+        payload = data.model_dump(mode="json", by_alias=True)
     else:
         payload = data
 
