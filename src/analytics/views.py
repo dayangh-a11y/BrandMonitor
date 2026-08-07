@@ -258,13 +258,95 @@ VIEW_SQL: list[tuple[str, str]] = [
         """,
     ),
     (
+        "anl_v_best_mare",
+        """
+        CREATE VIEW anl_v_best_mare AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               score AS sex_adjusted_performance_rating, performance_rating,
+               wins, win_rate, avg_finish, starts, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'best_mare' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_best_stallion",
+        """
+        CREATE VIEW anl_v_best_stallion AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               score AS sex_adjusted_performance_rating, performance_rating,
+               wins, win_rate, avg_finish, starts, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'best_stallion' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_best_mixed_race_performer",
+        """
+        CREATE VIEW anl_v_best_mixed_race_performer AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               score AS mixed_race_performance, performance_rating,
+               wins, starts, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'best_mixed_race_performer' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_best_female_against_males",
+        """
+        CREATE VIEW anl_v_best_female_against_males AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               score AS performance_vs_males, performance_rating,
+               wins, starts, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'best_female_against_males' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_most_dominant_male",
+        """
+        CREATE VIEW anl_v_most_dominant_male AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               score AS sex_adjusted_performance_rating, performance_rating,
+               wins, win_rate, avg_finish, starts, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'most_dominant_male' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_sex_metrics",
+        """
+        CREATE VIEW anl_v_sex_metrics AS
+        SELECT
+            horse_id, horse_name, scope, season_key,
+            sex_normalized, sex_group, starts,
+            starts_male_only, starts_female_only, starts_mixed,
+            male_only_performance, female_only_performance, mixed_race_performance,
+            performance_vs_males, performance_vs_females,
+            avg_finish_vs_males, avg_finish_vs_females,
+            win_rate_vs_males, win_rate_vs_females,
+            podium_rate_vs_males, podium_rate_vs_females,
+            sex_adjusted_performance_rating, raw_performance_rating,
+            sex_strength_factor, explain_json
+        FROM anl_sex_metrics
+        """,
+    ),
+    (
+        "anl_v_race_sex",
+        """
+        CREATE VIEW anl_v_race_sex AS
+        SELECT race_id, males, females, unknown, field_size, mixed_race, meta_json
+        FROM anl_race_sex
+        """,
+    ),
+    (
         "anl_v_horse_metrics_ml",
         """
         CREATE VIEW anl_v_horse_metrics_ml AS
         SELECT
             horse_id, horse_name, scope, season_key, breed,
             starts, wins, places, win_rate, place_rate, avg_finish,
-            performance_rating, consistency_score,
+            performance_rating, sex_adjusted_performance_rating, sex_normalized,
+            consistency_score,
             form_score_3, form_score_5, form_score_10,
             speed_index, earnings_index, earnings_total, difficulty_index,
             track_preference, track_preference_score,

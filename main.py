@@ -420,7 +420,8 @@ def analytics_query(
             "most_consistent|best_turkmen|best_dokhoon|best_thoroughbred|best_trainer|"
             "best_jockey|best_owner|best_sire|improving|declining|best_by_distance|"
             "best_by_weather|best_by_track_condition|best_by_class|best_young|"
-            "season_best_status"
+            "season_best_status|best_mare|best_stallion|best_mixed_race_performer|"
+            "best_female_against_males|most_dominant_male"
         ),
     ),
     limit: int = typer.Option(10, "--limit", "-n"),
@@ -459,6 +460,11 @@ def analytics_query(
         "best_by_track_condition": "anl_v_best_by_track_condition",
         "best_by_class": "anl_v_best_by_class",
         "best_young": "anl_v_best_young_horses",
+        "best_mare": "anl_v_best_mare",
+        "best_stallion": "anl_v_best_stallion",
+        "best_mixed_race_performer": "anl_v_best_mixed_race_performer",
+        "best_female_against_males": "anl_v_best_female_against_males",
+        "most_dominant_male": "anl_v_most_dominant_male",
     }
     view = view_map.get(question)
     if not view:

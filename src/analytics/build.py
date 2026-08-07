@@ -31,7 +31,14 @@ from src.analytics.metrics import (
     speed_index_for_run,
     trend_slope,
 )
-from src.analytics.models import AnlBuildRun, AnlHorseMetrics, AnlRanking, AnlSeason
+from src.analytics.models import (
+    AnlBuildRun,
+    AnlHorseMetrics,
+    AnlRaceSex,
+    AnlRanking,
+    AnlSeason,
+    AnlSexMetrics,
+)
 from src.analytics.race_intel_build import build_race_intelligence
 from src.analytics.ranking import (
     MIN_STARTS_DEFAULT,
@@ -43,6 +50,12 @@ from src.analytics.ranking import (
     season_best_gate,
 )
 from src.analytics.seasons import SeasonCluster, discover_seasons
+from src.analytics.sex_build import (
+    build_sex_layer,
+    estimate_global_ssf,
+    persist_race_sex,
+)
+from src.analytics.sex_normalize import FEMALE_SEXES, MALE_SEXES
 from src.analytics.views import create_analytics_views
 from src.database.features import FeatRaceWeather
 from src.warehouse.models import (
@@ -56,9 +69,10 @@ from src.warehouse.models import (
     WhTrainer,
 )
 
-BUILDER_VERSION = "2.0.0"
+BUILDER_VERSION = "2.1.0"
 # Rule 1 default — overridden by build_analytics(minimum_starts=...)
 MIN_STARTS_SEASON_BEST = MIN_STARTS_DEFAULT
+MIN_STARTS_SEX_BOARDS = MIN_STARTS_DEFAULT
 
 
 def _load_starts(session: Session) -> list[StartRec]:
@@ -407,8 +421,14 @@ def _rank_key_success(m: AnlHorseMetrics) -> tuple:
 
 
 def _rank_key_performance(m: AnlHorseMetrics) -> tuple:
-    """Season Best — PR first; earnings only as final tie-break (Rule 4)."""
+    """
+    Season Best — Sex Adjusted PR first (falls back to raw PR);
+    earnings only as final tie-break (Rule 4).
+    """
+    adj = m.sex_adjusted_performance_rating
+    primary = adj if adj is not None else m.performance_rating
     return (
+        -(primary or 0),
         -(m.performance_rating or 0),
         -(m.wins or 0),
         -(m.places or 0),
@@ -416,6 +436,10 @@ def _rank_key_performance(m: AnlHorseMetrics) -> tuple:
         -(m.form_score_5 or 0),
         -(m.earnings_total or 0),
     )
+
+
+def _rank_key_sex_adjusted(m: AnlHorseMetrics) -> tuple:
+    return _rank_key_performance(m)
 
 
 def _rank_key_consistent(m: AnlHorseMetrics) -> tuple:
@@ -494,12 +518,19 @@ def _add_ranking_rows(
             minimum_starts=min_starts,
             board=category,
         )
-        score = score_fn(m) if score_fn else m.performance_rating
+        score = score_fn(m) if score_fn else (
+            m.sex_adjusted_performance_rating
+            if metric_primary == "sex_adjusted_performance_rating"
+            and m.sex_adjusted_performance_rating is not None
+            else m.performance_rating
+        )
         why = {
             "rank": rank,
             "category": category,
             "primary_metric": metric_primary,
             "performance_rating": m.performance_rating,
+            "sex_adjusted_performance_rating": m.sex_adjusted_performance_rating,
+            "sex_normalized": m.sex_normalized,
             "wins": m.wins,
             "seconds": m.seconds,
             "thirds": m.thirds,
@@ -838,16 +869,22 @@ def build_analytics(
             "racecourse_code": racecourse_code,
             "top_n": top_n,
             "minimum_starts": minimum_starts,
-            "ranking_rules_version": "2.0.0",
+            "ranking_rules_version": "2.1.0",
+            "sex_normalization_version": "1.0.0",
         },
     )
     session.add(run)
     session.flush()
 
     try:
+        from src.analytics.sex_schema import ensure_sex_schema
+
+        ensure_sex_schema(session)
         session.execute(delete(AnlRanking))
         session.execute(delete(AnlHorseMetrics))
+        session.execute(delete(AnlSexMetrics))
         session.execute(delete(AnlSeason))
+        session.execute(delete(AnlRaceSex))
         session.flush()
 
         seasons = discover_seasons(session, racecourse_code=racecourse_code)
@@ -869,11 +906,186 @@ def build_analytics(
         session.flush()
 
         all_starts = _load_starts(session)
+        horses = {
+            h.id: h for h in session.scalars(select(WhHorse)).all()
+        }
+        raw_sex_by_horse = {hid: h.sex for hid, h in horses.items()}
+
+        # Sex Strength Factor from full historical DB (never hardcoded)
+        global_ssf, all_compositions = estimate_global_ssf(all_starts, raw_sex_by_horse)
+        persist_race_sex(session, all_compositions, ssf=global_ssf)
+        logger.info("Sex Strength Factor {}", global_ssf.to_dict())
+        run.params_json = {
+            **(run.params_json or {}),
+            "sex_strength_factor": global_ssf.to_dict(),
+            "sex_normalization_version": "1.0.0",
+        }
+
         if racecourse_code:
             all_starts = [s for s in all_starts if s.racecourse_code == racecourse_code]
 
         rows_written = 0
         now = datetime.now(timezone.utc)
+
+        def _apply_sex_to_metrics(
+            local_metrics: list[AnlHorseMetrics],
+            sex_map: dict[int, Any],
+        ) -> None:
+            for m in local_metrics:
+                sm = sex_map.get(m.horse_id)
+                if sm is None:
+                    continue
+                m.sex_normalized = sm.sex
+                m.sex_adjusted_performance_rating = sm.sex_adjusted_performance_rating
+                explain = dict(m.explain_json or {})
+                explain["sex_normalization"] = sm.to_dict()
+                m.explain_json = explain
+                feats = dict(m.features_json or {})
+                feats["sex_normalized"] = sm.sex
+                feats["sex_adjusted_performance_rating"] = sm.sex_adjusted_performance_rating
+                feats["sex_strength_factor"] = sm.sex_strength_factor
+                m.features_json = feats
+
+        def _sex_boards(
+            *,
+            scope: str,
+            season_key: str,
+            metrics: list[AnlHorseMetrics],
+        ) -> int:
+            written = 0
+            boards = [
+                (
+                    "best_mare",
+                    lambda m: m.sex_normalized in {"Mare", "Filly"},
+                    "sex_adjusted_performance_rating",
+                    lambda m: float(m.sex_adjusted_performance_rating or m.performance_rating or 0),
+                ),
+                (
+                    "best_stallion",
+                    lambda m: m.sex_normalized in {"Stallion", "Colt"},
+                    "sex_adjusted_performance_rating",
+                    lambda m: float(m.sex_adjusted_performance_rating or m.performance_rating or 0),
+                ),
+                (
+                    "best_mixed_race_performer",
+                    lambda m: True,  # filtered via sex metrics starts_mixed below
+                    "mixed_race_performance",
+                    None,
+                ),
+                (
+                    "best_female_against_males",
+                    lambda m: m.sex_normalized in FEMALE_SEXES,
+                    "performance_vs_males",
+                    None,
+                ),
+                (
+                    "most_dominant_male",
+                    lambda m: m.sex_normalized in MALE_SEXES,
+                    "sex_adjusted_performance_rating",
+                    lambda m: float(m.sex_adjusted_performance_rating or m.performance_rating or 0),
+                ),
+            ]
+            # Load sex metrics for mixed / vs-males scores
+            sex_rows = {
+                r.horse_id: r
+                for r in session.scalars(
+                    select(AnlSexMetrics).where(
+                        AnlSexMetrics.scope == scope,
+                        AnlSexMetrics.season_key == season_key,
+                    )
+                ).all()
+            }
+
+            for cat, pred, primary, score_fn in boards:
+                pool = [m for m in metrics if pred(m)]
+                if cat == "best_mixed_race_performer":
+                    pool = [
+                        m
+                        for m in metrics
+                        if sex_rows.get(m.horse_id)
+                        and (sex_rows[m.horse_id].starts_mixed or 0) > 0
+                    ]
+
+                    def _mixed_key(m: AnlHorseMetrics) -> tuple:
+                        sr = sex_rows.get(m.horse_id)
+                        val = (sr.mixed_race_performance if sr else None) or 0
+                        return (-float(val), -(m.sex_adjusted_performance_rating or 0))
+
+                    def _mixed_score(m: AnlHorseMetrics) -> float:
+                        sr = sex_rows.get(m.horse_id)
+                        return float(
+                            (sr.mixed_race_performance if sr else None)
+                            or m.sex_adjusted_performance_rating
+                            or 0
+                        )
+
+                    stats = _add_ranking_rows(
+                        session,
+                        category=cat,
+                        scope=scope,
+                        season_key=season_key,
+                        segment="*",
+                        metrics=pool,
+                        key_fn=_mixed_key,
+                        build_run_id=run.id,
+                        limit=top_n,
+                        metric_primary=primary,
+                        min_starts=MIN_STARTS_SEX_BOARDS,
+                        score_fn=_mixed_score,
+                    )
+                    written += int(stats["written"])
+                    continue
+
+                if cat == "best_female_against_males":
+                    pool = [
+                        m
+                        for m in pool
+                        if sex_rows.get(m.horse_id)
+                        and sex_rows[m.horse_id].performance_vs_males is not None
+                    ]
+
+                    def _vs_m_key(m: AnlHorseMetrics) -> tuple:
+                        sr = sex_rows.get(m.horse_id)
+                        val = (sr.performance_vs_males if sr else None) or 0
+                        return (-float(val), -(m.sex_adjusted_performance_rating or 0))
+
+                    def _vs_m_score(m: AnlHorseMetrics) -> float:
+                        sr = sex_rows.get(m.horse_id)
+                        return float((sr.performance_vs_males if sr else None) or 0)
+
+                    stats = _add_ranking_rows(
+                        session,
+                        category=cat,
+                        scope=scope,
+                        season_key=season_key,
+                        segment="*",
+                        metrics=pool,
+                        key_fn=_vs_m_key,
+                        build_run_id=run.id,
+                        limit=top_n,
+                        metric_primary=primary,
+                        min_starts=MIN_STARTS_SEX_BOARDS,
+                        score_fn=_vs_m_score,
+                    )
+                    written += int(stats["written"])
+                    continue
+
+                stats = _add_ranking_rows(
+                    session,
+                    category=cat,
+                    scope=scope,
+                    season_key=season_key,
+                    segment="*",
+                    metrics=pool,
+                    key_fn=_rank_key_sex_adjusted,
+                    build_run_id=run.id,
+                    limit=top_n,
+                    metric_primary=primary,
+                    min_starts=MIN_STARTS_SEX_BOARDS,
+                    score_fn=score_fn,
+                )
+                written += int(stats["written"])
+            return written
 
         def build_scope(scope: str, season: SeasonCluster | None) -> int:
             nonlocal rows_written
@@ -881,6 +1093,19 @@ def build_analytics(
             scoped = _filter_scope(all_starts, season=season)
             if not scoped:
                 return 0
+
+            # Sex layer for this scope (global historical SSF)
+            sex_map = build_sex_layer(
+                session,
+                all_starts=all_starts,
+                raw_sex_by_horse=raw_sex_by_horse,
+                scoped_starts=scoped,
+                scope=scope,
+                season_key=season_key,
+                build_run_id=run.id,
+                global_ssf=global_ssf,
+            )
+            rows_written += len(sex_map)
 
             breeds = sorted({s.breed for s in scoped if s.breed}) or ["*"]
             # Always also compute breed="*" (all breeds combined)
@@ -917,7 +1142,10 @@ def build_analytics(
                     rows_written += 1
             session.flush()
 
-            # Assign dense ranks (informational; boards apply eligibility separately)
+            _apply_sex_to_metrics(local_metrics, sex_map)
+            session.flush()
+
+            # Assign dense ranks using sex-adjusted PR
             all_breed = [m for m in local_metrics if m.breed == "*"]
             all_breed.sort(key=_rank_key_performance)
             for i, m in enumerate(all_breed, 1):
@@ -932,7 +1160,7 @@ def build_analytics(
                     m.breed_ranking = i
             session.flush()
 
-            # ---- Separated boards (Rule 2) — do not mix concepts ----
+            # ---- Separated boards (Rule 2) — Season Best uses Sex Adjusted PR ----
             best_cat = "best_season" if scope == "season" else "best_career"
             if scope == "season":
                 gate = season_best_gate(
@@ -961,8 +1189,13 @@ def build_analytics(
                         key_fn=_rank_key_performance,
                         build_run_id=run.id,
                         limit=top_n,
-                        metric_primary="performance_rating",
+                        metric_primary="sex_adjusted_performance_rating",
                         min_starts=minimum_starts,
+                        score_fn=lambda m: float(
+                            m.sex_adjusted_performance_rating
+                            if m.sex_adjusted_performance_rating is not None
+                            else (m.performance_rating or 0)
+                        ),
                     )
                     rows_written += int(stats["written"])
             else:
@@ -976,8 +1209,13 @@ def build_analytics(
                     key_fn=_rank_key_performance,
                     build_run_id=run.id,
                     limit=top_n,
-                    metric_primary="performance_rating",
+                    metric_primary="sex_adjusted_performance_rating",
                     min_starts=minimum_starts,
+                    score_fn=lambda m: float(
+                        m.sex_adjusted_performance_rating
+                        if m.sex_adjusted_performance_rating is not None
+                        else (m.performance_rating or 0)
+                    ),
                 )
                 rows_written += int(stats["written"])
 
@@ -1027,6 +1265,10 @@ def build_analytics(
                     score_fn=score_fn,
                 )
                 rows_written += int(stats["written"])
+
+            rows_written += _sex_boards(
+                scope=scope, season_key=season_key, metrics=all_breed
+            )
 
             improving = [m for m in all_breed if m.is_improving]
             declining = [m for m in all_breed if m.is_declining]

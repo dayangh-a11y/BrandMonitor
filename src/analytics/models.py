@@ -140,6 +140,10 @@ class AnlHorseMetrics(Base):
     primary_class: Mapped[str | None] = mapped_column(String(64), nullable=True)
     sire_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
+    # Sex normalization (biological sex + adjusted rating)
+    sex_normalized: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
+    sex_adjusted_performance_rating: Mapped[float | None] = mapped_column(Float, nullable=True)
+
     # Rankings within scope
     season_ranking: Mapped[int | None] = mapped_column(Integer, nullable=True)
     career_ranking: Mapped[int | None] = mapped_column(Integer, nullable=True)
@@ -261,6 +265,79 @@ class AnlRaceIntelligence(Base):
     explain_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     runners_json: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
 
+    build_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("anl_build_runs.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    computed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+
+class AnlRaceSex(Base):
+    """Per-race sex composition (Sex Normalization Engine)."""
+
+    __tablename__ = "anl_race_sex"
+    __table_args__ = (UniqueConstraint("race_id", name="uq_anl_race_sex"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    race_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_races.id", ondelete="CASCADE"), index=True
+    )
+    males: Mapped[int] = mapped_column(Integer, default=0)
+    females: Mapped[int] = mapped_column(Integer, default=0)
+    unknown: Mapped[int] = mapped_column(Integer, default=0)
+    field_size: Mapped[int] = mapped_column(Integer, default=0)
+    mixed_race: Mapped[bool] = mapped_column(Boolean, default=False)
+    meta_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+
+
+class AnlSexMetrics(Base):
+    """Per-horse sex-normalized performance breakdown."""
+
+    __tablename__ = "anl_sex_metrics"
+    __table_args__ = (
+        UniqueConstraint(
+            "horse_id",
+            "scope",
+            "season_key",
+            name="uq_anl_sex_metrics_scope",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    horse_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_horses.id", ondelete="CASCADE"), index=True
+    )
+    horse_name: Mapped[str] = mapped_column(String(255), index=True)
+    scope: Mapped[str] = mapped_column(String(32), index=True)
+    season_key: Mapped[str] = mapped_column(String(128), default="*", index=True)
+
+    sex_normalized: Mapped[str] = mapped_column(String(32), index=True)
+    sex_group: Mapped[str] = mapped_column(String(16), index=True)
+
+    starts: Mapped[int] = mapped_column(Integer, default=0)
+    starts_male_only: Mapped[int] = mapped_column(Integer, default=0)
+    starts_female_only: Mapped[int] = mapped_column(Integer, default=0)
+    starts_mixed: Mapped[int] = mapped_column(Integer, default=0)
+
+    male_only_performance: Mapped[float | None] = mapped_column(Float, nullable=True)
+    female_only_performance: Mapped[float | None] = mapped_column(Float, nullable=True)
+    mixed_race_performance: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+    performance_vs_males: Mapped[float | None] = mapped_column(Float, nullable=True)
+    performance_vs_females: Mapped[float | None] = mapped_column(Float, nullable=True)
+    avg_finish_vs_males: Mapped[float | None] = mapped_column(Float, nullable=True)
+    avg_finish_vs_females: Mapped[float | None] = mapped_column(Float, nullable=True)
+    win_rate_vs_males: Mapped[float | None] = mapped_column(Float, nullable=True)
+    win_rate_vs_females: Mapped[float | None] = mapped_column(Float, nullable=True)
+    podium_rate_vs_males: Mapped[float | None] = mapped_column(Float, nullable=True)
+    podium_rate_vs_females: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+    sex_adjusted_performance_rating: Mapped[float | None] = mapped_column(Float, nullable=True)
+    raw_performance_rating: Mapped[float | None] = mapped_column(Float, nullable=True)
+    sex_strength_factor: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+    explain_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     build_run_id: Mapped[int | None] = mapped_column(
         ForeignKey("anl_build_runs.id", ondelete="SET NULL"), nullable=True, index=True
     )
