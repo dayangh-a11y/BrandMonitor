@@ -63,6 +63,7 @@ class CrawlerManager:
                 "running",
                 "skipped_duplicate",
                 "skipped_unchanged",
+                "skipped_out_of_scope",
             }:
                 logger.debug(
                     "Skip enqueue duplicate type={} url={} status={}",
@@ -208,6 +209,15 @@ class CrawlerManager:
         self, job: CrawlJob, result: dict[str, Any] | None = None
     ) -> None:
         job.status = "skipped_unchanged"
+        job.result_json = result
+        job.finished_at = datetime.now(timezone.utc)
+        job.updated_at = datetime.now(timezone.utc)
+        self.session.flush()
+
+    def mark_skipped_out_of_scope(
+        self, job: CrawlJob, result: dict[str, Any] | None = None
+    ) -> None:
+        job.status = "skipped_out_of_scope"
         job.result_json = result
         job.finished_at = datetime.now(timezone.utc)
         job.updated_at = datetime.now(timezone.utc)

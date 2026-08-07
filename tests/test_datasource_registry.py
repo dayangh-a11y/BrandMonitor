@@ -10,7 +10,13 @@ class DummySource(DataSource):
     name = "dummy"
 
     def collect_race(self, url: str) -> Race:
-        return Race(race="x", sourceUrl=url, horses=[])
+        return Race(
+            race="x",
+            track="گنبدکاووس",
+            racecourse_code="gonbad-kavous",
+            sourceUrl=url,
+            horses=[],
+        )
 
     def collect_horse(self, url: str) -> HorseProfile:
         return HorseProfile(name="h", profileUrl=url)

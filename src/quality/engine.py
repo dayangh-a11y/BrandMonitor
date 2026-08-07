@@ -78,14 +78,18 @@ def run_quality_checks(session: Session) -> dict[str, Any]:
 
     # Missing values on current raw races
     for race in session.scalars(select(RawRace).where(RawRace.is_current.is_(True))):
-        for field in ("name", "race_date", "track", "distance"):
-            if getattr(race, field) is None:
+        for field in ("name", "race_date", "track", "racecourse_code", "distance"):
+            if getattr(race, field) is None or (
+                field in {"track", "racecourse_code"} and not str(getattr(race, field) or "").strip()
+            ):
                 missing += 1
+                severity = "error" if field in {"track", "racecourse_code"} else "warning"
                 _issue(
                     session,
                     run,
                     check_name="missing_values",
                     message=f"RawRace missing {field}",
+                    severity=severity,
                     entity_type="raw_race",
                     entity_id=race.id,
                     details={"field": field, "source_race_id": race.source_race_id},

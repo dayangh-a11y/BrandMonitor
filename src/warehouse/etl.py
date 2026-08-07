@@ -76,6 +76,7 @@ def _upsert_race(session: Session, raw: RawRace) -> WhRace:
     race.name = raw.name
     race.race_date = raw.race_date
     race.track = raw.track
+    race.racecourse_code = raw.racecourse_code
     race.province = raw.province
     race.distance = raw.distance
     race.surface = raw.surface

@@ -72,6 +72,9 @@ main.py
 
 ## کراولر انبوه (Sprint 3)
 
+دامنه پیش‌فرض فقط سه میدان: **گنبدکاووس، آق قلا، بندرترکمن**  
+(`CRAWL_ALLOWED_RACECOURSES` — بدون کراول سراسری).
+
 ```bash
 python main.py crawler discover
 python main.py crawler run --workers 4

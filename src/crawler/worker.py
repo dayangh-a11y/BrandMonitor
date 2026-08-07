@@ -14,23 +14,30 @@ from src.browser import BrowserClient
 from src.collectors import RaceCollector
 from src.crawler.discovery import (
     discover_race_urls_from_week_html,
-    discover_week_ids,
+    discover_weeks,
+    location_from_week_html,
+    normalize_job_url,
     week_url,
 )
 from src.crawler.manager import CrawlerManager
 from src.crawler.models import CrawlJob
 from src.database.raw import RawRace
 from src.datasources import get_datasource
+from src.racecourses import (
+    OutOfScopeRacecourseError,
+    allowed_codes_from_settings,
+    ensure_track_in_scope,
+)
 from src.utils.settings import Settings, get_settings
-from src.versioning.hashing import compute_source_hash
+from src.utils.retry import ParseError
 
 
 class CrawlWorker:
     """
     Processes crawl_jobs:
-      - race_list → enqueue week jobs
-      - week → expand rounds → enqueue race jobs
-      - race → collect + persist Raw (skip unchanged via source_hash)
+      - race_list → enqueue week jobs (racecourse-scoped)
+      - week → expand rounds → enqueue race jobs (skip out-of-scope)
+      - race → collect + persist Raw (skip unchanged / out-of-scope)
     """
 
     def __init__(
@@ -62,6 +69,9 @@ class CrawlWorker:
         )
         self._browser: BrowserClient | None = None
         self._datasource = None
+
+    def _allowed_codes(self) -> frozenset[str] | None:
+        return allowed_codes_from_settings(self.settings)
 
     def _ensure_browser(self) -> BrowserClient:
         if self._browser is None:
@@ -113,18 +123,79 @@ class CrawlWorker:
     def _handle_race_list(self, job: CrawlJob) -> dict[str, Any]:
         url = job.url or absolute_url(RACECARDS_PATH)
         html = self._ensure_browser().fetch_html(url)
-        week_ids = discover_week_ids(html)
-        urls = [week_url(wid) for wid in week_ids]
-        stats = self.manager.enqueue_many(job_type="week", urls=urls)
-        logger.info("race_list discovery enqueued weeks={}", stats)
-        return {"discovered_weeks": len(week_ids), **stats}
+        weeks = discover_weeks(html, allowed_codes=self._allowed_codes())
+        urls = [week_url(w.week_id) for w in weeks]
+        stats = self.manager.enqueue_many(
+            job_type="week",
+            urls=urls,
+        )
+        # Attach location onto newly pending week jobs when known
+        for week in weeks:
+            if not week.location:
+                continue
+            key_url = normalize_job_url(week_url(week.week_id))
+            existing = self.session.scalar(
+                select(CrawlJob).where(
+                    CrawlJob.job_type == "week",
+                    CrawlJob.url == key_url,
+                )
+            )
+            if existing is not None:
+                payload = dict(existing.payload_json or {})
+                payload["location"] = week.location
+                if week.racecourse_code:
+                    payload["racecourse_code"] = week.racecourse_code
+                existing.payload_json = payload
+        self.session.flush()
+        logger.info(
+            "race_list discovery enqueued weeks={} (scope={})",
+            stats,
+            self.settings.crawl_allowed_racecourses,
+        )
+        return {
+            "discovered_weeks": len(weeks),
+            "allowed_racecourses": self.settings.crawl_allowed_racecourses,
+            **stats,
+        }
 
     def _handle_week(self, job: CrawlJob) -> dict[str, Any]:
         html = self._ensure_browser().fetch_html(job.url)
+        location = location_from_week_html(html)
+        if location is None and isinstance(job.payload_json, dict):
+            location = job.payload_json.get("location")
+        try:
+            course = ensure_track_in_scope(location, settings=self.settings)
+        except OutOfScopeRacecourseError as exc:
+            logger.info(
+                "Skipping week out of scope url={} track={!r}",
+                job.url,
+                location,
+            )
+            return {
+                "out_of_scope": True,
+                "track": location,
+                "racecourse_code": exc.racecourse_code,
+                "discovered_races": 0,
+                "enqueued": 0,
+                "skipped": 0,
+                "total_urls": 0,
+            }
+
         race_urls = discover_race_urls_from_week_html(html, job.url)
         stats = self.manager.enqueue_many(job_type="race", urls=race_urls)
-        logger.info("week expand enqueued races={}", stats)
-        return {"discovered_races": len(race_urls), **stats}
+        code = course.code if course else None
+        logger.info(
+            "week expand enqueued races={} track={!r} code={}",
+            stats,
+            location,
+            code,
+        )
+        return {
+            "discovered_races": len(race_urls),
+            "track": location,
+            "racecourse_code": code,
+            **stats,
+        }
 
     def _handle_race(self, job: CrawlJob) -> dict[str, Any]:
         datasource = self._ensure_datasource()
@@ -136,7 +207,31 @@ class CrawlWorker:
             persist_to_db=True,
         )
         before_hash = self._current_raw_hash_for_url(job.url)
-        paths = collector.collect(job.url)
+        try:
+            paths = collector.collect(job.url)
+        except OutOfScopeRacecourseError as exc:
+            logger.info(
+                "Skipping race out of scope url={} track={!r}",
+                job.url,
+                exc.track,
+            )
+            return {
+                "out_of_scope": True,
+                "url": job.url,
+                "track": exc.track,
+                "racecourse_code": exc.racecourse_code,
+            }
+        except ParseError as exc:
+            # Unknown / missing racecourse → treat as out of scope when scoped crawl
+            msg = str(exc)
+            if "racecourse" in msg.lower() or "track" in msg.lower():
+                logger.info("Skipping race (racecourse parse): {} ({})", job.url, msg)
+                return {
+                    "out_of_scope": True,
+                    "url": job.url,
+                    "error": msg,
+                }
+            raise
         self.session.expire_all()
         after_hash = self._current_raw_hash_for_url(job.url)
         unchanged = (
@@ -159,7 +254,6 @@ class CrawlWorker:
             )
         )
         if row is None:
-            # also try without query normalization mismatches — match by payload sourceUrl
             return None
         return row.source_hash
 
@@ -175,7 +269,9 @@ class CrawlWorker:
             result = self.handle(job)
             # Refresh after possible concurrent Raw writes on another connection.
             self.session.refresh(job)
-            if result.get("unchanged"):
+            if result.get("out_of_scope"):
+                self.manager.mark_skipped_out_of_scope(job, result)
+            elif result.get("unchanged"):
                 self.manager.mark_skipped_unchanged(job, result)
             else:
                 self.manager.mark_success(job, result)

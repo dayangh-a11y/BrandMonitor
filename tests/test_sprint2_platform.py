@@ -37,6 +37,7 @@ def _sample_race(*, source_id: str = "race-s2", name: str = "Maiden") -> Race:
         race=name,
         date="2019-04-19T00:00:00.000Z",
         track="گنبدکاووس",
+        racecourse_code="gonbad-kavous",
         province="گنبدکاووس",
         distance=1000,
         surface="ترکمن",

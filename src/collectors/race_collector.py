@@ -51,6 +51,7 @@ class RaceCollector:
         """
         ensure_dir(self.output_dir)
         race = self.datasource.collect_race(url)
+        self._enforce_racecourse_scope(race)
         race_path = self._write_race(race)
 
         result: dict[str, Path] = {"Race.json": race_path}
@@ -64,6 +65,15 @@ class RaceCollector:
             self._persist_raw(url, race, histories)
 
         return result
+
+    def _enforce_racecourse_scope(self, race: Race) -> None:
+        from src.racecourses import ensure_track_in_scope
+
+        ensure_track_in_scope(
+            race.track,
+            settings=self.settings,
+            racecourse_code=race.racecourse_code,
+        )
 
     def _write_race(self, race: Race) -> Path:
         path = self.output_dir / "Race.json"

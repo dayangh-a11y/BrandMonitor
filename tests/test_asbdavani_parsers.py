@@ -174,6 +174,7 @@ def test_parse_race_html(race_html: str) -> None:
     assert race.race_number == 1
     assert race.distance == 1000
     assert race.track == "گنبدکاووس"
+    assert race.racecourse_code == "gonbad-kavous"
     assert race.province == "گنبدکاووس"
     assert race.surface == "ترکمن"
     assert race.prize is not None

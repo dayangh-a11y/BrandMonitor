@@ -22,7 +22,7 @@ class CrawlJob(Base):
     job_type: Mapped[str] = mapped_column(String(64), index=True)
     url: Mapped[str] = mapped_column(Text)
     dedupe_key: Mapped[str] = mapped_column(String(255), index=True)
-    # pending|running|success|failed|skipped_duplicate|skipped_unchanged
+    # pending|running|success|failed|skipped_duplicate|skipped_unchanged|skipped_out_of_scope
     status: Mapped[str] = mapped_column(String(32), default="pending", index=True)
     attempts: Mapped[int] = mapped_column(Integer, default=0)
     max_attempts: Mapped[int] = mapped_column(Integer, default=3)

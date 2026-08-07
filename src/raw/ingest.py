@@ -182,6 +182,7 @@ def ingest_race(
             "name": race.race,
             "race_date": as_date(race.date),
             "track": race.track,
+            "racecourse_code": race.racecourse_code,
             "province": race.province,
             "distance": race.distance,
             "surface": race.surface,

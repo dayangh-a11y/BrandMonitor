@@ -44,6 +44,10 @@ Normalized tables:
 - `wh_horse_pedigree` (structure only — no pedigree analysis)
 - `wh_entity_matches` (duplicate candidates)
 
+`wh_races.track` and `wh_races.racecourse_code` are **required**. Crawl scope is
+config-driven (`CRAWL_ALLOWED_RACECOURSES`); new racecourses are enabled by
+registry + allowlist without schema redesign.
+
 Build: `python main.py warehouse build`
 
 ## FEATURES

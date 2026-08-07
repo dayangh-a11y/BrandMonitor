@@ -22,6 +22,7 @@ from src.asbdavani.constants import (
 )
 from src.models import HorseEntry, Race
 from src.parsers.html import extract_json_after_marker, find_all_hrefs, safe_float, safe_int
+from src.racecourses import resolve_racecourse
 from src.utils.retry import ParseError
 
 
@@ -111,6 +112,17 @@ def parse_race_html(html: str, url: str) -> Race:
     blood = plan.get("blood")
     surface = BLOOD_SURFACE_HINT.get(str(blood).upper(), blood) if blood else None
     location = location_from_week_and_leagues(week, leagues)
+    if not location:
+        raise ParseError(f"Racecourse (track) missing for race URL {url!r}")
+    course = resolve_racecourse(location)
+    if course is None:
+        raise ParseError(
+            f"Unknown racecourse {location!r}. "
+            "Register it in src/racecourses to enable collection."
+        )
+    track_name = course.name_fa
+    racecourse_code = course.code
+
     race_date = week.get("date")
     on_date = _race_date(race_date)
 
@@ -123,8 +135,9 @@ def parse_race_html(html: str, url: str) -> Race:
     return Race(
         race=race_raw.get("name") or plan.get("name"),
         date=race_date,
-        track=location,
-        province=location,
+        track=track_name,
+        racecourse_code=racecourse_code,
+        province=track_name,
         distance=safe_int(plan.get("distance")),
         surface=surface,
         raceNumber=safe_int(race_raw.get("round")),

@@ -38,7 +38,11 @@ class Race(BaseModel):
 
     race: str | None = Field(default=None, description="Race name / class")
     date: date | datetime | str | None = None
-    track: str | None = None
+    track: str = Field(..., description="Racecourse name (required)")
+    racecourse_code: str = Field(
+        ...,
+        description="Stable racecourse code (e.g. gonbad-kavous); required",
+    )
     province: str | None = None
     distance: int | None = None
     surface: str | None = None

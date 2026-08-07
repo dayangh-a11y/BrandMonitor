@@ -82,6 +82,8 @@ def _worker_loop(
                     counters["failed"] += 1
                 elif status == "skipped_unchanged":
                     counters["unchanged"] += 1
+                elif status == "skipped_out_of_scope":
+                    counters["out_of_scope"] += 1
                 else:
                     counters["success"] += 1
                     # race_list / week also count as success jobs; race paths mark collection
@@ -118,7 +120,13 @@ def run_mass_crawl(
 
     started = time.perf_counter()
     stop_event = threading.Event()
-    counters = {"success": 0, "failed": 0, "unchanged": 0, "races_collected": 0}
+    counters = {
+        "success": 0,
+        "failed": 0,
+        "unchanged": 0,
+        "out_of_scope": 0,
+        "races_collected": 0,
+    }
     lock = threading.Lock()
     threads: list[threading.Thread] = []
 

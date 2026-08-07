@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     crawl_max_attempts: int = 3
     crawl_collect_histories: bool = False
     crawl_stale_running_seconds: int = 3600
+    # Comma-separated racecourse codes (see src/racecourses). Default: Golestan triad.
+    # Use "*" only for nationwide crawl (not the project default).
+    crawl_allowed_racecourses: str = (
+        "gonbad-kavous,aq-qala,bandar-torkaman"
+    )
 
 
 def get_settings() -> Settings:
