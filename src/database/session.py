@@ -33,7 +33,23 @@ def get_engine(settings: Settings | None = None, *, url: str | None = None) -> E
     db_url = url or cfg.database_url
     if _engine is None or (url is not None and str(_engine.url) != db_url):
         _register_all_models()
-        _engine = create_engine(db_url, echo=cfg.database_echo, future=True)
+        connect_args: dict = {}
+        engine_kwargs: dict = {"echo": cfg.database_echo, "future": True}
+        if db_url.startswith("sqlite"):
+            # Allow concurrent reader/writer during crawl claim + Raw ingest.
+            connect_args = {"check_same_thread": False, "timeout": 60}
+            engine_kwargs["connect_args"] = connect_args
+        _engine = create_engine(db_url, **engine_kwargs)
+        if db_url.startswith("sqlite"):
+            from sqlalchemy import event
+
+            @event.listens_for(_engine, "connect")
+            def _sqlite_pragma(dbapi_connection, connection_record):  # noqa: ARG001
+                cursor = dbapi_connection.cursor()
+                cursor.execute("PRAGMA journal_mode=WAL")
+                cursor.execute("PRAGMA busy_timeout=60000")
+                cursor.close()
+
         _SessionLocal = sessionmaker(bind=_engine, autoflush=False, autocommit=False)
     return _engine
 

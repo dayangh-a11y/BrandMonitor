@@ -167,8 +167,14 @@ class CrawlWorker:
         job = self.manager.claim_next(job_type=job_type, worker_id=self.worker_id)
         if job is None:
             return None
+        job_id = job.id
+        # Release the claim write-lock before Raw ingest opens a second session
+        # (required for SQLite; safe for Postgres multi-worker too).
+        self.session.commit()
         try:
             result = self.handle(job)
+            # Refresh after possible concurrent Raw writes on another connection.
+            self.session.refresh(job)
             if result.get("unchanged"):
                 self.manager.mark_skipped_unchanged(job, result)
             else:
@@ -176,11 +182,10 @@ class CrawlWorker:
             self.session.commit()
             return {"job_id": job.id, "status": job.status, **result}
         except Exception as exc:  # noqa: BLE001
-            logger.exception("Worker {} job {} failed: {}", self.worker_id, job.id, exc)
+            logger.exception("Worker {} job {} failed: {}", self.worker_id, job_id, exc)
             self.session.rollback()
-            # re-load job in fresh state
-            job = self.session.get(CrawlJob, job.id)
+            job = self.session.get(CrawlJob, job_id)
             if job is not None:
                 self.manager.mark_failed(job, str(exc))
                 self.session.commit()
-            return {"job_id": job.id if job else None, "status": "failed", "error": str(exc)}
+            return {"job_id": job_id, "status": "failed", "error": str(exc)}
