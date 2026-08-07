@@ -6,7 +6,8 @@ import json
 
 from src.crawler.discovery import discover_week_ids, discover_weeks
 from src.racecourses import (
-    DEFAULT_ALLOWED_CODES,
+    GOLESTAN_CODES,
+    ensure_racecourse,
     is_racecourse_allowed,
     normalize_track_key,
     parse_allowed_codes,
@@ -21,7 +22,24 @@ def test_resolve_golestan_aliases() -> None:
     assert resolve_racecourse("آق قلا").code == "aq-qala"
     assert resolve_racecourse("بندرترکمن").code == "bandar-torkaman"
     assert resolve_racecourse("بندر ترکمن").code == "bandar-torkaman"
-    assert resolve_racecourse("مشهد") is None
+
+
+def test_resolve_nationwide_cities() -> None:
+    assert resolve_racecourse("تهران").code == "tehran"
+    assert resolve_racecourse("یزد").code == "yazd"
+    assert resolve_racecourse("اهواز").code == "ahvaz"
+    assert resolve_racecourse("کیش").code == "kish"
+    assert resolve_racecourse("انبارآلوم").code == "anbar-alum"
+    assert resolve_racecourse("انبار آلوم").code == "anbar-alum"
+    assert resolve_racecourse("مشهد").code == "mashhad"
+
+
+def test_ensure_racecourse_synthesizes_unknown() -> None:
+    course = ensure_racecourse("شهر جدید فرضی")
+    assert course.code.startswith("ir-")
+    assert course.name_fa == "شهر جدید فرضی"
+    # Deterministic for the same label
+    assert ensure_racecourse("شهر جدید فرضی").code == course.code
 
 
 def test_golestan_coordinates_present() -> None:
@@ -31,6 +49,8 @@ def test_golestan_coordinates_present() -> None:
     assert g and g.latitude and g.longitude
     assert get_racecourse("aq-qala").latitude
     assert get_racecourse("bandar-torkaman").longitude
+    assert get_racecourse("tehran").latitude
+    assert get_racecourse("mashhad").longitude
 
 
 def test_normalize_strips_zwnj_and_spaces() -> None:
@@ -38,13 +58,15 @@ def test_normalize_strips_zwnj_and_spaces() -> None:
     assert normalize_track_key("بندر ترکمن") == normalize_track_key("بندرترکمن")
 
 
-def test_default_allowlist_is_golestan_triad() -> None:
-    codes = parse_allowed_codes(None)
-    assert codes == frozenset(DEFAULT_ALLOWED_CODES)
-    assert "gonbad-kavous" in codes
-    assert "aq-qala" in codes
-    assert "bandar-torkaman" in codes
+def test_default_allowlist_is_nationwide() -> None:
+    assert parse_allowed_codes(None) is None
+    assert parse_allowed_codes("") is None
     assert parse_allowed_codes("*") is None
+    assert set(GOLESTAN_CODES) == {
+        "gonbad-kavous",
+        "aq-qala",
+        "bandar-torkaman",
+    }
 
 
 def test_allowlist_rejects_other_tracks() -> None:
@@ -54,6 +76,12 @@ def test_allowlist_rejects_other_tracks() -> None:
     assert is_racecourse_allowed("بندرترکمن", allowed_codes=allowed)
     assert not is_racecourse_allowed("مشهد", allowed_codes=allowed)
     assert not is_racecourse_allowed("تهران", allowed_codes=allowed)
+
+
+def test_nationwide_allows_all_locations() -> None:
+    assert is_racecourse_allowed("مشهد", allowed_codes=None)
+    assert is_racecourse_allowed("تهران", allowed_codes=None)
+    assert is_racecourse_allowed("unknown-city", allowed_codes=None)
 
 
 def test_discover_weeks_filters_out_of_scope_locations() -> None:
@@ -81,6 +109,26 @@ def test_discover_weeks_filters_out_of_scope_locations() -> None:
     assert "week-gonbad" in ids
     assert "week-aq" in ids
     assert "week-mashhad" not in ids
+
+
+def test_discover_weeks_nationwide_keeps_all() -> None:
+    leagues = [
+        {
+            "id": "L1",
+            "location": {"name": "مشهد"},
+            "weeks": [{"id": "week-mashhad"}],
+        },
+        {
+            "id": "L2",
+            "location": {"name": "تهران"},
+            "weeks": [{"id": "week-tehran"}],
+        },
+    ]
+    html = f'"leagues":{json.dumps(leagues, ensure_ascii=False)}'
+    weeks = discover_weeks(html, allowed_codes=None)
+    ids = {w.week_id for w in weeks}
+    assert "week-mashhad" in ids
+    assert "week-tehran" in ids
 
 
 def test_discover_week_ids_unfiltered_keeps_all() -> None:

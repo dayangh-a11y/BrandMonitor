@@ -1,12 +1,13 @@
 """Multi-signal horse identity scoring.
 
 Never rely on exact string matching. Combine fuzzy name + pedigree +
-demographics + connections (owner/trainer).
+demographics + connections (owner/trainer) + historical race continuity.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import date, datetime
 from typing import Any
 
 from src.identity.normalize import name_similarity, normalize_name, normalize_sex
@@ -14,13 +15,14 @@ from src.identity.profile import HorseProfile, HorseQuery
 
 # Weights sum to 1.0 — name is necessary but not sufficient.
 WEIGHTS = {
-    "name": 0.35,
-    "sire": 0.15,
-    "dam": 0.15,
-    "age": 0.10,
-    "sex": 0.10,
+    "name": 0.30,
+    "sire": 0.12,
+    "dam": 0.12,
+    "birth_year": 0.10,
+    "sex": 0.08,
     "owner": 0.08,
     "trainer": 0.07,
+    "continuity": 0.13,
 }
 
 # Decision thresholds
@@ -85,7 +87,21 @@ def _best_list_similarity(query: str | None, values: list[str]) -> tuple[float |
     return best, "weak"
 
 
+def _birth_year_score(a: int | None, b: int | None) -> tuple[float | None, str]:
+    if a is None or b is None:
+        return None, "missing"
+    diff = abs(int(a) - int(b))
+    if diff == 0:
+        return 1.0, "exact"
+    if diff == 1:
+        return 0.7, "±1 year"
+    if diff == 2:
+        return 0.3, "±2 years"
+    return 0.0, f"diff={diff}"
+
+
 def _age_score(a: int | None, b: int | None) -> tuple[float | None, str]:
+    """Legacy age proxy — used only when birth_year missing on both sides."""
     if a is None or b is None:
         return None, "missing"
     diff = abs(int(a) - int(b))
@@ -110,6 +126,86 @@ def _sex_score(a: str | None, b: str | None) -> tuple[float | None, str]:
     return 0.0, "conflict"
 
 
+def _as_date(value: date | Any) -> date | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    return None
+
+
+def _continuity_score(
+    left: HorseProfile,
+    right: HorseProfile,
+) -> tuple[float | None, str, bool]:
+    """
+    Historical race continuity across cities.
+
+    Returns (score, note, hard_conflict).
+    Hard conflict: same calendar day at two different racecourses.
+    """
+    left_dates = [_as_date(d) for d in left.race_dates]
+    right_dates = [_as_date(d) for d in right.race_dates]
+    left_dates = [d for d in left_dates if d is not None]
+    right_dates = [d for d in right_dates if d is not None]
+    if not left_dates or not right_dates:
+        return None, "missing", False
+
+    left_by_day = {d: set() for d in left_dates}
+    right_by_day = {d: set() for d in right_dates}
+    # Attach course codes in parallel order when lengths match; otherwise
+    # use unique course membership only for cross-city evidence.
+    left_courses = list(left.racecourse_codes or [])
+    right_courses = list(right.racecourse_codes or [])
+
+    # Same-day conflict check using date-only sets when course lists are
+    # not aligned 1:1 with dates — if both raced on the same day and have
+    # disjoint exclusive city sets, treat as soft conflict unless both
+    # lists share a course.
+    shared_days = set(left_by_day) & set(right_by_day)
+    left_only = set(left_courses) - set(right_courses)
+    right_only = set(right_courses) - set(left_courses)
+    if shared_days and left_only and right_only and not (set(left_courses) & set(right_courses)):
+        # Same day appearances with completely disjoint city sets → conflict
+        return 0.0, f"same-day disjoint cities days={len(shared_days)}", True
+
+    # Build ordered timelines
+    left_sorted = sorted(set(left_dates))
+    right_sorted = sorted(set(right_dates))
+    all_sorted = sorted(set(left_sorted) | set(right_sorted))
+    if len(all_sorted) < 2:
+        return 0.55, "single-day sparse", False
+
+    # Gap between careers (min distance between any left/right dates)
+    min_gap = min(abs((a - b).days) for a in left_sorted for b in right_sorted)
+    span = (all_sorted[-1] - all_sorted[0]).days or 1
+
+    # Interleaved careers without huge separation → continuity support
+    # (typical when one warehouse row is Tehran starts and another is Gonbad)
+    interleaved = False
+    if left_sorted[0] < right_sorted[-1] and right_sorted[0] < left_sorted[-1]:
+        interleaved = True
+    elif min_gap <= 120:
+        interleaved = True
+
+    shared_cities = set(left_courses) & set(right_courses)
+    multi_city = bool(left_only or right_only)
+
+    if interleaved and multi_city and min_gap <= 60:
+        return 0.95, "interleaved multi-city continuity", False
+    if interleaved and min_gap <= 120:
+        return 0.85, "adjacent career continuity", False
+    if shared_cities and min_gap <= 180:
+        return 0.75, "shared city continuity", False
+    if min_gap <= 365:
+        return 0.60, f"gap={min_gap}d within year", False
+    if span > 0 and min_gap > 900:
+        return 0.25, f"large career gap={min_gap}d", False
+    return 0.45, f"gap={min_gap}d", False
+
+
 def score_profiles(left: HorseProfile, right: HorseProfile) -> MatchResult:
     """Score two warehouse horse profiles for possible merge."""
     signals: list[SignalScore] = []
@@ -125,8 +221,13 @@ def score_profiles(left: HorseProfile, right: HorseProfile) -> MatchResult:
     dam_s, dam_n = _best_list_similarity(left.dam, [right.dam] if right.dam else [])
     signals.append(SignalScore("dam", dam_s, WEIGHTS["dam"], dam_n))
 
-    age_s, age_n = _age_score(left.age_years, right.age_years)
-    signals.append(SignalScore("age", age_s, WEIGHTS["age"], age_n))
+    by_s, by_n = _birth_year_score(left.effective_birth_year(), right.effective_birth_year())
+    if by_s is None:
+        # Fall back to observed age when birth year unavailable
+        by_s, by_n = _age_score(left.age_years, right.age_years)
+        if by_s is not None:
+            by_n = f"age-proxy:{by_n}"
+    signals.append(SignalScore("birth_year", by_s, WEIGHTS["birth_year"], by_n))
 
     sex_s, sex_n = _sex_score(left.sex, right.sex)
     signals.append(SignalScore("sex", sex_s, WEIGHTS["sex"], sex_n))
@@ -152,6 +253,9 @@ def score_profiles(left: HorseProfile, right: HorseProfile) -> MatchResult:
         tr_s, tr_n = (best, "overlap") if best > 0 else (None, "missing")
     signals.append(SignalScore("trainer", tr_s, WEIGHTS["trainer"], tr_n))
 
+    cont_s, cont_n, cont_conflict = _continuity_score(left, right)
+    signals.append(SignalScore("continuity", cont_s, WEIGHTS["continuity"], cont_n))
+
     # Renormalize over available (non-missing) signals so sparse pedigree
     # does not silently dilute name+sex+owner evidence.
     available = [s for s in signals if s.score is not None]
@@ -166,6 +270,10 @@ def score_profiles(left: HorseProfile, right: HorseProfile) -> MatchResult:
         total *= 0.35
     if ns < 0.55:
         total *= 0.5
+    if cont_conflict:
+        total *= 0.25
+    if by_s == 0.0:
+        total *= 0.55
 
     # Source-id exact boost (still not string name matching)
     if (
@@ -202,6 +310,11 @@ def score_query(query: HorseQuery, profile: HorseProfile) -> MatchResult:
         source_horse_id=query.source_horse_id,
         sex=query.sex,
         age_years=query.age,
+        birth_year=(
+            query.as_of_date.year - query.age
+            if query.as_of_date and query.age is not None
+            else None
+        ),
         sire=query.sire,
         dam=query.dam,
         owners=[query.owner] if query.owner else [],

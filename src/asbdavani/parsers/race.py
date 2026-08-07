@@ -23,7 +23,7 @@ from src.asbdavani.constants import (
 )
 from src.models import HorseEntry, Race
 from src.parsers.html import extract_json_after_marker, find_all_hrefs, safe_float, safe_int
-from src.racecourses import resolve_racecourse
+from src.racecourses import ensure_racecourse
 from src.utils.retry import ParseError
 
 
@@ -115,12 +115,7 @@ def parse_race_html(html: str, url: str) -> Race:
     location = location_from_week_and_leagues(week, leagues)
     if not location:
         raise ParseError(f"Racecourse (track) missing for race URL {url!r}")
-    course = resolve_racecourse(location)
-    if course is None:
-        raise ParseError(
-            f"Unknown racecourse {location!r}. "
-            "Register it in src/racecourses to enable collection."
-        )
+    course = ensure_racecourse(location)
     track_name = course.name_fa
     racecourse_code = course.code
 
