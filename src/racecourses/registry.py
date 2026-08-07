@@ -20,6 +20,10 @@ class Racecourse:
     name_en: str
     name_fa: str
     aliases: tuple[str, ...] = ()
+    # Approximate track/city coordinates for historical weather joins (WGS84).
+    latitude: float | None = None
+    longitude: float | None = None
+    timezone: str = "Asia/Tehran"
 
 
 # Default project scope: Golestan triad only (not nationwide).
@@ -42,6 +46,9 @@ RACECOURSES: tuple[Racecourse, ...] = (
             "gonbad-kavous",
             "gonbad",
         ),
+        latitude=37.2500,
+        longitude=55.1672,
+        timezone="Asia/Tehran",
     ),
     Racecourse(
         code="aq-qala",
@@ -58,6 +65,9 @@ RACECOURSES: tuple[Racecourse, ...] = (
             "aq-qala",
             "aqqala",
         ),
+        latitude=37.0139,
+        longitude=54.4550,
+        timezone="Asia/Tehran",
     ),
     Racecourse(
         code="bandar-torkaman",
@@ -71,6 +81,9 @@ RACECOURSES: tuple[Racecourse, ...] = (
             "bandar-torkaman",
             "torkaman",
         ),
+        latitude=36.9017,
+        longitude=54.0739,
+        timezone="Asia/Tehran",
     ),
 )
 

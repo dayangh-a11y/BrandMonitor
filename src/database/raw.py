@@ -222,3 +222,38 @@ class RawParserError(Base):
         DateTime(timezone=True), server_default=func.now()
     )
     resolved: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class RawWeatherObservation(Base, VersioningMixin):
+    """
+    External historical weather extract (Open-Meteo Archive).
+
+    One versioned row per (source, racecourse_code, observation_date).
+    Append-only — never overwrite prior payloads.
+    """
+
+    __tablename__ = "raw_weather_observations"
+    __table_args__ = (
+        UniqueConstraint(
+            "source",
+            "racecourse_code",
+            "observation_date",
+            "version",
+            name="uq_raw_weather_obs_version",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    source: Mapped[str] = mapped_column(String(64), index=True, default="open-meteo")
+    racecourse_code: Mapped[str] = mapped_column(String(64), index=True)
+    observation_date: Mapped[date] = mapped_column(Date, index=True)
+    latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
+    longitude: Mapped[float | None] = mapped_column(Float, nullable=True)
+    timezone: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    # Daily aggregates extracted for convenience (full series stays in payload_json)
+    temp_mean_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    temp_max_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    temp_min_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    precip_sum_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    weather_code: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)

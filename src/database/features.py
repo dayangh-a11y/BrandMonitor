@@ -164,3 +164,109 @@ class FeatTrainerStats(Base):
     starts: Mapped[int] = mapped_column(Integer, default=0)
     wins: Mapped[int] = mapped_column(Integer, default=0)
     win_rate: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+
+class FeatRaceWeather(Base):
+    """
+    Derived race-level weather features for ML (rebuildable).
+
+    Joins 1:1 with warehouse race weather facts.
+    """
+
+    __tablename__ = "feat_race_weather"
+    __table_args__ = (UniqueConstraint("race_id", name="uq_feat_race_weather"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    race_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_races.id", ondelete="CASCADE"), index=True
+    )
+    pipeline_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("feat_pipeline_runs.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    computed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    avg_temp_prev_3d_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rainfall_prev_3d_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rainfall_prev_7d_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    heat_index_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    weather_category: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    surface_moisture: Mapped[float | None] = mapped_column(Float, nullable=True)
+    temp_range: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    # Denormalized snapshot for model matrices (avoid multi-join at train time)
+    air_temperature_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    humidity_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    wind_speed_kmh: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rainfall_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    track_condition: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    weather_condition: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    features_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+
+
+class FeatHorseWeather(Base):
+    """Horse-level weather / going preference scores for ML."""
+
+    __tablename__ = "feat_horse_weather"
+
+    horse_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_horses.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    pipeline_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("feat_pipeline_runs.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    computed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    starts_with_weather: Mapped[int] = mapped_column(Integer, default=0)
+    weather_sensitivity_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    track_condition_preference_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    preferred_track_condition: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    preferred_weather_category: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    # Compact ML-ready maps: {bucket: {starts, wins, win_rate, avg_finish, avg_time_s}}
+    win_rate_by_weather_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    win_rate_by_track_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    avg_finish_by_temp_range_json: Mapped[dict[str, Any] | None] = mapped_column(
+        JSON, nullable=True
+    )
+    avg_time_by_weather_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    features_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+
+
+class FeatHorseWeatherBucket(Base):
+    """Normalized per-bucket horse×weather stats (easy one-hot / target encoding)."""
+
+    __tablename__ = "feat_horse_weather_buckets"
+    __table_args__ = (
+        UniqueConstraint(
+            "horse_id",
+            "dimension",
+            "bucket_key",
+            name="uq_feat_horse_weather_bucket",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    horse_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_horses.id", ondelete="CASCADE"), index=True
+    )
+    dimension: Mapped[str] = mapped_column(String(32), index=True)
+    # weather_condition | weather_category | track_condition | temp_range
+    bucket_key: Mapped[str] = mapped_column(String(64), index=True)
+    pipeline_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("feat_pipeline_runs.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    computed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    starts: Mapped[int] = mapped_column(Integer, default=0)
+    wins: Mapped[int] = mapped_column(Integer, default=0)
+    win_rate: Mapped[float | None] = mapped_column(Float, nullable=True)
+    avg_finish: Mapped[float | None] = mapped_column(Float, nullable=True)
+    avg_time_seconds: Mapped[float | None] = mapped_column(Float, nullable=True)

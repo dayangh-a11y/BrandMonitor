@@ -11,6 +11,7 @@ from src.warehouse.models import (
     WhRace,
     WhRaceResult,
     WhRaceVideo,
+    WhRaceWeather,
     WhTrainer,
 )
 
@@ -23,6 +24,7 @@ __all__ = [
     "WhRace",
     "WhRaceResult",
     "WhRaceVideo",
+    "WhRaceWeather",
     "WhTrainer",
     "build_warehouse",
     "run_entity_resolution",
