@@ -45,6 +45,13 @@ class Settings(BaseSettings):
         "gonbad-kavous,aq-qala,bandar-torkaman"
     )
 
+    # Historical weather (Open-Meteo Archive — no API key)
+    weather_archive_url: str = "https://archive-api.open-meteo.com/v1/archive"
+    # asbdavani does not publish post times; use this local hour for hourly snapshots
+    weather_default_race_hour: int = Field(default=14, ge=0, le=23)
+    weather_lookback_days: int = Field(default=7, ge=3, le=30)
+    weather_parser_version: str = "1.0.0"
+
 
 def get_settings() -> Settings:
     return Settings()

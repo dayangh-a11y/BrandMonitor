@@ -31,9 +31,18 @@ def list_pipelines() -> list[str]:
 def _ensure_builtins() -> None:
     if _REGISTRY:
         return
-    from src.pipelines import horse_career, horse_distance, horse_form, people_stats
+    from src.pipelines import (
+        horse_career,
+        horse_distance,
+        horse_form,
+        horse_weather,
+        people_stats,
+        race_weather,
+    )
 
     horse_career.register()
     horse_form.register()
     horse_distance.register()
     people_stats.register()
+    race_weather.register()
+    horse_weather.register()

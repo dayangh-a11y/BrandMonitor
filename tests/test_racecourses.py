@@ -24,6 +24,15 @@ def test_resolve_golestan_aliases() -> None:
     assert resolve_racecourse("مشهد") is None
 
 
+def test_golestan_coordinates_present() -> None:
+    from src.racecourses import get_racecourse
+
+    g = get_racecourse("gonbad-kavous")
+    assert g and g.latitude and g.longitude
+    assert get_racecourse("aq-qala").latitude
+    assert get_racecourse("bandar-torkaman").longitude
+
+
 def test_normalize_strips_zwnj_and_spaces() -> None:
     assert normalize_track_key("آق‌ قلا") == normalize_track_key("آق قلا")
     assert normalize_track_key("بندر ترکمن") == normalize_track_key("بندرترکمن")

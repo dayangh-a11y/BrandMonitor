@@ -73,6 +73,9 @@ class WhRace(Base):
 
     results: Mapped[list["WhRaceResult"]] = relationship(back_populates="race")
     videos: Mapped[list["WhRaceVideo"]] = relationship(back_populates="race")
+    race_weather: Mapped["WhRaceWeather | None"] = relationship(
+        back_populates="race", uselist=False
+    )
 
 
 class WhJockey(Base):
@@ -205,3 +208,52 @@ class WhEntityMatch(Base):
         DateTime(timezone=True), server_default=func.now()
     )
     reviewed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class WhRaceWeather(Base):
+    """
+    Structured race-day weather + track condition for analytics / ML joins.
+
+    Populated from RawWeatherObservation (Open-Meteo). Source-site free-text
+    ``wh_races.weather`` remains untouched when present.
+    """
+
+    __tablename__ = "wh_race_weather"
+    __table_args__ = (UniqueConstraint("race_id", name="uq_wh_race_weather_race"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    race_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_races.id", ondelete="CASCADE"), index=True
+    )
+    racecourse_code: Mapped[str] = mapped_column(String(64), index=True)
+    observation_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
+
+    air_temperature_c: Mapped[float | None] = mapped_column(Float, nullable=True)
+    humidity_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    wind_speed_kmh: Mapped[float | None] = mapped_column(Float, nullable=True)
+    wind_direction_deg: Mapped[float | None] = mapped_column(Float, nullable=True)
+    wind_direction_compass: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    pressure_hpa: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rainfall_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rainfall_day_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    rain_probability_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    cloud_cover_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    visibility_m: Mapped[float | None] = mapped_column(Float, nullable=True)
+    weather_condition: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    weather_code: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    race_start_time: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    start_time_estimated: Mapped[bool] = mapped_column(Boolean, default=True)
+    track_condition: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    track_condition_source: Mapped[str | None] = mapped_column(
+        String(32), nullable=True
+    )  # estimated|source
+
+    raw_weather_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    provider: Mapped[str] = mapped_column(String(64), default="open-meteo")
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    race: Mapped[WhRace] = relationship(back_populates="race_weather")
+

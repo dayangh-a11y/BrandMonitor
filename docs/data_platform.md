@@ -62,6 +62,20 @@ Empty shells:
 Recalculate anytime: `python main.py features recalc`  
 Features are **never** written into Raw.
 
+### Weather / track-condition features (ML-ready)
+
+See `docs/weather_features.md`.
+
+```bash
+python main.py weather backfill
+python main.py weather attach
+python main.py features build -p race_weather
+python main.py features build -p horse_weather
+```
+
+Tables: `raw_weather_observations` → `wh_race_weather` → `feat_race_weather` /
+`feat_horse_weather` / `feat_horse_weather_buckets`.
+
 ## Entity resolution
 
 Fuzzy + exact-normalized matching for horses / jockeys / trainers / owners  

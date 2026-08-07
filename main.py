@@ -23,9 +23,11 @@ app = typer.Typer(
 features_app = typer.Typer(help="Feature recalculation (never writes Raw).")
 warehouse_app = typer.Typer(help="Normalized warehouse ETL + entity resolution.")
 crawler_app = typer.Typer(help="Crawl queue manager.")
+weather_app = typer.Typer(help="Historical weather backfill + race attach.")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
+app.add_typer(weather_app, name="weather")
 
 
 @app.command("collect")
@@ -318,6 +320,55 @@ def crawler_daily_report() -> None:
     with session_scope(settings) as session:
         _, text = generate_daily_report(session, settings=settings)
     typer.echo(text)
+
+
+@weather_app.command("backfill")
+def weather_backfill(
+    date_from: Optional[str] = typer.Option(
+        None, "--from", help="Inclusive start date YYYY-MM-DD (default: all race dates)"
+    ),
+    date_to: Optional[str] = typer.Option(
+        None, "--to", help="Inclusive end date YYYY-MM-DD"
+    ),
+    courses: Optional[str] = typer.Option(
+        None,
+        "--courses",
+        help="Comma-separated racecourse codes (default: all races in warehouse)",
+    ),
+) -> None:
+    """Fetch Open-Meteo archive weather into raw_weather_observations (append-only)."""
+    from datetime import date as date_cls
+
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.weather import backfill_race_weather
+
+    codes = {c.strip() for c in courses.split(",")} if courses else None
+    d0 = date_cls.fromisoformat(date_from) if date_from else None
+    d1 = date_cls.fromisoformat(date_to) if date_to else None
+    with session_scope(settings) as session:
+        stats = backfill_race_weather(
+            session,
+            settings=settings,
+            racecourse_codes=codes,
+            date_from=d0,
+            date_to=d1,
+        )
+    typer.echo(stats)
+
+
+@weather_app.command("attach")
+def weather_attach() -> None:
+    """Upsert wh_race_weather snapshots from current raw weather observations."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.weather import attach_weather_to_warehouse
+
+    with session_scope(settings) as session:
+        stats = attach_weather_to_warehouse(session, settings=settings)
+    typer.echo(stats)
 
 
 def main() -> None:
