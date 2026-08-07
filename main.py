@@ -26,12 +26,14 @@ crawler_app = typer.Typer(help="Crawl queue manager.")
 weather_app = typer.Typer(help="Historical weather backfill + race attach.")
 analytics_app = typer.Typer(help="Analytics layer — rankings & standardized metrics.")
 prediction_app = typer.Typer(help="Prediction market (mosharekat) collect + analytics.")
+std_app = typer.Typer(help="Standardization roadmap (DQ → AI readiness, modules 1–15).")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
 app.add_typer(weather_app, name="weather")
 app.add_typer(analytics_app, name="analytics")
 app.add_typer(prediction_app, name="prediction")
+app.add_typer(std_app, name="std")
 
 
 @app.command("collect")
@@ -108,7 +110,7 @@ def init_db_cmd() -> None:
     from src.database import init_db
 
     init_db(settings)
-    typer.echo("Platform tables created (raw_/wh_/feat_/anl_/quality_/crawl_).")
+    typer.echo("Platform tables created (raw_/wh_/feat_/anl_/quality_/crawl_/std_).")
 
 
 @app.command("quality-report")
@@ -118,13 +120,17 @@ def quality_report_cmd() -> None:
     setup_logging(settings.log_dir, settings.log_level)
     from src.database import session_scope
     from src.quality import format_quality_report, run_quality_checks
+    from src.standardization.data_quality import run_warehouse_quality_checks
     from src.warehouse import run_entity_resolution
 
     try:
         with session_scope(settings) as session:
             run_entity_resolution(session)
             summary = run_quality_checks(session)
+            wh_summary = run_warehouse_quality_checks(session)
         typer.echo(format_quality_report(summary))
+        typer.echo("")
+        typer.echo(wh_summary.get("report_text") or "")
     except Exception as exc:  # noqa: BLE001
         logger.exception("Quality report failed: {}", exc)
         raise typer.Exit(code=1) from exc
@@ -789,6 +795,161 @@ def prediction_query(
             if key in row and row[key] is not None:
                 extras.append(f"{key}={row[key]}")
         typer.echo(f"#{i} {label} — " + ", ".join(extras))
+
+
+@std_app.command("build")
+def std_build(
+    course: Optional[str] = typer.Option(
+        None, "--course", help="Limit season/race classification to racecourse code"
+    ),
+    skip_benchmarks: bool = typer.Option(False, "--skip-benchmarks"),
+    skip_features: bool = typer.Option(False, "--skip-features"),
+    force_features: bool = typer.Option(
+        False, "--force-features", help="Rewrite feature store even if version matches"
+    ),
+) -> None:
+    """Run Modules 1–15: DQ, entities, seasons, classification, versions, features, …"""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.standardization import run_standardization
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        report = run_standardization(
+            session,
+            racecourse_code=course,
+            skip_benchmarks=skip_benchmarks,
+            skip_features=skip_features,
+            force_features=force_features,
+        )
+    typer.echo(report.to_text())
+
+
+@std_app.command("report")
+def std_report() -> None:
+    """Print module catalog + current version ledger."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.standardization.constants import MODULES, PLATFORM_VERSION
+    from src.standardization.metrics_catalog import metric_catalog
+    from src.standardization.ranking_contracts import list_contracts
+    from src.standardization.versions import current_versions
+
+    typer.echo(f"Platform {PLATFORM_VERSION}")
+    for key, meta in MODULES.items():
+        typer.echo(f"  [{meta['id']}] {meta['name']} v{meta['version']}")
+    typer.echo(f"Metrics documented: {len(metric_catalog())}")
+    typer.echo(f"Ranking contracts:  {len(list_contracts())}")
+    with session_scope(settings) as session:
+        try:
+            vers = current_versions(session)
+        except Exception:  # noqa: BLE001
+            vers = []
+    typer.echo(f"Version registry current artifacts: {len(vers)}")
+    for v in vers[:30]:
+        typer.echo(f"  {v['artifact_type']}/{v['artifact_name']}@{v['version']}")
+
+
+@std_app.command("ask")
+def std_ask(
+    question: str = typer.Option(..., "--question", "-q", help="Natural language or slug"),
+    limit: int = typer.Option(10, "--limit", "-n"),
+) -> None:
+    """Question Engine: question → rule → SQL → metrics → explanation (never direct)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.standardization.questions import answer_question
+
+    with session_scope(settings) as session:
+        result = answer_question(session, question, limit=limit)
+    typer.echo(result.get("explanation_text") or "")
+    typer.echo(f"rule={result.get('rule_id')} status={result.get('status')}")
+    if result.get("sql"):
+        typer.echo(f"sql={result['sql']}")
+    expl = result.get("explanation") or {}
+    conf = expl.get("confidence") or {}
+    typer.echo(
+        f"confidence={conf.get('confidence_label') or conf.get('confidence')} "
+        f"rows={expl.get('rows_analyzed')}"
+    )
+    if expl.get("warnings"):
+        typer.echo("warnings: " + "; ".join(expl["warnings"]))
+    if expl.get("missing_data"):
+        typer.echo("missing: " + ", ".join(expl["missing_data"]))
+    for i, row in enumerate(result.get("rows") or [], 1):
+        name = (
+            row.get("horse")
+            or row.get("trainer")
+            or row.get("jockey")
+            or row.get("owner")
+            or row.get("status")
+            or row.get("why_text")
+        )
+        typer.echo(f"  #{i} {name}")
+
+
+@std_app.command("validate")
+def std_validate(
+    scope: str = typer.Option("season", "--scope"),
+) -> None:
+    """Validation Engine — suspicious ranking warnings."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.standardization.validation import validate_rankings
+
+    with session_scope(settings) as session:
+        result = validate_rankings(session, scope=scope)
+    typer.echo(
+        f"status={result['status']} warnings={result['warnings_total']} "
+        f"rows={result['rows_analyzed']}"
+    )
+    for code, n in (result.get("warnings_by_code") or {}).items():
+        typer.echo(f"  {code}: {n}")
+    for w in (result.get("warnings") or [])[:20]:
+        typer.echo(f"  [{w['severity']}] {w['code']}: {w['message']}")
+
+
+@std_app.command("dq")
+def std_dq() -> None:
+    """Module 1 — warehouse Data Quality Report only."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.standardization.data_quality import run_warehouse_quality_checks
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        summary = run_warehouse_quality_checks(session)
+    typer.echo(summary.get("report_text") or "")
+
+
+@std_app.command("metrics")
+def std_metrics() -> None:
+    """Module 5 — print mathematical metric catalog."""
+    from src.standardization.metrics_catalog import metric_catalog
+
+    for m in metric_catalog():
+        typer.echo(f"{m['name']} ({m['symbol']}): {m['formula']}")
+        typer.echo(f"  domain={m['domain']} — {m['notes']}")
+
+
+@std_app.command("contracts")
+def std_contracts() -> None:
+    """Module 6 — print ranking contracts."""
+    from src.standardization.ranking_contracts import list_contracts
+
+    for c in list_contracts():
+        typer.echo(f"{c['board']} v{c['version']}: {c['title']}")
+        typer.echo(f"  eligibility: {c['eligibility']}")
+        typer.echo(f"  formula:     {c['ranking_formula']}")
+        typer.echo(f"  tie_break:   {c['tie_break']}")
+        typer.echo(
+            f"  min_starts={c['minimum_starts']} min_confidence={c['minimum_confidence']}"
+        )
 
 
 def main() -> None:
