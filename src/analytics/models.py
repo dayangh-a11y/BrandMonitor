@@ -218,3 +218,50 @@ class AnlRanking(Base):
     computed_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+
+
+class AnlRaceIntelligence(Base):
+    """Per-race intelligence card (crowd accuracy, surprises, shock)."""
+
+    __tablename__ = "anl_race_intelligence"
+    __table_args__ = (UniqueConstraint("race_id", name="uq_anl_race_intel_race"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    race_id: Mapped[int] = mapped_column(
+        ForeignKey("wh_races.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    race_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
+    racecourse_code: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    race_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    breed: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    field_size: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    difficulty_stars: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    difficulty_label: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    crowd_accuracy_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    shock_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    prediction_confidence: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    expectation_source: Mapped[str | None] = mapped_column(String(16), nullable=True)
+
+    biggest_surprise_horse: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    biggest_surprise_horse_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    most_overrated_horse: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    most_overrated_horse_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    most_underrated_horse: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    most_underrated_horse_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    favorite_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    favorite_finish: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    winner_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    winner_expected_rank: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    report_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    explain_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    runners_json: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
+
+    build_run_id: Mapped[int | None] = mapped_column(
+        ForeignKey("anl_build_runs.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    computed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )

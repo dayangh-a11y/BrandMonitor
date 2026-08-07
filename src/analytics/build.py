@@ -32,6 +32,7 @@ from src.analytics.metrics import (
     trend_slope,
 )
 from src.analytics.models import AnlBuildRun, AnlHorseMetrics, AnlRanking, AnlSeason
+from src.analytics.race_intel_build import build_race_intelligence
 from src.analytics.seasons import SeasonCluster, discover_seasons
 from src.analytics.views import create_analytics_views
 from src.database.features import FeatRaceWeather
@@ -876,6 +877,13 @@ def build_analytics(
         for season in target_seasons:
             build_scope("season", season)
 
+        intel_stats = build_race_intelligence(
+            session,
+            build_run_id=run.id,
+            racecourse_code=racecourse_code,
+        )
+        rows_written += int(intel_stats.get("written", 0))
+
         create_analytics_views(session)
 
         run.status = "success"
@@ -887,6 +895,7 @@ def build_analytics(
             "rows_written": rows_written,
             "seasons": len(seasons),
             "season_targets": len(target_seasons),
+            "race_intelligence": intel_stats,
             "build_run_id": run.id,
         }
         logger.info("Analytics build {}", stats)

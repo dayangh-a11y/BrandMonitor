@@ -464,6 +464,136 @@ def analytics_query(
         typer.echo(f"#{row.get('rank')} {name} — {why}")
 
 
+@analytics_app.command("race-intel")
+def analytics_race_intel(
+    race_id: Optional[int] = typer.Option(
+        None, "--race-id", help="Warehouse race id; omit with --rebuild to rebuild all"
+    ),
+    course: Optional[str] = typer.Option(
+        None, "--course", help="Limit rebuild to racecourse code"
+    ),
+    rebuild: bool = typer.Option(
+        False, "--rebuild", help="Rebuild anl_race_intelligence before printing"
+    ),
+    shockiest: bool = typer.Option(
+        False, "--shockiest", help="Print top shock races instead of a single card"
+    ),
+    limit: int = typer.Option(10, "--limit", "-n"),
+) -> None:
+    """Print a Race Intelligence card (Difficulty / Crowd / Surprise / Shock)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from sqlalchemy import select, text
+
+    from src.analytics.models import AnlRaceIntelligence
+    from src.analytics.race_intel_build import (
+        build_race_intelligence,
+        get_race_intelligence_report,
+    )
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        if rebuild:
+            stats = build_race_intelligence(
+                session,
+                racecourse_code=course,
+                race_ids=[race_id] if race_id is not None else None,
+            )
+            typer.echo(f"rebuild={stats}")
+
+        if shockiest:
+            sql = """
+                SELECT race_id, race_date, racecourse_code, race_name, breed,
+                       shock_score, crowd_accuracy_pct, biggest_surprise_horse,
+                       most_overrated_horse, most_underrated_horse, report_text
+                FROM anl_v_high_shock_races
+            """
+            params: dict = {"n": limit}
+            if course:
+                sql += " WHERE racecourse_code = :course"
+                params["course"] = course
+            sql += " ORDER BY shock_score DESC LIMIT :n"
+            rows = session.execute(text(sql), params).mappings().all()
+            if not rows:
+                # Fallback if view missing or no high-shock threshold hits
+                q = select(AnlRaceIntelligence).order_by(
+                    AnlRaceIntelligence.shock_score.desc()
+                )
+                if course:
+                    q = q.where(AnlRaceIntelligence.racecourse_code == course)
+                rows = [
+                    {
+                        "race_id": r.race_id,
+                        "race_date": r.race_date,
+                        "racecourse_code": r.racecourse_code,
+                        "shock_score": r.shock_score,
+                        "crowd_accuracy_pct": r.crowd_accuracy_pct,
+                        "biggest_surprise_horse": r.biggest_surprise_horse,
+                        "report_text": r.report_text,
+                    }
+                    for r in session.scalars(q.limit(limit)).all()
+                ]
+            if not rows:
+                typer.echo("No race intelligence rows — run with --rebuild first.")
+                raise typer.Exit(code=1)
+            for row in rows:
+                typer.echo(
+                    f"race={row.get('race_id')} {row.get('race_date')} "
+                    f"shock={row.get('shock_score')} "
+                    f"crowd={row.get('crowd_accuracy_pct')}% "
+                    f"surprise={row.get('biggest_surprise_horse')}"
+                )
+                if row.get("report_text"):
+                    typer.echo(row["report_text"])
+                    typer.echo("---")
+            return
+
+        if race_id is None:
+            typer.echo("Provide --race-id or use --shockiest / --rebuild.")
+            raise typer.Exit(code=2)
+
+        report = get_race_intelligence_report(session, race_id)
+        if not report:
+            # Compute on the fly if not persisted
+            from src.analytics.race_intel import compute_race_intelligence
+            from src.analytics.metrics import parse_race_class
+            from src.warehouse.models import WhHorse, WhRace, WhRaceResult
+
+            race = session.get(WhRace, race_id)
+            if race is None:
+                typer.echo(f"Race {race_id} not found.")
+                raise typer.Exit(code=1)
+            horses = {h.id: h.name for h in session.scalars(select(WhHorse)).all()}
+            runners = []
+            for res in session.scalars(
+                select(WhRaceResult).where(WhRaceResult.race_id == race_id)
+            ).all():
+                if res.finish_position is None or res.finish_position <= 0 or res.horse_id is None:
+                    continue
+                runners.append(
+                    {
+                        "horse_id": res.horse_id,
+                        "horse_name": horses.get(res.horse_id, f"horse#{res.horse_id}"),
+                        "finish": int(res.finish_position),
+                        "rating": float(res.source_rating)
+                        if res.source_rating is not None
+                        else None,
+                        "cloth": res.number,
+                    }
+                )
+            intel = compute_race_intelligence(
+                race_id=race_id,
+                runners=runners,
+                race_class=parse_race_class(race.name),
+            )
+            if intel is None:
+                typer.echo("Not enough finishers for race intelligence.")
+                raise typer.Exit(code=1)
+            typer.echo(intel.as_report())
+            return
+        typer.echo(report)
+
+
 def main() -> None:
     app()
 

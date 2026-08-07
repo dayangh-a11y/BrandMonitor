@@ -249,6 +249,34 @@ VIEW_SQL: list[tuple[str, str]] = [
         WHERE is_latest_completed = 1 OR is_latest_completed = true
         """,
     ),
+    (
+        "anl_v_race_intelligence",
+        """
+        CREATE VIEW anl_v_race_intelligence AS
+        SELECT
+            race_id, race_date, racecourse_code, race_name, breed, field_size,
+            difficulty_stars, difficulty_label, crowd_accuracy_pct, shock_score,
+            prediction_confidence, expectation_source,
+            biggest_surprise_horse, most_overrated_horse, most_underrated_horse,
+            favorite_name, favorite_finish, winner_name, winner_expected_rank,
+            report_text, explain_json, runners_json
+        FROM anl_race_intelligence
+        """,
+    ),
+    (
+        "anl_v_high_shock_races",
+        """
+        CREATE VIEW anl_v_high_shock_races AS
+        SELECT
+            race_id, race_date, racecourse_code, race_name, breed,
+            shock_score, crowd_accuracy_pct, difficulty_stars,
+            biggest_surprise_horse, most_overrated_horse, most_underrated_horse,
+            favorite_name, favorite_finish, winner_name, prediction_confidence,
+            report_text
+        FROM anl_race_intelligence
+        WHERE shock_score >= 70
+        """,
+    ),
 ]
 
 
