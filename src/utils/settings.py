@@ -32,6 +32,14 @@ class Settings(BaseSettings):
 
     default_datasource: str = "asbdavani"
 
+    # Mass crawler
+    crawl_seed_url: str = "https://asbdavani.app/racecards"
+    crawl_delay_seconds: float = 1.5
+    crawl_workers: int = 2
+    crawl_max_attempts: int = 3
+    crawl_collect_histories: bool = False
+    crawl_stale_running_seconds: int = 3600
+
 
 def get_settings() -> Settings:
     return Settings()

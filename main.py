@@ -197,7 +197,10 @@ def features_recalc() -> None:
 @crawler_app.command("enqueue")
 def crawler_enqueue(
     url: str = typer.Option(..., "--url"),
-    job_type: str = typer.Option("race", "--type", help="race|horse|race_list"),
+    job_type: str = typer.Option(
+        "race", "--type", help="race_list|week|race|refresh_race"
+    ),
+    force: bool = typer.Option(False, "--force", help="Re-queue even if previously successful"),
 ) -> None:
     """Add a URL to the crawl queue (duplicate-safe)."""
     settings = get_settings()
@@ -206,8 +209,62 @@ def crawler_enqueue(
     from src.database import session_scope
 
     with session_scope(settings) as session:
-        job = CrawlerManager(session).enqueue(job_type=job_type, url=url)
+        job = CrawlerManager(session, max_attempts=settings.crawl_max_attempts).enqueue(
+            job_type=job_type, url=url, force=force
+        )
         typer.echo(f"job id={job.id} status={job.status} key={job.dedupe_key}")
+
+
+@crawler_app.command("discover")
+def crawler_discover() -> None:
+    """Seed discovery of all race weeks from the racecards index."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import seed_discovery
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        info = seed_discovery(session, settings=settings)
+    typer.echo(f"Seeded discovery job: {info}")
+
+
+@crawler_app.command("run")
+def crawler_run(
+    workers: Optional[int] = typer.Option(
+        None, "--workers", "-w", help="Parallel workers (default from settings)"
+    ),
+    no_seed: bool = typer.Option(
+        False, "--no-seed", help="Do not auto-enqueue race_list discovery"
+    ),
+    max_runtime: Optional[float] = typer.Option(
+        None, "--max-runtime", help="Optional max runtime in seconds"
+    ),
+) -> None:
+    """Run the production mass crawler until the queue is drained."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import run_mass_crawl
+
+    summary = run_mass_crawl(
+        settings=settings,
+        workers=workers,
+        seed=not no_seed,
+        max_runtime_seconds=max_runtime,
+    )
+    typer.echo(summary)
+
+
+@crawler_app.command("refresh")
+def crawler_refresh() -> None:
+    """Re-queue successful races to detect updates (unchanged pages are skipped)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import refresh_successful_races
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        count = refresh_successful_races(session, settings=settings)
+    typer.echo(f"Re-queued {count} race jobs for update detection")
 
 
 @crawler_app.command("progress")
@@ -235,6 +292,32 @@ def crawler_resume() -> None:
     with session_scope(settings) as session:
         count = CrawlerManager(session).resume_failed()
     typer.echo(f"Resumed {count} failed jobs")
+
+
+@crawler_app.command("dashboard")
+def crawler_dashboard() -> None:
+    """Print crawler dashboard metrics."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import collect_dashboard_metrics, format_dashboard
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        metrics = collect_dashboard_metrics(session)
+    typer.echo(format_dashboard(metrics))
+
+
+@crawler_app.command("daily-report")
+def crawler_daily_report() -> None:
+    """Generate and persist today's crawl report."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import generate_daily_report
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        _, text = generate_daily_report(session, settings=settings)
+    typer.echo(text)
 
 
 def main() -> None:

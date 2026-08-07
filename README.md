@@ -70,16 +70,13 @@ tests/
 main.py
 ```
 
-## دیتابیس / Data Platform
-
-لایه‌های **Raw (append-only)**، **Warehouse**، **Features**، **Quality**، **Versioning** و **Crawler Manager**.
-
-جزئیات: [`docs/data_platform.md`](docs/data_platform.md) · [`docs/data_warehouse.md`](docs/data_warehouse.md)
+## کراولر انبوه (Sprint 3)
 
 ```bash
-python main.py init-db
-python main.py collect --url "RACE_URL" --persist   # append Raw versions only
-python main.py warehouse build
-python main.py features recalc
-python main.py quality-report
+python main.py crawler discover
+python main.py crawler run --workers 4
+python main.py crawler dashboard
+python main.py crawler daily-report
 ```
+
+جزئیات: [`docs/crawler.md`](docs/crawler.md)

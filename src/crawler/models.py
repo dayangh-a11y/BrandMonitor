@@ -18,15 +18,16 @@ class CrawlJob(Base):
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    job_type: Mapped[str] = mapped_column(String(64), index=True)  # race|horse|race_list
+    # race_list | week | race | horse | refresh_race
+    job_type: Mapped[str] = mapped_column(String(64), index=True)
     url: Mapped[str] = mapped_column(Text)
     dedupe_key: Mapped[str] = mapped_column(String(255), index=True)
-    status: Mapped[str] = mapped_column(
-        String(32), default="pending", index=True
-    )  # pending|running|success|failed|skipped_duplicate
+    # pending|running|success|failed|skipped_duplicate|skipped_unchanged
+    status: Mapped[str] = mapped_column(String(32), default="pending", index=True)
     attempts: Mapped[int] = mapped_column(Integer, default=0)
     max_attempts: Mapped[int] = mapped_column(Integer, default=3)
     last_error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    worker_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     result_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
