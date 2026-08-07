@@ -151,13 +151,13 @@ def build_prediction_analytics(session: Session) -> dict[str, Any]:
             )
             # Also mean absolute residual across field
             if crowd_ranks and actual:
-                surp = mean(
-                    [
-                        surprise_index(crowd_ranks.get(c), actual.get(c), field_size)
-                        for c in actual
-                        if c in crowd_ranks
-                    ]
-                )
+                residuals = [
+                    surprise_index(crowd_ranks.get(c), actual.get(c), field_size)
+                    for c in actual
+                    if c in crowd_ranks
+                ]
+                if residuals:
+                    surp = mean(residuals)
 
             upset = upset_score(winner_crowd_rank, field_size)
             fav_fail = favorite_failure_score(fav_actual, field_size)
@@ -170,7 +170,8 @@ def build_prediction_analytics(session: Session) -> dict[str, Any]:
 
             ev_rewards = rewards_by_event.get(ev.id, [])
             total_prize = sum(r.total_prize or 0.0 for r in ev_rewards)
-            avg_prize = mean([r.total_prize for r in ev_rewards if r.total_prize]) if ev_rewards else None
+            prize_vals = [r.total_prize for r in ev_rewards if r.total_prize is not None]
+            avg_prize = mean(prize_vals) if prize_vals else None
             participants = st.total_participants if st else None
             win_rows = [w for w in winners_by_event.get(ev.id, []) if w.place == 1]
             winners_count = len({(w.pool_type, w.cloth_number) for w in win_rows})
