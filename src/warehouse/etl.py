@@ -97,6 +97,7 @@ def _upsert_race(session: Session, raw: RawRace) -> WhRace:
                 media = raw.payload_json[key]
                 break
     if media:
+        session.expire(race, ["videos"])
         existing_urls = {v.url for v in race.videos}
         for item in media:
             if not isinstance(item, dict):
@@ -112,6 +113,7 @@ def _upsert_race(session: Session, raw: RawRace) -> WhRace:
                     media_type=item.get("type"),
                 )
             )
+            existing_urls.add(url)
         session.flush()
     return race
 
