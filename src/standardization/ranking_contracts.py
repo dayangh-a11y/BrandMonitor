@@ -49,13 +49,16 @@ RANKING_CONTRACTS: dict[str, RankingContract] = {
             "starts >= minimum_starts; season scope; "
             "gate fails if max(starts)<=1 or zero qualified"
         ),
-        ranking_formula="ORDER BY performance_rating DESC",
+        ranking_formula="ORDER BY sex_adjusted_performance_rating DESC (fallback raw PR)",
         tie_break=("wins", "places", "avg_finish ASC", "form_score_5", "earnings_total"),
         minimum_starts=DEFAULT_MIN_STARTS,
         minimum_confidence="high",  # sample band 'valid' mapped → high
-        version="2.0.0",
-        score_field="performance_rating",
-        notes="Earnings never dominate PR; earnings only last tie-break.",
+        version="2.1.0",
+        score_field="sex_adjusted_performance_rating",
+        notes=(
+            "Season comparisons use Sex Adjusted Performance Rating. "
+            "Earnings never dominate PR; earnings only last tie-break."
+        ),
     ),
     "most_successful": RankingContract(
         board="most_successful",
@@ -112,6 +115,62 @@ RANKING_CONTRACTS: dict[str, RankingContract] = {
         minimum_confidence="high",
         version="2.0.0",
         score_field="consistency_score",
+    ),
+    "best_mare": RankingContract(
+        board="best_mare",
+        title="Best Mare",
+        eligibility="sex in {Mare,Filly}; starts >= minimum_starts",
+        ranking_formula="ORDER BY sex_adjusted_performance_rating DESC",
+        tie_break=("wins", "performance_rating"),
+        minimum_starts=DEFAULT_MIN_STARTS,
+        minimum_confidence="high",
+        version="1.0.0",
+        score_field="sex_adjusted_performance_rating",
+        notes="Uses Sex Adjusted PR so mares are not penalized vs male fields.",
+    ),
+    "best_stallion": RankingContract(
+        board="best_stallion",
+        title="Best Stallion",
+        eligibility="sex in {Stallion,Colt}; starts >= minimum_starts",
+        ranking_formula="ORDER BY sex_adjusted_performance_rating DESC",
+        tie_break=("wins", "performance_rating"),
+        minimum_starts=DEFAULT_MIN_STARTS,
+        minimum_confidence="high",
+        version="1.0.0",
+        score_field="sex_adjusted_performance_rating",
+    ),
+    "best_mixed_race_performer": RankingContract(
+        board="best_mixed_race_performer",
+        title="Best Mixed-Race Performer",
+        eligibility="starts_mixed >= 1; starts >= minimum_starts",
+        ranking_formula="ORDER BY mixed_race_performance DESC",
+        tie_break=("sex_adjusted_performance_rating",),
+        minimum_starts=DEFAULT_MIN_STARTS,
+        minimum_confidence="high",
+        version="1.0.0",
+        score_field="mixed_race_performance",
+    ),
+    "best_female_against_males": RankingContract(
+        board="best_female_against_males",
+        title="Best Female Against Males",
+        eligibility="female; performance_vs_males not null; starts >= minimum_starts",
+        ranking_formula="ORDER BY performance_vs_males DESC",
+        tie_break=("sex_adjusted_performance_rating",),
+        minimum_starts=DEFAULT_MIN_STARTS,
+        minimum_confidence="high",
+        version="1.0.0",
+        score_field="performance_vs_males",
+    ),
+    "most_dominant_male": RankingContract(
+        board="most_dominant_male",
+        title="Most Dominant Male",
+        eligibility="sex in male set; starts >= minimum_starts",
+        ranking_formula="ORDER BY sex_adjusted_performance_rating DESC",
+        tie_break=("wins", "performance_rating"),
+        minimum_starts=DEFAULT_MIN_STARTS,
+        minimum_confidence="high",
+        version="1.0.0",
+        score_field="sex_adjusted_performance_rating",
     ),
 }
 

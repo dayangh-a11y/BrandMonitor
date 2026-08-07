@@ -49,3 +49,12 @@ python main.py analytics query -q most_consistent
 | Speed index | 5 |
 
 Sort tie-break after PR: wins → places → avg_finish → form → **earnings last**.
+
+## Sex Normalization (v2.1)
+
+Season Best ranks by **Sex Adjusted Performance Rating** (see
+`docs/sex_normalization.md`). Sex Strength Factor is estimated from
+historical mixed races only — never hardcoded.
+
+Additional boards: `best_mare`, `best_stallion`, `best_mixed_race_performer`,
+`best_female_against_males`, `most_dominant_male`.
