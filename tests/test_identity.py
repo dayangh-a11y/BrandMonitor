@@ -78,6 +78,96 @@ def test_sex_conflict_suppresses_merge() -> None:
     assert result.decision != "auto_merge"
 
 
+def test_birth_year_and_continuity_support_cross_city_merge() -> None:
+    from datetime import date
+
+    left = HorseProfile(
+        warehouse_horse_id=1,
+        name="پرنس آف اسپید",
+        sex="نر",
+        birth_year=2021,
+        sire="وان من باند",
+        dam="سرخان هج",
+        owners=["باشگاه اسب صدر"],
+        trainers=["محمد اعظمی"],
+        race_dates=[date(2024, 1, 10), date(2024, 2, 5)],
+        racecourse_codes=["tehran"],
+    )
+    right = HorseProfile(
+        warehouse_horse_id=2,
+        name="پرنس‌آف‌اسپيد",
+        sex="نر",
+        birth_year=2021,
+        sire="وان من باند",
+        dam="سرخان هج",
+        owners=["باشگاه اسب صدر"],
+        trainers=["محمد اعظمی"],
+        race_dates=[date(2024, 3, 1), date(2024, 4, 12)],
+        racecourse_codes=["gonbad-kavous"],
+    )
+    result = score_profiles(left, right)
+    assert result.decision == "auto_merge"
+    signals = {s.signal: s for s in result.signals}
+    assert signals["birth_year"].score == 1.0
+    assert signals["continuity"].score is not None
+    assert signals["continuity"].score >= 0.85
+
+
+def test_national_continuity_merges_despite_owner_drift() -> None:
+    from datetime import date
+
+    left = HorseProfile(
+        warehouse_horse_id=1,
+        name="پالونیا",
+        sex="ماده",
+        birth_year=2019,
+        owners=["مالک الف"],
+        trainers=["مربی الف"],
+        race_dates=[date(2024, 1, 10), date(2024, 2, 1)],
+        racecourse_codes=["tehran"],
+    )
+    right = HorseProfile(
+        warehouse_horse_id=2,
+        name="پالونیا",
+        sex="ماده",
+        birth_year=2020,  # ±1 year still accepted by national rule
+        owners=["مالک ب"],
+        trainers=["مربی ب"],
+        race_dates=[date(2024, 3, 5), date(2024, 4, 1)],
+        racecourse_codes=["gonbad-kavous"],
+    )
+    result = score_profiles(left, right)
+    assert result.decision == "auto_merge"
+    # Either weighted score or the national continuity rule may trigger merge.
+    assert result.total_score >= 0.88
+    signals = {s.signal: s for s in result.signals}
+    assert signals["continuity"].score is not None and signals["continuity"].score >= 0.75
+    assert signals["name"].score == 1.0
+    assert signals["sex"].score == 1.0
+
+def test_same_day_disjoint_cities_blocks_auto_merge() -> None:
+    from datetime import date
+
+    left = HorseProfile(
+        warehouse_horse_id=1,
+        name="بادپا",
+        sex="نر",
+        birth_year=2020,
+        race_dates=[date(2024, 5, 1)],
+        racecourse_codes=["tehran"],
+    )
+    right = HorseProfile(
+        warehouse_horse_id=2,
+        name="بادپا",
+        sex="نر",
+        birth_year=2020,
+        race_dates=[date(2024, 5, 1)],
+        racecourse_codes=["yazd"],
+    )
+    result = score_profiles(left, right)
+    assert result.decision != "auto_merge"
+
+
 def test_build_assigns_permanent_ids_and_merges(db_url: str) -> None:
     with session_scope(url=db_url) as session:
         race = WhRace(

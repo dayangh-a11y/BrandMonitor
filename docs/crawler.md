@@ -2,34 +2,33 @@
 
 No ML. No prediction. No feature engineering.
 
-Goal: crawl **100% of historical races** for the configured racecourses only.
+Goal: crawl **100% of historical races** nationwide (every official week / city).
 
-## Racecourse scope (required)
+## Racecourse scope
 
-Default allowlist (Golestan triad):
+Default allowlist is nationwide (`CRAWL_ALLOWED_RACECOURSES=*`).
 
-| Code | English | Persian |
-|------|---------|---------|
-| `gonbad-kavous` | Gonbad Kavous | گنبدکاووس |
-| `aq-qala` | Aq Qala | آق قلا |
-| `bandar-torkaman` | Bandar Torkaman | بندرترکمن |
+Registered courses include the Golestan triad plus Tehran, Yazd, Ahvaz, Kish,
+Anbar Alum, and Mashhad. Unknown cities synthesize a stable `ir-*` code so
+ingest never drops a week solely for an unregistered label.
 
-All other racecourses are ignored. This is **not** a nationwide crawl.
+To restrict collection (e.g. Golestan only):
 
-Enable additional tracks later by:
+```bash
+export CRAWL_ALLOWED_RACECOURSES=gonbad-kavous,aq-qala,bandar-torkaman
+```
 
-1. Registering the course in `src/racecourses/registry.py` (aliases + canonical names)
-2. Adding its code to `CRAWL_ALLOWED_RACECOURSES`
-
-No database redesign is required — races store `track` + `racecourse_code` (both required).
+Enable additional named tracks by registering aliases in
+`src/racecourses/registry.py`. No database redesign is required — races store
+`track` + `racecourse_code` (both required).
 
 ## Flow
 
 ```
 race_list (racecards index)
-   → discover weeks, filter by allowed racecourse location
+   → discover weeks (optional filter by allowed racecourse location)
 week jobs
-   → resolve location from week HTML; skip out-of-scope
+   → resolve location from week HTML; skip out-of-scope when restricted
    → expand `_weekInfo.races[].round` → per-round race URLs
 race jobs
    → RaceCollector + Raw persist (horses, results, jockeys, trainers, videos)

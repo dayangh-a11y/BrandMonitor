@@ -16,6 +16,7 @@ from src.warehouse.models import (
     WhHorse,
     WhHorsePedigree,
     WhOwner,
+    WhRace,
     WhRaceResult,
     WhTrainer,
 )
@@ -69,6 +70,10 @@ def load_horse_profiles(session: Session) -> list[HorseProfile]:
     owner_counts: dict[int, Counter[str]] = defaultdict(Counter)
     trainer_counts: dict[int, Counter[str]] = defaultdict(Counter)
     start_counts: Counter[int] = Counter()
+    race_dates: dict[int, list[date]] = defaultdict(list)
+    race_courses: dict[int, list[str]] = defaultdict(list)
+
+    races = {r.id: r for r in session.scalars(select(WhRace)).all()}
     for res in session.scalars(select(WhRaceResult)).all():
         if res.horse_id is None:
             continue
@@ -77,6 +82,16 @@ def load_horse_profiles(session: Session) -> list[HorseProfile]:
             owner_counts[res.horse_id][owners[res.owner_id]] += 1
         if res.trainer_id and res.trainer_id in trainers:
             trainer_counts[res.horse_id][trainers[res.trainer_id]] += 1
+        race = races.get(res.race_id) if res.race_id is not None else None
+        if race is not None:
+            if race.race_date is not None:
+                d = race.race_date
+                if hasattr(d, "date"):
+                    d = d.date()
+                if isinstance(d, date):
+                    race_dates[res.horse_id].append(d)
+            if race.racecourse_code:
+                race_courses[res.horse_id].append(str(race.racecourse_code))
 
     # Raw payload age / pedigree enrichment keyed by source_horse_id
     raw_by_source: dict[str, dict[str, Any]] = {}
@@ -109,6 +124,11 @@ def load_horse_profiles(session: Session) -> list[HorseProfile]:
 
         own = [n for n, _ in owner_counts[h.id].most_common(5)]
         trn = [n for n, _ in trainer_counts[h.id].most_common(5)]
+        dates = sorted(set(race_dates[h.id]))
+        birth_year = h.birthdate.year if h.birthdate else None
+        if birth_year is None and age is not None and dates:
+            # Approximate birth year from age at latest observed start
+            birth_year = dates[-1].year - int(age)
 
         profiles.append(
             HorseProfile(
@@ -118,12 +138,15 @@ def load_horse_profiles(session: Session) -> list[HorseProfile]:
                 source_horse_id=h.source_horse_id,
                 sex=h.sex or raw.get("sex"),
                 birthdate=h.birthdate,
+                birth_year=birth_year,
                 age_years=age,
                 sire=str(sire).strip() if sire else None,
                 dam=str(dam).strip() if dam else None,
                 owners=own,
                 trainers=trn,
                 starts=int(start_counts[h.id]),
+                race_dates=dates,
+                racecourse_codes=list(dict.fromkeys(race_courses[h.id])),
             )
         )
     return profiles

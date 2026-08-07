@@ -178,10 +178,12 @@ def build_horse_identity(
         member_profiles.sort(key=lambda p: (-p.starts, -len(p.name), p.warehouse_horse_id))
         primary = member_profiles[0]
         sex = primary.normalized_sex()
-        birth_year = primary.birthdate.year if primary.birthdate else None
-        if birth_year is None and primary.age_years is not None:
-            # Approximate only — stored as hint, not truth
-            birth_year = None
+        birth_year = primary.effective_birth_year()
+        if birth_year is None:
+            for p in member_profiles[1:]:
+                birth_year = p.effective_birth_year()
+                if birth_year is not None:
+                    break
 
         horse = IdHorse(
             display_name=primary.name.strip(),
@@ -195,6 +197,18 @@ def build_horse_identity(
                 "member_names": [p.name for p in member_profiles],
                 "auto_merged": len(members) > 1,
                 "ages": [p.age_years for p in member_profiles if p.age_years is not None],
+                "birth_years": [
+                    p.effective_birth_year()
+                    for p in member_profiles
+                    if p.effective_birth_year() is not None
+                ],
+                "cities": sorted(
+                    {
+                        c
+                        for p in member_profiles
+                        for c in (p.racecourse_codes or [])
+                    }
+                ),
             },
             status="active",
         )
