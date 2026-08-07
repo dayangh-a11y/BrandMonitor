@@ -1,11 +1,11 @@
 """
-RAW layer — source-of-truth facts only.
+RAW layer — append-only source extracts.
 
 Rules:
-- Store only data collected from datasources (or faithful copies of it).
-- Never store engineered / aggregated / pipeline-derived features here.
-- Keep full JSON payloads for lineage and reprocessing.
-- Features live exclusively under `src.database.features` and are built by pipelines.
+- Store exactly what was extracted (type conversion only).
+- No calculated / derived / cleaned analytics fields.
+- Never overwrite prior Raw rows; append a new version when source_hash changes.
+- Features must NEVER live here.
 """
 
 from __future__ import annotations
@@ -15,6 +15,7 @@ from typing import Any
 
 from sqlalchemy import (
     JSON,
+    Boolean,
     Date,
     DateTime,
     Float,
@@ -28,6 +29,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.base import Base
+from src.versioning.mixin import VersioningMixin
 
 
 class RawIngestRun(Base):
@@ -39,6 +41,7 @@ class RawIngestRun(Base):
     source: Mapped[str] = mapped_column(String(64), index=True)
     input_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[str] = mapped_column(String(32), default="running")
+    parser_version: Mapped[str | None] = mapped_column(String(32), nullable=True)
     started_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -48,12 +51,14 @@ class RawIngestRun(Base):
     races: Mapped[list["RawRace"]] = relationship(back_populates="ingest_run")
 
 
-class RawHorse(Base):
-    """Horse dimension as observed from source profiles / race cards."""
+class RawHorse(Base, VersioningMixin):
+    """Horse extract versions (append-only)."""
 
     __tablename__ = "raw_horses"
     __table_args__ = (
-        UniqueConstraint("source", "source_horse_id", name="uq_raw_horses_source_id"),
+        UniqueConstraint(
+            "source", "source_horse_id", "version", name="uq_raw_horses_source_version"
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -65,24 +70,21 @@ class RawHorse(Base):
     profile_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     sire: Mapped[str | None] = mapped_column(String(255), nullable=True)
     dam: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # Exact extracted payload — no feature fields
     payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
-    first_seen_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
-    last_seen_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
-    )
 
-    race_entries: Mapped[list[RawRaceEntry]] = relationship(back_populates="horse")
-    starts: Mapped[list[RawHorseStart]] = relationship(back_populates="horse")
+    race_entries: Mapped[list["RawRaceEntry"]] = relationship(back_populates="horse")
+    starts: Mapped[list["RawHorseStart"]] = relationship(back_populates="horse")
 
 
-class RawRace(Base):
-    """Race card / result facts collected from a datasource."""
+class RawRace(Base, VersioningMixin):
+    """Race extract versions (append-only)."""
 
     __tablename__ = "raw_races"
     __table_args__ = (
-        UniqueConstraint("source", "source_race_id", name="uq_raw_races_source_id"),
+        UniqueConstraint(
+            "source", "source_race_id", "version", name="uq_raw_races_source_version"
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -93,7 +95,6 @@ class RawRace(Base):
     )
     source: Mapped[str] = mapped_column(String(64), index=True)
     source_race_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
-    source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     race_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
     track: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
@@ -104,28 +105,26 @@ class RawRace(Base):
     weather: Mapped[str | None] = mapped_column(String(128), nullable=True)
     prize_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
-    collected_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
 
     ingest_run: Mapped[RawIngestRun | None] = relationship(back_populates="races")
-    entries: Mapped[list[RawRaceEntry]] = relationship(
+    entries: Mapped[list["RawRaceEntry"]] = relationship(
         back_populates="race",
         cascade="all, delete-orphan",
     )
 
 
-class RawRaceEntry(Base):
-    """
-    One horse's collected row on a race card / result.
-
-    Contains only source-observed fields (weights, connections, official result).
-    Derived stats (win rate, form, etc.) must NOT be added here.
-    """
+class RawRaceEntry(Base, VersioningMixin):
+    """One extracted race-card / result row (append-only per race version)."""
 
     __tablename__ = "raw_race_entries"
     __table_args__ = (
-        UniqueConstraint("race_id", "source_horse_id", "number", name="uq_raw_race_entry"),
+        UniqueConstraint(
+            "race_id",
+            "source_horse_id",
+            "number",
+            "version",
+            name="uq_raw_race_entry_version",
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -145,7 +144,6 @@ class RawRaceEntry(Base):
     jockey: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
     trainer: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
     owner: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    # Source-published rating / handicap mark (not a pipeline feature)
     source_rating: Mapped[float | None] = mapped_column(Float, nullable=True)
     barrier: Mapped[int | None] = mapped_column(Integer, nullable=True)
     finish_position: Mapped[int | None] = mapped_column(Integer, nullable=True)
@@ -159,12 +157,8 @@ class RawRaceEntry(Base):
     horse: Mapped[RawHorse | None] = relationship(back_populates="race_entries")
 
 
-class RawHorseStart(Base):
-    """
-    Historical start row collected from a horse profile page.
-
-    Flat fact table for career history; no aggregated features.
-    """
+class RawHorseStart(Base, VersioningMixin):
+    """Historical start row extracted from a horse profile (append-only)."""
 
     __tablename__ = "raw_horse_starts"
     __table_args__ = (
@@ -175,7 +169,8 @@ class RawHorseStart(Base):
             "race_number",
             "track",
             "number",
-            name="uq_raw_horse_start",
+            "version",
+            name="uq_raw_horse_start_version",
         ),
     )
 
@@ -206,8 +201,23 @@ class RawHorseStart(Base):
     odds: Mapped[float | None] = mapped_column(Float, nullable=True)
     race_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
-    collected_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
 
     horse: Mapped[RawHorse | None] = relationship(back_populates="starts")
+
+
+class RawParserError(Base):
+    """Unexpected parser / extract anomalies captured during ingest."""
+
+    __tablename__ = "raw_parser_errors"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    source: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    parser_version: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    error_type: Mapped[str] = mapped_column(String(64), index=True)
+    message: Mapped[str] = mapped_column(Text)
+    payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    resolved: Mapped[bool] = mapped_column(Boolean, default=False)

@@ -12,11 +12,18 @@ from sqlalchemy.orm import Session, sessionmaker
 from src.database.base import Base
 from src.utils.settings import Settings, get_settings
 
-# Ensure Raw + Features tables are registered on Base.metadata
-import src.database.models  # noqa: F401
-
 _engine: Engine | None = None
 _SessionLocal: sessionmaker[Session] | None = None
+
+
+def _register_all_models() -> None:
+    """Import every model module so Base.metadata is complete."""
+    import src.database.features  # noqa: F401
+    import src.database.raw  # noqa: F401
+    import src.crawler.models  # noqa: F401
+    import src.features.models  # noqa: F401
+    import src.quality.models  # noqa: F401
+    import src.warehouse.models  # noqa: F401
 
 
 def get_engine(settings: Settings | None = None, *, url: str | None = None) -> Engine:
@@ -24,6 +31,7 @@ def get_engine(settings: Settings | None = None, *, url: str | None = None) -> E
     cfg = settings or get_settings()
     db_url = url or cfg.database_url
     if _engine is None or (url is not None and str(_engine.url) != db_url):
+        _register_all_models()
         _engine = create_engine(db_url, echo=cfg.database_echo, future=True)
         _SessionLocal = sessionmaker(bind=_engine, autoflush=False, autocommit=False)
     return _engine

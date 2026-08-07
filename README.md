@@ -70,16 +70,16 @@ tests/
 main.py
 ```
 
-## دیتابیس / Data Warehouse
+## دیتابیس / Data Platform
 
-قبل از جمع‌آوری انبوه، لایه‌های **Raw** و **Features** جدا طراحی شده‌اند.
+لایه‌های **Raw (append-only)**، **Warehouse**، **Features**، **Quality**، **Versioning** و **Crawler Manager**.
 
-جزئیات: [`docs/data_warehouse.md`](docs/data_warehouse.md)
+جزئیات: [`docs/data_platform.md`](docs/data_platform.md) · [`docs/data_warehouse.md`](docs/data_warehouse.md)
 
 ```bash
 python main.py init-db
-python main.py collect --url "RACE_URL" --persist   # فقط Raw
-python main.py features build                       # محاسبه Features از Raw
+python main.py collect --url "RACE_URL" --persist   # append Raw versions only
+python main.py warehouse build
+python main.py features recalc
+python main.py quality-report
 ```
-
-هیچ Featureای داخل جداول Raw ذخیره نمی‌شود؛ همه از طریق Pipeline قابل rebuild هستند.

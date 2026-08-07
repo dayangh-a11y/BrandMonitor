@@ -6,11 +6,6 @@ import pytest
 from sqlalchemy import select
 
 from src.database import (
-    FeatHorseCareer,
-    FeatHorseForm,
-    RawHorse,
-    RawRace,
-    RawRaceEntry,
     finish_ingest_run,
     ingest_horse_history,
     ingest_race,
@@ -20,6 +15,8 @@ from src.database import (
     start_ingest_run,
 )
 from src.database.base import Base
+from src.database.features import FeatHorseCareer, FeatHorseForm
+from src.database.raw import RawHorse, RawRace, RawRaceEntry
 from src.models import HorseEntry, HorseHistory, HorseHistoryEntry, HorseProfile, Race
 from src.pipelines.runner import build_features
 

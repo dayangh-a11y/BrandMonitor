@@ -1,4 +1,4 @@
-"""Typer CLI entrypoint for the horse racing data collector / warehouse."""
+"""Typer CLI — collector + warehouse / quality / crawler platform."""
 
 from __future__ import annotations
 
@@ -15,13 +15,17 @@ from src.utils.settings import get_settings
 
 app = typer.Typer(
     name="horse-racing-collector",
-    help="Horse racing data collector + Raw/Features warehouse (no ML predictions).",
+    help="Horse racing data platform (collector + warehouse + quality).",
     add_completion=False,
     no_args_is_help=True,
 )
 
-features_app = typer.Typer(help="Feature pipelines (compute Features from Raw only).")
+features_app = typer.Typer(help="Feature recalculation (never writes Raw).")
+warehouse_app = typer.Typer(help="Normalized warehouse ETL + entity resolution.")
+crawler_app = typer.Typer(help="Crawl queue manager.")
 app.add_typer(features_app, name="features")
+app.add_typer(warehouse_app, name="warehouse")
+app.add_typer(crawler_app, name="crawler")
 
 
 @app.command("collect")
@@ -47,7 +51,7 @@ def collect(
     persist: bool = typer.Option(
         False,
         "--persist",
-        help="Also ingest into Raw warehouse tables (never writes Features)",
+        help="Append into Raw tables (never overwrites prior versions; never writes Features)",
     ),
     log_level: Optional[str] = typer.Option(
         None,
@@ -74,7 +78,7 @@ def collect(
         for name, path in paths.items():
             typer.echo(f"Wrote {name} -> {path.resolve()}")
         if persist:
-            typer.echo("Persisted Raw tables (Features unchanged; run `features build`).")
+            typer.echo("Appended Raw versions (Features unchanged).")
     except Exception as exc:  # noqa: BLE001
         logger.exception("Collection failed: {}", exc)
         raise typer.Exit(code=1) from exc
@@ -92,24 +96,60 @@ def datasources_cmd() -> None:
 
 @app.command("init-db")
 def init_db_cmd() -> None:
-    """Create Raw + Features warehouse tables."""
+    """Create Raw + Warehouse + Features + Quality + Crawler tables."""
     settings = get_settings()
     setup_logging(settings.log_dir, settings.log_level)
     from src.database import init_db
 
     init_db(settings)
-    typer.echo("Warehouse tables created (raw_* + feat_*).")
+    typer.echo("Platform tables created (raw_/wh_/feat_/quality_/crawl_).")
+
+
+@app.command("quality-report")
+def quality_report_cmd() -> None:
+    """Run data-quality checks and print a platform health report."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.quality import format_quality_report, run_quality_checks
+    from src.warehouse import run_entity_resolution
+
+    try:
+        with session_scope(settings) as session:
+            run_entity_resolution(session)
+            summary = run_quality_checks(session)
+        typer.echo(format_quality_report(summary))
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("Quality report failed: {}", exc)
+        raise typer.Exit(code=1) from exc
+
+
+@warehouse_app.command("build")
+def warehouse_build() -> None:
+    """Build normalized warehouse tables from current Raw versions."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.warehouse import build_warehouse, run_entity_resolution
+
+    with session_scope(settings) as session:
+        stats = build_warehouse(session)
+        matches = run_entity_resolution(session)
+    typer.echo(f"Warehouse: {stats}")
+    typer.echo(f"Entity matches: {matches}")
 
 
 @features_app.command("list")
 def features_list() -> None:
-    """List registered feature pipelines."""
+    """List legacy feature pipelines (optional) + empty feature shells."""
     settings = get_settings()
     setup_logging(settings.log_dir, settings.log_level)
     from src.pipelines import list_pipelines
 
+    typer.echo("Empty feature tables: HorseFeatures, RaceFeatures, TrainerFeatures, JockeyFeatures")
+    typer.echo("Legacy pipelines:")
     for name in list_pipelines():
-        typer.echo(name)
+        typer.echo(f"  - {name}")
 
 
 @features_app.command("build")
@@ -118,10 +158,10 @@ def features_build(
         None,
         "--pipeline",
         "-p",
-        help="Pipeline name (default: all registered pipelines)",
+        help="Legacy pipeline name (default: all). Prefer `features recalc` for empty shells.",
     ),
 ) -> None:
-    """Recompute feature tables from Raw data via pipelines."""
+    """Run legacy feature pipelines (Raw → feat_* stats tables)."""
     settings = get_settings()
     setup_logging(settings.log_dir, settings.log_level)
     from src.database import session_scope
@@ -139,6 +179,62 @@ def features_build(
     except Exception as exc:  # noqa: BLE001
         logger.exception("Feature build failed: {}", exc)
         raise typer.Exit(code=1) from exc
+
+
+@features_app.command("recalc")
+def features_recalc() -> None:
+    """Recreate empty Horse/Race/Trainer/Jockey feature shells (no statistics)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.features import recalculate_all_features
+
+    with session_scope(settings) as session:
+        run = recalculate_all_features(session)
+    typer.echo(f"Feature recalc status={run.status} rows={run.rows_touched}")
+
+
+@crawler_app.command("enqueue")
+def crawler_enqueue(
+    url: str = typer.Option(..., "--url"),
+    job_type: str = typer.Option("race", "--type", help="race|horse|race_list"),
+) -> None:
+    """Add a URL to the crawl queue (duplicate-safe)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import CrawlerManager
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        job = CrawlerManager(session).enqueue(job_type=job_type, url=url)
+        typer.echo(f"job id={job.id} status={job.status} key={job.dedupe_key}")
+
+
+@crawler_app.command("progress")
+def crawler_progress() -> None:
+    """Show crawl queue progress by status."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import CrawlerManager
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        progress = CrawlerManager(session).progress()
+    for status, count in sorted(progress.items()):
+        typer.echo(f"{status}: {count}")
+
+
+@crawler_app.command("resume")
+def crawler_resume() -> None:
+    """Re-queue failed crawl jobs."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.crawler import CrawlerManager
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        count = CrawlerManager(session).resume_failed()
+    typer.echo(f"Resumed {count} failed jobs")
 
 
 def main() -> None:

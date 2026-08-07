@@ -1,4 +1,4 @@
-"""Warehouse model exports (Raw + Features)."""
+"""Legacy + Raw/Features model re-exports (no Sprint-2 side imports)."""
 
 from __future__ import annotations
 
@@ -15,11 +15,11 @@ from src.database.raw import (
     RawHorse,
     RawHorseStart,
     RawIngestRun,
+    RawParserError,
     RawRace,
     RawRaceEntry,
 )
 
-# Import feature/raw modules so Base.metadata knows all tables
 __all__ = [
     "Base",
     "FeatHorseCareer",
@@ -31,6 +31,7 @@ __all__ = [
     "RawHorse",
     "RawHorseStart",
     "RawIngestRun",
+    "RawParserError",
     "RawRace",
     "RawRaceEntry",
 ]

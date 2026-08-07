@@ -1,7 +1,13 @@
-"""Persistence helpers — re-export append-only Raw ingest (no Feature writes)."""
+"""Raw package — append-only extracts."""
 
-from __future__ import annotations
-
+from src.database.raw import (
+    RawHorse,
+    RawHorseStart,
+    RawIngestRun,
+    RawParserError,
+    RawRace,
+    RawRaceEntry,
+)
 from src.raw.ingest import (
     append_raw_horse,
     finish_ingest_run,
@@ -13,6 +19,12 @@ from src.raw.ingest import (
 )
 
 __all__ = [
+    "RawHorse",
+    "RawHorseStart",
+    "RawIngestRun",
+    "RawParserError",
+    "RawRace",
+    "RawRaceEntry",
     "append_raw_horse",
     "finish_ingest_run",
     "ingest_horse_history",
