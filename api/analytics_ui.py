@@ -322,8 +322,10 @@ async def analytics_home(request: Request, db: Database = Depends(get_db)) -> HT
     for c in companies:
         q = token_q
         href = f"/analytics/ui/companies/{c['id']}" + (f"?{q}" if q else "")
+        geo = f"/analytics/ui/geo/{c['id']}" + (f"?{q}" if q else "")
         rows.append(
             f"<tr><td><a href='{href}'>{_esc(c['name'])}</a></td>"
+            f"<td><a href='{geo}'>Geo map</a></td>"
             f"<td>{_esc(c.get('latest_score'))}</td>"
             f"<td>{_esc(c.get('branch_count'))}</td>"
             f"<td>{_esc(c.get('review_count'))}</td></tr>"
@@ -333,8 +335,8 @@ async def analytics_home(request: Request, db: Database = Depends(get_db)) -> HT
     <section class="panel wide">
       <h2>Companies</h2>
       <table>
-        <thead><tr><th>Company</th><th>Score</th><th>Branches</th><th>Reviews</th></tr></thead>
-        <tbody>{''.join(rows) or '<tr><td colspan="4">No companies — run seed_analytics_demo.py</td></tr>'}</tbody>
+        <thead><tr><th>Company</th><th>Geo</th><th>Score</th><th>Branches</th><th>Reviews</th></tr></thead>
+        <tbody>{''.join(rows) or '<tr><td colspan="5">No companies — run seed_analytics_demo.py</td></tr>'}</tbody>
       </table>
     </section>
     """

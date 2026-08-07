@@ -58,6 +58,14 @@ def export_csv(payload: dict[str, Any]) -> bytes:
         "score_trend",
         "staff_mentions",
         "monthly_review_volume",
+        "kpis",
+        "top10_best",
+        "top10_worst",
+        "province_heatmap",
+        "leaderboard",
+        "review_distribution",
+        "score_distribution",
+        "map_pins",
     ):
         if section in payload:
             emit(section, "data", payload[section])

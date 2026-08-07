@@ -18,6 +18,7 @@ from api.errors import (
     http_exception_handler,
     unhandled_error_handler,
 )
+from api.geo_ui import router as geo_ui_router
 from api.routes import router
 from api.schemas import HealthOut
 from core.config import load_settings
@@ -41,8 +42,8 @@ async def lifespan(_: FastAPI):
 settings = load_settings()
 app = FastAPI(
     title="BrandMonitor API",
-    version="0.7.0",
-    description="BrandMonitor REST API with executive analytics dashboards.",
+    version="0.11.0",
+    description="BrandMonitor REST API with executive and geographic analytics dashboards.",
     lifespan=lifespan,
     debug=settings.api_debug,
 )
@@ -70,6 +71,7 @@ app.include_router(demo_router)
 app.include_router(admin_router)
 app.include_router(analytics_router)
 app.include_router(analytics_ui_router)
+app.include_router(geo_ui_router)
 
 
 @app.get("/health", response_model=HealthOut, tags=["system"])
