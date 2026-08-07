@@ -49,6 +49,8 @@ class Race(BaseModel):
     race_number: int | None = Field(default=None, alias="raceNumber")
     weather: str | None = None
     prize: Any | None = None
+    # Source media items (Aparat/YouTube/photo-finish) from race payload
+    media: list[dict[str, Any]] = Field(default_factory=list)
     source_url: str | None = Field(default=None, alias="sourceUrl")
     source_id: str | None = Field(default=None, alias="sourceId")
     horses: list[HorseEntry] = Field(default_factory=list)

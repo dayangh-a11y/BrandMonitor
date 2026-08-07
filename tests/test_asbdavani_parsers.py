@@ -35,6 +35,20 @@ def race_html() -> str:
                 "id": "race1",
                 "round": 1,
                 "name": "Maiden",
+                "media": [
+                    {"type": "APARAT"},
+                    {
+                        "url": "https://aparat.com/v/abc123",
+                        "type": "APARAT",
+                        "title": "Race film",
+                        "name": "مستر",
+                    },
+                    {
+                        "url": "photofinish/sample.jpg",
+                        "type": "PHOTO_FINISH",
+                        "title": "1",
+                    },
+                ],
                 "plan": {
                     "name": "ترکمن 1000",
                     "distance": 1000,
@@ -178,6 +192,11 @@ def test_parse_race_html(race_html: str) -> None:
     assert race.province == "گنبدکاووس"
     assert race.surface == "ترکمن"
     assert race.prize is not None
+    assert len(race.media) == 3
+    assert race.media[0] == {"type": "APARAT"}  # historical placeholder, no URL
+    assert race.media[1]["url"] == "https://aparat.com/v/abc123"
+    assert race.media[2]["url"] == "https://cdn.asbdavani.app/photofinish/sample.jpg"
+    assert race.media[2]["type"] == "PHOTO_FINISH"
     assert len(race.horses) == 2
 
     winner = race.horses[0]

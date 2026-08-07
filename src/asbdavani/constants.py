@@ -8,6 +8,7 @@ from typing import Any
 from urllib.parse import parse_qs, urljoin, urlparse
 
 BASE_URL = "https://asbdavani.app"
+CDN_BASE_URL = "https://cdn.asbdavani.app"
 RACECARDS_PATH = "/racecards"
 HORSE_PERF_PATH = "/performance/horses"
 
@@ -30,6 +31,40 @@ def absolute_url(path_or_url: str) -> str:
     if path_or_url.startswith("http://") or path_or_url.startswith("https://"):
         return path_or_url
     return urljoin(BASE_URL, path_or_url)
+
+
+def absolute_media_url(path_or_url: str | None) -> str | None:
+    """Resolve race media URLs (CDN for relative photofinish paths)."""
+    if not path_or_url:
+        return None
+    text = str(path_or_url).strip()
+    if not text:
+        return None
+    if text.startswith("http://") or text.startswith("https://"):
+        return text
+    # Site serves photofinish / uploaded assets from the CDN host.
+    return urljoin(CDN_BASE_URL + "/", text.lstrip("/"))
+
+
+def normalize_race_media(media: list[Any] | None) -> list[dict[str, Any]]:
+    """
+    Normalize `_weekInfo.races[].media` entries from asbdavani RSC payload.
+
+    Older heats often have ``{"type": "APARAT"}`` with no URL (placeholder only).
+    Newer heats include Aparat/YouTube URLs and relative photofinish paths.
+    """
+    if not media:
+        return []
+    out: list[dict[str, Any]] = []
+    for item in media:
+        if not isinstance(item, dict):
+            continue
+        url = absolute_media_url(item.get("url"))
+        row = {k: v for k, v in item.items() if k != "url"}
+        if url:
+            row["url"] = url
+        out.append(row)
+    return out
 
 
 def horse_profile_url(horse_id: str) -> str:
