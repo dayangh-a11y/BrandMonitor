@@ -1,28 +1,14 @@
-"""Fuzzy identity matching helpers (stdlib — no ML)."""
+"""Fuzzy identity matching helpers (stdlib — no ML).
+
+Persian-aware normalization lives in ``src.identity.normalize``.
+This module re-exports helpers for backward compatibility with warehouse ER.
+"""
 
 from __future__ import annotations
 
-import re
-import unicodedata
-from difflib import SequenceMatcher
+from src.identity.normalize import name_similarity, normalize_name
 
-
-def normalize_name(value: str | None) -> str:
-    if not value:
-        return ""
-    text = unicodedata.normalize("NFKC", value).strip().lower()
-    text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"[\"'`]", "", text)
-    return text
-
-
-def similarity(a: str | None, b: str | None) -> float:
-    na, nb = normalize_name(a), normalize_name(b)
-    if not na or not nb:
-        return 0.0
-    if na == nb:
-        return 1.0
-    return SequenceMatcher(None, na, nb).ratio()
+similarity = name_similarity
 
 
 def find_duplicate_pairs(
@@ -30,7 +16,7 @@ def find_duplicate_pairs(
     *,
     threshold: float = 0.92,
 ) -> list[tuple[str, str, float]]:
-    """Return duplicate candidate pairs (exact-normalized + fuzzy)."""
+    """Return duplicate candidate pairs (normalized-equal + fuzzy)."""
     originals: dict[str, list[str]] = {}
     for raw in names:
         key = normalize_name(raw)
@@ -42,7 +28,6 @@ def find_duplicate_pairs(
             originals[key].append(cleaned)
 
     pairs: list[tuple[str, str, float]] = []
-    # Exact after normalization (different original strings → same key)
     for group in originals.values():
         if len(group) < 2:
             continue

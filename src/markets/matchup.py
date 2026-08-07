@@ -16,7 +16,6 @@ from sqlalchemy.orm import Session
 from src.markets.answer import MarketAnswer, confidence_band, data_quality_label
 from src.markets.h2h import load_historical_pair_meetings, pairwise_compare
 from src.markets.scoring import RunnerContext
-from src.warehouse.fuzzy import normalize_name
 from src.warehouse.models import WhHorse
 
 
@@ -248,19 +247,34 @@ def parse_matchup_query(text: str) -> tuple[str, str] | None:
 
 
 def resolve_horse_by_name(session: Session, name: str) -> WhHorse | None:
-    from src.warehouse.fuzzy import similarity
+    """
+    Resolve a display name to a warehouse horse via the Identity Engine.
 
-    target = normalize_name(name)
+    Prefer permanent horse_id → warehouse link. Never join on raw name alone.
+    """
+    from src.identity import HorseQuery, resolve_horse
+    from src.identity.resolve import warehouse_ids_for_horse
+
+    hits = resolve_horse(session, HorseQuery(name=name), limit=1)
+    if hits:
+        wh_ids = warehouse_ids_for_horse(session, hits[0].horse_id)
+        if wh_ids:
+            horse = session.get(WhHorse, wh_ids[0])
+            if horse is not None:
+                return horse
+        if hits[0].warehouse_horse_id:
+            horse = session.get(WhHorse, hits[0].warehouse_horse_id)
+            if horse is not None:
+                return horse
+
+    # Fallback when identity tables not built yet: Persian-normalized fuzzy
+    from src.identity.normalize import name_similarity
+
     horses = list(session.scalars(select(WhHorse)).all())
-    # Exact normalized
-    for h in horses:
-        if normalize_name(h.name) == target:
-            return h
-    # Best fuzzy
     best: WhHorse | None = None
     best_score = 0.0
     for h in horses:
-        sc = similarity(h.name, name)
+        sc = name_similarity(h.name, name)
         if sc > best_score:
             best_score = sc
             best = h

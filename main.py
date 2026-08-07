@@ -29,6 +29,7 @@ prediction_app = typer.Typer(help="Prediction market (mosharekat) collect + anal
 std_app = typer.Typer(help="Standardization roadmap (DQ → AI readiness, modules 1–15).")
 markets_app = typer.Typer(help="Market-specific analytics (Win/Place/H2H/Value/…).")
 prerace_app = typer.Typer(help="Pre-race decision engine — race-card intelligence reports.")
+identity_app = typer.Typer(help="Horse Identity Resolution — permanent horse_id.")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
@@ -38,6 +39,7 @@ app.add_typer(prediction_app, name="prediction")
 app.add_typer(std_app, name="std")
 app.add_typer(markets_app, name="markets")
 app.add_typer(prerace_app, name="prerace")
+app.add_typer(identity_app, name="identity")
 
 
 @app.command("collect")
@@ -1106,6 +1108,87 @@ def prerace_card_cmd(
             f"  #{race.get('race_id')} {race.get('race_name')}: "
             f"best_win={win.get('horse')} conf={win.get('confidence')} "
             f"publishable={rep.get('publishable')}"
+        )
+
+
+@identity_app.command("build")
+def identity_build_cmd() -> None:
+    """Assign permanent horse_id to every warehouse horse (multi-signal merge)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.identity import build_horse_identity
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        stats = build_horse_identity(session)
+    typer.echo(stats)
+
+
+@identity_app.command("report")
+def identity_report_cmd(
+    limit: int = typer.Option(100, "--limit", "-n"),
+    json_out: bool = typer.Option(False, "--json", help="Print JSON instead of text"),
+) -> None:
+    """Duplicate horses and possible merges report."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.identity import duplicate_merge_report, format_duplicate_report
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        report = duplicate_merge_report(session, limit=limit)
+    if json_out:
+        import json
+
+        typer.echo(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        typer.echo(format_duplicate_report(report))
+
+
+@identity_app.command("resolve")
+def identity_resolve_cmd(
+    name: Optional[str] = typer.Option(None, "--name"),
+    sire: Optional[str] = typer.Option(None, "--sire"),
+    dam: Optional[str] = typer.Option(None, "--dam"),
+    age: Optional[int] = typer.Option(None, "--age"),
+    sex: Optional[str] = typer.Option(None, "--sex"),
+    owner: Optional[str] = typer.Option(None, "--owner"),
+    trainer: Optional[str] = typer.Option(None, "--trainer"),
+    source_horse_id: Optional[str] = typer.Option(None, "--source-id"),
+    limit: int = typer.Option(5, "--limit", "-n"),
+) -> None:
+    """Resolve race-card attributes → permanent horse_id (never name-only joins)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.identity import HorseQuery, resolve_horse
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        hits = resolve_horse(
+            session,
+            HorseQuery(
+                name=name,
+                sire=sire,
+                dam=dam,
+                age=age,
+                sex=sex,
+                owner=owner,
+                trainer=trainer,
+                source_horse_id=source_horse_id,
+            ),
+            limit=limit,
+        )
+    if not hits:
+        typer.echo("NO_MATCH")
+        raise typer.Exit(code=2)
+    for h in hits:
+        typer.echo(
+            f"horse_id={h.horse_id}  name={h.display_name!r}  "
+            f"score={h.score:.3f}  decision={h.decision}  "
+            f"warehouse_id={h.warehouse_horse_id}"
         )
 
 

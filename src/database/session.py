@@ -24,6 +24,7 @@ def _register_all_models() -> None:
     import src.crawler.models  # noqa: F401
     import src.crawler.stats  # noqa: F401
     import src.features.models  # noqa: F401
+    import src.identity.models  # noqa: F401
     import src.markets.models  # noqa: F401
     import src.prediction_market.models  # noqa: F401
     import src.prerace.models  # noqa: F401
