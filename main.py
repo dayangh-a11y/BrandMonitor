@@ -27,6 +27,7 @@ weather_app = typer.Typer(help="Historical weather backfill + race attach.")
 analytics_app = typer.Typer(help="Analytics layer — rankings & standardized metrics.")
 prediction_app = typer.Typer(help="Prediction market (mosharekat) collect + analytics.")
 std_app = typer.Typer(help="Standardization roadmap (DQ → AI readiness, modules 1–15).")
+markets_app = typer.Typer(help="Market-specific analytics (Win/Place/H2H/Value/…).")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
@@ -34,6 +35,7 @@ app.add_typer(weather_app, name="weather")
 app.add_typer(analytics_app, name="analytics")
 app.add_typer(prediction_app, name="prediction")
 app.add_typer(std_app, name="std")
+app.add_typer(markets_app, name="markets")
 
 
 @app.command("collect")
@@ -956,6 +958,102 @@ def std_contracts() -> None:
         typer.echo(
             f"  min_starts={c['minimum_starts']} min_confidence={c['minimum_confidence']}"
         )
+
+
+@markets_app.command("analyze")
+def markets_analyze(
+    race_id: int = typer.Option(..., "--race-id", help="Warehouse race id"),
+    market: Optional[str] = typer.Option(
+        None,
+        "--market",
+        "-m",
+        help="win|place|h2h|without_favorite|value|risk|surprise (omit = all)",
+    ),
+    no_h2h: bool = typer.Option(False, "--no-h2h", help="Skip pairwise matrix"),
+) -> None:
+    """Run market-specific models for one race (never one ranking for all markets)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.markets.answer import format_market_answer
+    from src.markets.build import analyze_race_markets, analyze_single_market
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        if market:
+            ans = analyze_single_market(session, race_id, market)
+            typer.echo(format_market_answer(ans))
+            return
+        answers = analyze_race_markets(
+            session, race_id, persist=True, include_h2h=not no_h2h
+        )
+    for key, ans in answers.items():
+        typer.echo(format_market_answer(ans))
+        typer.echo("---")
+
+
+@markets_app.command("build")
+def markets_build(
+    course: Optional[str] = typer.Option(None, "--course"),
+    limit: int = typer.Option(30, "--limit", "-n"),
+    no_h2h: bool = typer.Option(False, "--no-h2h"),
+) -> None:
+    """Persist market snapshots (+ optional pairwise matrices) for recent races."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.markets.build import build_markets_for_course
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        stats = build_markets_for_course(
+            session,
+            racecourse_code=course,
+            limit=limit,
+            include_h2h=not no_h2h,
+        )
+    typer.echo(stats)
+
+
+@markets_app.command("matchup")
+def markets_matchup(
+    query: str = typer.Option(
+        ...,
+        "--query",
+        "-q",
+        help='Direct matchup e.g. "دنزی بوی یا لیدی سانگ" or "A vs B"',
+    ),
+) -> None:
+    """Direct A vs B matchup — does NOT use season ranking."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.markets.answer import format_market_answer
+    from src.markets.build import run_matchup_query
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        ans = run_matchup_query(session, query, persist=True)
+    typer.echo(format_market_answer(ans))
+    pred = ans.prediction or {}
+    if isinstance(pred, dict) and pred.get("factors"):
+        typer.echo("Factors:")
+        for f in pred["factors"]:
+            edge = f.get("edge_for_a")
+            typer.echo(
+                f"  {f['factor']}: A={f.get('a')} B={f.get('b')} "
+                f"edge_A={edge} — {f.get('note')}"
+            )
+
+
+@markets_app.command("list")
+def markets_list() -> None:
+    """List supported betting markets and score models."""
+    from src.markets.constants import MARKET_TYPES
+
+    for key, meta in MARKET_TYPES.items():
+        typer.echo(f"{meta['id']}: {meta['title']} — model={meta['score_model']}")
+        typer.echo(f"  {meta['description']}")
 
 
 def main() -> None:
