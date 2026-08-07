@@ -30,6 +30,7 @@ def _register_all_models() -> None:
     import src.prerace.models  # noqa: F401
     import src.quality.models  # noqa: F401
     import src.standardization.models  # noqa: F401
+    import src.virtual_race.models  # noqa: F401
     import src.warehouse.models  # noqa: F401
 
 

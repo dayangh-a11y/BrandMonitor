@@ -30,6 +30,7 @@ std_app = typer.Typer(help="Standardization roadmap (DQ → AI readiness, module
 markets_app = typer.Typer(help="Market-specific analytics (Win/Place/H2H/Value/…).")
 prerace_app = typer.Typer(help="Pre-race decision engine — race-card intelligence reports.")
 identity_app = typer.Typer(help="Horse Identity Resolution — permanent horse_id.")
+virtual_app = typer.Typer(help="Virtual Race Engine — hypothetical races (no race_id).")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
@@ -40,6 +41,7 @@ app.add_typer(std_app, name="std")
 app.add_typer(markets_app, name="markets")
 app.add_typer(prerace_app, name="prerace")
 app.add_typer(identity_app, name="identity")
+app.add_typer(virtual_app, name="virtual")
 
 
 @app.command("collect")
@@ -1190,6 +1192,51 @@ def identity_resolve_cmd(
             f"score={h.score:.3f}  decision={h.decision}  "
             f"warehouse_id={h.warehouse_horse_id}"
         )
+
+
+@virtual_app.command("run")
+def virtual_run_cmd(
+    file: Path = typer.Option(..., "--file", "-f", help="JSON scenario file"),
+    persist: bool = typer.Option(False, "--persist", help="Save report (default: no)"),
+    no_h2h: bool = typer.Option(False, "--no-h2h"),
+    json_out: bool = typer.Option(False, "--json"),
+    scenario_key: Optional[str] = typer.Option(None, "--key", help="Optional save key"),
+) -> None:
+    """
+    Run Virtual Race Engine on a hypothetical card (no race_id).
+
+    Does not save unless --persist is set.
+    """
+    import json
+
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.virtual_race import build_virtual_race_report, scenario_from_dict
+
+    data = json.loads(Path(file).read_text(encoding="utf-8"))
+    scenario = scenario_from_dict(data)
+    init_db(settings)
+    with session_scope(settings) as session:
+        payload = build_virtual_race_report(
+            session,
+            scenario,
+            persist=persist,
+            include_h2h=not no_h2h,
+            scenario_key=scenario_key,
+        )
+    if json_out:
+        typer.echo(json.dumps(payload, ensure_ascii=False, indent=2, default=str))
+    else:
+        typer.echo(payload.get("report_text") or "")
+        conf = payload.get("confidence") or {}
+        typer.echo(
+            f"\n[virtual] status={payload.get('status')} "
+            f"persist={persist} confidence={conf.get('field_confidence')} "
+            f"risk={(payload.get('risk') or {}).get('field_risk_score')}"
+        )
+    if not payload.get("publishable"):
+        raise typer.Exit(code=2)
 
 
 def main() -> None:
