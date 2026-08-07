@@ -293,6 +293,30 @@ def score_profiles(left: HorseProfile, right: HorseProfile) -> MatchResult:
     elif total >= CANDIDATE_THRESHOLD and ns >= 0.65:
         decision = "candidate"
 
+    # High-confidence national identity: identical normalized name + matching
+    # demographics + historical race continuity. Owner/trainer often drift when
+    # the same horse appears in multiple cities — do not keep duplicates.
+    if (
+        decision != "auto_merge"
+        and not cont_conflict
+        and ns >= 0.98
+        and sex_s == 1.0
+        and by_s is not None
+        and by_s >= 0.7
+        and cont_s is not None
+        and cont_s >= 0.75
+    ):
+        total = max(total, AUTO_MERGE_THRESHOLD)
+        decision = "auto_merge"
+        signals.append(
+            SignalScore(
+                "national_continuity_rule",
+                1.0,
+                0.0,
+                "name+sex+birth_year+continuity",
+            )
+        )
+
     return MatchResult(
         left_id=left.warehouse_horse_id,
         right_id=right.warehouse_horse_id,

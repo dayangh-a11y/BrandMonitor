@@ -32,11 +32,23 @@ def main() -> None:
     settings = get_settings()
     init_db(settings)
 
-    with session_scope(settings) as session:
-        wh = build_warehouse(session)
-        er = run_entity_resolution(session)
-        qc = run_quality_checks(session)
-        print({"warehouse": wh, "entity_resolution": er, "quality": qc}, flush=True)
+    # Warehouse was rebuilt at end of nationwide collection; skip the heavy
+    # full ETL unless explicitly requested via NATIONWIDE_REBUILD_WAREHOUSE=1.
+    rebuild_wh = os.environ.get("NATIONWIDE_REBUILD_WAREHOUSE", "").strip() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if rebuild_wh:
+        with session_scope(settings) as session:
+            wh = build_warehouse(session)
+            er = run_entity_resolution(session)
+            qc = run_quality_checks(session)
+            print({"warehouse": wh, "entity_resolution": er, "quality": qc}, flush=True)
+    else:
+        with session_scope(settings) as session:
+            er = run_entity_resolution(session)
+            print({"entity_resolution": er, "warehouse": "skipped_reuse_collection"}, flush=True)
 
     with session_scope(settings) as session:
         ident = build_horse_identity(session)

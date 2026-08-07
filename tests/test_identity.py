@@ -113,6 +113,33 @@ def test_birth_year_and_continuity_support_cross_city_merge() -> None:
     assert signals["continuity"].score >= 0.85
 
 
+def test_national_continuity_merges_despite_owner_drift() -> None:
+    from datetime import date
+
+    left = HorseProfile(
+        warehouse_horse_id=1,
+        name="پالونیا",
+        sex="ماده",
+        birth_year=2019,
+        owners=["مالک الف"],
+        trainers=["مربی الف"],
+        race_dates=[date(2024, 1, 10), date(2024, 2, 1)],
+        racecourse_codes=["tehran"],
+    )
+    right = HorseProfile(
+        warehouse_horse_id=2,
+        name="پالونیا",
+        sex="ماده",
+        birth_year=2020,  # ±1 year still accepted by national rule
+        owners=["مالک ب"],
+        trainers=["مربی ب"],
+        race_dates=[date(2024, 3, 5), date(2024, 4, 1)],
+        racecourse_codes=["gonbad-kavous"],
+    )
+    result = score_profiles(left, right)
+    assert result.decision == "auto_merge"
+    assert any(s.signal == "national_continuity_rule" for s in result.signals)
+
 def test_same_day_disjoint_cities_blocks_auto_merge() -> None:
     from datetime import date
 

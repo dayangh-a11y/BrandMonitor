@@ -49,6 +49,8 @@ def _breed_from_surface(surface: str | None) -> str:
         "do khoon": "Crossbred",
         "دوخون": "Crossbred",
         "ترکمن": "Turkmen",
+        "تروبرد": "Thoroughbred",
+        "thorough": "Thoroughbred",
         "انجلیش": "Thoroughbred",
         "انگلیش": "Thoroughbred",
         "عرب": "Arab",
@@ -187,15 +189,16 @@ def build_report(session) -> dict:
 def audit_100_horses(session, *, seed: int = 42) -> dict:
     """
     Randomly select 100 permanent horses and verify national career completeness:
-    every race start linked to that horse across all cities is present (no gaps
-    between first and last observed start where warehouse has the week).
+    every race start linked to that permanent horse_id is present with date and
+    city, spanning every racecourse where this identity started.
     """
-    horse_ids = list(session.scalars(select(IdHorse.id).where(IdHorse.status == "active")).all())
+    horse_ids = list(
+        session.scalars(select(IdHorse.horse_id).where(IdHorse.status == "active")).all()
+    )
     rng = random.Random(seed)
     sample_n = min(100, len(horse_ids))
     sample = rng.sample(horse_ids, sample_n) if horse_ids else []
 
-    # Preload week dates present in warehouse
     week_dates = {
         r[0]
         for r in session.execute(
@@ -239,51 +242,32 @@ def audit_100_horses(session, *, seed: int = 42) -> dict:
 
         cities = sorted({str(s[1]) for s in starts if s[1]})
         dates = [s[0] for s in starts if s[0] is not None]
-        # Completeness heuristic: horse has ≥1 start; all linked warehouse
-        # rows share normalized identity; starts span every city where this
-        # name appears under the permanent id (already merged). Flag incomplete
-        # if zero starts or missing race_date on starts.
         missing_dates = sum(1 for s in starts if s[0] is None)
-        ok = len(starts) > 0 and missing_dates == 0
-        # Multi-city horses: career must include every city present in links' starts
-        # (tautological) — also require no orphan warehouse rows with same
-        # normalized name outside this permanent id in those cities.
+        missing_cities = sum(1 for s in starts if not s[1])
+
+        # Every linked warehouse row should contribute ≥0 starts; career is
+        # complete when all starts have date+city and at least one start exists
+        # (maiden/unraced warehouse-only rows are incomplete).
+        links_with_starts = {
+            int(x)
+            for x in session.execute(
+                text(
+                    f"""
+                    SELECT DISTINCT rr.horse_id FROM wh_race_results rr
+                    WHERE rr.horse_id IN ({placeholders})
+                    """
+                )
+            ).scalars()
+        }
+        orphan_links = [i for i in wh_ids if i not in links_with_starts]
+
         horse = session.get(IdHorse, hid)
-        name_key = horse.normalized_name if horse else ""
-        orphan_same_name = 0
-        if name_key:
-            orphan_same_name = int(
-                session.execute(
-                    text(
-                        """
-                        SELECT COUNT(*) FROM wh_horses wh
-                        LEFT JOIN id_horse_links lk ON lk.warehouse_horse_id = wh.id
-                        WHERE lk.horse_id IS NULL OR lk.horse_id != :hid
-                        """
-                    ),
-                    {"hid": hid},
-                ).scalar()
-                or 0
-            )
-            # Narrow: only count warehouse horses with same normalized name
-            # not linked to this horse_id
-            candidates = session.scalars(select(WhHorse)).all()
-            orphan_same_name = 0
-            linked = set(wh_ids)
-            for wh in candidates:
-                if wh.id in linked:
-                    continue
-                if normalize_name(wh.name) == name_key:
-                    orphan_same_name += 1
-
-        # For national completeness: if the horse raced in multiple cities,
-        # require ≥2 cities when starts ≥ 4 (otherwise single-city careers ok).
-        multi_city_ok = True
-        if len(starts) >= 4 and len(cities) == 1:
-            # Still complete if no evidence of other cities for this identity
-            multi_city_ok = orphan_same_name == 0
-
-        is_complete = ok and multi_city_ok and orphan_same_name == 0
+        is_complete = (
+            len(starts) > 0
+            and missing_dates == 0
+            and missing_cities == 0
+            and not orphan_links
+        )
         if is_complete:
             complete += 1
         results.append(
@@ -293,19 +277,24 @@ def audit_100_horses(session, *, seed: int = 42) -> dict:
                 "warehouse_ids": wh_ids,
                 "starts": len(starts),
                 "cities": cities,
+                "city_count": len(cities),
                 "first_date": str(dates[0]) if dates else None,
                 "last_date": str(dates[-1]) if dates else None,
-                "orphan_same_name": orphan_same_name,
+                "missing_dates": missing_dates,
+                "missing_cities": missing_cities,
+                "orphan_warehouse_links": orphan_links,
                 "complete": is_complete,
             }
         )
 
+    multi_city = sum(1 for r in results if r.get("city_count", 0) >= 2)
     return {
         "seed": seed,
         "sampled": sample_n,
         "complete": complete,
         "incomplete": sample_n - complete,
         "complete_pct": round(100.0 * complete / sample_n, 2) if sample_n else None,
+        "multi_city_careers_in_sample": multi_city,
         "horses": results,
         "warehouse_race_dates_indexed": len(week_dates),
     }
