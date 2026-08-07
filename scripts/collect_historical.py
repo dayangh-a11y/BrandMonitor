@@ -1,7 +1,9 @@
 """Operational historical collection for approved racecourses.
 
-Not platform architecture — runs existing crawler/warehouse/quality APIs
+Not platform architecture — runs existing crawler/warehouse APIs
 and prints progress every 500 races.
+
+Resumes safely: does not wipe the DB; requeues stale jobs and continues.
 """
 
 from __future__ import annotations
@@ -38,10 +40,9 @@ from sqlalchemy import func, select
 
 from src.crawler.manager import CrawlerManager
 from src.crawler.mass import seed_discovery
-from src.crawler.models import CrawlJob
 from src.crawler.worker import CrawlWorker
 from src.database import init_db, reset_engine, session_scope
-from src.database.raw import RawRace
+from src.database.raw import RawRace, RawRaceEntry
 from src.quality import run_quality_checks
 from src.utils.logging import setup_logging
 from src.utils.settings import get_settings
@@ -74,9 +75,10 @@ def snapshot(session) -> dict:
         )
         or 0
     )
+    races = _count(session, WhRace) or _count(session, RawRace)
     return {
         "at": datetime.now(timezone.utc).isoformat(),
-        "races_collected": _count(session, WhRace) or _count(session, RawRace),
+        "races_collected": races,
         "horses_collected": _count(session, WhHorse),
         "jockeys_collected": _count(session, WhJockey),
         "trainers_collected": _count(session, WhTrainer),
@@ -85,6 +87,7 @@ def snapshot(session) -> dict:
         "failed_pages": failed,
         "duplicates": dupes,
         "raw_races": _count(session, RawRace),
+        "raw_entries": _count(session, RawRaceEntry),
         "queue": dict(queue),
     }
 
@@ -132,6 +135,27 @@ def refresh_warehouse_snapshot(settings) -> dict:
         return snapshot(session)
 
 
+def raw_race_count(settings) -> int:
+    with session_scope(settings) as session:
+        return _count(session, RawRace)
+
+
+def queue_pending(settings) -> int:
+    with session_scope(settings) as session:
+        prog = CrawlerManager(session).progress()
+        return int(prog.get("pending", 0)) + int(prog.get("running", 0))
+
+
+def process_one(settings) -> dict | None:
+    """Process a single job in an isolated session (SQLite-safe)."""
+    with session_scope(settings) as session:
+        worker = CrawlWorker(session, settings=settings, worker_id="historical-1")
+        try:
+            return worker.run_once()
+        finally:
+            worker.close()
+
+
 def main() -> None:
     reset_engine()
     settings = get_settings()
@@ -139,7 +163,7 @@ def main() -> None:
     init_db(settings)
 
     print(
-        f"Historical collection starting\n"
+        f"Historical collection starting/resuming\n"
         f"  db={settings.database_url}\n"
         f"  scope={settings.crawl_allowed_racecourses}\n"
         f"  delay={settings.crawl_delay_seconds}s\n",
@@ -147,53 +171,93 @@ def main() -> None:
     )
 
     with session_scope(settings) as session:
-        seed_discovery(session, settings=settings)
+        prog = CrawlerManager(session).progress()
+        total = sum(prog.values())
+        if total == 0:
+            seed_discovery(session, settings=settings)
+        else:
+            CrawlerManager(session).requeue_stale_running(older_than_seconds=0)
+            print(f"Resuming existing queue: {prog}", flush=True)
+
+    reported: set[int] = set()
+    for p in PROGRESS_DIR.glob("progress_*.md"):
+        try:
+            reported.add(int(p.stem.split("_")[1]))
+        except (IndexError, ValueError):
+            pass
 
     next_milestone = MILESTONE
+    while raw_race_count(settings) >= next_milestone:
+        if next_milestone not in reported:
+            snap = refresh_warehouse_snapshot(settings)
+            print_progress(f"PROGRESS @ {next_milestone} races", snap)
+            reported.add(next_milestone)
+        next_milestone += MILESTONE
+
     race_success = 0
     idle_rounds = 0
     started = time.perf_counter()
 
-    # Keep one browser-backed worker across jobs for throughput.
-    with session_scope(settings) as session:
-        worker = CrawlWorker(session, settings=settings, worker_id="historical-1")
-        try:
-            while True:
-                mgr = CrawlerManager(session)
-                pending = mgr.pending_count()
-                running = int(mgr.progress().get("running", 0))
-                if pending + running == 0:
-                    idle_rounds += 1
-                    if idle_rounds >= 3:
-                        break
-                    time.sleep(1.0)
-                    continue
-                idle_rounds = 0
+    # Keep browser warm; release DB fully before warehouse milestones (SQLite).
+    from src.database.session import get_engine
+    from sqlalchemy.orm import sessionmaker
 
-                result = worker.run_once()
-                if result is None:
-                    time.sleep(0.5)
-                    continue
+    get_engine(settings)
+    SessionLocal = sessionmaker(
+        bind=get_engine(settings), autoflush=False, autocommit=False
+    )
 
-                status = result.get("status")
-                if result.get("paths") and status in {"success", "skipped_unchanged"}:
-                    race_success += 1
-                    print(
-                        f"  race ok #{race_success} job={result.get('job_id')} "
-                        f"status={status} ({time.perf_counter() - started:.0f}s)",
-                        flush=True,
-                    )
+    session = SessionLocal()
+    worker = CrawlWorker(session, settings=settings, worker_id="historical-1")
+    try:
+        while True:
+            prog = CrawlerManager(session).progress()
+            pending = int(prog.get("pending", 0)) + int(prog.get("running", 0))
+            if pending == 0:
+                idle_rounds += 1
+                if idle_rounds >= 3:
+                    break
+                time.sleep(1.0)
+                continue
+            idle_rounds = 0
 
-                # Milestone based on Raw races (always current during crawl)
-                with session_scope(settings) as s2:
-                    raw_n = _count(s2, RawRace)
-                if raw_n >= next_milestone:
+            result = worker.run_once()
+            if result is None:
+                time.sleep(0.5)
+                continue
+
+            status = result.get("status")
+            if result.get("paths") and status in {"success", "skipped_unchanged"}:
+                race_success += 1
+                raw_n = raw_race_count(settings)
+                print(
+                    f"  race ok #{race_success} job={result.get('job_id')} "
+                    f"status={status} raw={raw_n} "
+                    f"({time.perf_counter() - started:.0f}s)",
+                    flush=True,
+                )
+            else:
+                raw_n = raw_race_count(settings)
+
+            hit_milestone = False
+            while raw_n >= next_milestone:
+                if next_milestone not in reported:
+                    hit_milestone = True
+                    # Release crawler DB connection before warehouse write.
+                    worker.close()
+                    session.close()
                     snap = refresh_warehouse_snapshot(settings)
                     print_progress(f"PROGRESS @ {next_milestone} races", snap)
-                    while raw_n >= next_milestone:
-                        next_milestone += MILESTONE
-        finally:
-            worker.close()
+                    reported.add(next_milestone)
+                    session = SessionLocal()
+                    worker = CrawlWorker(
+                        session, settings=settings, worker_id="historical-1"
+                    )
+                next_milestone += MILESTONE
+            _ = hit_milestone
+    finally:
+        worker.close()
+        session.close()
 
     snap = refresh_warehouse_snapshot(settings)
     print_progress("FINAL", snap)
