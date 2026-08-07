@@ -24,10 +24,12 @@ features_app = typer.Typer(help="Feature recalculation (never writes Raw).")
 warehouse_app = typer.Typer(help="Normalized warehouse ETL + entity resolution.")
 crawler_app = typer.Typer(help="Crawl queue manager.")
 weather_app = typer.Typer(help="Historical weather backfill + race attach.")
+analytics_app = typer.Typer(help="Analytics layer — rankings & standardized metrics.")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
 app.add_typer(weather_app, name="weather")
+app.add_typer(analytics_app, name="analytics")
 
 
 @app.command("collect")
@@ -104,7 +106,7 @@ def init_db_cmd() -> None:
     from src.database import init_db
 
     init_db(settings)
-    typer.echo("Platform tables created (raw_/wh_/feat_/quality_/crawl_).")
+    typer.echo("Platform tables created (raw_/wh_/feat_/anl_/quality_/crawl_).")
 
 
 @app.command("quality-report")
@@ -369,6 +371,97 @@ def weather_attach() -> None:
     with session_scope(settings) as session:
         stats = attach_weather_to_warehouse(session, settings=settings)
     typer.echo(stats)
+
+
+@analytics_app.command("build")
+def analytics_build(
+    course: Optional[str] = typer.Option(
+        None, "--course", help="Limit to racecourse code (e.g. gonbad-kavous)"
+    ),
+    top: int = typer.Option(25, "--top", help="Leaderboard depth"),
+) -> None:
+    """Rebuild anl_* metrics, rankings, and SQL views from warehouse data."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.analytics import build_analytics
+    from src.database import session_scope
+
+    with session_scope(settings) as session:
+        stats = build_analytics(session, racecourse_code=course, top_n=top)
+    typer.echo(stats)
+
+
+@analytics_app.command("query")
+def analytics_query(
+    question: str = typer.Option(
+        "best_season",
+        "--question",
+        "-q",
+        help=(
+            "best_season|most_successful|most_consistent|best_turkmen|"
+            "best_dokhoon|best_thoroughbred|best_trainer|best_jockey|"
+            "best_owner|best_sire|improving|declining|best_by_distance|"
+            "best_by_weather|best_by_track_condition|best_by_class|best_young"
+        ),
+    ),
+    limit: int = typer.Option(10, "--limit", "-n"),
+    scope: str = typer.Option(
+        "season",
+        "--scope",
+        help="season|career|all — filter leaderboard scope when the view has it",
+    ),
+) -> None:
+    """Print a precomputed leaderboard (with why_text explanations)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from sqlalchemy import text
+
+    from src.database import session_scope
+
+    view_map = {
+        "best_season": "anl_v_best_horses_season",
+        "most_successful": "anl_v_most_successful_horses",
+        "most_consistent": "anl_v_most_consistent_horses",
+        "best_turkmen": "anl_v_best_turkmen",
+        "best_dokhoon": "anl_v_best_dokhoon",
+        "best_thoroughbred": "anl_v_best_thoroughbred",
+        "best_trainer": "anl_v_best_trainers",
+        "best_jockey": "anl_v_best_jockeys",
+        "best_owner": "anl_v_best_owners",
+        "best_sire": "anl_v_best_sires",
+        "improving": "anl_v_improving_horses",
+        "declining": "anl_v_declining_horses",
+        "best_by_distance": "anl_v_best_by_distance",
+        "best_by_weather": "anl_v_best_by_weather",
+        "best_by_track_condition": "anl_v_best_by_track_condition",
+        "best_by_class": "anl_v_best_by_class",
+        "best_young": "anl_v_best_young_horses",
+    }
+    view = view_map.get(question)
+    if not view:
+        typer.echo(f"Unknown question. Choose from: {', '.join(sorted(view_map))}")
+        raise typer.Exit(code=2)
+    sql = f"SELECT * FROM {view}"
+    params: dict = {"n": limit}
+    if scope in {"season", "career"} and question != "best_season":
+        sql += " WHERE scope = :scope"
+        params["scope"] = scope
+    sql += " ORDER BY rank LIMIT :n"
+    with session_scope(settings) as session:
+        rows = session.execute(text(sql), params).mappings().all()
+    if not rows:
+        typer.echo("No rows — run `python main.py analytics build` first.")
+        raise typer.Exit(code=1)
+    for row in rows:
+        why = row.get("why_text") or ""
+        name = (
+            row.get("horse")
+            or row.get("trainer")
+            or row.get("jockey")
+            or row.get("owner")
+            or row.get("sire")
+        )
+        typer.echo(f"#{row.get('rank')} {name} — {why}")
 
 
 def main() -> None:
