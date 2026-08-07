@@ -25,11 +25,13 @@ warehouse_app = typer.Typer(help="Normalized warehouse ETL + entity resolution."
 crawler_app = typer.Typer(help="Crawl queue manager.")
 weather_app = typer.Typer(help="Historical weather backfill + race attach.")
 analytics_app = typer.Typer(help="Analytics layer — rankings & standardized metrics.")
+prediction_app = typer.Typer(help="Prediction market (mosharekat) collect + analytics.")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
 app.add_typer(weather_app, name="weather")
 app.add_typer(analytics_app, name="analytics")
+app.add_typer(prediction_app, name="prediction")
 
 
 @app.command("collect")
@@ -592,6 +594,139 @@ def analytics_race_intel(
             typer.echo(intel.as_report())
             return
         typer.echo(report)
+
+
+@prediction_app.command("discover")
+def prediction_discover(
+    day_sample: int = typer.Option(2, "--day-sample"),
+    race_sample: int = typer.Option(2, "--race-sample"),
+    output: Optional[Path] = typer.Option(
+        Path("docs/prediction_market"), "--output", "-o"
+    ),
+) -> None:
+    """Discover every public prediction-market field (no hardcoded names)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.prediction_market.discover import discover_prediction_fields
+
+    report = discover_prediction_fields(
+        day_sample=day_sample, race_sample=race_sample, output_dir=output
+    )
+    typer.echo(
+        {
+            "field_count": report["field_count"],
+            "race_days_available": report["race_days_available"],
+            "output": str(output),
+        }
+    )
+
+
+@prediction_app.command("collect")
+def prediction_collect(
+    limit_days: Optional[int] = typer.Option(
+        None, "--limit-days", help="Limit number of race days (default: all)"
+    ),
+    day_id: Optional[list[int]] = typer.Option(
+        None, "--day-id", help="Specific day id(s); repeatable"
+    ),
+    skip_odds: bool = typer.Option(False, "--skip-odds"),
+    skip_survey: bool = typer.Option(False, "--skip-survey"),
+    skip_warehouse: bool = typer.Option(False, "--skip-warehouse"),
+) -> None:
+    """Collect historical mosharekat prediction snapshots into Raw (+ warehouse)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.prediction_market.collect import collect_prediction_history
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        stats = collect_prediction_history(
+            session,
+            limit_days=limit_days,
+            day_ids=list(day_id) if day_id else None,
+            include_odds=not skip_odds,
+            include_survey=not skip_survey,
+            build_warehouse=not skip_warehouse,
+        )
+    typer.echo(stats)
+
+
+@prediction_app.command("build")
+def prediction_build() -> None:
+    """Rebuild warehouse (from Raw) + prediction analytics tables/views."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.prediction_market.build import build_prediction_analytics
+    from src.prediction_market.warehouse import build_prediction_warehouse
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        wh = build_prediction_warehouse(session)
+        anl = build_prediction_analytics(session)
+    typer.echo({"warehouse": wh, "analytics": anl})
+
+
+@prediction_app.command("query")
+def prediction_query(
+    question: str = typer.Option(
+        "most_surprising",
+        "--question",
+        "-q",
+        help=(
+            "most_surprising|biggest_upset|most_overrated|most_underrated|"
+            "outperform_public|disappoint|hardest_race|easiest_race|"
+            "trainer_beats_market|jockey_underestimated|sire_unpredictable|"
+            "shock_rankings|crowd_intelligence|accuracy_timeline"
+        ),
+    ),
+    limit: int = typer.Option(10, "--limit", "-n"),
+) -> None:
+    """Answer natural-language style prediction-market questions via SQL views."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from sqlalchemy import text
+
+    from src.database import session_scope
+    from src.prediction_market.views import QUESTION_MAP
+
+    mapped = QUESTION_MAP.get(question)
+    if not mapped:
+        typer.echo(f"Unknown question. Choose from: {', '.join(sorted(QUESTION_MAP))}")
+        raise typer.Exit(code=2)
+    view, order = mapped
+    sql = f"SELECT * FROM {view} ORDER BY {order} LIMIT :n"
+    with session_scope(settings) as session:
+        rows = session.execute(text(sql), {"n": limit}).mappings().all()
+    if not rows:
+        typer.echo("No rows — run `python main.py prediction collect` then `build`.")
+        raise typer.Exit(code=1)
+    for i, row in enumerate(rows, 1):
+        label = (
+            row.get("horse")
+            or row.get("trainer")
+            or row.get("jockey")
+            or row.get("sire")
+            or row.get("crowd_favorite_name")
+            or row.get("track_name")
+            or row.get("event_id")
+        )
+        extras = []
+        for key in (
+            "surprise_frequency",
+            "overrated_score",
+            "underrated_score",
+            "shock_score",
+            "upset_score",
+            "prediction_gap",
+            "crowd_accuracy",
+            "unpredictability_score",
+            "prediction_difficulty",
+        ):
+            if key in row and row[key] is not None:
+                extras.append(f"{key}={row[key]}")
+        typer.echo(f"#{i} {label} — " + ", ".join(extras))
 
 
 def main() -> None:

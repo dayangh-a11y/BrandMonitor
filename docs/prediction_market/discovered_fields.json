@@ -1,0 +1,5059 @@
+[
+  {
+    "path": "days",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "days.data.race_days",
+    "types": [
+      "array"
+    ],
+    "sample": "list[56]"
+  },
+  {
+    "path": "days.data.race_days[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:46:30.71313Z"
+  },
+  {
+    "path": "days.data.race_days[].date",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-07T00:00:00Z"
+  },
+  {
+    "path": "days.data.race_days[].external_id",
+    "types": [
+      "str"
+    ],
+    "sample": "cmrhgl4wp001lpl01l9qdpeoc"
+  },
+  {
+    "path": "days.data.race_days[].featured",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "days.data.race_days[].id",
+    "types": [
+      "int"
+    ],
+    "sample": 111
+  },
+  {
+    "path": "days.data.race_days[].mosharekat_id",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "days.data.race_days[].name",
+    "types": [
+      "str"
+    ],
+    "sample": "هفته 1 فصل تابستان مشهد 1405"
+  },
+  {
+    "path": "days.data.race_days[].num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "days.data.race_days[].races",
+    "types": [
+      "array"
+    ],
+    "sample": "list[7]"
+  },
+  {
+    "path": "days.data.race_days[].races[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].closed_at",
+    "types": [
+      "NoneType",
+      "str"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:46:33.375377Z"
+  },
+  {
+    "path": "days.data.race_days[].races[].date",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.external_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "days.data.race_days[].races[].day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "days.data.race_days[].races[].day.mosharekat_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].day.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "days.data.race_days[].races[].day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "days.data.race_days[].races[].day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "days.data.race_days[].races[].day.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].day_id",
+    "types": [
+      "int"
+    ],
+    "sample": 111
+  },
+  {
+    "path": "days.data.race_days[].races[].id",
+    "types": [
+      "int"
+    ],
+    "sample": 440
+  },
+  {
+    "path": "days.data.race_days[].races[].is_open_for_operator",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "days.data.race_days[].races[].number",
+    "types": [
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "days.data.race_days[].races[].start_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "days.data.race_days[].races[].status",
+    "types": [
+      "str"
+    ],
+    "sample": "OPEN"
+  },
+  {
+    "path": "days.data.race_days[].races[].updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:47:37.357422Z"
+  },
+  {
+    "path": "days.data.race_days[].track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "days.data.race_days[].track.code",
+    "types": [
+      "str"
+    ],
+    "sample": "7"
+  },
+  {
+    "path": "days.data.race_days[].track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:46:30.711861Z"
+  },
+  {
+    "path": "days.data.race_days[].track.name",
+    "types": [
+      "str"
+    ],
+    "sample": "مشهد"
+  },
+  {
+    "path": "days.data.race_days[].track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:46:30.711861Z"
+  },
+  {
+    "path": "days.data.race_days[].track_id",
+    "types": [
+      "str"
+    ],
+    "sample": "7"
+  },
+  {
+    "path": "days.data.race_days[].updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:47:17.794283Z"
+  },
+  {
+    "path": "days.success",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "odds",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "odds.data",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 5.4
+  },
+  {
+    "path": "odds.data.odds.miyanbar.1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2830638.599999989
+  },
+  {
+    "path": "odds.data.odds.miyanbar.1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "odds.data.odds.miyanbar.10",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.10.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.10.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 15.7
+  },
+  {
+    "path": "odds.data.odds.miyanbar.10.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2160563.2000000034
+  },
+  {
+    "path": "odds.data.odds.miyanbar.10.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.miyanbar.12",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.12.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.12.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 5.4
+  },
+  {
+    "path": "odds.data.odds.miyanbar.12.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 742696.1999999663
+  },
+  {
+    "path": "odds.data.odds.miyanbar.12.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.miyanbar.13",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.13.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.13.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 5.8
+  },
+  {
+    "path": "odds.data.odds.miyanbar.13.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 5093085.800000027
+  },
+  {
+    "path": "odds.data.odds.miyanbar.13.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.miyanbar.2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.5
+  },
+  {
+    "path": "odds.data.odds.miyanbar.2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 13238513.199999986
+  },
+  {
+    "path": "odds.data.odds.miyanbar.2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "odds.data.odds.miyanbar.3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.3.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 90.1
+  },
+  {
+    "path": "odds.data.odds.miyanbar.3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 216293.2000000073
+  },
+  {
+    "path": "odds.data.odds.miyanbar.3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "odds.data.odds.miyanbar.4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 7.6
+  },
+  {
+    "path": "odds.data.odds.miyanbar.4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2013428.4000000262
+  },
+  {
+    "path": "odds.data.odds.miyanbar.4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.miyanbar.5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.4
+  },
+  {
+    "path": "odds.data.odds.miyanbar.5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 4979391.6000000145
+  },
+  {
+    "path": "odds.data.odds.miyanbar.5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.miyanbar.6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 26.6
+  },
+  {
+    "path": "odds.data.odds.miyanbar.6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 305650.7499999658
+  },
+  {
+    "path": "odds.data.odds.miyanbar.6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.miyanbar.7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 23.4
+  },
+  {
+    "path": "odds.data.odds.miyanbar.7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 140893.20000004675
+  },
+  {
+    "path": "odds.data.odds.miyanbar.7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.miyanbar.8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1.5
+  },
+  {
+    "path": "odds.data.odds.miyanbar.8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 14158723.200000012
+  },
+  {
+    "path": "odds.data.odds.miyanbar.8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.miyanbar.9",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.9.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.miyanbar.9.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 8.3
+  },
+  {
+    "path": "odds.data.odds.miyanbar.9.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3121905.650000001
+  },
+  {
+    "path": "odds.data.odds.miyanbar.9.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.paybar",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.8
+  },
+  {
+    "path": "odds.data.odds.paybar.1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2398262.6000000043
+  },
+  {
+    "path": "odds.data.odds.paybar.1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "odds.data.odds.paybar.10",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.10.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.10.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 7.2
+  },
+  {
+    "path": "odds.data.odds.paybar.10.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2264467.8000000073
+  },
+  {
+    "path": "odds.data.odds.paybar.10.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.paybar.12",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.12.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.12.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.6
+  },
+  {
+    "path": "odds.data.odds.paybar.12.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 13776592.400000008
+  },
+  {
+    "path": "odds.data.odds.paybar.12.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.paybar.13",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.13.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.13.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.7
+  },
+  {
+    "path": "odds.data.odds.paybar.13.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2244316.799999991
+  },
+  {
+    "path": "odds.data.odds.paybar.13.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.paybar.2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1.6
+  },
+  {
+    "path": "odds.data.odds.paybar.2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 15769992.600000009
+  },
+  {
+    "path": "odds.data.odds.paybar.2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "odds.data.odds.paybar.3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 31.1
+  },
+  {
+    "path": "odds.data.odds.paybar.3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1427725.799999981
+  },
+  {
+    "path": "odds.data.odds.paybar.3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "odds.data.odds.paybar.4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 3.9
+  },
+  {
+    "path": "odds.data.odds.paybar.4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 10446629.399999987
+  },
+  {
+    "path": "odds.data.odds.paybar.4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.paybar.5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.5.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "odds.data.odds.paybar.5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3784955.800000014
+  },
+  {
+    "path": "odds.data.odds.paybar.5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.paybar.6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 8.5
+  },
+  {
+    "path": "odds.data.odds.paybar.6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3155362.0000000377
+  },
+  {
+    "path": "odds.data.odds.paybar.6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.paybar.7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 10.5
+  },
+  {
+    "path": "odds.data.odds.paybar.7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 4401085.800000031
+  },
+  {
+    "path": "odds.data.odds.paybar.7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.paybar.8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1.6
+  },
+  {
+    "path": "odds.data.odds.paybar.8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3104907.79999997
+  },
+  {
+    "path": "odds.data.odds.paybar.8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.paybar.9",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.paybar.9.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.paybar.9.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.5
+  },
+  {
+    "path": "odds.data.odds.paybar.9.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 13949422.000000004
+  },
+  {
+    "path": "odds.data.odds.paybar.9.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.pickPrices",
+    "types": [
+      "array"
+    ],
+    "sample": "list[3]"
+  },
+  {
+    "path": "odds.data.odds.pickPrices[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "odds.data.odds.pickPrices[].amount",
+    "types": [
+      "str"
+    ],
+    "sample": "484778000"
+  },
+  {
+    "path": "odds.data.odds.pickPrices[].pool_id",
+    "types": [
+      "int"
+    ],
+    "sample": 2019
+  },
+  {
+    "path": "odds.data.odds.pickPrices[].pool_type",
+    "types": [
+      "str"
+    ],
+    "sample": "PICK_5"
+  },
+  {
+    "path": "odds.data.odds.pishbar",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 10.7
+  },
+  {
+    "path": "odds.data.odds.pishbar.1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 4414932.70000004
+  },
+  {
+    "path": "odds.data.odds.pishbar.1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "odds.data.odds.pishbar.10",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.10.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.10.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 52.6
+  },
+  {
+    "path": "odds.data.odds.pishbar.10.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1065903.1000000248
+  },
+  {
+    "path": "odds.data.odds.pishbar.10.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.pishbar.12",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.12.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.12.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 9.1
+  },
+  {
+    "path": "odds.data.odds.pishbar.12.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 4394719.100000097
+  },
+  {
+    "path": "odds.data.odds.pishbar.12.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.pishbar.13",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.13.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.13.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 12.8
+  },
+  {
+    "path": "odds.data.odds.pishbar.13.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3305365.6999999164
+  },
+  {
+    "path": "odds.data.odds.pishbar.13.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.pishbar.2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 6.3
+  },
+  {
+    "path": "odds.data.odds.pishbar.2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 11567017.800000008
+  },
+  {
+    "path": "odds.data.odds.pishbar.2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "odds.data.odds.pishbar.3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 188.4
+  },
+  {
+    "path": "odds.data.odds.pishbar.3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 281290.4999999393
+  },
+  {
+    "path": "odds.data.odds.pishbar.3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "odds.data.odds.pishbar.4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 17.7
+  },
+  {
+    "path": "odds.data.odds.pishbar.4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3122158.199999999
+  },
+  {
+    "path": "odds.data.odds.pishbar.4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.pishbar.5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 4.9
+  },
+  {
+    "path": "odds.data.odds.pishbar.5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 6515154.899999921
+  },
+  {
+    "path": "odds.data.odds.pishbar.5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.pishbar.6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 75.1
+  },
+  {
+    "path": "odds.data.odds.pishbar.6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1041527.200000126
+  },
+  {
+    "path": "odds.data.odds.pishbar.6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.pishbar.7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 57.4
+  },
+  {
+    "path": "odds.data.odds.pishbar.7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1141190.5000000237
+  },
+  {
+    "path": "odds.data.odds.pishbar.7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.pishbar.8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 2.6
+  },
+  {
+    "path": "odds.data.odds.pishbar.8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 19479890.49999992
+  },
+  {
+    "path": "odds.data.odds.pishbar.8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.pishbar.9",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.pishbar.9.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.pishbar.9.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 21.7
+  },
+  {
+    "path": "odds.data.odds.pishbar.9.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 3439944.0999999912
+  },
+  {
+    "path": "odds.data.odds.pishbar.9.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.prices",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.prices.miyanBarPayableTotal",
+    "types": [
+      "str"
+    ],
+    "sample": "707897786.4"
+  },
+  {
+    "path": "odds.data.odds.prices.payBarPayableTotal",
+    "types": [
+      "str"
+    ],
+    "sample": "1406218307.4"
+  },
+  {
+    "path": "odds.data.odds.prices.pishBarPayableTotal",
+    "types": [
+      "str"
+    ],
+    "sample": "750584290.5"
+  },
+  {
+    "path": "odds.data.odds.prices.quinellaPayableTotal",
+    "types": [
+      "str"
+    ],
+    "sample": "437196308.8"
+  },
+  {
+    "path": "odds.data.odds.quinella",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 71.4
+  },
+  {
+    "path": "odds.data.odds.quinella.10||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 435440.1999999436
+  },
+  {
+    "path": "odds.data.odds.quinella.10||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 59.3
+  },
+  {
+    "path": "odds.data.odds.quinella.10||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 570408.7999999983
+  },
+  {
+    "path": "odds.data.odds.quinella.10||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1082.1
+  },
+  {
+    "path": "odds.data.odds.quinella.10||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 27908.80000001289
+  },
+  {
+    "path": "odds.data.odds.quinella.10||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 156.4
+  },
+  {
+    "path": "odds.data.odds.quinella.10||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 58308.79999997521
+  },
+  {
+    "path": "odds.data.odds.quinella.10||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 69.2
+  },
+  {
+    "path": "odds.data.odds.quinella.10||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 336708.79999999126
+  },
+  {
+    "path": "odds.data.odds.quinella.10||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||7.odd",
+    "types": [
+      "int"
+    ],
+    "sample": 507
+  },
+  {
+    "path": "odds.data.odds.quinella.10||7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 10208.799999983921
+  },
+  {
+    "path": "odds.data.odds.quinella.10||7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.10||8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.10||8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 28.1
+  },
+  {
+    "path": "odds.data.odds.quinella.10||8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 778018.799999987
+  },
+  {
+    "path": "odds.data.odds.quinella.10||8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "odds.data.odds.quinella.12||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 34.3
+  },
+  {
+    "path": "odds.data.odds.quinella.12||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 445833.80000004586
+  },
+  {
+    "path": "odds.data.odds.quinella.12||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||10",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||10.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||10.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 204.3
+  },
+  {
+    "path": "odds.data.odds.quinella.12||10.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 35168.799999961375
+  },
+  {
+    "path": "odds.data.odds.quinella.12||10.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 26.3
+  },
+  {
+    "path": "odds.data.odds.quinella.12||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1089708.7999999928
+  },
+  {
+    "path": "odds.data.odds.quinella.12||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 677.8
+  },
+  {
+    "path": "odds.data.odds.quinella.12||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 15308.800000008205
+  },
+  {
+    "path": "odds.data.odds.quinella.12||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 78.2
+  },
+  {
+    "path": "odds.data.odds.quinella.12||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 449308.7999999638
+  },
+  {
+    "path": "odds.data.odds.quinella.12||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 24.9
+  },
+  {
+    "path": "odds.data.odds.quinella.12||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1697798.8000000424
+  },
+  {
+    "path": "odds.data.odds.quinella.12||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 243.1
+  },
+  {
+    "path": "odds.data.odds.quinella.12||7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 114663.80000000058
+  },
+  {
+    "path": "odds.data.odds.quinella.12||7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.12||8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.12||8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 17.9
+  },
+  {
+    "path": "odds.data.odds.quinella.12||8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 582372.8000000275
+  },
+  {
+    "path": "odds.data.odds.quinella.12||8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 12
+  },
+  {
+    "path": "odds.data.odds.quinella.13||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 58.9
+  },
+  {
+    "path": "odds.data.odds.quinella.13||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 479431.60000002047
+  },
+  {
+    "path": "odds.data.odds.quinella.13||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||10",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||10.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||10.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 408.2
+  },
+  {
+    "path": "odds.data.odds.quinella.13||10.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 14108.799999990879
+  },
+  {
+    "path": "odds.data.odds.quinella.13||10.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||12",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||12.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||12.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 59.6
+  },
+  {
+    "path": "odds.data.odds.quinella.13||12.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 358108.799999968
+  },
+  {
+    "path": "odds.data.odds.quinella.13||12.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||2.odd",
+    "types": [
+      "int"
+    ],
+    "sample": 55
+  },
+  {
+    "path": "odds.data.odds.quinella.13||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 551308.8000000017
+  },
+  {
+    "path": "odds.data.odds.quinella.13||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1002.7
+  },
+  {
+    "path": "odds.data.odds.quinella.13||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 19108.799999996336
+  },
+  {
+    "path": "odds.data.odds.quinella.13||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 90.2
+  },
+  {
+    "path": "odds.data.odds.quinella.13||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 261284.99999996246
+  },
+  {
+    "path": "odds.data.odds.quinella.13||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 25.8
+  },
+  {
+    "path": "odds.data.odds.quinella.13||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1269188.7999999668
+  },
+  {
+    "path": "odds.data.odds.quinella.13||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 341.5
+  },
+  {
+    "path": "odds.data.odds.quinella.13||7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 76308.79999996978
+  },
+  {
+    "path": "odds.data.odds.quinella.13||7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.13||8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.13||8.odd",
+    "types": [
+      "int"
+    ],
+    "sample": 11
+  },
+  {
+    "path": "odds.data.odds.quinella.13||8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2148266.799999979
+  },
+  {
+    "path": "odds.data.odds.quinella.13||8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 13
+  },
+  {
+    "path": "odds.data.odds.quinella.2||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.2||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.2||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 22.8
+  },
+  {
+    "path": "odds.data.odds.quinella.2||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 644708.799999983
+  },
+  {
+    "path": "odds.data.odds.quinella.2||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 2
+  },
+  {
+    "path": "odds.data.odds.quinella.3||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.3||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.3||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 310.5
+  },
+  {
+    "path": "odds.data.odds.quinella.3||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 12308.799999991606
+  },
+  {
+    "path": "odds.data.odds.quinella.3||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "odds.data.odds.quinella.3||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.3||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.3||2.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 354.4
+  },
+  {
+    "path": "odds.data.odds.quinella.3||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 43908.8000000458
+  },
+  {
+    "path": "odds.data.odds.quinella.3||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "odds.data.odds.quinella.4||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 76.8
+  },
+  {
+    "path": "odds.data.odds.quinella.4||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 281108.8000000269
+  },
+  {
+    "path": "odds.data.odds.quinella.4||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.quinella.4||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 46.2
+  },
+  {
+    "path": "odds.data.odds.quinella.4||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 675608.79999997
+  },
+  {
+    "path": "odds.data.odds.quinella.4||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.quinella.4||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.4||3.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 579
+  },
+  {
+    "path": "odds.data.odds.quinella.4||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 51308.800000006726
+  },
+  {
+    "path": "odds.data.odds.quinella.4||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "odds.data.odds.quinella.5||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||1.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 22.9
+  },
+  {
+    "path": "odds.data.odds.quinella.5||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 939858.8000000098
+  },
+  {
+    "path": "odds.data.odds.quinella.5||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.quinella.5||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 18.5
+  },
+  {
+    "path": "odds.data.odds.quinella.5||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 192953.29999997304
+  },
+  {
+    "path": "odds.data.odds.quinella.5||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.quinella.5||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 287.9
+  },
+  {
+    "path": "odds.data.odds.quinella.5||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 20158.800000025705
+  },
+  {
+    "path": "odds.data.odds.quinella.5||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.quinella.5||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.5||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 23.1
+  },
+  {
+    "path": "odds.data.odds.quinella.5||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1451768.7999999844
+  },
+  {
+    "path": "odds.data.odds.quinella.5||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 5
+  },
+  {
+    "path": "odds.data.odds.quinella.6||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 122.7
+  },
+  {
+    "path": "odds.data.odds.quinella.6||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 565.9999999695486
+  },
+  {
+    "path": "odds.data.odds.quinella.6||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.quinella.6||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||2.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 176.5
+  },
+  {
+    "path": "odds.data.odds.quinella.6||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 162751.5000000283
+  },
+  {
+    "path": "odds.data.odds.quinella.6||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.quinella.6||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||3.odd",
+    "types": [
+      "int"
+    ],
+    "sample": 528
+  },
+  {
+    "path": "odds.data.odds.quinella.6||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 95516.00000005521
+  },
+  {
+    "path": "odds.data.odds.quinella.6||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.quinella.6||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||4.odd",
+    "types": [
+      "int"
+    ],
+    "sample": 476
+  },
+  {
+    "path": "odds.data.odds.quinella.6||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 39515.99999999621
+  },
+  {
+    "path": "odds.data.odds.quinella.6||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.quinella.6||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.6||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 321.3
+  },
+  {
+    "path": "odds.data.odds.quinella.6||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 87115.99999999772
+  },
+  {
+    "path": "odds.data.odds.quinella.6||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "odds.data.odds.quinella.7||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 224.9
+  },
+  {
+    "path": "odds.data.odds.quinella.7||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 114178.8999999926
+  },
+  {
+    "path": "odds.data.odds.quinella.7||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.7||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 153.5
+  },
+  {
+    "path": "odds.data.odds.quinella.7||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 181808.79999998186
+  },
+  {
+    "path": "odds.data.odds.quinella.7||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.7||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 1048.4
+  },
+  {
+    "path": "odds.data.odds.quinella.7||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 13508.79999995118
+  },
+  {
+    "path": "odds.data.odds.quinella.7||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.7||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 171.1
+  },
+  {
+    "path": "odds.data.odds.quinella.7||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 224018.80000003593
+  },
+  {
+    "path": "odds.data.odds.quinella.7||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.7||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||5.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 135.6
+  },
+  {
+    "path": "odds.data.odds.quinella.7||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 21908.800000048584
+  },
+  {
+    "path": "odds.data.odds.quinella.7||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.7||6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.7||6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 64.3
+  },
+  {
+    "path": "odds.data.odds.quinella.7||6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 658795.6999999753
+  },
+  {
+    "path": "odds.data.odds.quinella.7||6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 7
+  },
+  {
+    "path": "odds.data.odds.quinella.8||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 11.4
+  },
+  {
+    "path": "odds.data.odds.quinella.8||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2231828.200000015
+  },
+  {
+    "path": "odds.data.odds.quinella.8||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 8.4
+  },
+  {
+    "path": "odds.data.odds.quinella.8||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 4404855.999999993
+  },
+  {
+    "path": "odds.data.odds.quinella.8||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 141.5
+  },
+  {
+    "path": "odds.data.odds.quinella.8||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 267939.2999999936
+  },
+  {
+    "path": "odds.data.odds.quinella.8||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||4.odd",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 14.8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 140468.79999997755
+  },
+  {
+    "path": "odds.data.odds.quinella.8||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 4.4
+  },
+  {
+    "path": "odds.data.odds.quinella.8||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 2829408.7999999397
+  },
+  {
+    "path": "odds.data.odds.quinella.8||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 348.5
+  },
+  {
+    "path": "odds.data.odds.quinella.8||6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 22515.999999958807
+  },
+  {
+    "path": "odds.data.odds.quinella.8||6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.8||7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.8||7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 69.9
+  },
+  {
+    "path": "odds.data.odds.quinella.8||7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 426158.799999954
+  },
+  {
+    "path": "odds.data.odds.quinella.8||7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "odds.data.odds.quinella.9||1",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||1.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||1.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 24.5
+  },
+  {
+    "path": "odds.data.odds.quinella.9||1.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 258776.99999996464
+  },
+  {
+    "path": "odds.data.odds.quinella.9||1.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||2",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||2.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||2.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 25.9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||2.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 612736.2000000253
+  },
+  {
+    "path": "odds.data.odds.quinella.9||2.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||3",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||3.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||3.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 472.9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||3.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 62340.30000001937
+  },
+  {
+    "path": "odds.data.odds.quinella.9||3.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||4",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||4.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||4.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 96.1
+  },
+  {
+    "path": "odds.data.odds.quinella.9||4.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 51112.70000000494
+  },
+  {
+    "path": "odds.data.odds.quinella.9||4.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||5",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||5.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||5.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 188.4
+  },
+  {
+    "path": "odds.data.odds.quinella.9||5.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 205915.99999996164
+  },
+  {
+    "path": "odds.data.odds.quinella.9||5.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||6",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||6.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||6.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 353.4
+  },
+  {
+    "path": "odds.data.odds.quinella.9||6.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 101732.60000002572
+  },
+  {
+    "path": "odds.data.odds.quinella.9||6.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||7",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||7.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||7.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 17.7
+  },
+  {
+    "path": "odds.data.odds.quinella.9||7.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 1299507.2000000018
+  },
+  {
+    "path": "odds.data.odds.quinella.9||7.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.quinella.9||8",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||8.amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "odds.data.odds.quinella.9||8.odd",
+    "types": [
+      "float"
+    ],
+    "sample": 92.4
+  },
+  {
+    "path": "odds.data.odds.quinella.9||8.overflowAmount",
+    "types": [
+      "float"
+    ],
+    "sample": 418915.9999999432
+  },
+  {
+    "path": "odds.data.odds.quinella.9||8.runnerId",
+    "types": [
+      "int"
+    ],
+    "sample": 9
+  },
+  {
+    "path": "odds.data.odds.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-07T11:27:44.522861542Z"
+  },
+  {
+    "path": "odds.success",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "racecard",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-07-30T16:50:53.381462Z"
+  },
+  {
+    "path": "racecard.data.day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.day.external_id",
+    "types": [
+      "str"
+    ],
+    "sample": "cms261wbt00ollt01w4jifkjx"
+  },
+  {
+    "path": "racecard.data.day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 109
+  },
+  {
+    "path": "racecard.data.day.mosharekat_id",
+    "types": [
+      "int"
+    ],
+    "sample": 16
+  },
+  {
+    "path": "racecard.data.day.name",
+    "types": [
+      "str"
+    ],
+    "sample": "هفته 11 فصل بهار گنبدکاووس 1405"
+  },
+  {
+    "path": "racecard.data.day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 6
+  },
+  {
+    "path": "racecard.data.day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": "1"
+  },
+  {
+    "path": "racecard.data.day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-01-01T06:25:20.224228Z"
+  },
+  {
+    "path": "racecard.data.day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": "گنبدکاووس"
+  },
+  {
+    "path": "racecard.data.day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-01-01T06:25:20.224228Z"
+  },
+  {
+    "path": "racecard.data.day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": "1"
+  },
+  {
+    "path": "racecard.data.day.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-06T10:46:35.94824Z"
+  },
+  {
+    "path": "racecard.data.pools",
+    "types": [
+      "array"
+    ],
+    "sample": "list[29]"
+  },
+  {
+    "path": "racecard.data.pools[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].album_info",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].code",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-07-31"
+  },
+  {
+    "path": "racecard.data.pools[].created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-07-31T16:46:55.90873Z"
+  },
+  {
+    "path": "racecard.data.pools[].day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].day.external_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.pools[].day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].day.mosharekat_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].day.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].day.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].day_id",
+    "types": [
+      "int"
+    ],
+    "sample": 109
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.can_update",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.internet_total_price",
+    "types": [
+      "str"
+    ],
+    "sample": "854346664"
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.internet_total_prize",
+    "types": [
+      "str"
+    ],
+    "sample": "755478280"
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.internet_win_count",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.internet_win_max_score",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].external_server_info.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].extra",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].extra.ghabz_dakheli_count",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details",
+    "types": [
+      "array"
+    ],
+    "sample": "list[1]"
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details[].horse_numbers",
+    "types": [
+      "array"
+    ],
+    "sample": "list[1]"
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details[].horse_numbers[]",
+    "types": [
+      "int"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details[].odd_asli",
+    "types": [
+      "float"
+    ],
+    "sample": 8.003911262585165
+  },
+  {
+    "path": "racecard.data.pools[].extra.odd_details[].odd_pardakhti",
+    "types": [
+      "float",
+      "int"
+    ],
+    "sample": 8
+  },
+  {
+    "path": "racecard.data.pools[].extra.winner_ghabz_count",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].extra.winner_score",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].first_race_num",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "racecard.data.pools[].id",
+    "types": [
+      "int"
+    ],
+    "sample": 1996
+  },
+  {
+    "path": "racecard.data.pools[].last_race_num",
+    "types": [
+      "int"
+    ],
+    "sample": 4
+  },
+  {
+    "path": "racecard.data.pools[].min_horse_count",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "racecard.data.pools[].price",
+    "types": [
+      "str"
+    ],
+    "sample": "5000"
+  },
+  {
+    "path": "racecard.data.pools[].prize_status",
+    "types": [
+      "str"
+    ],
+    "sample": "PAIED"
+  },
+  {
+    "path": "racecard.data.pools[].race",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].race.closed_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].race.date",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.external_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.pools[].race.day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].race.day.mosharekat_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.day.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].race.day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.pools[].race.day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].race.day.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.day_id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].race.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].race.is_open_for_operator",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.pools[].race.number",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.pools[].race.start_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race.status",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.pools[].race.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.pools[].race_id",
+    "types": [
+      "int"
+    ],
+    "sample": 439
+  },
+  {
+    "path": "racecard.data.pools[].share",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "racecard.data.pools[].status",
+    "types": [
+      "str"
+    ],
+    "sample": "CLOSE"
+  },
+  {
+    "path": "racecard.data.pools[].total_price",
+    "types": [
+      "str"
+    ],
+    "sample": "1073503032"
+  },
+  {
+    "path": "racecard.data.pools[].total_prize",
+    "types": [
+      "str"
+    ],
+    "sample": "210202320"
+  },
+  {
+    "path": "racecard.data.pools[].total_return",
+    "types": [
+      "str"
+    ],
+    "sample": "23281000"
+  },
+  {
+    "path": "racecard.data.pools[].total_sar_riz",
+    "types": [
+      "str"
+    ],
+    "sample": "776903308.8"
+  },
+  {
+    "path": "racecard.data.pools[].type",
+    "types": [
+      "str"
+    ],
+    "sample": "WIN_1ST"
+  },
+  {
+    "path": "racecard.data.pools[].updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-01T15:00:52.540386Z"
+  },
+  {
+    "path": "racecard.data.races",
+    "types": [
+      "array"
+    ],
+    "sample": "list[6]"
+  },
+  {
+    "path": "racecard.data.races[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].closed_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-01T12:56:52.316914Z"
+  },
+  {
+    "path": "racecard.data.races[].created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-07-31T16:46:15.111306Z"
+  },
+  {
+    "path": "racecard.data.races[].date",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.races[].day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].day.external_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.races[].day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].day.mosharekat_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].day.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.races[].day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].day.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].day_id",
+    "types": [
+      "int"
+    ],
+    "sample": 109
+  },
+  {
+    "path": "racecard.data.races[].id",
+    "types": [
+      "int"
+    ],
+    "sample": 434
+  },
+  {
+    "path": "racecard.data.races[].is_open_for_operator",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.races[].number",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "racecard.data.races[].race_horses",
+    "types": [
+      "array"
+    ],
+    "sample": "list[10]"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].external_id",
+    "types": [
+      "str"
+    ],
+    "sample": "cmqdrxdoq013xs401p705gjwm"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].horse_name",
+    "types": [
+      "str"
+    ],
+    "sample": "سایرا خادمی"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].id",
+    "types": [
+      "int"
+    ],
+    "sample": 4506
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].jockey_name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].number",
+    "types": [
+      "int"
+    ],
+    "sample": 10
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.closed_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.date",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.date",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.external_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.featured",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.mosharekat_id",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.num_races",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track.code",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track.created_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track.name",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track.updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "0001-01-01T00:00:00Z"
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.track_id",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.day_id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.id",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.is_open_for_operator",
+    "types": [
+      "bool"
+    ],
+    "sample": false
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.number",
+    "types": [
+      "int"
+    ],
+    "sample": 0
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.start_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.status",
+    "types": [
+      "str"
+    ],
+    "sample": ""
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race.updated_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].race_id",
+    "types": [
+      "int"
+    ],
+    "sample": 434
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].rank",
+    "types": [
+      "int"
+    ],
+    "sample": 3
+  },
+  {
+    "path": "racecard.data.races[].race_horses[].scratched",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "racecard.data.races[].start_at",
+    "types": [
+      "NoneType"
+    ],
+    "sample": null
+  },
+  {
+    "path": "racecard.data.races[].status",
+    "types": [
+      "str"
+    ],
+    "sample": "CLOSE"
+  },
+  {
+    "path": "racecard.data.races[].updated_at",
+    "types": [
+      "str"
+    ],
+    "sample": "2026-08-01T12:56:52.317287Z"
+  },
+  {
+    "path": "racecard.success",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  },
+  {
+    "path": "survey",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "survey.data",
+    "types": [
+      "object"
+    ],
+    "sample": "object"
+  },
+  {
+    "path": "survey.data.race_id",
+    "types": [
+      "int"
+    ],
+    "sample": 435
+  },
+  {
+    "path": "survey.data.statistics",
+    "types": [
+      "array"
+    ],
+    "sample": "list[6]"
+  },
+  {
+    "path": "survey.data.statistics[]",
+    "types": [
+      "object"
+    ],
+    "sample": null
+  },
+  {
+    "path": "survey.data.statistics[].amount",
+    "types": [
+      "str"
+    ],
+    "sample": "0"
+  },
+  {
+    "path": "survey.data.statistics[].count",
+    "types": [
+      "int"
+    ],
+    "sample": 368
+  },
+  {
+    "path": "survey.data.statistics[].horse_num",
+    "types": [
+      "int"
+    ],
+    "sample": 1
+  },
+  {
+    "path": "survey.success",
+    "types": [
+      "bool"
+    ],
+    "sample": true
+  }
+]
