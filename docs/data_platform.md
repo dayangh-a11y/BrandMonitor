@@ -76,6 +76,18 @@ python main.py features build -p horse_weather
 Tables: `raw_weather_observations` → `wh_race_weather` → `feat_race_weather` /
 `feat_horse_weather` / `feat_horse_weather_buckets`.
 
+### Analytics layer (rankings & standardized metrics)
+
+See `docs/analytics_layer.md`.
+
+```bash
+python main.py analytics build [--course gonbad-kavous]
+python main.py analytics query -q best_season
+python main.py analytics query -q best_turkmen
+```
+
+Tables/views: `anl_seasons`, `anl_horse_metrics`, `anl_rankings`, `anl_v_*`.
+
 ## Entity resolution
 
 Fuzzy + exact-normalized matching for horses / jockeys / trainers / owners  

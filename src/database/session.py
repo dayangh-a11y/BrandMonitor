@@ -18,6 +18,7 @@ _SessionLocal: sessionmaker[Session] | None = None
 
 def _register_all_models() -> None:
     """Import every model module so Base.metadata is complete."""
+    import src.analytics.models  # noqa: F401
     import src.database.features  # noqa: F401
     import src.database.raw  # noqa: F401
     import src.crawler.models  # noqa: F401
