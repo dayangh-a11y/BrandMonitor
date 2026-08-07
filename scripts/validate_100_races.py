@@ -7,9 +7,14 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 # Use local SQLite for this environment
 DB_PATH = Path("/workspace/output/validation/horse_racing.db")
@@ -24,15 +29,14 @@ os.environ["LOG_DIR"] = "logs/validation"
 
 from sqlalchemy import func, select
 
-from src.asbdavani.constants import absolute_url
 from src.browser import BrowserClient
 from src.crawler.discovery import discover_race_urls_from_week_html, discover_week_ids, week_url
 from src.crawler.manager import CrawlerManager
 from src.crawler.metrics import collect_dashboard_metrics
-from src.crawler.worker import CrawlWorker
 from src.crawler.models import CrawlJob
+from src.crawler.worker import CrawlWorker
 from src.database import init_db, reset_engine, session_scope
-from src.database.raw import RawHorse, RawParserError, RawRace, RawRaceEntry
+from src.database.raw import RawHorse, RawParserError, RawRace
 from src.quality import format_quality_report, run_quality_checks
 from src.quality.models import QualityIssue
 from src.utils.logging import setup_logging
