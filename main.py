@@ -28,6 +28,7 @@ analytics_app = typer.Typer(help="Analytics layer — rankings & standardized me
 prediction_app = typer.Typer(help="Prediction market (mosharekat) collect + analytics.")
 std_app = typer.Typer(help="Standardization roadmap (DQ → AI readiness, modules 1–15).")
 markets_app = typer.Typer(help="Market-specific analytics (Win/Place/H2H/Value/…).")
+prerace_app = typer.Typer(help="Pre-race decision engine — race-card intelligence reports.")
 app.add_typer(features_app, name="features")
 app.add_typer(warehouse_app, name="warehouse")
 app.add_typer(crawler_app, name="crawler")
@@ -36,6 +37,7 @@ app.add_typer(analytics_app, name="analytics")
 app.add_typer(prediction_app, name="prediction")
 app.add_typer(std_app, name="std")
 app.add_typer(markets_app, name="markets")
+app.add_typer(prerace_app, name="prerace")
 
 
 @app.command("collect")
@@ -1054,6 +1056,57 @@ def markets_list() -> None:
     for key, meta in MARKET_TYPES.items():
         typer.echo(f"{meta['id']}: {meta['title']} — model={meta['score_model']}")
         typer.echo(f"  {meta['description']}")
+
+
+@prerace_app.command("report")
+def prerace_report_cmd(
+    race_id: int = typer.Option(..., "--race-id", help="Warehouse race id (race card)"),
+    no_h2h: bool = typer.Option(False, "--no-h2h", help="Skip pairwise H2H matrix"),
+) -> None:
+    """Complete pre-race intelligence report for one race (never unexplained)."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.prerace import build_prerace_report
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        payload = build_prerace_report(
+            session, race_id, persist=True, include_h2h=not no_h2h
+        )
+    typer.echo(payload.get("report_text") or "")
+    if not payload.get("publishable"):
+        raise typer.Exit(code=2)
+
+
+@prerace_app.command("card")
+def prerace_card_cmd(
+    date: Optional[str] = typer.Option(
+        None, "--date", help="Race card date YYYY-MM-DD (default: latest day)"
+    ),
+    course: Optional[str] = typer.Option(None, "--course", help="Racecourse code"),
+    limit: int = typer.Option(12, "--limit", "-n"),
+) -> None:
+    """Build pre-race reports for an entire race-card day."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db, session_scope
+    from src.prerace.engine import build_prerace_for_card_day
+
+    init_db(settings)
+    with session_scope(settings) as session:
+        stats = build_prerace_for_card_day(
+            session, race_date=date, racecourse_code=course, limit=limit
+        )
+    typer.echo(f"race_date={stats.get('race_date')} races={stats.get('races')}")
+    for rep in stats.get("reports") or []:
+        race = rep.get("race") or {}
+        win = (rep.get("reports") or {}).get("best_win_candidate") or {}
+        typer.echo(
+            f"  #{race.get('race_id')} {race.get('race_name')}: "
+            f"best_win={win.get('horse')} conf={win.get('confidence')} "
+            f"publishable={rep.get('publishable')}"
+        )
 
 
 def main() -> None:
