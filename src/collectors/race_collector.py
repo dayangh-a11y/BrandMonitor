@@ -1,4 +1,4 @@
-"""High-level race collector orchestrating DataSource + file output."""
+"""High-level race collector orchestrating DataSource + file / Raw warehouse output."""
 
 from __future__ import annotations
 
@@ -14,11 +14,12 @@ from src.utils.settings import Settings, get_settings
 
 class RaceCollector:
     """
-    Orchestrates phase-1 collection:
+    Orchestrates collection:
 
     1. collect race from URL via DataSource
     2. write Race.json
-    3. for each horse with a profile URL, collect history → HorseHistory.json
+    3. optionally collect horse histories → HorseHistory.json
+    4. optionally persist Raw tables only (never Features)
     """
 
     def __init__(
@@ -29,10 +30,12 @@ class RaceCollector:
         settings: Settings | None = None,
         output_dir: Path | str | None = None,
         collect_histories: bool = True,
+        persist_to_db: bool = False,
     ) -> None:
         self.settings = settings or get_settings()
         self.output_dir = Path(output_dir or self.settings.output_dir)
         self.collect_histories = collect_histories
+        self.persist_to_db = persist_to_db
         self._owns_datasource = datasource is None
         if datasource is not None:
             self.datasource = datasource
@@ -51,10 +54,14 @@ class RaceCollector:
         race_path = self._write_race(race)
 
         result: dict[str, Path] = {"Race.json": race_path}
+        histories: list[HorseHistory] = []
         if self.collect_histories:
             histories = self._collect_horse_histories(race)
             history_path = self._write_horse_histories(histories)
             result["HorseHistory.json"] = history_path
+
+        if self.persist_to_db:
+            self._persist_raw(url, race, histories)
 
         return result
 
@@ -92,6 +99,36 @@ class RaceCollector:
         payload = [h.model_dump(mode="json", by_alias=True) for h in histories]
         write_json(path, payload)
         return path
+
+    def _persist_raw(
+        self,
+        url: str,
+        race: Race,
+        histories: list[HorseHistory],
+    ) -> None:
+        """Write collected documents into Raw tables only."""
+        from src.database import (
+            finish_ingest_run,
+            ingest_horse_history,
+            ingest_race,
+            session_scope,
+            start_ingest_run,
+        )
+
+        source = getattr(self.datasource, "name", self.settings.default_datasource)
+        with session_scope(self.settings) as session:
+            run = start_ingest_run(session, source=source, input_url=url)
+            try:
+                ingest_race(session, race, source=source, ingest_run=run)
+                for history in histories:
+                    try:
+                        ingest_horse_history(session, history, source=source)
+                    except Exception as exc:  # noqa: BLE001
+                        logger.error("Raw ingest failed for horse history: {}", exc)
+                finish_ingest_run(session, run, status="success")
+            except Exception as exc:
+                finish_ingest_run(session, run, status="failed", notes=str(exc)[:500])
+                raise
 
     def close(self) -> None:
         if self._owns_datasource:

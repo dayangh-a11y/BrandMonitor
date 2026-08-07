@@ -59,14 +59,27 @@ src/
   asbdavani/       # پیاده‌سازی asbdavani.app
   browser/         # Playwright client
   models/          # Pydantic models
-  database/        # SQLAlchemy (اختیاری)
+  database/        # Data Warehouse (raw_* + feat_*)
+  pipelines/       # Feature pipelines (Raw → Features)
   collectors/      # orchestration
   parsers/         # HTML / RSC helpers
   utils/           # settings, logging, retry, json
+docs/
+  data_warehouse.md
 tests/
 main.py
 ```
 
-## دیتابیس (اختیاری)
+## دیتابیس / Data Warehouse
 
-برای فاز اول خروجی فایل کافی است. لایه SQLAlchemy در `src/database/` آماده است و با تنظیم `DATABASE_URL` قابل استفاده است.
+قبل از جمع‌آوری انبوه، لایه‌های **Raw** و **Features** جدا طراحی شده‌اند.
+
+جزئیات: [`docs/data_warehouse.md`](docs/data_warehouse.md)
+
+```bash
+python main.py init-db
+python main.py collect --url "RACE_URL" --persist   # فقط Raw
+python main.py features build                       # محاسبه Features از Raw
+```
+
+هیچ Featureای داخل جداول Raw ذخیره نمی‌شود؛ همه از طریق Pipeline قابل rebuild هستند.

@@ -1,4 +1,4 @@
-"""Typer CLI entrypoint for the horse racing data collector."""
+"""Typer CLI entrypoint for the horse racing data collector / warehouse."""
 
 from __future__ import annotations
 
@@ -15,10 +15,13 @@ from src.utils.settings import get_settings
 
 app = typer.Typer(
     name="horse-racing-collector",
-    help="Professional horse racing data collector (no ML / predictions).",
+    help="Horse racing data collector + Raw/Features warehouse (no ML predictions).",
     add_completion=False,
     no_args_is_help=True,
 )
+
+features_app = typer.Typer(help="Feature pipelines (compute Features from Raw only).")
+app.add_typer(features_app, name="features")
 
 
 @app.command("collect")
@@ -41,13 +44,18 @@ def collect(
         "--skip-history",
         help="Only write Race.json; do not visit horse profile pages",
     ),
+    persist: bool = typer.Option(
+        False,
+        "--persist",
+        help="Also ingest into Raw warehouse tables (never writes Features)",
+    ),
     log_level: Optional[str] = typer.Option(
         None,
         "--log-level",
         help="Log level (DEBUG, INFO, WARNING, ERROR)",
     ),
 ) -> None:
-    """Collect a race and optional horse histories into JSON files."""
+    """Collect a race and optional horse histories into JSON (+ optional Raw DB)."""
     settings = get_settings()
     setup_logging(settings.log_dir, log_level or settings.log_level)
 
@@ -59,11 +67,14 @@ def collect(
         settings=settings,
         output_dir=output,
         collect_histories=not skip_history,
+        persist_to_db=persist,
     )
     try:
         paths = collector.collect(url)
         for name, path in paths.items():
             typer.echo(f"Wrote {name} -> {path.resolve()}")
+        if persist:
+            typer.echo("Persisted Raw tables (Features unchanged; run `features build`).")
     except Exception as exc:  # noqa: BLE001
         logger.exception("Collection failed: {}", exc)
         raise typer.Exit(code=1) from exc
@@ -77,6 +88,57 @@ def datasources_cmd() -> None:
     setup_logging(get_settings().log_dir, get_settings().log_level)
     for name in list_datasources():
         typer.echo(name)
+
+
+@app.command("init-db")
+def init_db_cmd() -> None:
+    """Create Raw + Features warehouse tables."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import init_db
+
+    init_db(settings)
+    typer.echo("Warehouse tables created (raw_* + feat_*).")
+
+
+@features_app.command("list")
+def features_list() -> None:
+    """List registered feature pipelines."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.pipelines import list_pipelines
+
+    for name in list_pipelines():
+        typer.echo(name)
+
+
+@features_app.command("build")
+def features_build(
+    pipeline: Optional[str] = typer.Option(
+        None,
+        "--pipeline",
+        "-p",
+        help="Pipeline name (default: all registered pipelines)",
+    ),
+) -> None:
+    """Recompute feature tables from Raw data via pipelines."""
+    settings = get_settings()
+    setup_logging(settings.log_dir, settings.log_level)
+    from src.database import session_scope
+    from src.pipelines.runner import build_features
+
+    names = [pipeline] if pipeline else None
+    try:
+        with session_scope(settings) as session:
+            runs = build_features(session, pipeline_names=names)
+        for run in runs:
+            typer.echo(
+                f"{run.pipeline_name}@{run.pipeline_version} "
+                f"status={run.status} rows={run.rows_upserted}"
+            )
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("Feature build failed: {}", exc)
+        raise typer.Exit(code=1) from exc
 
 
 def main() -> None:
