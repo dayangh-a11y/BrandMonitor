@@ -105,14 +105,26 @@ def _link_wh_race(
 
 
 def _link_horse(session: Session, source_horse_id: str | None, name: str | None) -> int | None:
+    """Resolve to warehouse horse via Identity Engine (never exact name alone)."""
+    from src.identity import HorseQuery, resolve_horse
+    from src.identity.resolve import warehouse_ids_for_horse
+
+    hits = resolve_horse(
+        session,
+        HorseQuery(name=name, source_horse_id=source_horse_id),
+        limit=1,
+    )
+    if hits:
+        if hits[0].warehouse_horse_id:
+            return hits[0].warehouse_horse_id
+        wh_ids = warehouse_ids_for_horse(session, hits[0].horse_id)
+        if wh_ids:
+            return wh_ids[0]
+
     if source_horse_id:
         row = session.scalar(
             select(WhHorse).where(WhHorse.source_horse_id == source_horse_id).limit(1)
         )
-        if row:
-            return row.id
-    if name:
-        row = session.scalar(select(WhHorse).where(WhHorse.name == name).limit(1))
         if row:
             return row.id
     return None
