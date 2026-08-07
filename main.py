@@ -381,6 +381,11 @@ def analytics_build(
         None, "--course", help="Limit to racecourse code (e.g. gonbad-kavous)"
     ),
     top: int = typer.Option(25, "--top", help="Leaderboard depth"),
+    min_starts: int = typer.Option(
+        5,
+        "--min-starts",
+        help="Minimum starts to qualify for Season Best / success / win-rate / consistency boards",
+    ),
 ) -> None:
     """Rebuild anl_* metrics, rankings, and SQL views from warehouse data."""
     settings = get_settings()
@@ -389,7 +394,12 @@ def analytics_build(
     from src.database import session_scope
 
     with session_scope(settings) as session:
-        stats = build_analytics(session, racecourse_code=course, top_n=top)
+        stats = build_analytics(
+            session,
+            racecourse_code=course,
+            top_n=top,
+            minimum_starts=min_starts,
+        )
     typer.echo(stats)
 
 
@@ -400,10 +410,11 @@ def analytics_query(
         "--question",
         "-q",
         help=(
-            "best_season|most_successful|most_consistent|best_turkmen|"
-            "best_dokhoon|best_thoroughbred|best_trainer|best_jockey|"
-            "best_owner|best_sire|improving|declining|best_by_distance|"
-            "best_by_weather|best_by_track_condition|best_by_class|best_young"
+            "best_season|most_successful|highest_earnings|highest_win_rate|best_form|"
+            "most_consistent|best_turkmen|best_dokhoon|best_thoroughbred|best_trainer|"
+            "best_jockey|best_owner|best_sire|improving|declining|best_by_distance|"
+            "best_by_weather|best_by_track_condition|best_by_class|best_young|"
+            "season_best_status"
         ),
     ),
     limit: int = typer.Option(10, "--limit", "-n"),
@@ -413,7 +424,7 @@ def analytics_query(
         help="season|career|all — filter leaderboard scope when the view has it",
     ),
 ) -> None:
-    """Print a precomputed leaderboard (with why_text explanations)."""
+    """Print a precomputed leaderboard (with qualification + confidence)."""
     settings = get_settings()
     setup_logging(settings.log_dir, settings.log_level)
     from sqlalchemy import text
@@ -422,7 +433,11 @@ def analytics_query(
 
     view_map = {
         "best_season": "anl_v_best_horses_season",
+        "season_best_status": "anl_v_season_best_status",
         "most_successful": "anl_v_most_successful_horses",
+        "highest_earnings": "anl_v_highest_earnings_horses",
+        "highest_win_rate": "anl_v_highest_win_rate_horses",
+        "best_form": "anl_v_best_form_horses",
         "most_consistent": "anl_v_most_consistent_horses",
         "best_turkmen": "anl_v_best_turkmen",
         "best_dokhoon": "anl_v_best_dokhoon",
@@ -443,27 +458,74 @@ def analytics_query(
     if not view:
         typer.echo(f"Unknown question. Choose from: {', '.join(sorted(view_map))}")
         raise typer.Exit(code=2)
-    sql = f"SELECT * FROM {view}"
-    params: dict = {"n": limit}
-    if scope in {"season", "career"} and question != "best_season":
-        sql += " WHERE scope = :scope"
-        params["scope"] = scope
-    sql += " ORDER BY rank LIMIT :n"
+
     with session_scope(settings) as session:
+        # Always surface Season Best gate first when asking best_season
+        if question == "best_season":
+            status_rows = session.execute(
+                text("SELECT why_text, why_json FROM anl_v_season_best_status")
+            ).mappings().all()
+            for srow in status_rows:
+                typer.echo(srow.get("why_text") or "INSUFFICIENT DATA")
+                typer.echo("---")
+
+        sql = f"SELECT * FROM {view}"
+        params: dict = {"n": limit}
+        if (
+            scope in {"season", "career"}
+            and question not in {"best_season", "season_best_status"}
+        ):
+            sql += " WHERE scope = :scope"
+            params["scope"] = scope
+        if question != "season_best_status":
+            sql += " ORDER BY rank LIMIT :n"
         rows = session.execute(text(sql), params).mappings().all()
+
     if not rows:
+        if question == "best_season":
+            typer.echo(
+                "INSUFFICIENT DATA — no qualified Season Best rows "
+                "(check season_best_status / raise sample size or lower --min-starts)."
+            )
+            raise typer.Exit(code=1)
         typer.echo("No rows — run `python main.py analytics build` first.")
         raise typer.Exit(code=1)
+
     for row in rows:
-        why = row.get("why_text") or ""
+        if question == "season_best_status":
+            typer.echo(row.get("why_text") or row.get("status") or "INSUFFICIENT DATA")
+            continue
+        why_json = row.get("why_json") or {}
+        if isinstance(why_json, str):
+            import json
+
+            try:
+                why_json = json.loads(why_json)
+            except Exception:  # noqa: BLE001
+                why_json = {}
         name = (
             row.get("horse")
             or row.get("trainer")
             or row.get("jockey")
             or row.get("owner")
             or row.get("sire")
+            or row.get("status")
         )
-        typer.echo(f"#{row.get('rank')} {name} — {why}")
+        starts = why_json.get("starts", row.get("starts"))
+        conf = why_json.get("confidence")
+        conf_score = why_json.get("confidence_score")
+        qstatus = why_json.get("qualification_status")
+        rq = why_json.get("reason_for_qualification")
+        rexc = why_json.get("reason_for_exclusion")
+        typer.echo(
+            f"#{row.get('rank')} {name} | starts={starts} | "
+            f"confidence={conf}({conf_score}) | status={qstatus}"
+        )
+        if rq:
+            typer.echo(f"  qualified: {rq}")
+        if rexc:
+            typer.echo(f"  excluded: {rexc}")
+        typer.echo(f"  {row.get('why_text') or ''}")
 
 
 @analytics_app.command("race-intel")

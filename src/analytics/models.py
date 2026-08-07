@@ -162,10 +162,12 @@ class AnlRanking(Base):
     Precomputed leaderboard rows with explainability.
 
     ``category`` examples:
-      best_season, most_successful, most_consistent, improving, declining,
+      best_season, most_successful, highest_earnings, highest_win_rate,
+      best_form, most_consistent, improving, declining,
       best_young, best_by_breed, best_by_age, best_by_class,
       best_by_distance, best_by_track_condition, best_by_weather,
       best_trainer, best_jockey, best_owner, best_sire
+    Status rows use entity_type='status' with entity_name='INSUFFICIENT DATA'.
     """
 
     __tablename__ = "anl_rankings"

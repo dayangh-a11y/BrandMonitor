@@ -24,17 +24,24 @@ Analytics **never** writes Raw.
 
 ## CLI
 
+## CLI
+
 ```bash
 python main.py init-db
-python main.py analytics build [--course gonbad-kavous] [--top 25]
+python main.py analytics build [--course gonbad-kavous] [--top 25] [--min-starts 5]
+python main.py analytics query -q season_best_status
 python main.py analytics query -q best_season -n 10
+python main.py analytics query -q most_successful
+python main.py analytics query -q highest_earnings
+python main.py analytics query -q highest_win_rate
+python main.py analytics query -q best_form
+python main.py analytics query -q most_consistent
 python main.py analytics query -q best_turkmen
 python main.py analytics query -q best_trainer
-python main.py analytics race-intel --race-id 123
-python main.py analytics race-intel --shockiest -n 5
 ```
 
-See also [`docs/race_intelligence.md`](race_intelligence.md).
+See also [`docs/ranking_engine.md`](ranking_engine.md) (v2 eligibility + separated boards).
+
 
 ## Horse metrics (every row)
 

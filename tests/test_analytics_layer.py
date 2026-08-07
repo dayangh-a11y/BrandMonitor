@@ -38,6 +38,10 @@ def test_metric_helpers() -> None:
     slope_up = trend_slope([1, 2, 4, 5, 6], window=5)  # newest first improving
     assert slope_up is not None and slope_up > 0
     pr = performance_rating(
+        starts=5,
+        wins=2,
+        seconds=1,
+        thirds=1,
         win_rate=0.5,
         place_rate=0.7,
         avg_finish=2.0,
@@ -45,6 +49,7 @@ def test_metric_helpers() -> None:
         speed_index=105.0,
         earnings_index=0.8,
         difficulty_index=60.0,
+        form_score=70.0,
     )
     assert pr is not None and 0 < pr <= 100
 
@@ -144,7 +149,10 @@ def _seed(session: Session) -> None:
 
 def test_analytics_build_and_views(mem_session: Session) -> None:
     _seed(mem_session)
-    stats = build_analytics(mem_session, racecourse_code="gonbad-kavous", top_n=10)
+    # Default min_starts=5 → Season Best must be INSUFFICIENT DATA on tiny fixture
+    stats = build_analytics(
+        mem_session, racecourse_code="gonbad-kavous", top_n=10, minimum_starts=5
+    )
     assert stats["status"] == "success"
     assert stats["rows_written"] > 0
 
@@ -158,24 +166,51 @@ def test_analytics_build_and_views(mem_session: Session) -> None:
     assert sample.performance_rating is not None
     assert sample.explain_text
     assert sample.win_rate is not None
+    assert sample.explain_json and sample.explain_json.get("sample")
 
-    rankings = mem_session.scalars(select(AnlRanking)).all()
-    assert rankings
-    assert any(r.category == "most_successful" for r in rankings)
-    assert any(r.category == "best_by_breed" for r in rankings)
-    assert any(r.why_text for r in rankings)
-
-    # Views answer questions without recomputation
-    rows = mem_session.execute(
-        text("SELECT rank, horse, why_text FROM anl_v_best_turkmen ORDER BY rank LIMIT 5")
+    status = mem_session.scalars(
+        select(AnlRanking).where(
+            AnlRanking.category == "best_season",
+            AnlRanking.entity_type == "status",
+        )
     ).all()
-    # May be empty if season target has no turkmen segment rankings for scope — check breed view
+    assert status
+    assert "INSUFFICIENT DATA" in (status[0].entity_name or "")
+
+    # Earnings board still works with min_starts=1
+    earn = mem_session.scalars(
+        select(AnlRanking).where(
+            AnlRanking.category == "highest_earnings",
+            AnlRanking.entity_type == "horse",
+        )
+    ).all()
+    assert earn
+    assert earn[0].why_json and earn[0].why_json.get("qualification_status") == "qualified"
+
     breed_rows = mem_session.execute(
         text("SELECT COUNT(*) FROM anl_v_best_by_breed")
     ).scalar()
-    assert breed_rows and breed_rows > 0
+    # May be 0 when no horse reaches min_starts=5 in segments
+    assert breed_rows is not None
 
-    success = mem_session.execute(
-        text("SELECT COUNT(*) FROM anl_v_most_successful_horses")
-    ).scalar()
-    assert success and success > 0
+    # Rebuild with lower gate to verify Season Best can populate
+    stats2 = build_analytics(
+        mem_session, racecourse_code="gonbad-kavous", top_n=10, minimum_starts=1
+    )
+    assert stats2["status"] == "success"
+    best = mem_session.scalars(
+        select(AnlRanking).where(
+            AnlRanking.category == "best_season",
+            AnlRanking.entity_type == "horse",
+        )
+    ).all()
+    # Still may be insufficient if max_starts<=1 (Rule 5)
+    max_starts = max(int(m.starts or 0) for m in metrics)
+    if max_starts <= 1:
+        assert any(r.entity_type == "status" for r in mem_session.scalars(
+            select(AnlRanking).where(AnlRanking.category == "best_season")
+        ).all())
+    else:
+        assert best
+        assert best[0].why_json.get("starts") is not None
+        assert best[0].why_json.get("confidence") is not None

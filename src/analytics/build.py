@@ -33,6 +33,15 @@ from src.analytics.metrics import (
 )
 from src.analytics.models import AnlBuildRun, AnlHorseMetrics, AnlRanking, AnlSeason
 from src.analytics.race_intel_build import build_race_intelligence
+from src.analytics.ranking import (
+    MIN_STARTS_DEFAULT,
+    MIN_STARTS_EARNINGS,
+    MIN_STARTS_FORM,
+    qualification_payload,
+    qualify_for_board,
+    sample_size_confidence,
+    season_best_gate,
+)
 from src.analytics.seasons import SeasonCluster, discover_seasons
 from src.analytics.views import create_analytics_views
 from src.database.features import FeatRaceWeather
@@ -47,8 +56,9 @@ from src.warehouse.models import (
     WhTrainer,
 )
 
-BUILDER_VERSION = "1.0.0"
-MIN_STARTS_DEFAULT = 1
+BUILDER_VERSION = "2.0.0"
+# Rule 1 default — overridden by build_analytics(minimum_starts=...)
+MIN_STARTS_SEASON_BEST = MIN_STARTS_DEFAULT
 
 
 def _load_starts(session: Session) -> list[StartRec]:
@@ -279,19 +289,37 @@ def _compute_horse_metrics(
         speed_index=speed_idx,
         earnings_index=earn_idx,
         difficulty_index=diff_idx,
+        starts=starts_n,
+        wins=wins,
+        seconds=seconds,
+        thirds=thirds,
+        form_score=f5,
+        include_earnings=False,
     )
 
+    conf = sample_size_confidence(starts_n)
     explain = {
         "performance_rating": perf,
         "components": {
+            "wins": wins,
+            "seconds": seconds,
+            "thirds": thirds,
             "win_rate": win_rate,
             "place_rate": place_rate,
+            "podium_rate": safe_rate(places, starts_n),
             "avg_finish": avg_fin,
             "consistency_score": cons,
             "speed_index": speed_idx,
             "earnings_index": earn_idx,
             "difficulty_index": diff_idx,
             "form_score_5": f5,
+            "earnings_in_pr": False,
+        },
+        "sample": {
+            "starts": starts_n,
+            "confidence": conf.level,
+            "confidence_score": conf.score,
+            "confidence_label": conf.label,
         },
         "volume": {"starts": starts_n, "wins": wins, "places": places},
         "preferences": {
@@ -307,10 +335,11 @@ def _compute_horse_metrics(
         },
     }
     explain_text = (
-        f"PR={perf} · starts={starts_n} W={wins} "
+        f"PR={perf} · starts={starts_n} W={wins} 2nd={seconds} 3rd={thirds} "
         f"win%={(win_rate or 0)*100:.0f} place%={(place_rate or 0)*100:.0f} "
         f"avgFin={avg_fin:.2f} cons={cons} form5={f5} "
-        f"speed={speed_idx} earnIdx={earn_idx:.3f} diff={diff_idx}"
+        f"speed={speed_idx} earnIdx={earn_idx:.3f}(not in PR) diff={diff_idx} "
+        f"confidence={conf.level}({conf.score})"
     )
 
     return AnlHorseMetrics(
@@ -367,20 +396,25 @@ def _compute_horse_metrics(
 
 
 def _rank_key_success(m: AnlHorseMetrics) -> tuple:
+    """Most Successful — wins first; earnings only as deep tie-break."""
     return (
         -(m.wins or 0),
         -(m.win_rate or 0),
-        -(m.earnings_total or 0),
+        -(m.places or 0),
         (m.avg_finish or 99),
+        -(m.earnings_total or 0),
     )
 
 
 def _rank_key_performance(m: AnlHorseMetrics) -> tuple:
+    """Season Best — PR first; earnings only as final tie-break (Rule 4)."""
     return (
         -(m.performance_rating or 0),
         -(m.wins or 0),
-        -(m.win_rate or 0),
+        -(m.places or 0),
         (m.avg_finish or 99),
+        -(m.form_score_5 or 0),
+        -(m.earnings_total or 0),
     )
 
 
@@ -388,6 +422,28 @@ def _rank_key_consistent(m: AnlHorseMetrics) -> tuple:
     return (
         -(m.consistency_score or 0),
         -(m.starts or 0),
+        (m.avg_finish or 99),
+    )
+
+
+def _rank_key_earnings(m: AnlHorseMetrics) -> tuple:
+    return (-(m.earnings_total or 0), -(m.wins or 0), m.horse_name or "")
+
+
+def _rank_key_win_rate(m: AnlHorseMetrics) -> tuple:
+    return (
+        -(m.win_rate or 0),
+        -(m.wins or 0),
+        -(m.starts or 0),
+        (m.avg_finish or 99),
+    )
+
+
+def _rank_key_form(m: AnlHorseMetrics) -> tuple:
+    return (
+        -(m.form_score_5 or 0),
+        -(m.form_score_3 or 0),
+        -(m.wins or 0),
         (m.avg_finish or 99),
     )
 
@@ -405,18 +461,48 @@ def _add_ranking_rows(
     limit: int = 25,
     metric_primary: str = "performance_rating",
     min_starts: int = MIN_STARTS_DEFAULT,
-) -> int:
-    eligible = [m for m in metrics if (m.starts or 0) >= min_starts]
+    score_fn=None,
+) -> dict[str, Any]:
+    """
+    Write qualified leaderboard rows. Returns stats including exclusions.
+    """
+    excluded: list[dict[str, Any]] = []
+    eligible: list[AnlHorseMetrics] = []
+    for m in metrics:
+        q = qualify_for_board(
+            starts=int(m.starts or 0),
+            minimum_starts=min_starts,
+            board=category,
+        )
+        if q.qualified:
+            eligible.append(m)
+        else:
+            excluded.append(
+                {
+                    "horse": m.horse_name,
+                    "horse_id": m.horse_id,
+                    **qualification_payload(q),
+                }
+            )
+
     eligible.sort(key=key_fn)
     now = datetime.now(timezone.utc)
     n = 0
     for rank, m in enumerate(eligible[:limit], 1):
+        q = qualify_for_board(
+            starts=int(m.starts or 0),
+            minimum_starts=min_starts,
+            board=category,
+        )
+        score = score_fn(m) if score_fn else m.performance_rating
         why = {
             "rank": rank,
             "category": category,
             "primary_metric": metric_primary,
             "performance_rating": m.performance_rating,
             "wins": m.wins,
+            "seconds": m.seconds,
+            "thirds": m.thirds,
             "win_rate": m.win_rate,
             "place_rate": m.place_rate,
             "avg_finish": m.avg_finish,
@@ -425,11 +511,14 @@ def _add_ranking_rows(
             "speed_index": m.speed_index,
             "earnings_total": m.earnings_total,
             "difficulty_index": m.difficulty_index,
+            **qualification_payload(q),
             "explain": m.explain_json,
         }
         why_text = (
-            f"#{rank} {m.horse_name}: {m.explain_text or ''} "
-            f"[category={category} segment={segment}]"
+            f"#{rank} {m.horse_name}: starts={m.starts} "
+            f"confidence={q.confidence.level}({q.confidence.score}) "
+            f"status={q.status} | {m.explain_text or ''} "
+            f"[board={category}]"
         )
         session.add(
             AnlRanking(
@@ -442,7 +531,7 @@ def _add_ranking_rows(
                 entity_id=m.horse_id,
                 entity_name=m.horse_name,
                 rank=rank,
-                score=m.performance_rating,
+                score=score,
                 metric_primary=metric_primary,
                 starts=m.starts,
                 wins=m.wins,
@@ -461,7 +550,61 @@ def _add_ranking_rows(
             )
         )
         n += 1
-    return n
+    return {
+        "written": n,
+        "qualified": len(eligible),
+        "excluded": len(excluded),
+        "excluded_sample": excluded[:20],
+        "minimum_starts": min_starts,
+    }
+
+
+def _write_insufficient_status(
+    session: Session,
+    *,
+    category: str,
+    scope: str,
+    season_key: str,
+    segment: str,
+    gate: dict[str, Any],
+    build_run_id: int,
+) -> None:
+    now = datetime.now(timezone.utc)
+    session.add(
+        AnlRanking(
+            category=category,
+            scope=scope,
+            season_key=season_key,
+            segment=segment,
+            entity_type="status",
+            entity_key="INSUFFICIENT_DATA",
+            entity_id=None,
+            entity_name="INSUFFICIENT DATA",
+            rank=0,
+            score=None,
+            metric_primary="status",
+            starts=None,
+            wins=None,
+            win_rate=None,
+            place_rate=None,
+            avg_finish=None,
+            performance_rating=None,
+            consistency_score=None,
+            form_score=None,
+            earnings_total=None,
+            why_json=gate,
+            why_text=(
+                f"INSUFFICIENT DATA — {gate.get('reason')} "
+                f"(horses_total={gate.get('horses_total')}, "
+                f"qualified={gate.get('horses_qualified')}, "
+                f"max_starts={gate.get('max_starts')}, "
+                f"minimum_starts={gate.get('minimum_starts')})"
+            ),
+            metrics_json=gate,
+            build_run_id=build_run_id,
+            computed_at=now,
+        )
+    )
 
 
 def _entity_rankings_from_starts(
@@ -575,7 +718,7 @@ def _segment_rankings(
         if m.breed and m.breed != "*":
             by_breed[m.breed].append(m)
     for breed, rows in by_breed.items():
-        written += _add_ranking_rows(
+        stats = _add_ranking_rows(
             session,
             category="best_by_breed",
             scope=scope,
@@ -585,7 +728,9 @@ def _segment_rankings(
             key_fn=_rank_key_performance,
             build_run_id=build_run_id,
             metric_primary="performance_rating",
+            min_starts=MIN_STARTS_DEFAULT,
         )
+        written += int(stats["written"])
 
     # Rebuild temporary metrics for other segments from starts
     def metrics_for(predicate, segment_label: str, category: str) -> int:
@@ -611,7 +756,7 @@ def _segment_rankings(
             )
             if m:
                 ms.append(m)
-        return _add_ranking_rows(
+        stats = _add_ranking_rows(
             session,
             category=category,
             scope=scope,
@@ -620,7 +765,9 @@ def _segment_rankings(
             metrics=ms,
             key_fn=_rank_key_performance,
             build_run_id=build_run_id,
+            min_starts=MIN_STARTS_DEFAULT,
         )
+        return int(stats["written"])
 
     # Age bands
     age_groups: dict[str, list[StartRec]] = defaultdict(list)
@@ -681,12 +828,18 @@ def build_analytics(
     *,
     racecourse_code: str | None = None,
     top_n: int = 25,
+    minimum_starts: int = MIN_STARTS_DEFAULT,
 ) -> dict[str, Any]:
     """Rebuild all analytics tables + SQL convenience views."""
     run = AnlBuildRun(
         status="running",
         builder_version=BUILDER_VERSION,
-        params_json={"racecourse_code": racecourse_code, "top_n": top_n},
+        params_json={
+            "racecourse_code": racecourse_code,
+            "top_n": top_n,
+            "minimum_starts": minimum_starts,
+            "ranking_rules_version": "2.0.0",
+        },
     )
     session.add(run)
     session.flush()
@@ -764,7 +917,7 @@ def build_analytics(
                     rows_written += 1
             session.flush()
 
-            # Assign rankings within breed=*
+            # Assign dense ranks (informational; boards apply eligibility separately)
             all_breed = [m for m in local_metrics if m.breed == "*"]
             all_breed.sort(key=_rank_key_performance)
             for i, m in enumerate(all_breed, 1):
@@ -779,69 +932,131 @@ def build_analytics(
                     m.breed_ranking = i
             session.flush()
 
-            # Leaderboards
-            rows_written += _add_ranking_rows(
-                session,
-                category="best_season" if scope == "season" else "best_career",
-                scope=scope,
-                season_key=season_key,
-                segment="*",
-                metrics=all_breed,
-                key_fn=_rank_key_performance,
-                build_run_id=run.id,
-                limit=top_n,
-            )
-            rows_written += _add_ranking_rows(
-                session,
-                category="most_successful",
-                scope=scope,
-                season_key=season_key,
-                segment="*",
-                metrics=all_breed,
-                key_fn=_rank_key_success,
-                build_run_id=run.id,
-                limit=top_n,
-                metric_primary="wins",
-            )
-            rows_written += _add_ranking_rows(
-                session,
-                category="most_consistent",
-                scope=scope,
-                season_key=season_key,
-                segment="*",
-                metrics=[m for m in all_breed if (m.starts or 0) >= 2],
-                key_fn=_rank_key_consistent,
-                build_run_id=run.id,
-                limit=top_n,
-                metric_primary="consistency_score",
-                min_starts=2,
-            )
+            # ---- Separated boards (Rule 2) — do not mix concepts ----
+            best_cat = "best_season" if scope == "season" else "best_career"
+            if scope == "season":
+                gate = season_best_gate(
+                    starts_list=[int(m.starts or 0) for m in all_breed],
+                    minimum_starts=minimum_starts,
+                )
+                if gate["status"] == "INSUFFICIENT_DATA":
+                    _write_insufficient_status(
+                        session,
+                        category=best_cat,
+                        scope=scope,
+                        season_key=season_key,
+                        segment="*",
+                        gate=gate,
+                        build_run_id=run.id,
+                    )
+                    rows_written += 1
+                else:
+                    stats = _add_ranking_rows(
+                        session,
+                        category=best_cat,
+                        scope=scope,
+                        season_key=season_key,
+                        segment="*",
+                        metrics=all_breed,
+                        key_fn=_rank_key_performance,
+                        build_run_id=run.id,
+                        limit=top_n,
+                        metric_primary="performance_rating",
+                        min_starts=minimum_starts,
+                    )
+                    rows_written += int(stats["written"])
+            else:
+                stats = _add_ranking_rows(
+                    session,
+                    category=best_cat,
+                    scope=scope,
+                    season_key=season_key,
+                    segment="*",
+                    metrics=all_breed,
+                    key_fn=_rank_key_performance,
+                    build_run_id=run.id,
+                    limit=top_n,
+                    metric_primary="performance_rating",
+                    min_starts=minimum_starts,
+                )
+                rows_written += int(stats["written"])
+
+            for cat, key_fn, primary, min_s, score_fn in [
+                ("most_successful", _rank_key_success, "wins", minimum_starts, lambda m: float(m.wins or 0)),
+                (
+                    "highest_earnings",
+                    _rank_key_earnings,
+                    "earnings_total",
+                    MIN_STARTS_EARNINGS,
+                    lambda m: float(m.earnings_total or 0),
+                ),
+                (
+                    "highest_win_rate",
+                    _rank_key_win_rate,
+                    "win_rate",
+                    minimum_starts,
+                    lambda m: float(m.win_rate or 0),
+                ),
+                (
+                    "best_form",
+                    _rank_key_form,
+                    "form_score_5",
+                    MIN_STARTS_FORM,
+                    lambda m: float(m.form_score_5 or 0),
+                ),
+                (
+                    "most_consistent",
+                    _rank_key_consistent,
+                    "consistency_score",
+                    minimum_starts,
+                    lambda m: float(m.consistency_score or 0),
+                ),
+            ]:
+                stats = _add_ranking_rows(
+                    session,
+                    category=cat,
+                    scope=scope,
+                    season_key=season_key,
+                    segment="*",
+                    metrics=all_breed,
+                    key_fn=key_fn,
+                    build_run_id=run.id,
+                    limit=top_n,
+                    metric_primary=primary,
+                    min_starts=min_s,
+                    score_fn=score_fn,
+                )
+                rows_written += int(stats["written"])
+
             improving = [m for m in all_breed if m.is_improving]
             declining = [m for m in all_breed if m.is_declining]
-            rows_written += _add_ranking_rows(
-                session,
-                category="improving",
-                scope=scope,
-                season_key=season_key,
-                segment="*",
-                metrics=improving,
-                key_fn=lambda m: (-(m.improvement_trend or 0), -(m.form_score_5 or 0)),
-                build_run_id=run.id,
-                limit=top_n,
-                metric_primary="improvement_trend",
-            )
-            rows_written += _add_ranking_rows(
-                session,
-                category="declining",
-                scope=scope,
-                season_key=season_key,
-                segment="*",
-                metrics=declining,
-                key_fn=lambda m: (-(m.decline_trend or 0), (m.form_score_5 or 0)),
-                build_run_id=run.id,
-                limit=top_n,
-                metric_primary="decline_trend",
-            )
+            for cat, pool, primary in [
+                ("improving", improving, "improvement_trend"),
+                ("declining", declining, "decline_trend"),
+            ]:
+                stats = _add_ranking_rows(
+                    session,
+                    category=cat,
+                    scope=scope,
+                    season_key=season_key,
+                    segment="*",
+                    metrics=pool,
+                    key_fn=(
+                        (lambda m: (-(m.improvement_trend or 0), -(m.form_score_5 or 0)))
+                        if cat == "improving"
+                        else (lambda m: (-(m.decline_trend or 0), (m.form_score_5 or 0)))
+                    ),
+                    build_run_id=run.id,
+                    limit=top_n,
+                    metric_primary=primary,
+                    min_starts=MIN_STARTS_FORM,
+                    score_fn=(
+                        (lambda m: float(m.improvement_trend or 0))
+                        if cat == "improving"
+                        else (lambda m: float(m.decline_trend or 0))
+                    ),
+                )
+                rows_written += int(stats["written"])
 
             rows_written += _entity_rankings_from_starts(
                 session,

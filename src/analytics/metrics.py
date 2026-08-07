@@ -259,31 +259,71 @@ def difficulty_index(
 
 def performance_rating(
     *,
-    win_rate: float | None,
-    place_rate: float | None,
-    avg_finish: float | None,
-    consistency: float | None,
-    speed_index: float | None,
-    earnings_index: float | None,
-    difficulty_index: float | None,
+    win_rate: float | None = None,
+    place_rate: float | None = None,
+    avg_finish: float | None = None,
+    consistency: float | None = None,
+    speed_index: float | None = None,
+    earnings_index: float | None = None,
+    difficulty_index: float | None = None,
+    starts: int | None = None,
+    wins: int | None = None,
+    seconds: int | None = None,
+    thirds: int | None = None,
+    form_score: float | None = None,
+    include_earnings: bool = False,
 ) -> float | None:
-    """Composite 0..100 rating used as default ranking score."""
+    """
+    Composite 0..100 racing Performance Rating (Season Best).
+
+    Earnings are excluded by default (Rule 3/4) — use only as an external
+    tie-breaker when sorting. Optional ``include_earnings`` keeps a tiny
+    legacy path for experiments (weight ≤ 3%).
+    """
+    n = int(starts or 0)
     parts: list[tuple[float, float]] = []
-    if win_rate is not None:
-        parts.append((30.0, win_rate * 100.0))
-    if place_rate is not None:
+
+    # Wins / seconds / thirds rates (racing outcomes)
+    if n > 0 and wins is not None:
+        parts.append((18.0, clamp(100.0 * float(wins) / n)))
+    elif win_rate is not None:
+        parts.append((18.0, win_rate * 100.0))
+
+    if n > 0 and seconds is not None:
+        parts.append((8.0, clamp(100.0 * float(seconds) / n)))
+    if n > 0 and thirds is not None:
+        parts.append((5.0, clamp(100.0 * float(thirds) / n)))
+
+    # Podium rate (wins+seconds+thirds) preferred over generic place_rate
+    if n > 0 and wins is not None and seconds is not None and thirds is not None:
+        podium = (float(wins) + float(seconds) + float(thirds)) / n
+        parts.append((15.0, clamp(podium * 100.0)))
+    elif place_rate is not None:
         parts.append((15.0, place_rate * 100.0))
+
     if avg_finish is not None:
-        # avg 1 → 100, avg 8 → ~20
         parts.append((15.0, clamp(120.0 - 12.5 * avg_finish)))
-    if consistency is not None:
-        parts.append((10.0, consistency))
-    if speed_index is not None:
-        parts.append((10.0, clamp(speed_index)))
-    if earnings_index is not None:
-        parts.append((10.0, earnings_index * 100.0))
+
+    # Consistency only meaningful with multiple starts
+    if consistency is not None and n >= 3:
+        parts.append((12.0, consistency))
+    elif consistency is not None and n >= 2:
+        parts.append((6.0, consistency))
+
     if difficulty_index is not None:
-        parts.append((10.0, difficulty_index))
+        parts.append((12.0, difficulty_index))
+
+    form_v = form_score
+    if form_v is not None:
+        parts.append((10.0, clamp(form_v)))
+
+    if speed_index is not None:
+        parts.append((5.0, clamp(speed_index)))
+
+    # Rule 3: prize money must never dominate — default off
+    if include_earnings and earnings_index is not None:
+        parts.append((3.0, earnings_index * 100.0))
+
     if not parts:
         return None
     wsum = sum(w for w, _ in parts)

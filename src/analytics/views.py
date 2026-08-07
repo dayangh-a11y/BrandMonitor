@@ -15,7 +15,8 @@ VIEW_SQL: list[tuple[str, str]] = [
         CREATE VIEW anl_v_best_horses_season AS
         SELECT rank, entity_name AS horse, season_key, segment AS breed_or_segment,
                score AS performance_rating, wins, win_rate, place_rate, avg_finish,
-               consistency_score, form_score, earnings_total, why_text, why_json, metrics_json
+               consistency_score, form_score, earnings_total, starts,
+               why_text, why_json, metrics_json
         FROM anl_rankings
         WHERE category IN ('best_season', 'best_career')
           AND entity_type = 'horse'
@@ -24,14 +25,54 @@ VIEW_SQL: list[tuple[str, str]] = [
         """,
     ),
     (
+        "anl_v_season_best_status",
+        """
+        CREATE VIEW anl_v_season_best_status AS
+        SELECT season_key, scope, entity_name AS status, why_text, why_json, metrics_json
+        FROM anl_rankings
+        WHERE category = 'best_season'
+          AND entity_type = 'status'
+        """,
+    ),
+    (
         "anl_v_most_successful_horses",
         """
         CREATE VIEW anl_v_most_successful_horses AS
         SELECT rank, entity_name AS horse, scope, season_key,
-               wins, win_rate, place_rate, avg_finish, earnings_total,
+               wins, win_rate, place_rate, avg_finish, earnings_total, starts,
                performance_rating, why_text, why_json
         FROM anl_rankings
         WHERE category = 'most_successful' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_highest_earnings_horses",
+        """
+        CREATE VIEW anl_v_highest_earnings_horses AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               earnings_total, wins, starts, win_rate, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'highest_earnings' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_highest_win_rate_horses",
+        """
+        CREATE VIEW anl_v_highest_win_rate_horses AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               win_rate, wins, starts, avg_finish, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'highest_win_rate' AND entity_type = 'horse' AND segment = '*'
+        """,
+    ),
+    (
+        "anl_v_best_form_horses",
+        """
+        CREATE VIEW anl_v_best_form_horses AS
+        SELECT rank, entity_name AS horse, scope, season_key,
+               form_score, starts, wins, avg_finish, why_text, why_json
+        FROM anl_rankings
+        WHERE category = 'best_form' AND entity_type = 'horse' AND segment = '*'
         """,
     ),
     (
