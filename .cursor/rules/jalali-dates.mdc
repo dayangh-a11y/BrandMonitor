@@ -1,0 +1,15 @@
+---
+description: Jalali (Shamsi) dates are default for Iranian horse racing
+alwaysApply: true
+---
+
+# Jalali date policy (Iranian horse racing)
+
+- Treat **Persian (Jalali/Shamsi)** dates as the default for user-facing Iranian horse racing.
+- Convert Jalali → Gregorian **internally** before querying the database (DB stores Gregorian).
+- Display all results to the user in **Jalali** unless Gregorian is explicitly requested.
+- When a year is mentioned (e.g. `1403`), interpret it as a **Jalali** year.
+- Never mix Jalali and Gregorian in the same response without showing **both** (use `format_both`).
+- Use timezone **Asia/Tehran** for "today" / now (`TEHRAN_TZ`, `today_jalali`, `today_gregorian`).
+
+Helpers: `src/utils/jalali.py` (`to_gregorian`, `to_jalali`, `format_jalali`, `query_jalali_year`, `query_date_range`).
