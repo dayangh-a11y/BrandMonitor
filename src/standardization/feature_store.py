@@ -37,6 +37,12 @@ HORSE_FEATURE_FIELDS = (
     "difficulty_index",
 )
 
+# Race-level Track Configuration features (apply only on confident track_id match)
+RACE_TRACK_CONFIG_FEATURE_FIELDS = (
+    "straight_length_m",
+    "straight_length_category",
+)
+
 
 def get_feature(
     session: Session,
