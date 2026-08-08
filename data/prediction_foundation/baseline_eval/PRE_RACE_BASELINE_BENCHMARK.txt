@@ -1,0 +1,36 @@
+PRE-RACE BASELINE BENCHMARK
+dataset_version: pf-v1.0.0-20260808
+dataset_sha256: f671acc534266451afb3812963b9cd49dfa8435a7f20092729700b6aa39e770c
+TEST races: 640
+best_baseline: A (Historical Ranking)
+contextual_outperforms_simpler: NO
+ml_gate: DO_NOT_TRAIN_YET
+ml_status: DO_NOT_TRAIN_YET
+
+METRICS
+A Historical Ranking: hit=16.45 top3=41.85 win_in_top3=42.49 mean_rank=4.907 mrr=0.3658 ndcg3=0.6144 n=626
+B Current Race Rating: hit=14.8 top3=42.06 win_in_top3=38.99 mean_rank=5.056 mrr=0.3478 ndcg3=0.6105 n=554
+C Recent Form: hit=16.72 top3=39.87 win_in_top3=40.19 mean_rank=4.995 mrr=0.3637 ndcg3=0.6013 n=622
+D Contextual Ranking: hit=14.69 top3=36.56 win_in_top3=41.88 mean_rank=4.802 mrr=0.3558 ndcg3=0.5838 n=640
+
+TOP20 FAILURES
+1. race=2418 date=2025-10-10 track=آق قلا dist=1000 winner_rank=13 pred1_finish=14 field=14 cov=MEDIUM
+2. race=2499 date=2025-12-31 track=گنبدکاووس dist=1700 winner_rank=12 pred1_finish=11 field=12 cov=HIGH
+3. race=1519 date=2026-05-06 track=گنبدکاووس dist=1000 winner_rank=13 pred1_finish=10 field=13 cov=HIGH
+4. race=1364 date=2026-06-28 track=گنبدکاووس dist=1000 winner_rank=13 pred1_finish=10 field=13 cov=MEDIUM
+5. race=2375 date=2025-05-14 track=گنبدکاووس dist=1000 winner_rank=11 pred1_finish=11 field=12 cov=MEDIUM
+6. race=1611 date=2026-01-28 track=گنبدکاووس dist=1200 winner_rank=13 pred1_finish=9 field=13 cov=MEDIUM
+7. race=1294 date=2026-07-30 track=گنبدکاووس dist=1200 winner_rank=10 pred1_finish=12 field=12 cov=HIGH
+8. race=1697 date=2025-05-15 track=گنبدکاووس dist=1200 winner_rank=12 pred1_finish=9 field=13 cov=MEDIUM
+9. race=1558 date=2026-02-07 track=گنبدکاووس dist=1000 winner_rank=13 pred1_finish=8 field=13 cov=MEDIUM
+10. race=1379 date=2026-06-26 track=گنبدکاووس dist=1000 winner_rank=10 pred1_finish=11 field=13 cov=HIGH
+11. race=1335 date=2026-07-16 track=گنبدکاووس dist=1000 winner_rank=12 pred1_finish=9 field=13 cov=HIGH
+12. race=1292 date=2026-07-31 track=گنبدکاووس dist=1700 winner_rank=10 pred1_finish=11 field=12 cov=HIGH
+13. race=787 date=2026-08-01 track=گنبدکاووس dist=1200 winner_rank=12 pred1_finish=9 field=13 cov=HIGH
+14. race=771 date=2025-11-08 track=آق قلا dist=1200 winner_rank=10 pred1_finish=10 field=12 cov=MEDIUM
+15. race=1588 date=2026-02-03 track=اهواز dist=1400 winner_rank=11 pred1_finish=9 field=13 cov=LOW
+16. race=1370 date=2026-06-27 track=گنبدکاووس dist=1000 winner_rank=10 pred1_finish=10 field=13 cov=HIGH
+17. race=1698 date=2025-04-30 track=گنبدکاووس dist=1000 winner_rank=10 pred1_finish=9 field=12 cov=HIGH
+18. race=2396 date=2025-08-30 track=آق قلا dist=1000 winner_rank=12 pred1_finish=7 field=12 cov=MEDIUM
+19. race=2440 date=2025-11-28 track=گنبدکاووس dist=1000 winner_rank=13 pred1_finish=6 field=13 cov=LOW
+20. race=2474 date=2025-12-26 track=گنبدکاووس dist=1200 winner_rank=13 pred1_finish=6 field=13 cov=MEDIUM
