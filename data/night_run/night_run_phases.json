@@ -1,0 +1,1389 @@
+{
+  "phase_1": {
+    "status": "COMPLETE",
+    "phase": 1,
+    "generated_at_utc": "2026-08-08T22:59:37.917320+00:00",
+    "source_dir": "/workspace/data/pedigree",
+    "output_dir": "/workspace/data/night_run/phase1_pedigree",
+    "copied": [
+      "pedigree_source_audit.json",
+      "pedigree_entities.json",
+      "pedigree_conflicts.json",
+      "pedigree_coverage.json",
+      "pedigree_network_report.json",
+      "pedigree_migration_proposal.md",
+      "PEDIGREE_FOUNDATION_REPORT.md"
+    ],
+    "relationships": {
+      "relationship_rows": 18472
+    },
+    "coverage": {
+      "total_canonical_horses": 9414,
+      "sire_coverage_pct": 99.522,
+      "dam_coverage_pct": 96.6964,
+      "complete_pedigree_coverage_pct": 96.5158
+    },
+    "entities": {
+      "total": 6376,
+      "sire": 1251,
+      "dam": 5145
+    },
+    "conflicts": 19,
+    "db_modified": false,
+    "ml_status": "DO_NOT_TRAIN",
+    "notes": [
+      "Local DB pedigree columns remain empty; harvest is file-first.",
+      "Normalization ≠ identity merge; conflicts not auto-resolved.",
+      "Offspring network stats are static descriptive, not as-of."
+    ]
+  },
+  "phase_2": {
+    "status": "COMPLETE",
+    "phase": 2,
+    "overall_status": "WARNINGS",
+    "output_dir": "/workspace/data/night_run/phase2_data_quality",
+    "critical_coverage_gaps": [],
+    "high_severity_anomaly_count": 2
+  },
+  "phase_3": {
+    "status": "COMPLETE_WITH_WARNINGS",
+    "phase": 3,
+    "dataset_version": "pf-v1.0.0-20260808",
+    "dataset_sha256": "f671acc534266451afb3812963b9cd49dfa8435a7f20092729700b6aa39e770c",
+    "leakage_audit_passed": true,
+    "pedigree_in_features": false,
+    "output_dir": "/workspace/data/night_run/phase3_prediction_dataset"
+  },
+  "phase_4": {
+    "status": "COMPLETE",
+    "phase": 4,
+    "generated_at_utc": "2026-08-08T22:59:38.223213+00:00",
+    "dataset_version": "pf-v1.0.0-20260808",
+    "dataset_sha256": "f671acc534266451afb3812963b9cd49dfa8435a7f20092729700b6aa39e770c",
+    "split": "TEST",
+    "probability_calibration": "NOT_APPLICABLE — baselines produce SCORE/RANK only",
+    "best_baseline": {
+      "id": "A",
+      "name": "Historical Ranking",
+      "winner_hit_pct": 16.45,
+      "actual_winner_in_pred_top3_pct": 42.49,
+      "mean_winner_rank": 4.907,
+      "mrr": 0.3658,
+      "ndcg_at_3": 0.6144,
+      "n_races": 626,
+      "selection": "from baseline_metrics.comparison.best_baseline (composite rank)"
+    },
+    "ml_status": "DO_NOT_TRAIN_YET",
+    "contextual_outperforms_simpler": "NO",
+    "comparison": {
+      "ordered_baselines": [
+        {
+          "baseline": "A",
+          "name": "Historical Ranking",
+          "baseline_name": "Historical Ranking",
+          "n_races": 626,
+          "winner_hit_pct": 16.45,
+          "winner_hit_wilson95": [
+            13.76,
+            19.56
+          ],
+          "winner_top3_pct": 41.85,
+          "winner_top3_wilson95": [
+            38.05,
+            45.76
+          ],
+          "actual_winner_in_pred_top3_pct": 42.49,
+          "actual_winner_in_pred_top3_wilson95": [
+            38.68,
+            46.4
+          ],
+          "mean_winner_rank": 4.907,
+          "median_winner_rank": 4.0,
+          "mrr": 0.3658,
+          "ndcg_at_3": 0.6144,
+          "spearman_mean": -0.0155,
+          "stratified": {
+            "field_size": {
+              "10+": {
+                "n_races": 430,
+                "winner_hit_pct": 15.12,
+                "winner_hit_wilson95": [
+                  12.04,
+                  18.81
+                ],
+                "winner_top3_pct": 37.44,
+                "winner_top3_wilson95": [
+                  33.0,
+                  42.11
+                ],
+                "actual_winner_in_pred_top3_pct": 37.67,
+                "actual_winner_in_pred_top3_wilson95": [
+                  33.22,
+                  42.34
+                ],
+                "mean_winner_rank": 5.456,
+                "median_winner_rank": 5.0,
+                "mrr": 0.3404,
+                "ndcg_at_3": 0.5966,
+                "spearman_mean": -0.0175
+              },
+              "4-6": {
+                "n_races": 20,
+                "winner_hit_pct": 25.0,
+                "winner_hit_wilson95": [
+                  11.19,
+                  46.87
+                ],
+                "winner_top3_pct": 70.0,
+                "winner_top3_wilson95": [
+                  48.1,
+                  85.45
+                ],
+                "actual_winner_in_pred_top3_pct": 60.0,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.66,
+                  78.12
+                ],
+                "mean_winner_rank": 3.0,
+                "median_winner_rank": 3.0,
+                "mrr": 0.48,
+                "ndcg_at_3": 0.7067,
+                "spearman_mean": 0.0654
+              },
+              "7-9": {
+                "n_races": 176,
+                "winner_hit_pct": 18.75,
+                "winner_hit_wilson95": [
+                  13.67,
+                  25.16
+                ],
+                "winner_top3_pct": 49.43,
+                "winner_top3_wilson95": [
+                  42.14,
+                  56.75
+                ],
+                "actual_winner_in_pred_top3_pct": 52.27,
+                "actual_winner_in_pred_top3_wilson95": [
+                  44.92,
+                  59.52
+                ],
+                "mean_winner_rank": 3.784,
+                "median_winner_rank": 3.0,
+                "mrr": 0.4148,
+                "ndcg_at_3": 0.6472,
+                "spearman_mean": -0.0196
+              }
+            },
+            "missing_data": {
+              "complete": {
+                "n_races": 313,
+                "winner_hit_pct": 14.06,
+                "winner_hit_wilson95": [
+                  10.64,
+                  18.35
+                ],
+                "winner_top3_pct": 38.66,
+                "winner_top3_wilson95": [
+                  33.43,
+                  44.16
+                ],
+                "actual_winner_in_pred_top3_pct": 45.37,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.94,
+                  50.91
+                ],
+                "mean_winner_rank": 4.54,
+                "median_winner_rank": 4,
+                "mrr": 0.3627,
+                "ndcg_at_3": 0.6121,
+                "spearman_mean": 0.0482
+              },
+              "partial": {
+                "n_races": 234,
+                "winner_hit_pct": 20.94,
+                "winner_hit_wilson95": [
+                  16.22,
+                  26.6
+                ],
+                "winner_top3_pct": 44.87,
+                "winner_top3_wilson95": [
+                  38.63,
+                  51.28
+                ],
+                "actual_winner_in_pred_top3_pct": 44.44,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.22,
+                  50.85
+                ],
+                "mean_winner_rank": 5.051,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3936,
+                "ndcg_at_3": 0.6318,
+                "spearman_mean": -0.0293
+              },
+              "substantial_missing": {
+                "n_races": 79,
+                "winner_hit_pct": 12.66,
+                "winner_hit_wilson95": [
+                  7.02,
+                  21.76
+                ],
+                "winner_top3_pct": 45.57,
+                "winner_top3_wilson95": [
+                  35.05,
+                  56.5
+                ],
+                "actual_winner_in_pred_top3_pct": 25.32,
+                "actual_winner_in_pred_top3_wilson95": [
+                  17.03,
+                  35.89
+                ],
+                "mean_winner_rank": 5.937,
+                "median_winner_rank": 5,
+                "mrr": 0.2958,
+                "ndcg_at_3": 0.5719,
+                "spearman_mean": -0.2267
+              }
+            },
+            "coverage": {
+              "HIGH": {
+                "n_races": 313,
+                "winner_hit_pct": 14.06,
+                "winner_hit_wilson95": [
+                  10.64,
+                  18.35
+                ],
+                "winner_top3_pct": 38.66,
+                "winner_top3_wilson95": [
+                  33.43,
+                  44.16
+                ],
+                "actual_winner_in_pred_top3_pct": 45.37,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.94,
+                  50.91
+                ],
+                "mean_winner_rank": 4.54,
+                "median_winner_rank": 4,
+                "mrr": 0.3627,
+                "ndcg_at_3": 0.6121,
+                "spearman_mean": 0.0482
+              },
+              "LOW": {
+                "n_races": 79,
+                "winner_hit_pct": 12.66,
+                "winner_hit_wilson95": [
+                  7.02,
+                  21.76
+                ],
+                "winner_top3_pct": 45.57,
+                "winner_top3_wilson95": [
+                  35.05,
+                  56.5
+                ],
+                "actual_winner_in_pred_top3_pct": 25.32,
+                "actual_winner_in_pred_top3_wilson95": [
+                  17.03,
+                  35.89
+                ],
+                "mean_winner_rank": 5.937,
+                "median_winner_rank": 5,
+                "mrr": 0.2958,
+                "ndcg_at_3": 0.5719,
+                "spearman_mean": -0.2267
+              },
+              "MEDIUM": {
+                "n_races": 234,
+                "winner_hit_pct": 20.94,
+                "winner_hit_wilson95": [
+                  16.22,
+                  26.6
+                ],
+                "winner_top3_pct": 44.87,
+                "winner_top3_wilson95": [
+                  38.63,
+                  51.28
+                ],
+                "actual_winner_in_pred_top3_pct": 44.44,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.22,
+                  50.85
+                ],
+                "mean_winner_rank": 5.051,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3936,
+                "ndcg_at_3": 0.6318,
+                "spearman_mean": -0.0293
+              }
+            },
+            "time_third": {
+              "final_third": {
+                "n_races": 332,
+                "winner_hit_pct": 17.17,
+                "winner_hit_wilson95": [
+                  13.49,
+                  21.59
+                ],
+                "winner_top3_pct": 42.17,
+                "winner_top3_wilson95": [
+                  36.98,
+                  47.54
+                ],
+                "actual_winner_in_pred_top3_pct": 45.18,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.91,
+                  50.56
+                ],
+                "mean_winner_rank": 4.699,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3782,
+                "ndcg_at_3": 0.6204,
+                "spearman_mean": 0.0134
+              },
+              "first_third": {
+                "n_races": 120,
+                "winner_hit_pct": 14.17,
+                "winner_hit_wilson95": [
+                  9.04,
+                  21.52
+                ],
+                "winner_top3_pct": 39.17,
+                "winner_top3_wilson95": [
+                  30.9,
+                  48.11
+                ],
+                "actual_winner_in_pred_top3_pct": 38.33,
+                "actual_winner_in_pred_top3_wilson95": [
+                  30.12,
+                  47.27
+                ],
+                "mean_winner_rank": 5.075,
+                "median_winner_rank": 5.0,
+                "mrr": 0.3411,
+                "ndcg_at_3": 0.5988,
+                "spearman_mean": -0.0466
+              },
+              "middle_third": {
+                "n_races": 174,
+                "winner_hit_pct": 16.67,
+                "winner_hit_wilson95": [
+                  11.86,
+                  22.91
+                ],
+                "winner_top3_pct": 43.1,
+                "winner_top3_wilson95": [
+                  35.97,
+                  50.53
+                ],
+                "actual_winner_in_pred_top3_pct": 40.23,
+                "actual_winner_in_pred_top3_wilson95": [
+                  33.23,
+                  47.65
+                ],
+                "mean_winner_rank": 5.19,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3592,
+                "ndcg_at_3": 0.6137,
+                "spearman_mean": -0.0489
+              }
+            }
+          },
+          "baseline_rank": 1
+        },
+        {
+          "baseline": "D",
+          "name": "Contextual Ranking",
+          "baseline_name": "Contextual Ranking",
+          "n_races": 640,
+          "winner_hit_pct": 14.69,
+          "winner_hit_wilson95": [
+            12.16,
+            17.64
+          ],
+          "winner_top3_pct": 36.56,
+          "winner_top3_wilson95": [
+            32.92,
+            40.36
+          ],
+          "actual_winner_in_pred_top3_pct": 41.88,
+          "actual_winner_in_pred_top3_wilson95": [
+            38.11,
+            45.73
+          ],
+          "mean_winner_rank": 4.802,
+          "median_winner_rank": 4.0,
+          "mrr": 0.3558,
+          "ndcg_at_3": 0.5838,
+          "spearman_mean": -0.0224,
+          "stratified": {
+            "field_size": {
+              "10+": {
+                "n_races": 436,
+                "winner_hit_pct": 12.84,
+                "winner_hit_wilson95": [
+                  10.02,
+                  16.31
+                ],
+                "winner_top3_pct": 32.57,
+                "winner_top3_wilson95": [
+                  28.34,
+                  37.1
+                ],
+                "actual_winner_in_pred_top3_pct": 38.07,
+                "actual_winner_in_pred_top3_wilson95": [
+                  33.64,
+                  42.72
+                ],
+                "mean_winner_rank": 5.271,
+                "median_winner_rank": 4.0,
+                "mrr": 0.329,
+                "ndcg_at_3": 0.5616,
+                "spearman_mean": -0.0308
+              },
+              "4-6": {
+                "n_races": 20,
+                "winner_hit_pct": 30.0,
+                "winner_hit_wilson95": [
+                  14.55,
+                  51.9
+                ],
+                "winner_top3_pct": 65.0,
+                "winner_top3_wilson95": [
+                  43.29,
+                  81.88
+                ],
+                "actual_winner_in_pred_top3_pct": 75.0,
+                "actual_winner_in_pred_top3_wilson95": [
+                  53.13,
+                  88.81
+                ],
+                "mean_winner_rank": 2.75,
+                "median_winner_rank": 3.0,
+                "mrr": 0.5267,
+                "ndcg_at_3": 0.7458,
+                "spearman_mean": 0.1439
+              },
+              "7-9": {
+                "n_races": 184,
+                "winner_hit_pct": 17.39,
+                "winner_hit_wilson95": [
+                  12.6,
+                  23.52
+                ],
+                "winner_top3_pct": 42.93,
+                "winner_top3_wilson95": [
+                  36.0,
+                  50.16
+                ],
+                "actual_winner_in_pred_top3_pct": 47.28,
+                "actual_winner_in_pred_top3_wilson95": [
+                  40.2,
+                  54.48
+                ],
+                "mean_winner_rank": 3.913,
+                "median_winner_rank": 4.0,
+                "mrr": 0.4008,
+                "ndcg_at_3": 0.6188,
+                "spearman_mean": -0.0206
+              }
+            },
+            "missing_data": {
+              "complete": {
+                "n_races": 313,
+                "winner_hit_pct": 16.61,
+                "winner_hit_wilson95": [
+                  12.9,
+                  21.14
+                ],
+                "winner_top3_pct": 42.49,
+                "winner_top3_wilson95": [
+                  37.14,
+                  48.03
+                ],
+                "actual_winner_in_pred_top3_pct": 46.01,
+                "actual_winner_in_pred_top3_wilson95": [
+                  40.57,
+                  51.54
+                ],
+                "mean_winner_rank": 4.406,
+                "median_winner_rank": 4,
+                "mrr": 0.3827,
+                "ndcg_at_3": 0.6188,
+                "spearman_mean": 0.0655
+              },
+              "partial": {
+                "n_races": 234,
+                "winner_hit_pct": 14.1,
+                "winner_hit_wilson95": [
+                  10.22,
+                  19.14
+                ],
+                "winner_top3_pct": 33.76,
+                "winner_top3_wilson95": [
+                  28.01,
+                  40.04
+                ],
+                "actual_winner_in_pred_top3_pct": 38.89,
+                "actual_winner_in_pred_top3_wilson95": [
+                  32.87,
+                  45.27
+                ],
+                "mean_winner_rank": 5.03,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3424,
+                "ndcg_at_3": 0.5663,
+                "spearman_mean": -0.028
+              },
+              "substantial_missing": {
+                "n_races": 93,
+                "winner_hit_pct": 9.68,
+                "winner_hit_wilson95": [
+                  5.18,
+                  17.38
+                ],
+                "winner_top3_pct": 23.66,
+                "winner_top3_wilson95": [
+                  16.17,
+                  33.23
+                ],
+                "actual_winner_in_pred_top3_pct": 35.48,
+                "actual_winner_in_pred_top3_wilson95": [
+                  26.51,
+                  45.61
+                ],
+                "mean_winner_rank": 5.559,
+                "median_winner_rank": 5,
+                "mrr": 0.2989,
+                "ndcg_at_3": 0.5099,
+                "spearman_mean": -0.3042
+              }
+            },
+            "coverage": {
+              "HIGH": {
+                "n_races": 313,
+                "winner_hit_pct": 16.61,
+                "winner_hit_wilson95": [
+                  12.9,
+                  21.14
+                ],
+                "winner_top3_pct": 42.49,
+                "winner_top3_wilson95": [
+                  37.14,
+                  48.03
+                ],
+                "actual_winner_in_pred_top3_pct": 46.01,
+                "actual_winner_in_pred_top3_wilson95": [
+                  40.57,
+                  51.54
+                ],
+                "mean_winner_rank": 4.406,
+                "median_winner_rank": 4,
+                "mrr": 0.3827,
+                "ndcg_at_3": 0.6188,
+                "spearman_mean": 0.0655
+              },
+              "LOW": {
+                "n_races": 93,
+                "winner_hit_pct": 9.68,
+                "winner_hit_wilson95": [
+                  5.18,
+                  17.38
+                ],
+                "winner_top3_pct": 23.66,
+                "winner_top3_wilson95": [
+                  16.17,
+                  33.23
+                ],
+                "actual_winner_in_pred_top3_pct": 35.48,
+                "actual_winner_in_pred_top3_wilson95": [
+                  26.51,
+                  45.61
+                ],
+                "mean_winner_rank": 5.559,
+                "median_winner_rank": 5,
+                "mrr": 0.2989,
+                "ndcg_at_3": 0.5099,
+                "spearman_mean": -0.3042
+              },
+              "MEDIUM": {
+                "n_races": 234,
+                "winner_hit_pct": 14.1,
+                "winner_hit_wilson95": [
+                  10.22,
+                  19.14
+                ],
+                "winner_top3_pct": 33.76,
+                "winner_top3_wilson95": [
+                  28.01,
+                  40.04
+                ],
+                "actual_winner_in_pred_top3_pct": 38.89,
+                "actual_winner_in_pred_top3_wilson95": [
+                  32.87,
+                  45.27
+                ],
+                "mean_winner_rank": 5.03,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3424,
+                "ndcg_at_3": 0.5663,
+                "spearman_mean": -0.028
+              }
+            },
+            "time_third": {
+              "final_third": {
+                "n_races": 337,
+                "winner_hit_pct": 16.62,
+                "winner_hit_wilson95": [
+                  13.02,
+                  20.96
+                ],
+                "winner_top3_pct": 37.39,
+                "winner_top3_wilson95": [
+                  32.39,
+                  42.67
+                ],
+                "actual_winner_in_pred_top3_pct": 44.51,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.3,
+                  49.85
+                ],
+                "mean_winner_rank": 4.662,
+                "median_winner_rank": 4,
+                "mrr": 0.3728,
+                "ndcg_at_3": 0.5846,
+                "spearman_mean": -0.0221
+              },
+              "first_third": {
+                "n_races": 122,
+                "winner_hit_pct": 10.66,
+                "winner_hit_wilson95": [
+                  6.33,
+                  17.38
+                ],
+                "winner_top3_pct": 31.15,
+                "winner_top3_wilson95": [
+                  23.61,
+                  39.83
+                ],
+                "actual_winner_in_pred_top3_pct": 37.7,
+                "actual_winner_in_pred_top3_wilson95": [
+                  29.6,
+                  46.56
+                ],
+                "mean_winner_rank": 5.016,
+                "median_winner_rank": 4.5,
+                "mrr": 0.3254,
+                "ndcg_at_3": 0.5782,
+                "spearman_mean": -0.0523
+              },
+              "middle_third": {
+                "n_races": 181,
+                "winner_hit_pct": 13.81,
+                "winner_hit_wilson95": [
+                  9.53,
+                  19.59
+                ],
+                "winner_top3_pct": 38.67,
+                "winner_top3_wilson95": [
+                  31.88,
+                  45.93
+                ],
+                "actual_winner_in_pred_top3_pct": 39.78,
+                "actual_winner_in_pred_top3_wilson95": [
+                  32.93,
+                  47.05
+                ],
+                "mean_winner_rank": 4.917,
+                "median_winner_rank": 4,
+                "mrr": 0.3446,
+                "ndcg_at_3": 0.586,
+                "spearman_mean": -0.0029
+              }
+            }
+          },
+          "baseline_rank": 2
+        },
+        {
+          "baseline": "C",
+          "name": "Recent Form",
+          "baseline_name": "Recent Form",
+          "n_races": 622,
+          "winner_hit_pct": 16.72,
+          "winner_hit_wilson95": [
+            13.99,
+            19.86
+          ],
+          "winner_top3_pct": 39.87,
+          "winner_top3_wilson95": [
+            36.1,
+            43.77
+          ],
+          "actual_winner_in_pred_top3_pct": 40.19,
+          "actual_winner_in_pred_top3_wilson95": [
+            36.41,
+            44.09
+          ],
+          "mean_winner_rank": 4.995,
+          "median_winner_rank": 4.0,
+          "mrr": 0.3637,
+          "ndcg_at_3": 0.6013,
+          "spearman_mean": -0.0175,
+          "stratified": {
+            "field_size": {
+              "10+": {
+                "n_races": 426,
+                "winner_hit_pct": 13.62,
+                "winner_hit_wilson95": [
+                  10.68,
+                  17.2
+                ],
+                "winner_top3_pct": 33.57,
+                "winner_top3_wilson95": [
+                  29.25,
+                  38.18
+                ],
+                "actual_winner_in_pred_top3_pct": 36.15,
+                "actual_winner_in_pred_top3_wilson95": [
+                  31.73,
+                  40.82
+                ],
+                "mean_winner_rank": 5.526,
+                "median_winner_rank": 5.0,
+                "mrr": 0.3294,
+                "ndcg_at_3": 0.5793,
+                "spearman_mean": -0.0182
+              },
+              "4-6": {
+                "n_races": 20,
+                "winner_hit_pct": 15.0,
+                "winner_hit_wilson95": [
+                  5.24,
+                  36.04
+                ],
+                "winner_top3_pct": 60.0,
+                "winner_top3_wilson95": [
+                  38.66,
+                  78.12
+                ],
+                "actual_winner_in_pred_top3_pct": 60.0,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.66,
+                  78.12
+                ],
+                "mean_winner_rank": 3.15,
+                "median_winner_rank": 3.0,
+                "mrr": 0.4275,
+                "ndcg_at_3": 0.6958,
+                "spearman_mean": 0.0189
+              },
+              "7-9": {
+                "n_races": 176,
+                "winner_hit_pct": 24.43,
+                "winner_hit_wilson95": [
+                  18.67,
+                  31.28
+                ],
+                "winner_top3_pct": 52.84,
+                "winner_top3_wilson95": [
+                  45.48,
+                  60.08
+                ],
+                "actual_winner_in_pred_top3_pct": 47.73,
+                "actual_winner_in_pred_top3_wilson95": [
+                  40.48,
+                  55.08
+                ],
+                "mean_winner_rank": 3.92,
+                "median_winner_rank": 4.0,
+                "mrr": 0.4395,
+                "ndcg_at_3": 0.6437,
+                "spearman_mean": -0.0199
+              }
+            },
+            "missing_data": {
+              "complete": {
+                "n_races": 313,
+                "winner_hit_pct": 14.7,
+                "winner_hit_wilson95": [
+                  11.2,
+                  19.05
+                ],
+                "winner_top3_pct": 37.38,
+                "winner_top3_wilson95": [
+                  32.2,
+                  42.86
+                ],
+                "actual_winner_in_pred_top3_pct": 43.45,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.07,
+                  48.99
+                ],
+                "mean_winner_rank": 4.706,
+                "median_winner_rank": 4,
+                "mrr": 0.3637,
+                "ndcg_at_3": 0.5961,
+                "spearman_mean": 0.0497
+              },
+              "partial": {
+                "n_races": 234,
+                "winner_hit_pct": 21.37,
+                "winner_hit_wilson95": [
+                  16.6,
+                  27.06
+                ],
+                "winner_top3_pct": 43.16,
+                "winner_top3_wilson95": [
+                  36.98,
+                  49.57
+                ],
+                "actual_winner_in_pred_top3_pct": 39.32,
+                "actual_winner_in_pred_top3_wilson95": [
+                  33.28,
+                  45.7
+                ],
+                "mean_winner_rank": 5.124,
+                "median_winner_rank": 4.5,
+                "mrr": 0.3847,
+                "ndcg_at_3": 0.6184,
+                "spearman_mean": -0.0394
+              },
+              "substantial_missing": {
+                "n_races": 75,
+                "winner_hit_pct": 10.67,
+                "winner_hit_wilson95": [
+                  5.5,
+                  19.66
+                ],
+                "winner_top3_pct": 40.0,
+                "winner_top3_wilson95": [
+                  29.66,
+                  51.31
+                ],
+                "actual_winner_in_pred_top3_pct": 29.33,
+                "actual_winner_in_pred_top3_wilson95": [
+                  20.24,
+                  40.44
+                ],
+                "mean_winner_rank": 5.8,
+                "median_winner_rank": 5,
+                "mrr": 0.298,
+                "ndcg_at_3": 0.5696,
+                "spearman_mean": -0.2297
+              }
+            },
+            "coverage": {
+              "HIGH": {
+                "n_races": 313,
+                "winner_hit_pct": 14.7,
+                "winner_hit_wilson95": [
+                  11.2,
+                  19.05
+                ],
+                "winner_top3_pct": 37.38,
+                "winner_top3_wilson95": [
+                  32.2,
+                  42.86
+                ],
+                "actual_winner_in_pred_top3_pct": 43.45,
+                "actual_winner_in_pred_top3_wilson95": [
+                  38.07,
+                  48.99
+                ],
+                "mean_winner_rank": 4.706,
+                "median_winner_rank": 4,
+                "mrr": 0.3637,
+                "ndcg_at_3": 0.5961,
+                "spearman_mean": 0.0497
+              },
+              "LOW": {
+                "n_races": 75,
+                "winner_hit_pct": 10.67,
+                "winner_hit_wilson95": [
+                  5.5,
+                  19.66
+                ],
+                "winner_top3_pct": 40.0,
+                "winner_top3_wilson95": [
+                  29.66,
+                  51.31
+                ],
+                "actual_winner_in_pred_top3_pct": 29.33,
+                "actual_winner_in_pred_top3_wilson95": [
+                  20.24,
+                  40.44
+                ],
+                "mean_winner_rank": 5.8,
+                "median_winner_rank": 5,
+                "mrr": 0.298,
+                "ndcg_at_3": 0.5696,
+                "spearman_mean": -0.2297
+              },
+              "MEDIUM": {
+                "n_races": 234,
+                "winner_hit_pct": 21.37,
+                "winner_hit_wilson95": [
+                  16.6,
+                  27.06
+                ],
+                "winner_top3_pct": 43.16,
+                "winner_top3_wilson95": [
+                  36.98,
+                  49.57
+                ],
+                "actual_winner_in_pred_top3_pct": 39.32,
+                "actual_winner_in_pred_top3_wilson95": [
+                  33.28,
+                  45.7
+                ],
+                "mean_winner_rank": 5.124,
+                "median_winner_rank": 4.5,
+                "mrr": 0.3847,
+                "ndcg_at_3": 0.6184,
+                "spearman_mean": -0.0394
+              }
+            },
+            "time_third": {
+              "final_third": {
+                "n_races": 329,
+                "winner_hit_pct": 17.33,
+                "winner_hit_wilson95": [
+                  13.62,
+                  21.79
+                ],
+                "winner_top3_pct": 39.82,
+                "winner_top3_wilson95": [
+                  34.67,
+                  45.2
+                ],
+                "actual_winner_in_pred_top3_pct": 44.68,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.4,
+                  50.08
+                ],
+                "mean_winner_rank": 4.757,
+                "median_winner_rank": 4,
+                "mrr": 0.3811,
+                "ndcg_at_3": 0.6017,
+                "spearman_mean": 0.0073
+              },
+              "first_third": {
+                "n_races": 119,
+                "winner_hit_pct": 15.97,
+                "winner_hit_wilson95": [
+                  10.47,
+                  23.6
+                ],
+                "winner_top3_pct": 42.86,
+                "winner_top3_wilson95": [
+                  34.33,
+                  51.83
+                ],
+                "actual_winner_in_pred_top3_pct": 40.34,
+                "actual_winner_in_pred_top3_wilson95": [
+                  31.96,
+                  49.32
+                ],
+                "mean_winner_rank": 5.034,
+                "median_winner_rank": 4,
+                "mrr": 0.3508,
+                "ndcg_at_3": 0.6246,
+                "spearman_mean": -0.0282
+              },
+              "middle_third": {
+                "n_races": 174,
+                "winner_hit_pct": 16.09,
+                "winner_hit_wilson95": [
+                  11.37,
+                  22.27
+                ],
+                "winner_top3_pct": 37.93,
+                "winner_top3_wilson95": [
+                  31.06,
+                  45.33
+                ],
+                "actual_winner_in_pred_top3_pct": 31.61,
+                "actual_winner_in_pred_top3_wilson95": [
+                  25.16,
+                  38.85
+                ],
+                "mean_winner_rank": 5.42,
+                "median_winner_rank": 5.0,
+                "mrr": 0.3397,
+                "ndcg_at_3": 0.5847,
+                "spearman_mean": -0.0571
+              }
+            }
+          },
+          "baseline_rank": 3
+        },
+        {
+          "baseline": "B",
+          "name": "Current Race Rating",
+          "baseline_name": "Current Race Rating",
+          "n_races": 554,
+          "winner_hit_pct": 14.8,
+          "winner_hit_wilson95": [
+            12.09,
+            18.0
+          ],
+          "winner_top3_pct": 42.06,
+          "winner_top3_wilson95": [
+            38.02,
+            46.21
+          ],
+          "actual_winner_in_pred_top3_pct": 38.99,
+          "actual_winner_in_pred_top3_wilson95": [
+            35.02,
+            43.11
+          ],
+          "mean_winner_rank": 5.056,
+          "median_winner_rank": 4.5,
+          "mrr": 0.3478,
+          "ndcg_at_3": 0.6105,
+          "spearman_mean": -0.0066,
+          "stratified": {
+            "field_size": {
+              "10+": {
+                "n_races": 377,
+                "winner_hit_pct": 13.53,
+                "winner_hit_wilson95": [
+                  10.44,
+                  17.35
+                ],
+                "winner_top3_pct": 39.26,
+                "winner_top3_wilson95": [
+                  34.46,
+                  44.27
+                ],
+                "actual_winner_in_pred_top3_pct": 35.28,
+                "actual_winner_in_pred_top3_wilson95": [
+                  30.63,
+                  40.23
+                ],
+                "mean_winner_rank": 5.594,
+                "median_winner_rank": 5,
+                "mrr": 0.3232,
+                "ndcg_at_3": 0.6019,
+                "spearman_mean": -0.003
+              },
+              "4-6": {
+                "n_races": 18,
+                "winner_hit_pct": 16.67,
+                "winner_hit_wilson95": [
+                  5.84,
+                  39.22
+                ],
+                "winner_top3_pct": 50.0,
+                "winner_top3_wilson95": [
+                  29.03,
+                  70.97
+                ],
+                "actual_winner_in_pred_top3_pct": 44.44,
+                "actual_winner_in_pred_top3_wilson95": [
+                  24.56,
+                  66.28
+                ],
+                "mean_winner_rank": 3.333,
+                "median_winner_rank": 4.0,
+                "mrr": 0.4139,
+                "ndcg_at_3": 0.6425,
+                "spearman_mean": 0.0075
+              },
+              "7-9": {
+                "n_races": 159,
+                "winner_hit_pct": 17.61,
+                "winner_hit_wilson95": [
+                  12.47,
+                  24.27
+                ],
+                "winner_top3_pct": 47.8,
+                "winner_top3_wilson95": [
+                  40.18,
+                  55.52
+                ],
+                "actual_winner_in_pred_top3_pct": 47.17,
+                "actual_winner_in_pred_top3_wilson95": [
+                  39.57,
+                  54.9
+                ],
+                "mean_winner_rank": 3.975,
+                "median_winner_rank": 4,
+                "mrr": 0.3987,
+                "ndcg_at_3": 0.6273,
+                "spearman_mean": -0.0169
+              }
+            },
+            "missing_data": {
+              "complete": {
+                "n_races": 311,
+                "winner_hit_pct": 14.47,
+                "winner_hit_wilson95": [
+                  10.99,
+                  18.81
+                ],
+                "winner_top3_pct": 38.26,
+                "winner_top3_wilson95": [
+                  33.04,
+                  43.78
+                ],
+                "actual_winner_in_pred_top3_pct": 41.8,
+                "actual_winner_in_pred_top3_wilson95": [
+                  36.45,
+                  47.35
+                ],
+                "mean_winner_rank": 4.704,
+                "median_winner_rank": 4,
+                "mrr": 0.3576,
+                "ndcg_at_3": 0.6093,
+                "spearman_mean": 0.0274
+              },
+              "partial": {
+                "n_races": 206,
+                "winner_hit_pct": 15.05,
+                "winner_hit_wilson95": [
+                  10.81,
+                  20.57
+                ],
+                "winner_top3_pct": 47.09,
+                "winner_top3_wilson95": [
+                  40.39,
+                  53.89
+                ],
+                "actual_winner_in_pred_top3_pct": 34.47,
+                "actual_winner_in_pred_top3_wilson95": [
+                  28.31,
+                  41.19
+                ],
+                "mean_winner_rank": 5.51,
+                "median_winner_rank": 5.5,
+                "mrr": 0.3344,
+                "ndcg_at_3": 0.6161,
+                "spearman_mean": -0.0183
+              },
+              "substantial_missing": {
+                "n_races": 37,
+                "winner_hit_pct": 16.22,
+                "winner_hit_wilson95": [
+                  7.65,
+                  31.14
+                ],
+                "winner_top3_pct": 45.95,
+                "winner_top3_wilson95": [
+                  31.04,
+                  61.62
+                ],
+                "actual_winner_in_pred_top3_pct": 40.54,
+                "actual_winner_in_pred_top3_wilson95": [
+                  26.35,
+                  56.51
+                ],
+                "mean_winner_rank": 5.486,
+                "median_winner_rank": 5,
+                "mrr": 0.3406,
+                "ndcg_at_3": 0.5894,
+                "spearman_mean": -0.2277
+              }
+            },
+            "coverage": {
+              "HIGH": {
+                "n_races": 311,
+                "winner_hit_pct": 14.47,
+                "winner_hit_wilson95": [
+                  10.99,
+                  18.81
+                ],
+                "winner_top3_pct": 38.26,
+                "winner_top3_wilson95": [
+                  33.04,
+                  43.78
+                ],
+                "actual_winner_in_pred_top3_pct": 41.8,
+                "actual_winner_in_pred_top3_wilson95": [
+                  36.45,
+                  47.35
+                ],
+                "mean_winner_rank": 4.704,
+                "median_winner_rank": 4,
+                "mrr": 0.3576,
+                "ndcg_at_3": 0.6093,
+                "spearman_mean": 0.0274
+              },
+              "LOW": {
+                "n_races": 37,
+                "winner_hit_pct": 16.22,
+                "winner_hit_wilson95": [
+                  7.65,
+                  31.14
+                ],
+                "winner_top3_pct": 45.95,
+                "winner_top3_wilson95": [
+                  31.04,
+                  61.62
+                ],
+                "actual_winner_in_pred_top3_pct": 40.54,
+                "actual_winner_in_pred_top3_wilson95": [
+                  26.35,
+                  56.51
+                ],
+                "mean_winner_rank": 5.486,
+                "median_winner_rank": 5,
+                "mrr": 0.3406,
+                "ndcg_at_3": 0.5894,
+                "spearman_mean": -0.2277
+              },
+              "MEDIUM": {
+                "n_races": 206,
+                "winner_hit_pct": 15.05,
+                "winner_hit_wilson95": [
+                  10.81,
+                  20.57
+                ],
+                "winner_top3_pct": 47.09,
+                "winner_top3_wilson95": [
+                  40.39,
+                  53.89
+                ],
+                "actual_winner_in_pred_top3_pct": 34.47,
+                "actual_winner_in_pred_top3_wilson95": [
+                  28.31,
+                  41.19
+                ],
+                "mean_winner_rank": 5.51,
+                "median_winner_rank": 5.5,
+                "mrr": 0.3344,
+                "ndcg_at_3": 0.6161,
+                "spearman_mean": -0.0183
+              }
+            },
+            "time_third": {
+              "final_third": {
+                "n_races": 294,
+                "winner_hit_pct": 17.69,
+                "winner_hit_wilson95": [
+                  13.75,
+                  22.46
+                ],
+                "winner_top3_pct": 41.84,
+                "winner_top3_wilson95": [
+                  36.34,
+                  47.55
+                ],
+                "actual_winner_in_pred_top3_pct": 42.52,
+                "actual_winner_in_pred_top3_wilson95": [
+                  37.0,
+                  48.23
+                ],
+                "mean_winner_rank": 5.014,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3716,
+                "ndcg_at_3": 0.6188,
+                "spearman_mean": 0.0034
+              },
+              "first_third": {
+                "n_races": 114,
+                "winner_hit_pct": 8.77,
+                "winner_hit_wilson95": [
+                  4.83,
+                  15.4
+                ],
+                "winner_top3_pct": 42.98,
+                "winner_top3_wilson95": [
+                  34.27,
+                  52.15
+                ],
+                "actual_winner_in_pred_top3_pct": 31.58,
+                "actual_winner_in_pred_top3_wilson95": [
+                  23.77,
+                  40.59
+                ],
+                "mean_winner_rank": 5.167,
+                "median_winner_rank": 5.0,
+                "mrr": 0.3006,
+                "ndcg_at_3": 0.5869,
+                "spearman_mean": -0.0586
+              },
+              "middle_third": {
+                "n_races": 146,
+                "winner_hit_pct": 13.7,
+                "winner_hit_wilson95": [
+                  9.05,
+                  20.21
+                ],
+                "winner_top3_pct": 41.78,
+                "winner_top3_wilson95": [
+                  34.09,
+                  49.89
+                ],
+                "actual_winner_in_pred_top3_pct": 37.67,
+                "actual_winner_in_pred_top3_wilson95": [
+                  30.22,
+                  45.75
+                ],
+                "mean_winner_rank": 5.055,
+                "median_winner_rank": 4.0,
+                "mrr": 0.3369,
+                "ndcg_at_3": 0.6122,
+                "spearman_mean": 0.0137
+              }
+            }
+          },
+          "baseline_rank": 4
+        }
+      ],
+      "best_baseline": "A",
+      "best_baseline_name": "Historical Ranking",
+      "D_vs_A_B_C_material": {
+        "A": false,
+        "B": true,
+        "C": null
+      },
+      "contextual_outperforms_simpler": "NO",
+      "ml_gate": "DO_NOT_TRAIN_YET",
+      "tradeoffs": [
+        "Historical Ranking is stable when careers are long but weak for debuts/recent improvers.",
+        "Race Rating depends on source_rating coverage; many TEST rows lack rating.",
+        "Recent Form reacts quickly but overfits tiny samples (n<3).",
+        "Contextual Ranking blends signals but can still be dominated by sparse track/distance cells."
+      ]
+    },
+    "output_dir": "/workspace/data/night_run/phase4_baselines",
+    "notes": [
+      "Race-level evaluation only.",
+      "Scores are ranks/scores — NOT calibrated probabilities.",
+      "Betting data unused."
+    ]
+  },
+  "phase_5": {
+    "status": "COMPLETE",
+    "phase": 5,
+    "answer": "NO",
+    "ml_status": "DO_NOT_TRAIN",
+    "trained": false,
+    "output_dir": "/workspace/data/night_run/phase5_ml_gate"
+  },
+  "phase_6": {
+    "status": "COMPLETE",
+    "phase": 6,
+    "contract_version": "pe-v1.0.0",
+    "smoke_ok": true,
+    "sample_race_id": 3393,
+    "warnings": [],
+    "output_dir": "/workspace/data/night_run/phase6_prediction_engine",
+    "generated_at_utc": "2026-08-08T22:59:38.312139+00:00"
+  },
+  "phase_7": {
+    "status": "COMPLETE",
+    "phase": 7,
+    "http_implemented": false,
+    "contract_ready": true,
+    "output_dir": "/workspace/data/night_run/phase7_api_readiness"
+  },
+  "phase_8": {
+    "status": "COMPLETE",
+    "phase": 8,
+    "telegram_implemented": false,
+    "design_ready": true,
+    "sample_race_id": 3393,
+    "output_dir": "/workspace/data/night_run/phase8_telegram_design"
+  }
+}

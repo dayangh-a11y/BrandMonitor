@@ -1,0 +1,30 @@
+{
+  "status": "NOT_AUTHORIZED",
+  "target": "race winner / top3 ranking (not calibrated probability initially)",
+  "features": [
+    "horse history rates with sample_n/reliability",
+    "recent form",
+    "distance/track/class/breed context",
+    "trainer/owner/weight/field size",
+    "pedigree (after DB load + as-of offspring stats)"
+  ],
+  "leakage_controls": [
+    "strict cutoff (race_date, race_id, result_id)",
+    "no same-day leakage",
+    "no betting features",
+    "as-of pedigree offspring only"
+  ],
+  "split": "chronological 70/15/15 already used in PF freeze",
+  "baseline_metrics_ref": "/workspace/data/night_run/phase4_baselines/baseline_metrics.json",
+  "proposed_model": "regularized gradient boosting ranker OR logistic pairwise — TBD after gate YES",
+  "evaluation_metrics": [
+    "winner hit",
+    "winner in pred top3",
+    "MRR",
+    "NDCG@3",
+    "mean winner rank"
+  ],
+  "calibration_strategy": "Platt/isotonic only after ranking value proven; never call raw score probability",
+  "explainability_strategy": "feature attributions + evidence blocks for Telegram/API",
+  "blocked_reason": "Contextual does not clearly beat simpler baselines on winner hit (Wilson CIs overlap or contextual ≤ simpler). Do not train ML."
+}

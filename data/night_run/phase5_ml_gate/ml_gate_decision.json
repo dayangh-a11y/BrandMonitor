@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "2026-08-08T22:59:38.224729+00:00",
+  "question": "Does Contextual Ranking materially outperform Historical Ranking, Race Rating and Recent Form?",
+  "answer": "NO",
+  "material_outperformance": false,
+  "metrics": {
+    "A_historical_winner_hit_pct": 16.45,
+    "B_race_rating_winner_hit_pct": 14.8,
+    "C_recent_form_winner_hit_pct": 16.72,
+    "D_contextual_winner_hit_pct": 14.69,
+    "simpler_best_winner_hit_pct": 16.72,
+    "D_wilson95": [
+      12.16,
+      17.64
+    ],
+    "simpler_best_wilson95": [
+      13.99,
+      19.86
+    ]
+  },
+  "decision": "DO_NOT_TRAIN",
+  "ml_status": "DO_NOT_TRAIN",
+  "trained": false,
+  "rationale": "Contextual does not clearly beat simpler baselines on winner hit (Wilson CIs overlap or contextual ≤ simpler). Do not train ML."
+}

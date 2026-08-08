@@ -1,0 +1,76 @@
+{
+  "generated_at_utc": "2026-08-08T22:59:38.102471+00:00",
+  "database": "/workspace/output/historical/horse_racing.db",
+  "totals": {
+    "wh_race_results": 32970,
+    "wh_races": 3390,
+    "id_horses_active": 9414
+  },
+  "dimensions": {
+    "DISTANCE": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32970,
+      "missing": 0,
+      "coverage_pct": 100.0,
+      "raw_races_distance_filled": 3390,
+      "raw_races_total_current": 3390,
+      "wh_races_with_missing_distance": 0,
+      "recoverable_from_raw_source_race_id": 0,
+      "notes": "Do not invent distance; recover only from source fields."
+    },
+    "TRACK": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32970,
+      "coverage_pct": 100.0
+    },
+    "RACE_CLASS": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 9347,
+      "coverage_pct": 28.35,
+      "notes": "Signal from race name only; unknown class left unknown (not invented)."
+    },
+    "BREED": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32970,
+      "coverage_pct": 100.0,
+      "notes": "Proxy = wh_races.surface / blood hint when present; not a full breed ontology."
+    },
+    "TRAINER": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32523,
+      "coverage_pct": 98.6442
+    },
+    "OWNER": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32960,
+      "coverage_pct": 99.9697
+    },
+    "WEIGHT": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32970,
+      "coverage_pct": 100.0
+    },
+    "AGE_BIRTH_YEAR": {
+      "unit": "result_rows",
+      "total": 32970,
+      "filled": 32846,
+      "coverage_pct": 99.6239,
+      "canonical_horses_with_birth_year": 9336,
+      "canonical_horses_total": 9414
+    },
+    "FIELD_SIZE": {
+      "unit": "races",
+      "total": 3390,
+      "filled": 3317,
+      "coverage_pct": 97.8466,
+      "notes": "Field size derived from count of wh_race_results per race_id."
+    }
+  }
+}

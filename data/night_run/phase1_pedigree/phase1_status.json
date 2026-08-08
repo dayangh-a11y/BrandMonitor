@@ -1,0 +1,38 @@
+{
+  "status": "COMPLETE",
+  "phase": 1,
+  "generated_at_utc": "2026-08-08T22:59:37.917320+00:00",
+  "source_dir": "/workspace/data/pedigree",
+  "output_dir": "/workspace/data/night_run/phase1_pedigree",
+  "copied": [
+    "pedigree_source_audit.json",
+    "pedigree_entities.json",
+    "pedigree_conflicts.json",
+    "pedigree_coverage.json",
+    "pedigree_network_report.json",
+    "pedigree_migration_proposal.md",
+    "PEDIGREE_FOUNDATION_REPORT.md"
+  ],
+  "relationships": {
+    "relationship_rows": 18472
+  },
+  "coverage": {
+    "total_canonical_horses": 9414,
+    "sire_coverage_pct": 99.522,
+    "dam_coverage_pct": 96.6964,
+    "complete_pedigree_coverage_pct": 96.5158
+  },
+  "entities": {
+    "total": 6376,
+    "sire": 1251,
+    "dam": 5145
+  },
+  "conflicts": 19,
+  "db_modified": false,
+  "ml_status": "DO_NOT_TRAIN",
+  "notes": [
+    "Local DB pedigree columns remain empty; harvest is file-first.",
+    "Normalization ≠ identity merge; conflicts not auto-resolved.",
+    "Offspring network stats are static descriptive, not as-of."
+  ]
+}
