@@ -65,24 +65,25 @@ def load_identity_maps(db_path: Path) -> dict[str, Any]:
         }
 
     # Career starts for network stats (static descriptive)
+    # Prefer warehouse results (raw_horse_starts may be empty in historical DB).
     starts: dict[int, list[dict[str, Any]]] = defaultdict(list)
-    # Prefer warehouse results joined via links when available
     wh_map = {
         int(r["warehouse_horse_id"]): int(r["horse_id"])
         for r in conn.execute(
             "SELECT warehouse_horse_id, horse_id FROM id_horse_links"
         )
     }
-    # raw starts via source_horse_id
     for r in conn.execute(
         """
-        SELECT source_horse_id, race_date, finish_position, track
-        FROM raw_horse_starts
-        WHERE is_current = 1
+        SELECT rr.horse_id AS wh_horse_id,
+               rr.finish_position AS finish_position,
+               ra.race_date AS race_date,
+               ra.track AS track
+        FROM wh_race_results rr
+        JOIN wh_races ra ON ra.id = rr.race_id
         """
     ):
-        sid = str(r["source_horse_id"] or "")
-        hid = source_to_horse.get(sid)
+        hid = wh_map.get(int(r["wh_horse_id"]))
         if hid is None:
             continue
         starts[hid].append(
@@ -93,7 +94,6 @@ def load_identity_maps(db_path: Path) -> dict[str, Any]:
             }
         )
 
-    # Breed / city hints from meta or race names — best-effort from id meta
     conn.close()
     return {
         "source_to_horse": source_to_horse,

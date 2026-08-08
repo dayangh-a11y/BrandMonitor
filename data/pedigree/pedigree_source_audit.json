@@ -1,0 +1,113 @@
+{
+  "database": "/workspace/output/historical/horse_racing.db",
+  "sources": [
+    {
+      "source": "raw_horses",
+      "field": "sire",
+      "number_of_records": 33117,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Column exists; race-card ingest never populated"
+    },
+    {
+      "source": "raw_horses",
+      "field": "dam",
+      "number_of_records": 33117,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Column exists; race-card ingest never populated"
+    },
+    {
+      "source": "raw_horses.payload_json",
+      "field": "father|mother|sire|dam|pedigree",
+      "number_of_records": 33117,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Race-entry payloads only contain card fields; no pedigree keys observed"
+    },
+    {
+      "source": "raw_horses",
+      "field": "profile_url|/pedigree",
+      "number_of_records": 33117,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Dedicated /pedigree pages exist on asbdavani but were never crawled into DB"
+    },
+    {
+      "source": "wh_horse_pedigree",
+      "field": "sire_name",
+      "number_of_records": 9428,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Warehouse placeholder structure"
+    },
+    {
+      "source": "wh_horse_pedigree",
+      "field": "dam_name",
+      "number_of_records": 9428,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Warehouse placeholder structure"
+    },
+    {
+      "source": "wh_horse_pedigree",
+      "field": "sire_horse_id",
+      "number_of_records": 9428,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Warehouse placeholder structure"
+    },
+    {
+      "source": "wh_horse_pedigree",
+      "field": "dam_horse_id",
+      "number_of_records": 9428,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Warehouse placeholder structure"
+    },
+    {
+      "source": "id_horses",
+      "field": "sire_normalized",
+      "number_of_records": 9414,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Identity layer empty until pedigree harvest"
+    },
+    {
+      "source": "id_horses",
+      "field": "dam_normalized",
+      "number_of_records": 9414,
+      "filled": 0,
+      "coverage_pct": 0.0,
+      "example_values": [],
+      "notes": "Identity layer empty until pedigree harvest"
+    },
+    {
+      "source": "raw_horses.source_horse_id",
+      "field": "substring 'dam'",
+      "number_of_records": 33117,
+      "filled": 19,
+      "coverage_pct": 0.0574,
+      "example_values": [
+        "clpniew6n0dxmwrdoe8damodm",
+        "clpnih0de0syewrdogqtdamhf",
+        "clpniidam0vjawrdokdqjrdoa"
+      ],
+      "notes": "NOT pedigree — accidental substring inside opaque source ids"
+    }
+  ],
+  "live_source_note": "asbdavani.app exposes /performance/horses/{id}/pedigree charts with sire/dam trees. This is the primary pedigree source for harvest.",
+  "parser_capability": {
+    "src/asbdavani/parsers/horse.py": "Reads horse.father.name / horse.mother.name from history payloads (currently absent on history pages)",
+    "src/pedigree/parse.py": "Parses /pedigree HTML chart into sire/dam/grandparents"
+  }
+}
