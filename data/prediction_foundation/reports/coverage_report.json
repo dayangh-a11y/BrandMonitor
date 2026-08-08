@@ -1,0 +1,353 @@
+{
+  "observation_n": 32970,
+  "features": [
+    {
+      "feature": "career_starts_before_race",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "career_wins_before_race",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "career_places_before_race",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "career_win_rate",
+      "available_pct": 71.41,
+      "missing_pct": 28.59,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "career_top3_rate",
+      "available_pct": 71.41,
+      "missing_pct": 28.59,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "career_avg_finish",
+      "available_pct": 65.64,
+      "missing_pct": 34.36,
+      "reliable_pct": 18.54
+    },
+    {
+      "feature": "career_median_finish",
+      "available_pct": 65.64,
+      "missing_pct": 34.36,
+      "reliable_pct": 18.54
+    },
+    {
+      "feature": "career_best_finish",
+      "available_pct": 65.64,
+      "missing_pct": 34.36,
+      "reliable_pct": 18.54
+    },
+    {
+      "feature": "last_finish",
+      "available_pct": 56.59,
+      "missing_pct": 43.41,
+      "reliable_pct": 0.0
+    },
+    {
+      "feature": "avg_finish_last3",
+      "available_pct": 64.88,
+      "missing_pct": 35.12,
+      "reliable_pct": 0.0
+    },
+    {
+      "feature": "avg_finish_last5",
+      "available_pct": 65.53,
+      "missing_pct": 34.47,
+      "reliable_pct": 11.22
+    },
+    {
+      "feature": "top3_rate_last5",
+      "available_pct": 65.53,
+      "missing_pct": 34.47,
+      "reliable_pct": 24.02
+    },
+    {
+      "feature": "win_rate_last5",
+      "available_pct": 65.53,
+      "missing_pct": 34.47,
+      "reliable_pct": 24.02
+    },
+    {
+      "feature": "form_trend",
+      "available_pct": 45.84,
+      "missing_pct": 54.16,
+      "reliable_pct": 11.22
+    },
+    {
+      "feature": "days_since_last_race",
+      "available_pct": 71.41,
+      "missing_pct": 28.59,
+      "reliable_pct": 0.0
+    },
+    {
+      "feature": "recent_form_n",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "starts_same_distance",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "wins_same_distance",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "top3_same_distance",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "win_rate_same_distance",
+      "available_pct": 43.94,
+      "missing_pct": 56.06,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "top3_rate_same_distance",
+      "available_pct": 43.94,
+      "missing_pct": 56.06,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "avg_finish_same_distance",
+      "available_pct": 38.62,
+      "missing_pct": 61.38,
+      "reliable_pct": 2.69
+    },
+    {
+      "feature": "distance_difference_from_target",
+      "available_pct": 71.41,
+      "missing_pct": 28.59,
+      "reliable_pct": 24.25
+    },
+    {
+      "feature": "distance_sample_n",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 4.17
+    },
+    {
+      "feature": "starts_at_track",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "wins_at_track",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "top3_at_track",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "avg_finish_at_track",
+      "available_pct": 49.14,
+      "missing_pct": 50.86,
+      "reliable_pct": 8.96
+    },
+    {
+      "feature": "track_win_rate",
+      "available_pct": 55.14,
+      "missing_pct": 44.86,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "track_top3_rate",
+      "available_pct": 55.14,
+      "missing_pct": 44.86,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "track_sample_n",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 10.97
+    },
+    {
+      "feature": "starts_same_class",
+      "available_pct": 12.89,
+      "missing_pct": 87.11,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "wins_same_class",
+      "available_pct": 12.89,
+      "missing_pct": 87.11,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "top3_same_class",
+      "available_pct": 12.89,
+      "missing_pct": 87.11,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "avg_finish_same_class",
+      "available_pct": 1.83,
+      "missing_pct": 98.17,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "class_win_rate",
+      "available_pct": 2.19,
+      "missing_pct": 97.81,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "class_top3_rate",
+      "available_pct": 2.19,
+      "missing_pct": 97.81,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "class_sample_n",
+      "available_pct": 12.89,
+      "missing_pct": 87.11,
+      "reliable_pct": 0.01
+    },
+    {
+      "feature": "breed",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 100.0
+    },
+    {
+      "feature": "breed_starts",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 23.47
+    },
+    {
+      "feature": "breed_win_rate",
+      "available_pct": 70.86,
+      "missing_pct": 29.14,
+      "reliable_pct": 23.47
+    },
+    {
+      "feature": "breed_top3_rate",
+      "available_pct": 70.86,
+      "missing_pct": 29.14,
+      "reliable_pct": 23.47
+    },
+    {
+      "feature": "trainer_starts_prior",
+      "available_pct": 98.64,
+      "missing_pct": 1.36,
+      "reliable_pct": 85.53
+    },
+    {
+      "feature": "trainer_wins_prior",
+      "available_pct": 98.64,
+      "missing_pct": 1.36,
+      "reliable_pct": 85.53
+    },
+    {
+      "feature": "trainer_win_rate_prior",
+      "available_pct": 95.26,
+      "missing_pct": 4.74,
+      "reliable_pct": 85.53
+    },
+    {
+      "feature": "trainer_top3_rate_prior",
+      "available_pct": 95.26,
+      "missing_pct": 4.74,
+      "reliable_pct": 85.53
+    },
+    {
+      "feature": "trainer_recent_form",
+      "available_pct": 92.55,
+      "missing_pct": 7.45,
+      "reliable_pct": 33.49
+    },
+    {
+      "feature": "trainer_sample_n",
+      "available_pct": 98.64,
+      "missing_pct": 1.36,
+      "reliable_pct": 85.53
+    },
+    {
+      "feature": "owner_starts_prior",
+      "available_pct": 99.97,
+      "missing_pct": 0.03,
+      "reliable_pct": 22.33
+    },
+    {
+      "feature": "owner_win_rate_prior",
+      "available_pct": 22.33,
+      "missing_pct": 77.67,
+      "reliable_pct": 22.33
+    },
+    {
+      "feature": "owner_top3_rate_prior",
+      "available_pct": 22.33,
+      "missing_pct": 77.67,
+      "reliable_pct": 22.33
+    },
+    {
+      "feature": "race_track",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 100.0
+    },
+    {
+      "feature": "race_distance",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 100.0
+    },
+    {
+      "feature": "race_class",
+      "available_pct": 12.89,
+      "missing_pct": 87.11,
+      "reliable_pct": 12.89
+    },
+    {
+      "feature": "race_breed",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 100.0
+    },
+    {
+      "feature": "age_category",
+      "available_pct": 0.0,
+      "missing_pct": 100.0,
+      "reliable_pct": 0.0
+    },
+    {
+      "feature": "assigned_weight",
+      "available_pct": 70.12,
+      "missing_pct": 29.88,
+      "reliable_pct": 70.12
+    },
+    {
+      "feature": "field_size",
+      "available_pct": 100.0,
+      "missing_pct": 0.0,
+      "reliable_pct": 100.0
+    }
+  ]
+}
