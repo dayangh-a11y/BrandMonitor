@@ -59,10 +59,14 @@ def ensure_enrichment_gate(session: Session, coverage_pct: float | None = None) 
         session.add(gate)
     if coverage_pct is not None:
         gate.current_coverage_pct = coverage_pct
-        gate.allowed = coverage_pct >= gate.min_coverage_pct
+        # Never open the gate from a naive heuristic — require explicit estimate
+        # AND still default closed until operator raises min or coverage clears P0 gaps.
+        gate.allowed = False if coverage_pct < gate.min_coverage_pct else gate.allowed
+        if coverage_pct < gate.min_coverage_pct:
+            gate.allowed = False
     session.flush()
     return {
-        "allowed": gate.allowed,
+        "allowed": bool(gate.allowed),
         "min_coverage_pct": gate.min_coverage_pct,
         "current_coverage_pct": gate.current_coverage_pct,
         "blocked": list(BLOCKED_ENRICHMENT),
@@ -215,16 +219,15 @@ def run_stage(session: Session, stage: str, fn) -> dict[str, Any]:
             conflicts=int(result.get("conflicts", 0)),
             extra=result,
         )
-        # proxy coverage: known-source saturation vs open month gaps
-        month_gaps = after.get("open_missing_gaps") or 0
-        # crude: fewer open month-scope gaps ⇒ higher (cap)
+        # Only stages that explicitly estimate coverage may move the enrichment gate.
         proxy = result.get("coverage_pct")
-        if proxy is None:
-            # heuristic placeholder until calendar census exists
-            proxy = max(5.0, min(98.0, 100.0 - (month_gaps * 0.05)))
-        gate = ensure_enrichment_gate(session, coverage_pct=float(proxy))
+        if proxy is not None:
+            gate = ensure_enrichment_gate(session, coverage_pct=float(proxy))
+            report["coverage_pct_proxy"] = float(proxy)
+        else:
+            gate = ensure_enrichment_gate(session, coverage_pct=None)
+            report["coverage_pct_proxy"] = gate.get("current_coverage_pct")
         report["enrichment_gate"] = gate
-        report["coverage_pct_proxy"] = proxy
         run.status = "success"
         run.finished_at = datetime.now(timezone.utc)
         run.metrics_json = report
@@ -249,7 +252,15 @@ def stage_normalize(session: Session) -> dict[str, Any]:
 
 def stage_validate_mark_gaps(session: Session) -> dict[str, Any]:
     gaps = detect_and_upsert_missing_gaps(session)
-    return {"new": gaps["upserted_or_refreshed"], "modified": 0, "gaps": gaps}
+    open_gaps = int(gaps.get("open_gaps") or 0)
+    # Conservative real-world proxy: heavy penalty per open missing cell
+    proxy = max(8.0, min(55.0, 45.0 - open_gaps * 0.01))
+    return {
+        "new": gaps["upserted_or_refreshed"],
+        "modified": 0,
+        "gaps": gaps,
+        "coverage_pct": proxy,
+    }
 
 
 def week_id_from_url(url: str | None) -> str | None:
