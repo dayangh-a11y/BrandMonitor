@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "2026-08-08T17:53:06.747613+00:00",
+  "db_modified": false,
+  "ml_trained": false,
+  "observation_count": 32970,
+  "counts": {
+    "horse_race_observations": 32970,
+    "unique_permanent_horses": 9411,
+    "unique_warehouse_horses": 9425,
+    "races": 3317,
+    "tracks": 9,
+    "trainers": 1117,
+    "owners": 12734,
+    "split_counts": {
+      "TRAIN": 22199,
+      "VALIDATION": 3944,
+      "TEST": 6827
+    },
+    "date_min": "1994-05-20",
+    "date_max": "2026-08-07"
+  },
+  "readiness": {
+    "can_create_leakage_safe_training_dataset": "YES",
+    "ready": true,
+    "blockers": [],
+    "warnings": [
+      "Leakage risk MEDIUM — classification may be backfilled after race publication; freeze class as-of snapshot recommended on feature starts_same_class",
+      "Leakage risk MEDIUM (same as class source) on feature wins_same_class",
+      "Leakage risk MEDIUM on feature top3_same_class",
+      "Leakage risk MEDIUM on feature avg_finish_same_class",
+      "Leakage risk MEDIUM on feature class_win_rate",
+      "Leakage risk MEDIUM on feature class_top3_rate",
+      "Leakage risk MEDIUM on feature class_sample_n",
+      "Leakage risk MEDIUM — backfill risk on feature race_class",
+      "Leakage risk MEDIUM on feature age_category",
+      "Leakage risk MEDIUM — post-scratch final field may differ from morning declaration on feature field_size",
+      "Structured class available on only 12.9% of observations — class features mostly missing (not invented; not a leakage blocker)",
+      "Class feature family is too sparse for class-conditioned models; baselines A/C/D without class remain usable"
+    ],
+    "ml_status": "DO_NOT_TRAIN_YET",
+    "next_allowed_step": "Freeze feature dataset version + run baseline A–D evaluation on TEST split"
+  },
+  "outputs": {
+    "feature_dictionary": "data/prediction_foundation/reports/feature_dictionary.json",
+    "coverage_report": "data/prediction_foundation/reports/coverage_report.json",
+    "observation_counts": "data/prediction_foundation/reports/observation_counts.json",
+    "leakage_audit": "data/prediction_foundation/reports/leakage_audit.json",
+    "baselines": "data/prediction_foundation/reports/baselines.json",
+    "readiness": "data/prediction_foundation/reports/readiness.json",
+    "report_md": "data/prediction_foundation/reports/prediction_foundation_report.md",
+    "sample_csv": "data/prediction_foundation/datasets/observations_sample.csv",
+    "full_jsonl_gz": null
+  }
+}

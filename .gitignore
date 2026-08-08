@@ -17,3 +17,5 @@ output/
 .DS_Store
 playwright-report/
 test-results/
+data/prediction_foundation/datasets/*.jsonl.gz
+data/prediction_foundation/datasets/*.jsonl
