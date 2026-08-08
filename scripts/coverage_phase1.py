@@ -201,10 +201,42 @@ def stage_integrity(session) -> dict:
     }
 
 
+def _ensure_columns_sqlite() -> None:
+    """DDL before any ORM read — models expect dual-date columns."""
+    import sqlite3
+
+    from src.coverage.dates import jalali_string
+
+    conn = sqlite3.connect(str(DB_PATH))
+    for table, col, decl in (
+        ("raw_races", "race_date_jalali", "VARCHAR(32)"),
+        ("wh_races", "race_date_jalali", "VARCHAR(32)"),
+        ("wh_races", "extracted_at", "DATETIME"),
+    ):
+        cols = {r[1] for r in conn.execute(f"PRAGMA table_info({table})")}
+        if col not in cols:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {col} {decl}")
+            logger.info("ALTER {}.{}", table, col)
+    # backfill jalali
+    for table in ("raw_races", "wh_races"):
+        rows = conn.execute(
+            f"SELECT id, race_date FROM {table} WHERE race_date IS NOT NULL AND "
+            f"(race_date_jalali IS NULL OR race_date_jalali='')"
+        ).fetchall()
+        for rid, rd in rows:
+            j = jalali_string(rd)
+            if j:
+                conn.execute(f"UPDATE {table} SET race_date_jalali=? WHERE id=?", (j, rid))
+        logger.info("backfill {} jalali rows={}", table, len(rows))
+    conn.commit()
+    conn.close()
+
+
 def main() -> None:
     setup_logging()
     reset_engine()
     init_db()
+    _ensure_columns_sqlite()
     reports = []
 
     logger.info("=== NORMALIZE (dual dates, priorities, migrate) ===")
