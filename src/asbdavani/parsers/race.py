@@ -141,7 +141,21 @@ def parse_race_html(html: str, url: str) -> Race:
         prize=prize_summary(race_raw.get("prize")),
         media=normalize_race_media(race_raw.get("media")),
         sourceUrl=url,
-        sourceId=race_raw.get("id") or week_id,
+        # Heat ID: prefer source heat id. Never fall back to bare week_id
+        # (that collapses every heat in a week onto one Race Day / Heat key).
+        # Reliable fallback = week_id + round from the URL / payload.
+        sourceId=(
+            race_raw.get("id")
+            or (
+                f"{week_id}|round={race_round}"
+                if week_id and race_round is not None
+                else (
+                    f"{week_id}|round={race_raw.get('round')}"
+                    if week_id and race_raw.get("round") is not None
+                    else None
+                )
+            )
+        ),
         horses=horses,
     )
 

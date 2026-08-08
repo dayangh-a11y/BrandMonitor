@@ -1,7 +1,10 @@
 {
+  "invalid": true,
+  "invalid_reason": "races_collected counts Heats (wh_races), not Race Days. Recalculate via scripts/rebuild_race_hierarchy.py",
   "elapsed_seconds": 1530.5,
   "at": "2026-08-07T08:45:05.660397+00:00",
   "races_collected": 789,
+  "races_collected_means": "heats",
   "horses_collected": 4422,
   "jockeys_collected": 321,
   "trainers_collected": 569,

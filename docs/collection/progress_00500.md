@@ -1,3 +1,5 @@
+> **INVALID (hierarchy lock):** "races" = Heats. See docs/hierarchy/.
+
 # Collection progress — 500 races
 
 - **Races Collected:** 500

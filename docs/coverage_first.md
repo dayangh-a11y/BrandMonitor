@@ -1,5 +1,8 @@
 # Coverage-First Phase (Priority Lock)
 
+**Hierarchy lock:** Race Week → Race Day → Heat → Result. A Heat is never a Race Day.
+See `docs/hierarchy/DATA_MODEL.md`. Prior Race=Heat coverage figures are **INVALID**.
+
 **Enrichment is blocked** until historical RaceDay / Heat / Result coverage reaches the gate.
 
 Blocked until gate opens: pedigree, age/birthdate, weather, features, video analytics.

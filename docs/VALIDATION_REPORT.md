@@ -1,3 +1,5 @@
+> **INVALID (hierarchy lock):** counts labeled "races" are Heats. See docs/hierarchy/.
+
 # Production Validation Report
 
 Generated: `2026-08-07T06:49:18.497749+00:00`

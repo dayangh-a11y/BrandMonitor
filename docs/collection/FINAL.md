@@ -1,5 +1,9 @@
 # Collection progress — 789 races
 
+> **INVALID (hierarchy lock):** «races» here means **Heats**, not Race Days.
+> Recalculate with `python scripts/rebuild_race_hierarchy.py`.
+> See `docs/hierarchy/DATA_MODEL.md` and `docs/hierarchy/INVALIDATED_REPORTS.md`.
+
 - **Races Collected:** 789
 - **Horses Collected:** 4422
 - **Jockeys Collected:** 321
