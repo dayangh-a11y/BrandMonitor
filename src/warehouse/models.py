@@ -57,6 +57,7 @@ class WhRace(Base):
     source_race_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
     name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     race_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
+    race_date_jalali: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
     track: Mapped[str] = mapped_column(String(128), nullable=False, index=True)
     racecourse_code: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     province: Mapped[str | None] = mapped_column(String(128), nullable=True)
@@ -66,6 +67,7 @@ class WhRace(Base):
     weather: Mapped[str | None] = mapped_column(String(128), nullable=True)
     prize_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    extracted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     raw_race_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()

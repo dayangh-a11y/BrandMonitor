@@ -75,6 +75,10 @@ def _upsert_race(session: Session, raw: RawRace) -> WhRace:
         session.add(race)
     race.name = raw.name
     race.race_date = raw.race_date
+    # Dual calendar: Gregorian internal + Jalali mirror (display default)
+    from src.coverage.dates import jalali_string
+
+    race.race_date_jalali = getattr(raw, "race_date_jalali", None) or jalali_string(raw.race_date)
     race.track = raw.track
     race.racecourse_code = raw.racecourse_code
     race.province = raw.province
@@ -84,6 +88,7 @@ def _upsert_race(session: Session, raw: RawRace) -> WhRace:
     race.weather = raw.weather
     race.prize_json = raw.prize_json
     race.source_url = raw.source_url
+    race.extracted_at = getattr(raw, "crawl_time", None)
     race.raw_race_id = raw.id
     race.updated_at = datetime.now(timezone.utc)
     session.flush()
