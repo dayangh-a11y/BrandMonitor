@@ -413,7 +413,12 @@ def extract_urls(urls: list[str], *, sleep_s: float = 0.35) -> dict[str, Any]:
 
 
 def coverage_proxy(remaining_problem: int) -> float:
-    return max(8.0, min(55.0, 45.0 - remaining_problem * 0.01))
+    """Deprecated arg ignored; returns primary calendar-cell coverage."""
+    from src.coverage.metrics import compute_coverage_metrics
+    from src.database import session_scope
+
+    with session_scope() as session:
+        return float(compute_coverage_metrics(session).get("primary_coverage_pct") or 0.0)
 
 
 def main() -> int:

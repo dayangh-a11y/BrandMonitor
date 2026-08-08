@@ -777,13 +777,16 @@ def fix_wrong_city_codes(conn: sqlite3.Connection) -> int:
 
 
 def coverage_proxy_from_db(conn: sqlite3.Connection) -> float:
-    rem = conn.execute(
-        """
-        SELECT COUNT(*) FROM cov_missing_gaps
-        WHERE status IN ('unresolved','needs_investigation','confirmed_missing_data','open')
-        """
-    ).fetchone()[0]
-    return max(8.0, min(55.0, 45.0 - rem * 0.01))
+    """Return primary calendar-cell coverage (not the deprecated gap-penalty proxy)."""
+    from sqlalchemy.orm import Session
+
+    from src.coverage.metrics import compute_coverage_metrics
+
+    # conn is sqlite3; open ORM session on same DB file
+    engine = create_engine(f"sqlite:///{DB_PATH}")
+    with Session(engine) as session:
+        report = compute_coverage_metrics(session)
+    return float(report.get("primary_coverage_pct") or 0.0)
 
 
 def main() -> int:

@@ -329,16 +329,12 @@ def recount_db(db_url: str) -> dict[str, int]:
 
 
 def coverage_proxy(open_like: int, filled_cells: int, total_cells: int) -> float:
-    """Proxy vs calendar cells: filled / (filled + still-open-or-missing-data).
+    """Deprecated signature kept for callers; returns primary calendar coverage."""
+    from src.coverage.metrics import compute_coverage_metrics
+    from src.database import session_scope
 
-    Confirmed no-race cells leave the denominator (they are not expected coverage).
-    """
-    denom = max(1, total_cells - 0)  # informational
-    # Prefer: among cells that could hold races, share that are no longer missing-data/open
-    # Real-world proxy used by phase1: conservative curve from open gaps.
-    # Recompute with post-classification open investigation + confirmed missing still empty.
-    remaining_problem = open_like
-    return max(8.0, min(55.0, 45.0 - remaining_problem * 0.01))
+    with session_scope() as session:
+        return float(compute_coverage_metrics(session).get("primary_coverage_pct") or 0.0)
 
 
 def main() -> int:

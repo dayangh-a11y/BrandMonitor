@@ -37,3 +37,21 @@ python scripts/coverage_phase1.py
 ## Gate
 
 `cov_enrichment_gates.name='secondary'` — `allowed` stays false until `current_coverage_pct >= min_coverage_pct` (default 70).
+
+### Coverage metric (standard)
+
+**Primary = Calendar Cell Coverage**
+
+```text
+Coverage = (filled_jalali_months + filled_city_months)
+         / (eligible_jalali_months + eligible_city_months)
+```
+
+- Eligible months exclude Confirmed No-Race / future Jalali months.
+- City-month cells are counted only inside months that already have ≥1 nationwide heat.
+- Companion metrics: month coverage, city-month coverage, heat→result completeness, known asbdavani index coverage.
+- The old `clamp(45 − gaps×0.01, 8, 55)` figure (~31.72%) was a **deprecated heuristic**, not real coverage.
+
+```bash
+python scripts/compute_coverage.py
+```

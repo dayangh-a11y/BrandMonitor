@@ -252,14 +252,15 @@ def stage_normalize(session: Session) -> dict[str, Any]:
 
 def stage_validate_mark_gaps(session: Session) -> dict[str, Any]:
     gaps = detect_and_upsert_missing_gaps(session)
-    open_gaps = int(gaps.get("open_gaps") or 0)
-    # Conservative real-world proxy: heavy penalty per open missing cell
-    proxy = max(8.0, min(55.0, 45.0 - open_gaps * 0.01))
+    from src.coverage.metrics import compute_coverage_metrics
+
+    metrics = compute_coverage_metrics(session)
     return {
         "new": gaps["upserted_or_refreshed"],
         "modified": 0,
         "gaps": gaps,
-        "coverage_pct": proxy,
+        "coverage_pct": metrics.get("primary_coverage_pct"),
+        "coverage_metrics": metrics,
     }
 
 
