@@ -19,3 +19,4 @@ playwright-report/
 test-results/
 data/prediction_foundation/datasets/*.jsonl.gz
 data/prediction_foundation/datasets/*.jsonl
+data/prediction_foundation/baseline_eval/baseline_race_results.jsonl
