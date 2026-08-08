@@ -66,6 +66,28 @@ horse_id = resolve_horse_id(
 
 Sex hard-conflicts and very weak name scores suppress merges.
 
+## Canonical attribute corrections
+
+`id_horses.birth_year` is the **canonical** derived field. Raw source values in
+`raw_horses` / `wh_horses.birthdate` are never overwritten.
+
+Durable corrections live in `data/identity/birth_year_corrections.json` and are
+re-applied after identity builds via `src/identity/corrections.py`.
+
+Provenance is stored on the horse as `meta_json.birth_year_correction`:
+
+- `source` (e.g. `inferred_from_race_age_sequence`)
+- `confidence`
+- `evidence`
+- `old_value` / `new_value`
+
+Apply:
+
+```bash
+python scripts/apply_birth_year_correction_1771.py
+python scripts/apply_birth_year_correction_1771.py --dry-run
+```
+
 ## Package
 
-`src/identity/` — `normalize`, `score`, `load`, `build`, `resolve`, `report`, `models`
+`src/identity/` — `normalize`, `score`, `load`, `build`, `resolve`, `report`, `models`, `corrections`
