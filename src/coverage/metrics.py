@@ -1,24 +1,23 @@
 """Standard coverage metrics — explicit numerator/denominator.
 
-Audit findings (fixed here)
----------------------------
-1. Legacy ~31.72% was ``clamp(45 - gaps*0.01)`` — not coverage (deprecated).
-2. The first "Primary Calendar Cell" mixed month cells + city-month cells in one
-   fraction, which **double-weighted** active months (1 month cell + N city cells)
-   versus empty months (1 cell).
-3. Empty cells were counted against coverage without splitting
-   ``MISSING_DATA`` vs ``UNRESOLVED`` (violates: empty ≠ Missing Data).
+Product Coverage (authoritative)
+--------------------------------
+Full matrix: Jalali year × month × city (see ``src/coverage/matrix.py``).
 
-Correct Primary universe (no double count)
-------------------------------------------
-- Eligible Jalali months in DB span, excluding ``CONFIRMED_NO_RACE`` / future.
-- If a month has ≥1 heat nationwide → emit one **city-month** cell per known track.
-- If a month has 0 heats → emit one **nationwide month** cell.
-- Classify each cell: CONFIRMED_RACE | CONFIRMED_NO_RACE | MISSING_DATA | UNRESOLVED.
-- Primary grid fill = CONFIRMED_RACE / (RACE + MISSING_DATA + UNRESOLVED)
-  (NO_RACE excluded from denominator).
-- Proven obligation coverage = CONFIRMED_RACE / (RACE + MISSING_DATA)
-  (UNRESOLVED excluded — no invented expectations).
+```text
+Coverage = CONFIRMED_RACE / (CONFIRMED_RACE + MISSING_DATA)
+```
+
+- Only cells where a race is **proven** to have occurred (captured or still missing).
+- UNRESOLVED excluded (empty alone ≠ No-Race and ≠ Missing Data).
+- CONFIRMED_NO_RACE is proven absence — reported separately, not Coverage debt.
+
+Companion / audit metrics
+-------------------------
+- Grid fill on deduped calendar universe (includes UNRESOLVED in denom).
+- Month / city-month / heat→result / source-index / gap-resolution.
+
+Deprecated: ``clamp(45 - gaps*0.01)`` (~31.72%) and mixed month+city fractions.
 """
 
 from __future__ import annotations
@@ -474,7 +473,8 @@ def compute_coverage_metrics(session: Session) -> dict[str, Any]:
 
     remaining_problem = unresolved
     legacy = legacy_gap_penalty_proxy(remaining_problem)
-    primary = metrics["primary_calendar_cell_coverage"]
+    # Product primary = proven obligation (matrix formula). Grid-fill kept as companion.
+    primary = metrics["proven_obligation_coverage"]
 
     # Persist classification tables for audit
     try:
@@ -535,6 +535,10 @@ def compute_coverage_metrics(session: Session) -> dict[str, Any]:
         },
         "primary_metric": primary.name,
         "primary_coverage_pct": primary.pct,
+        "coverage_formula": (
+            "CONFIRMED_RACE / (CONFIRMED_RACE + MISSING_DATA) — "
+            "full year×month×city matrix is authoritative via build_coverage_matrix.py"
+        ),
         "metrics": {k: v.as_dict() for k, v in metrics.items()},
         "legacy_proxy_explanation": legacy,
         "why_not_31_72": (
@@ -542,10 +546,10 @@ def compute_coverage_metrics(session: Session) -> dict[str, Any]:
             "45 - 13.28 = 31.72. It was not calendar, heat, result, or source coverage."
         ),
         "definition_fixes": [
-            "Removed mixed month+city double-counting from primary",
-            "Classified empties as UNRESOLVED vs MISSING_DATA (no guessing)",
-            "NO_RACE excluded from denominators",
-            "Added proven_obligation_coverage companion metric",
+            "Product Coverage = proven race-obligation only (UNRESOLVED out)",
+            "Full matrix year×month×city via src/coverage/matrix.py",
+            "Empty alone never No-Race",
+            "NO_RACE excluded from Coverage denominator (not Missing Data debt)",
         ],
         "enrichment_gate_recommendation": {
             "use_metric": primary.name,
@@ -571,8 +575,8 @@ def apply_coverage_to_gate(session: Session, report: dict[str, Any] | None = Non
         gate.current_coverage_pct = pct
         gate.notes = (
             f"primary_metric={report.get('primary_metric')}; "
-            f"deduped_calendar_grid_fill; "
-            f"UNRESOLVED≠MISSING_DATA; enrichment blocked below min"
+            f"Coverage=CONFIRMED_RACE/(CONFIRMED_RACE+MISSING_DATA); "
+            f"UNRESOLVED excluded; empty≠no-race; enrichment blocked below min"
         )
     session.flush()
     return report
