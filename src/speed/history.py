@@ -19,10 +19,11 @@ from src.parsers.html import extract_balanced_json_value, extract_next_flight_te
 BASE = "https://asbdavani.app/performance/horses"
 UA = "BrandMonitorSpeedRecords/0.1 (+research; file-only harvest)"
 
-# Plausible racing speeds (m/s); filters garbage clocks
+# Plausible racing speeds (m/s); filters garbage clocks.
+# ~18.0 m/s ≈ 55.6s / 1000m (above typical elite Thoroughbred sprint).
 MIN_MPS = 11.0
-MAX_MPS = 21.5
-MIN_TIME_S = 40.0
+MAX_MPS = 18.0
+MIN_TIME_S = 50.0
 MAX_TIME_S = 360.0
 MIN_DISTANCE = 800
 MAX_DISTANCE = 3200

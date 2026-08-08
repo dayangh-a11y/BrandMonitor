@@ -9,18 +9,42 @@ from pathlib import Path
 from typing import Any
 
 from src.breeding.productions import BLOOD_LABELS, blood_label
-from src.speed.history import is_plausible_timed_start
+from src.speed.history import (
+    MAX_DISTANCE,
+    MAX_MPS,
+    MAX_TIME_S,
+    MIN_DISTANCE,
+    MIN_MPS,
+    MIN_TIME_S,
+    is_plausible_timed_start,
+)
 
 MIN_TIMED_STARTS_FOR_PEAK = 3
 CLASSIC_DISTANCES = (1000, 1200, 1400, 1600, 1800, 2000, 2200)
 TOP_N = 10
 
 
+def _placed_timed_starts(row: dict[str, Any]) -> list[dict[str, Any]]:
+    """Plausible clocks from top-3 finishes only (reduces also-ran garbage times)."""
+    out = []
+    for s in row.get("starts") or []:
+        if not is_plausible_timed_start(s):
+            continue
+        pos = s.get("finish_position")
+        try:
+            pos_i = int(pos) if pos is not None else None
+        except (TypeError, ValueError):
+            pos_i = None
+        if pos_i is not None and 1 <= pos_i <= 3:
+            out.append(s)
+    return out
+
+
 def _horse_peak(row: dict[str, Any]) -> dict[str, Any] | None:
     blood = row.get("blood")
     if blood not in BLOOD_LABELS and blood != "THORUGHBREAD":
         return None
-    timed = [s for s in (row.get("starts") or []) if is_plausible_timed_start(s)]
+    timed = _placed_timed_starts(row)
     if len(timed) < MIN_TIMED_STARTS_FOR_PEAK:
         return None
     best = max(timed, key=lambda s: float(s["speed_mps"]))
@@ -54,6 +78,13 @@ def _distance_records(harvest_rows: list[dict[str, Any]]) -> dict[str, dict[int,
             continue
         for st in row.get("starts") or []:
             if not is_plausible_timed_start(st):
+                continue
+            # Official distance records: winning clocks only
+            try:
+                pos_i = int(st["finish_position"]) if st.get("finish_position") is not None else None
+            except (TypeError, ValueError):
+                pos_i = None
+            if pos_i != 1:
                 continue
             dist = int(st["distance"])
             if dist not in CLASSIC_DISTANCES:
@@ -160,16 +191,21 @@ def build_fastest_report(harvest_rows: list[dict[str, Any]], *, top_n: int = TOP
         "stats_scope": "STATIC_DESCRIPTIVE_CLOCK_TIMES",
         "ml_status": "DO_NOT_TRAIN_YET",
         "metric_definition": {
-            "primary": "best_speed_mps = distance_m / time_s (peak career clock)",
-            "secondary": "best finish time at classic distances (1000–2200m)",
+            "primary": "best_speed_mps = distance_m / time_s (peak career clock, top-3 finishes)",
+            "secondary": "best winning time at classic distances (1000–2200m, finish_position=1)",
             "source": "asbdavani horse performance history time (ms) + plan.distance",
             "breed_source": "productions offspring blood label (history plan.blood usually empty)",
-            "eligibility_peak": {"min_timed_starts": MIN_TIMED_STARTS_FOR_PEAK},
+            "eligibility_peak": {
+                "min_placed_timed_starts": MIN_TIMED_STARTS_FOR_PEAK,
+                "finish_positions": [1, 2, 3],
+            },
             "plausibility": {
-                "min_mps": 11.0,
-                "max_mps": 21.5,
-                "min_time_s": 40.0,
-                "max_time_s": 360.0,
+                "min_mps": MIN_MPS,
+                "max_mps": MAX_MPS,
+                "min_time_s": MIN_TIME_S,
+                "max_time_s": MAX_TIME_S,
+                "min_distance": MIN_DISTANCE,
+                "max_distance": MAX_DISTANCE,
             },
             "note": (
                 "Peak m/s can favor short sprints; use distance records for fair "
@@ -202,10 +238,11 @@ def write_markdown_report(path: Path, report: dict[str, Any]) -> None:
         "",
         "## معیار",
         "",
-        "- سرعت قله: `distance(m) / time(s)` بر حسب متر بر ثانیه",
-        "- رکورد مسافت: بهترین زمان ثبت‌شده در مسافت‌های کلاسیک",
+        "- سرعت قله: `distance(m) / time(s)` بر حسب متر بر ثانیه (فقط مقام‌های ۱–۳)",
+        "- رکورد مسافت: بهترین زمان **برنده** در مسافت‌های کلاسیک",
         "- نژاد از برچسب blood صفحهٔ productions (چون blood روی تاریخچه معمولاً خالی است)",
-        f"- حداقل برای جدول قله: {MIN_TIMED_STARTS_FOR_PEAK} استارت زمان‌دار معتبر",
+        f"- حداقل برای جدول قله: {MIN_TIMED_STARTS_FOR_PEAK} استارت زمان‌دار در جمع ۳",
+        f"- فیلتر فیزیکی: {MIN_MPS}–{MAX_MPS} m/s و زمان {MIN_TIME_S}–{MAX_TIME_S}s",
         "",
         "## پوشش",
         "",
