@@ -6,7 +6,7 @@ import json
 import time
 import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -20,7 +20,7 @@ def pedigree_url(source_horse_id: str) -> str:
     return f"{BASE}/{source_horse_id}/pedigree"
 
 
-def fetch_html(url: str, *, timeout: float = 45.0, retries: int = 4) -> str:
+def fetch_html(url: str, *, timeout: float = 30.0, retries: int = 3) -> str:
     last: Exception | None = None
     for attempt in range(retries):
         try:
@@ -30,13 +30,14 @@ def fetch_html(url: str, *, timeout: float = 45.0, retries: int = 4) -> str:
                     "User-Agent": UA,
                     "Accept": "text/html,application/xhtml+xml",
                     "Accept-Language": "fa,en;q=0.8",
+                    "Connection": "close",
                 },
             )
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return resp.read().decode("utf-8", errors="replace")
         except (urllib.error.URLError, TimeoutError, ConnectionResetError, OSError) as exc:
             last = exc
-            time.sleep(min(32.0, 1.5 * (2**attempt)))
+            time.sleep(0.4 * (2**attempt))
     raise RuntimeError(f"fetch failed after {retries} retries: {url}: {last}")
 
 
@@ -81,19 +82,40 @@ def load_done_ids(path: Path) -> set[str]:
             except json.JSONDecodeError:
                 continue
             sid = row.get("subject_source_id")
-            if sid:
+            # Count FETCH_ERROR as not done so they can be retried
+            if sid and row.get("parse_status") != "FETCH_ERROR":
                 done.add(str(sid))
     return done
+
+
+def _update_stats(stats: dict[str, int], row: dict[str, Any]) -> None:
+    status = row.get("parse_status")
+    if status == "FETCH_ERROR":
+        stats["errors"] += 1
+    elif status == "EMPTY_CHART" or not row.get("named_ancestor_count"):
+        stats["empty"] += 1
+    else:
+        stats["ok"] += 1
+    if row.get("sire"):
+        stats["with_sire"] += 1
+    if row.get("dam"):
+        stats["with_dam"] += 1
+    if row.get("sire") and row.get("dam"):
+        stats["with_both"] += 1
 
 
 def harvest_many(
     source_horse_ids: Iterable[str],
     out_jsonl: Path,
     *,
-    workers: int = 6,
+    workers: int = 8,
     limit: int | None = None,
+    progress_every: int = 50,
 ) -> dict[str, Any]:
-    """Append pedigree harvest rows to ``out_jsonl`` with resume support."""
+    """Append pedigree harvest rows to ``out_jsonl`` with resume support.
+
+    Uses a bounded in-flight window so thousands of futures are not queued at once.
+    """
     out_jsonl.parent.mkdir(parents=True, exist_ok=True)
     done = load_done_ids(out_jsonl)
     todo = [sid for sid in source_horse_ids if sid not in done]
@@ -113,25 +135,52 @@ def harvest_many(
     if not todo:
         return stats
 
+    completed = 0
+    t0 = time.time()
+    # Drop prior FETCH_ERROR lines by rewriting? Keep append-only; errors excluded from done.
     with out_jsonl.open("a", encoding="utf-8") as fh, ThreadPoolExecutor(
         max_workers=workers
     ) as pool:
-        futures = {pool.submit(harvest_one, sid): sid for sid in todo}
-        for fut in as_completed(futures):
-            row = fut.result()
-            fh.write(json.dumps(row, ensure_ascii=False) + "\n")
-            fh.flush()
-            status = row.get("parse_status")
-            if status == "FETCH_ERROR":
-                stats["errors"] += 1
-            elif status == "EMPTY_CHART" or not row.get("named_ancestor_count"):
-                stats["empty"] += 1
-            else:
-                stats["ok"] += 1
-            if row.get("sire"):
-                stats["with_sire"] += 1
-            if row.get("dam"):
-                stats["with_dam"] += 1
-            if row.get("sire") and row.get("dam"):
-                stats["with_both"] += 1
+        in_flight: dict[Any, str] = {}
+        it = iter(todo)
+
+        def _submit_one() -> bool:
+            try:
+                sid = next(it)
+            except StopIteration:
+                return False
+            fut = pool.submit(harvest_one, sid)
+            in_flight[fut] = sid
+            return True
+
+        for _ in range(min(workers, len(todo))):
+            if not _submit_one():
+                break
+
+        while in_flight:
+            finished, _ = wait(in_flight, return_when=FIRST_COMPLETED)
+            for fut in finished:
+                in_flight.pop(fut, None)
+                row = fut.result()
+                fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+                fh.flush()
+                _update_stats(stats, row)
+                completed += 1
+                if progress_every and completed % progress_every == 0:
+                    rate = completed / max(1e-6, time.time() - t0)
+                    print(
+                        f"[pedigree-harvest] {completed}/{len(todo)} "
+                        f"ok={stats['ok']} empty={stats['empty']} err={stats['errors']} "
+                        f"rate={rate:.1f}/s",
+                        flush=True,
+                    )
+                _submit_one()
+
+    elapsed = round(time.time() - t0, 2)
+    stats["elapsed_sec"] = elapsed
+    print(
+        f"[pedigree-harvest] done completed={completed} elapsed={elapsed}s "
+        f"ok={stats['ok']} empty={stats['empty']} err={stats['errors']}",
+        flush=True,
+    )
     return stats
