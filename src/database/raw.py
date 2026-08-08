@@ -97,6 +97,7 @@ class RawRace(Base, VersioningMixin):
     source_race_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
     name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     race_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
+    race_date_jalali: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
     track: Mapped[str] = mapped_column(String(128), nullable=False, index=True)
     racecourse_code: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     province: Mapped[str | None] = mapped_column(String(128), nullable=True)

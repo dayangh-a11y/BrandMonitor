@@ -16,6 +16,7 @@ from src.database.raw import (
     RawRace,
     RawRaceEntry,
 )
+from src.coverage.dates import jalali_string
 from src.database.types_util import as_date
 from src.models import HorseHistory, HorseProfile, Race
 from src.versioning import PARSER_VERSION
@@ -181,6 +182,7 @@ def ingest_race(
             "source_race_id": source_race_id,
             "name": race.race,
             "race_date": as_date(race.date),
+            "race_date_jalali": jalali_string(as_date(race.date)),
             "track": race.track,
             "racecourse_code": race.racecourse_code,
             "province": race.province,
