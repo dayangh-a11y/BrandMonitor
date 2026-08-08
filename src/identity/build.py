@@ -10,6 +10,7 @@ from loguru import logger
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
+from src.identity.corrections import apply_birth_year_corrections
 from src.identity.load import load_horse_profiles
 from src.identity.models import (
     IdHorse,
@@ -278,6 +279,9 @@ def build_horse_identity(
     auto_pairs = len(auto)
     merged_clusters = sum(1 for members in clusters.values() if len(members) > 1)
 
+    # Re-apply durable canonical attribute corrections (never touch raw tables).
+    by_fix = apply_birth_year_corrections(session, dry_run=False)
+
     run.status = "ok"
     run.profiles_loaded = len(profiles)
     run.permanent_ids = permanent_count
@@ -295,6 +299,7 @@ def build_horse_identity(
         "open_merge_candidates": cand_written,
         "auto_merge_threshold": AUTO_MERGE_THRESHOLD,
         "candidate_threshold": CANDIDATE_THRESHOLD,
+        "birth_year_corrections_applied": len(by_fix),
     }
     logger.info("Horse identity build complete: {}", stats)
     return stats

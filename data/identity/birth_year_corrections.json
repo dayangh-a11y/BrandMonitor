@@ -1,0 +1,55 @@
+[
+  {
+    "horse_id": 1771,
+    "source_horse_id": "clpnifwso0kiwwrdol0vtr2j8",
+    "warehouse_horse_id": 1774,
+    "canonical_name": "گدر سن سجادی",
+    "old_value": 2023,
+    "new_value": 2016,
+    "source": "inferred_from_race_age_sequence",
+    "confidence": "HIGH",
+    "evidence": {
+      "method": "For each attached start: implied_birth_year = race_year - payload_age",
+      "payload_age_sequence": [
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        8,
+        10
+      ],
+      "race_dates": [
+        "2018-12-14",
+        "2019-01-10",
+        "2019-06-13",
+        "2019-06-21",
+        "2019-12-13",
+        "2020-01-10",
+        "2025-02-28",
+        "2026-08-07"
+      ],
+      "implied_birth_years": [
+        2016,
+        2017,
+        2016,
+        2016,
+        2016,
+        2017,
+        2017,
+        2016
+      ],
+      "mode_implied_birth_year": 2016,
+      "note": "Stored 2023 came from stale raw profile age=3 treated as current; raw_horses/wh_horses birthdate left untouched."
+    },
+    "preserve_raw": true,
+    "do_not_overwrite_tables": [
+      "raw_horses",
+      "wh_horses",
+      "raw_race_entries",
+      "wh_race_results"
+    ],
+    "applied_at_utc": "2026-08-08T17:06:37.550969+00:00"
+  }
+]
