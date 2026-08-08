@@ -16,7 +16,42 @@ Blocked until gate opens: pedigree, age/birthdate, weather, features, video anal
 
 - Display default: Jalali (Asia/Tehran context)
 - Query/storage internal: Gregorian
-- Empty DB ranges are **Missing Coverage**, not “no racing”
+- Empty DB ranges are **Missing Coverage / UNRESOLVED**, not “no racing” and not automatic Missing Data
+
+## Coverage metrics (standard)
+
+Primary universe (deduped — no month+city double count):
+
+- Months with nationwide heats → one **city-month** cell per known track
+- Empty eligible months → one **nationwide month** cell
+- Exclude `CONFIRMED_NO_RACE` / future months
+
+Cell classes (evidence only):
+
+- `CONFIRMED_RACE` — ≥1 heat in `wh_races`
+- `CONFIRMED_NO_RACE` — future month or gap `confirmed_no_race`
+- `MISSING_DATA` — gap `confirmed_missing_data` (external proof, DB empty)
+- `UNRESOLVED` — empty, no proof of race or absence
+
+**Primary Coverage (grid fill):**
+
+```text
+CONFIRMED_RACE / (CONFIRMED_RACE + MISSING_DATA + UNRESOLVED)
+```
+
+**Proven obligation coverage (companion):**
+
+```text
+CONFIRMED_RACE / (CONFIRMED_RACE + MISSING_DATA)
+```
+
+Companion metrics: Month, City-Month, Heat→Result Completeness, Known Source Index, Missing-Gap Resolution.
+
+Deprecated: `clamp(45 − gaps×0.01)` (~31.72%) and mixed `(months+city_months)/(…)`.
+
+```bash
+python scripts/compute_coverage.py
+```
 
 ## ETL
 
@@ -26,32 +61,6 @@ Blocked until gate opens: pedigree, age/birthdate, weather, features, video anal
 - Cross-source disagreements → `cov_source_conflicts` + `cov_source_priorities`
 - Gaps → `cov_missing_gaps`
 
-## Commands
-
-```bash
-export DATABASE_URL=sqlite:///output/historical/horse_racing.db
-export CRAWL_ALLOWED_RACECOURSES=*
-python scripts/coverage_phase1.py
-```
-
 ## Gate
 
-`cov_enrichment_gates.name='secondary'` — `allowed` stays false until `current_coverage_pct >= min_coverage_pct` (default 70).
-
-### Coverage metric (standard)
-
-**Primary = Calendar Cell Coverage**
-
-```text
-Coverage = (filled_jalali_months + filled_city_months)
-         / (eligible_jalali_months + eligible_city_months)
-```
-
-- Eligible months exclude Confirmed No-Race / future Jalali months.
-- City-month cells are counted only inside months that already have ≥1 nationwide heat.
-- Companion metrics: month coverage, city-month coverage, heat→result completeness, known asbdavani index coverage.
-- The old `clamp(45 − gaps×0.01, 8, 55)` figure (~31.72%) was a **deprecated heuristic**, not real coverage.
-
-```bash
-python scripts/compute_coverage.py
-```
+`cov_enrichment_gates.name='secondary'` — `allowed` stays false until primary coverage ≥ `min_coverage_pct` (default 70).
