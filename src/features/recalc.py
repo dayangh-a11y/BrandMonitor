@@ -48,12 +48,20 @@ def recalculate_all_features(session: Session) -> FeatRecalcRun:
             )
         )
         touched += 1
-    for race_id in session.scalars(select(WhRace.id)):
+    from src.racecourses.features import merge_track_config_into_features
+
+    for race in session.scalars(select(WhRace)):
+        race_feats = merge_track_config_into_features(
+            {},
+            racecourse_code=race.racecourse_code,
+            track_name=race.track,
+            city=race.track,
+        )
         session.add(
             FeatRaceFeatures(
-                race_id=race_id,
-                features_json={},
-                feature_version="0",
+                race_id=race.id,
+                features_json=race_feats,
+                feature_version="0.1-track-config",
                 computed_at=now,
                 pipeline_run_id=run.id,
             )
