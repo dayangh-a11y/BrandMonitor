@@ -1,0 +1,83 @@
+{
+  "generated_at_utc": "2026-08-08T22:59:38.208077+00:00",
+  "overall_status": "WARNINGS",
+  "context_summary": {
+    "DISTANCE": {
+      "coverage_pct": 100.0,
+      "filled": 32970,
+      "total": 32970
+    },
+    "TRACK": {
+      "coverage_pct": 100.0,
+      "filled": 32970,
+      "total": 32970
+    },
+    "RACE_CLASS": {
+      "coverage_pct": 28.35,
+      "filled": 9347,
+      "total": 32970
+    },
+    "BREED": {
+      "coverage_pct": 100.0,
+      "filled": 32970,
+      "total": 32970
+    },
+    "TRAINER": {
+      "coverage_pct": 98.6442,
+      "filled": 32523,
+      "total": 32970
+    },
+    "OWNER": {
+      "coverage_pct": 99.9697,
+      "filled": 32960,
+      "total": 32970
+    },
+    "WEIGHT": {
+      "coverage_pct": 100.0,
+      "filled": 32970,
+      "total": 32970
+    },
+    "AGE_BIRTH_YEAR": {
+      "coverage_pct": 99.6239,
+      "filled": 32846,
+      "total": 32970
+    },
+    "FIELD_SIZE": {
+      "coverage_pct": 97.8466,
+      "filled": 3317,
+      "total": 3390
+    }
+  },
+  "critical_coverage_gaps": [],
+  "high_severity_anomalies": [
+    {
+      "type": "impossible_finish_vs_field",
+      "severity": "HIGH",
+      "count": 1,
+      "examples": [
+        {
+          "result_id": 223187,
+          "race_id": 1158,
+          "wh_horse_id": 5609,
+          "finish_position": 10,
+          "field_size": 6
+        }
+      ],
+      "action": "Flag only; do not delete historical results."
+    },
+    {
+      "type": "pedigree_conflicts",
+      "severity": "HIGH",
+      "count": 19,
+      "source": "/workspace/data/pedigree/pedigree_conflicts.json",
+      "action": "Do not auto-resolve."
+    }
+  ],
+  "rules_enforced": [
+    "No betting data",
+    "No silent deletion of historical results",
+    "No invented class/distance",
+    "No entity merge without evidence"
+  ],
+  "db_modified": false
+}

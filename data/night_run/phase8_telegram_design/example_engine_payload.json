@@ -1,0 +1,668 @@
+{
+  "race_id": 3393,
+  "as_of_date": "1995-04-14",
+  "race_conditions": {
+    "track": "گنبدکاووس",
+    "racecourse_code": "gonbad-kavous",
+    "distance": 1500,
+    "surface": "تروبرد",
+    "race_name": "گروه 4",
+    "race_number": 7,
+    "field_size": 11
+  },
+  "horses": [
+    {
+      "horse_id": 3450,
+      "rank": 1,
+      "score": 24.4444,
+      "confidence": "VERY_LOW",
+      "data_quality": "LOW",
+      "evidence": {
+        "prior_starts": 1,
+        "prior_wins": 0,
+        "prior_top3": 1,
+        "recent_positions": [
+          2
+        ],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245785
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": 0.1111111111111111,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.1111111111111111,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": 0.3333333333333333,
+          "raw_rate": 1.0,
+          "smoothed_rate": 0.3333333333333333,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": 0.5,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "گل مارال",
+      "cloth_number": 7
+    },
+    {
+      "horse_id": 3470,
+      "rank": 2,
+      "score": 15.2778,
+      "confidence": "VERY_LOW",
+      "data_quality": "LOW",
+      "evidence": {
+        "prior_starts": 1,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [
+          4
+        ],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245779
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": 0.1111111111111111,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.1111111111111111,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": 0.16666666666666666,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.16666666666666666,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": 0.25,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "انفجار ایگدری",
+      "cloth_number": 1
+    },
+    {
+      "horse_id": 3463,
+      "rank": 3,
+      "score": 14.4444,
+      "confidence": "VERY_LOW",
+      "data_quality": "LOW",
+      "evidence": {
+        "prior_starts": 1,
+        "prior_wins": 0,
+        "prior_top3": 1,
+        "recent_positions": [
+          0
+        ],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245782
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": 0.1111111111111111,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.1111111111111111,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": 0.3333333333333333,
+          "raw_rate": 1.0,
+          "smoothed_rate": 0.3333333333333333,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 1,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "دازجهان ب",
+      "cloth_number": 4
+    },
+    {
+      "horse_id": 3467,
+      "rank": 4,
+      "score": 14.4444,
+      "confidence": "VERY_LOW",
+      "data_quality": "LOW",
+      "evidence": {
+        "prior_starts": 1,
+        "prior_wins": 0,
+        "prior_top3": 1,
+        "recent_positions": [
+          0
+        ],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245786
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": 0.1111111111111111,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.1111111111111111,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": 0.3333333333333333,
+          "raw_rate": 1.0,
+          "smoothed_rate": 0.3333333333333333,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 1,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "گوهرشید",
+      "cloth_number": 8
+    },
+    {
+      "horse_id": 3495,
+      "rank": 5,
+      "score": 14.4444,
+      "confidence": "VERY_LOW",
+      "data_quality": "LOW",
+      "evidence": {
+        "prior_starts": 1,
+        "prior_wins": 0,
+        "prior_top3": 1,
+        "recent_positions": [
+          0
+        ],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245784
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": 0.1111111111111111,
+          "raw_rate": 0.0,
+          "smoothed_rate": 0.1111111111111111,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": 0.3333333333333333,
+          "raw_rate": 1.0,
+          "smoothed_rate": 0.3333333333333333,
+          "sample_n": 1,
+          "is_missing": false,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 1,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "گل بشارت",
+      "cloth_number": 6
+    },
+    {
+      "horse_id": 3162,
+      "rank": 6,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245789
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "صودا",
+      "cloth_number": 11
+    },
+    {
+      "horse_id": 3257,
+      "rank": 7,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245780
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "ساغر",
+      "cloth_number": 2
+    },
+    {
+      "horse_id": 3369,
+      "rank": 8,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245787
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "طومار",
+      "cloth_number": 9
+    },
+    {
+      "horse_id": 3370,
+      "rank": 9,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245781
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "بیرلشیک",
+      "cloth_number": 3
+    },
+    {
+      "horse_id": 9243,
+      "rank": 10,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245783
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "سیلوانا",
+      "cloth_number": 5
+    },
+    {
+      "horse_id": 9414,
+      "rank": 11,
+      "score": 0.0,
+      "confidence": "VERY_LOW",
+      "data_quality": "MISSING",
+      "evidence": {
+        "prior_starts": 0,
+        "prior_wins": 0,
+        "prior_top3": 0,
+        "recent_positions": [],
+        "as_of_date": "1995-04-14",
+        "cutoff": {
+          "race_date": "1995-04-14",
+          "race_id": 3393,
+          "result_id": 245788
+        }
+      },
+      "feature_summary": {
+        "win_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "top3_rate": {
+          "value": null,
+          "raw_rate": null,
+          "smoothed_rate": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "recent_form_score": {
+          "value": null,
+          "sample_n": 0,
+          "is_missing": true,
+          "reliability": "VERY_LOW"
+        },
+        "weight": {
+          "value": 0.0,
+          "is_missing": false
+        },
+        "source_rating_card": {
+          "value": 0.0,
+          "is_missing": false,
+          "note": "card rating shown for context; historical score ignores same-race outcome"
+        }
+      },
+      "display_name": "گل ماری",
+      "cloth_number": 10
+    }
+  ],
+  "top_pick": {
+    "horse_id": 3450,
+    "rank": 1,
+    "score": 24.4444,
+    "display_name": "گل مارال"
+  },
+  "top_3": [
+    {
+      "horse_id": 3450,
+      "rank": 1,
+      "score": 24.4444,
+      "display_name": "گل مارال"
+    },
+    {
+      "horse_id": 3470,
+      "rank": 2,
+      "score": 15.2778,
+      "display_name": "انفجار ایگدری"
+    },
+    {
+      "horse_id": 3463,
+      "rank": 3,
+      "score": 14.4444,
+      "display_name": "دازجهان ب"
+    }
+  ],
+  "alternate": {
+    "horse_id": 3467,
+    "rank": 4,
+    "score": 14.4444,
+    "display_name": "گوهرشید"
+  },
+  "warnings": [
+    "horse_id=3257 has no prior starts before 1995-04-14 (very low evidence)",
+    "horse_id=3370 has no prior starts before 1995-04-14 (very low evidence)",
+    "horse_id=9243 has no prior starts before 1995-04-14 (very low evidence)",
+    "horse_id=3369 has no prior starts before 1995-04-14 (very low evidence)",
+    "horse_id=9414 has no prior starts before 1995-04-14 (very low evidence)",
+    "horse_id=3162 has no prior starts before 1995-04-14 (very low evidence)"
+  ],
+  "methodology_version": "pe-v1.0.0:baseline_A_historical_v1",
+  "score_is_probability": false,
+  "provenance": {
+    "engine": "prediction_engine.service.rank_race",
+    "database": "/workspace/output/historical/horse_racing.db",
+    "uses_betting_data": false,
+    "uses_same_race_results_for_features": false
+  },
+  "timestamp_utc": "2026-08-08T22:59:38.228437+00:00"
+}

@@ -1,0 +1,340 @@
+{
+  "total_canonical_horses": 9414,
+  "horses_with_sire": 9369,
+  "horses_with_dam": 9103,
+  "horses_with_both": 9086,
+  "horses_with_neither": 28,
+  "sire_coverage_pct": 99.522,
+  "dam_coverage_pct": 96.6964,
+  "complete_pedigree_coverage_pct": 96.5158,
+  "by_source": {
+    "asbdavani_pedigree_page": {
+      "harvested": 9428,
+      "with_sire_in_chart": 9391,
+      "with_dam_in_chart": 9128,
+      "with_both_in_chart": 9111
+    }
+  },
+  "by_track": {
+    "آق قلا": {
+      "horses": 1960,
+      "with_sire": 1956,
+      "with_dam": 1889,
+      "with_both": 1888
+    },
+    "انبارآلوم": {
+      "horses": 85,
+      "with_sire": 85,
+      "with_dam": 80,
+      "with_both": 80
+    },
+    "اهواز": {
+      "horses": 701,
+      "with_sire": 701,
+      "with_dam": 700,
+      "with_both": 700
+    },
+    "بندرترکمن": {
+      "horses": 2701,
+      "with_sire": 2675,
+      "with_dam": 2571,
+      "with_both": 2560
+    },
+    "تهران": {
+      "horses": 1914,
+      "with_sire": 1908,
+      "with_dam": 1852,
+      "with_both": 1850
+    },
+    "مشهد": {
+      "horses": 104,
+      "with_sire": 104,
+      "with_dam": 101,
+      "with_both": 101
+    },
+    "کیش": {
+      "horses": 216,
+      "with_sire": 215,
+      "with_dam": 208,
+      "with_both": 208
+    },
+    "گنبدکاووس": {
+      "horses": 5715,
+      "with_sire": 5697,
+      "with_dam": 5519,
+      "with_both": 5513
+    },
+    "یزد": {
+      "horses": 1380,
+      "with_sire": 1373,
+      "with_dam": 1361,
+      "with_both": 1361
+    }
+  },
+  "by_year": {
+    "1994": {
+      "horses": 74,
+      "with_sire": 62,
+      "with_dam": 65,
+      "with_both": 56
+    },
+    "1995": {
+      "horses": 218,
+      "with_sire": 204,
+      "with_dam": 198,
+      "with_both": 192
+    },
+    "1996": {
+      "horses": 300,
+      "with_sire": 298,
+      "with_dam": 277,
+      "with_both": 277
+    },
+    "1997": {
+      "horses": 244,
+      "with_sire": 243,
+      "with_dam": 238,
+      "with_both": 238
+    },
+    "1998": {
+      "horses": 322,
+      "with_sire": 321,
+      "with_dam": 315,
+      "with_both": 315
+    },
+    "1999": {
+      "horses": 271,
+      "with_sire": 268,
+      "with_dam": 254,
+      "with_both": 254
+    },
+    "2000": {
+      "horses": 190,
+      "with_sire": 190,
+      "with_dam": 184,
+      "with_both": 184
+    },
+    "2001": {
+      "horses": 221,
+      "with_sire": 221,
+      "with_dam": 213,
+      "with_both": 213
+    },
+    "2002": {
+      "horses": 243,
+      "with_sire": 243,
+      "with_dam": 233,
+      "with_both": 233
+    },
+    "2003": {
+      "horses": 208,
+      "with_sire": 208,
+      "with_dam": 203,
+      "with_both": 203
+    },
+    "2004": {
+      "horses": 204,
+      "with_sire": 204,
+      "with_dam": 198,
+      "with_both": 198
+    },
+    "2005": {
+      "horses": 261,
+      "with_sire": 261,
+      "with_dam": 253,
+      "with_both": 253
+    },
+    "2006": {
+      "horses": 361,
+      "with_sire": 361,
+      "with_dam": 353,
+      "with_both": 353
+    },
+    "2007": {
+      "horses": 519,
+      "with_sire": 519,
+      "with_dam": 512,
+      "with_both": 512
+    },
+    "2008": {
+      "horses": 422,
+      "with_sire": 421,
+      "with_dam": 418,
+      "with_both": 417
+    },
+    "2009": {
+      "horses": 469,
+      "with_sire": 466,
+      "with_dam": 461,
+      "with_both": 460
+    },
+    "2010": {
+      "horses": 322,
+      "with_sire": 321,
+      "with_dam": 310,
+      "with_both": 310
+    },
+    "2011": {
+      "horses": 348,
+      "with_sire": 346,
+      "with_dam": 319,
+      "with_both": 318
+    },
+    "2012": {
+      "horses": 341,
+      "with_sire": 340,
+      "with_dam": 309,
+      "with_both": 308
+    },
+    "2013": {
+      "horses": 353,
+      "with_sire": 352,
+      "with_dam": 320,
+      "with_both": 319
+    },
+    "2014": {
+      "horses": 345,
+      "with_sire": 344,
+      "with_dam": 323,
+      "with_both": 323
+    },
+    "2015": {
+      "horses": 583,
+      "with_sire": 581,
+      "with_dam": 546,
+      "with_both": 546
+    },
+    "2016": {
+      "horses": 629,
+      "with_sire": 627,
+      "with_dam": 601,
+      "with_both": 601
+    },
+    "2017": {
+      "horses": 698,
+      "with_sire": 691,
+      "with_dam": 666,
+      "with_both": 666
+    },
+    "2018": {
+      "horses": 503,
+      "with_sire": 501,
+      "with_dam": 490,
+      "with_both": 490
+    },
+    "2019": {
+      "horses": 531,
+      "with_sire": 530,
+      "with_dam": 522,
+      "with_both": 522
+    },
+    "2020": {
+      "horses": 442,
+      "with_sire": 442,
+      "with_dam": 440,
+      "with_both": 440
+    },
+    "2021": {
+      "horses": 502,
+      "with_sire": 501,
+      "with_dam": 494,
+      "with_both": 494
+    },
+    "2022": {
+      "horses": 650,
+      "with_sire": 649,
+      "with_dam": 639,
+      "with_both": 639
+    },
+    "2023": {
+      "horses": 846,
+      "with_sire": 845,
+      "with_dam": 833,
+      "with_both": 833
+    },
+    "2024": {
+      "horses": 1119,
+      "with_sire": 1118,
+      "with_dam": 1107,
+      "with_both": 1107
+    },
+    "2025": {
+      "horses": 1458,
+      "with_sire": 1456,
+      "with_dam": 1440,
+      "with_both": 1440
+    },
+    "2026": {
+      "horses": 1541,
+      "with_sire": 1539,
+      "with_dam": 1527,
+      "with_both": 1527
+    }
+  },
+  "by_breed_proxy_city": {
+    "UNKNOWN": {
+      "horses": 3,
+      "with_sire": 3,
+      "with_dam": 3,
+      "with_both": 3
+    },
+    "ahvaz": {
+      "horses": 701,
+      "with_sire": 701,
+      "with_dam": 700,
+      "with_both": 700
+    },
+    "anbar-alum": {
+      "horses": 85,
+      "with_sire": 85,
+      "with_dam": 80,
+      "with_both": 80
+    },
+    "aq-qala": {
+      "horses": 1926,
+      "with_sire": 1922,
+      "with_dam": 1855,
+      "with_both": 1854
+    },
+    "bandar-torkaman": {
+      "horses": 1850,
+      "with_sire": 1827,
+      "with_dam": 1755,
+      "with_both": 1745
+    },
+    "gonbad-kavous": {
+      "horses": 3077,
+      "with_sire": 3066,
+      "with_dam": 2977,
+      "with_both": 2972
+    },
+    "kish": {
+      "horses": 9,
+      "with_sire": 9,
+      "with_dam": 9,
+      "with_both": 9
+    },
+    "mashhad": {
+      "horses": 27,
+      "with_sire": 27,
+      "with_dam": 26,
+      "with_both": 26
+    },
+    "tehran": {
+      "horses": 749,
+      "with_sire": 748,
+      "with_dam": 728,
+      "with_both": 727
+    },
+    "yazd": {
+      "horses": 987,
+      "with_sire": 981,
+      "with_dam": 970,
+      "with_both": 970
+    }
+  },
+  "notes": [
+    "Breed dimension uses identity meta city proxy when explicit breed is unavailable.",
+    "Coverage counts only resolved parent relationships without conflicts."
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "dataset_version": "pf-v1.0.0-20260808",
+  "dataset_sha256": "f671acc534266451afb3812963b9cd49dfa8435a7f20092729700b6aa39e770c",
+  "frozen_at_utc": "2026-08-08T17:58:25.654847+00:00",
+  "unit": "horse_x_race",
+  "cutoff_key": [
+    "race_date",
+    "race_id",
+    "result_id"
+  ],
+  "same_day_leakage_policy": "FORBIDDEN",
+  "betting_data": "NOT_USED",
+  "observations_path": "/workspace/data/prediction_foundation/datasets/observations.jsonl.gz",
+  "counts": {
+    "observations": null,
+    "horses": null,
+    "races": null
+  },
+  "feature_groups_required": [
+    "HORSE_HISTORY",
+    "RECENT_FORM",
+    "DISTANCE",
+    "TRACK",
+    "CLASS",
+    "BREED",
+    "TRAINER",
+    "OWNER",
+    "WEIGHT",
+    "FIELD_SIZE",
+    "PEDIGREE"
+  ],
+  "rate_cell_contract": [
+    "value",
+    "raw_rate",
+    "smoothed_rate",
+    "sample_n",
+    "is_missing",
+    "reliability"
+  ],
+  "reliability_bands": {
+    "n<3": "very_low",
+    "3-4": "low",
+    "5-9": "medium",
+    "10+": "stronger"
+  },
+  "missing_policy": "is_missing=true; never coerce missing to zero",
+  "generated_at_utc": "2026-08-08T22:59:38.209661+00:00",
+  "source_freeze": "/workspace/data/prediction_foundation/freezes/LATEST.json",
+  "leakage_medium_risk_feature_count": 10,
+  "feature_group_status": {
+    "HORSE_HISTORY": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "RECENT_FORM": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "DISTANCE": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "TRACK": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "CLASS": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "BREED": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "TRAINER": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "OWNER": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "WEIGHT": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "FIELD_SIZE": {
+      "present_in_dictionary": false,
+      "note": "Not detected in feature dictionary tokens"
+    },
+    "PEDIGREE": {
+      "present_in_dictionary": false,
+      "note": "PEDIGREE features not yet in PF freeze — pedigree foundation is file-ready for next feature rebuild"
+    }
+  },
+  "leakage_audit_passed": true,
+  "readiness": {
+    "can_create_leakage_safe_training_dataset": "YES",
+    "ready": true,
+    "blockers": [],
+    "warnings": [
+      "Leakage risk MEDIUM — classification may be backfilled after race publication; freeze class as-of snapshot recommended on feature starts_same_class",
+      "Leakage risk MEDIUM (same as class source) on feature wins_same_class",
+      "Leakage risk MEDIUM on feature top3_same_class",
+      "Leakage risk MEDIUM on feature avg_finish_same_class",
+      "Leakage risk MEDIUM on feature class_win_rate",
+      "Leakage risk MEDIUM on feature class_top3_rate",
+      "Leakage risk MEDIUM on feature class_sample_n",
+      "Leakage risk MEDIUM — backfill risk on feature race_class",
+      "Leakage risk MEDIUM on feature age_category",
+      "Leakage risk MEDIUM — post-scratch final field may differ from morning declaration on feature field_size",
+      "Structured class available on only 12.9% of observations — class features mostly missing (not invented; not a leakage blocker)",
+      "Class feature family is too sparse for class-conditioned models; baselines A/C/D without class remain usable"
+    ],
+    "ml_status": "DO_NOT_TRAIN_YET",
+    "next_allowed_step": "Freeze feature dataset version + run baseline A–D evaluation on TEST split"
+  },
+  "score_is_not_probability": true
+}

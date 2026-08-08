@@ -1,0 +1,229 @@
+{
+  "generated_at_utc": "2026-08-08T22:59:38.208045+00:00",
+  "anomaly_types": [
+    {
+      "type": "finish_position_zero",
+      "severity": "MEDIUM",
+      "count": 4435,
+      "action": "Do not delete; treat as non-finisher / data quirk with provenance."
+    },
+    {
+      "type": "null_finish_position",
+      "severity": "LOW",
+      "count": 3161,
+      "action": "Likely scratched/DNF; retain rows."
+    },
+    {
+      "type": "impossible_finish_vs_field",
+      "severity": "HIGH",
+      "count": 1,
+      "examples": [
+        {
+          "result_id": 223187,
+          "race_id": 1158,
+          "wh_horse_id": 5609,
+          "finish_position": 10,
+          "field_size": 6
+        }
+      ],
+      "action": "Flag only; do not delete historical results."
+    },
+    {
+      "type": "duplicate_race_horse_results",
+      "severity": "OK",
+      "count": 0,
+      "examples": [],
+      "action": "Investigate; prefer versioning over silent delete."
+    },
+    {
+      "type": "race_date_null",
+      "severity": "OK",
+      "count": 0
+    },
+    {
+      "type": "race_date_far_future",
+      "severity": "OK",
+      "count": 0
+    },
+    {
+      "type": "birth_year_anomalies",
+      "severity": "MEDIUM",
+      "count": 121,
+      "examples": [
+        {
+          "horse_id": 147,
+          "horse": "خان سالار",
+          "birth_year": 2005,
+          "first_race_year": 2003,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 259,
+          "horse": "دازامید",
+          "birth_year": 2008,
+          "first_race_year": 2007,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 357,
+          "horse": "نیکی",
+          "birth_year": 2008,
+          "first_race_year": 2007,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 505,
+          "horse": "ویس",
+          "birth_year": 2009,
+          "first_race_year": 2008,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 508,
+          "horse": "وینتربوی",
+          "birth_year": 2008,
+          "first_race_year": 2007,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 586,
+          "horse": "سیلواگلد",
+          "birth_year": 2009,
+          "first_race_year": 2008,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 587,
+          "horse": "رون تون هورس",
+          "birth_year": 2009,
+          "first_race_year": 2008,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 590,
+          "horse": "همیلا",
+          "birth_year": 2009,
+          "first_race_year": 2008,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 597,
+          "horse": "آرنولد",
+          "birth_year": 2007,
+          "first_race_year": 2006,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 621,
+          "horse": "گیومات",
+          "birth_year": 2012,
+          "first_race_year": 2009,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 639,
+          "horse": "الوانی",
+          "birth_year": 2009,
+          "first_race_year": 2007,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 759,
+          "horse": "نیک",
+          "birth_year": 2009,
+          "first_race_year": 2008,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 896,
+          "horse": "داش پهلوان",
+          "birth_year": 2010,
+          "first_race_year": 2009,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 978,
+          "horse": "کیابو",
+          "birth_year": 2011,
+          "first_race_year": 2009,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1252,
+          "horse": "ایزامر",
+          "birth_year": 2015,
+          "first_race_year": 2014,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1355,
+          "horse": "ساورسام",
+          "birth_year": 2014,
+          "first_race_year": 2013,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1445,
+          "horse": "سینیوریتا",
+          "birth_year": 2011,
+          "first_race_year": 2010,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1641,
+          "horse": "بچه کولاک",
+          "birth_year": 2018,
+          "first_race_year": 2017,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1734,
+          "horse": "کادنزا",
+          "birth_year": 2023,
+          "first_race_year": 2018,
+          "reason": "birth_year_after_first_race"
+        },
+        {
+          "horse_id": 1813,
+          "horse": "آتابیگ",
+          "birth_year": 2017,
+          "first_race_year": 2016,
+          "reason": "birth_year_after_first_race"
+        }
+      ],
+      "action": "Correct via provenance-preserving canonical fields (see birth_year_corrections)."
+    },
+    {
+      "type": "identity_merge_candidates",
+      "severity": "MEDIUM",
+      "open_or_pending": 486,
+      "total": 486,
+      "action": "Do not merge without evidence."
+    },
+    {
+      "type": "trainer_name_duplicate_rows",
+      "severity": "LOW",
+      "count": 0,
+      "examples": [],
+      "notes": "Duplicate name rows ≠ proven same person; do not auto-merge."
+    },
+    {
+      "type": "owner_name_duplicate_rows",
+      "severity": "LOW",
+      "count": 0,
+      "examples": []
+    },
+    {
+      "type": "pedigree_conflicts",
+      "severity": "HIGH",
+      "count": 19,
+      "source": "/workspace/data/pedigree/pedigree_conflicts.json",
+      "action": "Do not auto-resolve."
+    }
+  ],
+  "policy": [
+    "Never delete valid historical results merely because metadata is wrong.",
+    "Correct metadata only through provenance-preserving canonical fields or migration proposal.",
+    "Do not invent missing class/breed/distance."
+  ]
+}
