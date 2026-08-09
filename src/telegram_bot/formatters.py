@@ -14,15 +14,37 @@ def format_money(value: int | float | None) -> str:
 
 
 def format_score(value: Any) -> str:
+    """Format numeric score for display. Never treat as probability."""
     if value is None:
         return "—"
     try:
         f = float(value)
     except (TypeError, ValueError):
-        return str(value)
-    if abs(f - round(f)) < 1e-9:
-        return str(int(round(f)))
+        return "—"
     return f"{f:.1f}"
+
+
+# Technical API warning codes → user-facing Persian (never show raw codes).
+_WARNING_MESSAGES: dict[str, str] = {
+    "low_feature_coverage": "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.",
+    "score_unavailable_insufficient_features": (
+        "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد."
+    ),
+}
+
+
+def friendly_warnings(warnings: list[Any] | None) -> list[str]:
+    """Map internal warning codes to friendly Persian; drop unknown codes."""
+    out: list[str] = []
+    seen: set[str] = set()
+    for raw in warnings or []:
+        key = str(raw).strip()
+        msg = _WARNING_MESSAGES.get(key)
+        if not msg or msg in seen:
+            continue
+        seen.add(msg)
+        out.append(msg)
+    return out
 
 
 def welcome_text() -> str:
@@ -82,15 +104,11 @@ def format_prediction(payload: dict[str, Any], *, top_n: int = 10) -> str:
         name = item.get("horse_name") or f"اسب {item.get('horse_id')}"
         score = format_score(item.get("score"))
         lines.append(f"{medal} {name}")
-        lines.append(f"Score: {score}")
-        warnings = item.get("warnings") or []
-        if warnings:
-            lines.append("هشدار: " + "، ".join(str(w) for w in warnings[:3]))
+        lines.append(f"امتیاز: {score}")
+        for warning in friendly_warnings(item.get("warnings")):
+            lines.append(warning)
         lines.append("")
-    lines.append("توجه: Score احتمال برد نیست.")
-    note = payload.get("probability_note")
-    if note:
-        lines.append(str(note)[:200])
+    lines.append("ℹ️ امتیاز، احتمال برد نیست.")
     return "\n".join(lines).rstrip()
 
 
@@ -113,16 +131,18 @@ def format_horse(payload: dict[str, Any]) -> str:
             value = ev.get("value") if isinstance(ev, dict) else None
             if metric is not None:
                 lines.append(f"• {metric}: {value}")
-    warnings = payload.get("warnings") or []
-    if warnings:
+    mapped = friendly_warnings(payload.get("warnings"))
+    if mapped:
         lines.append("")
-        lines.append("هشدارها: " + "، ".join(str(w) for w in warnings[:5]))
+        lines.extend(mapped)
     note = payload.get("note")
     if note:
-        lines.append("")
-        lines.append(str(note)[:240])
+        # Avoid leaking English API internals; keep Persian-only user summary.
+        if "probability" not in str(note).lower():
+            lines.append("")
+            lines.append(str(note)[:240])
     lines.append("")
-    lines.append("این تحلیل احتمال برد تولید نمی‌کند.")
+    lines.append("ℹ️ امتیاز، احتمال برد نیست.")
     return "\n".join(lines)
 
 

@@ -134,9 +134,55 @@ def test_formatters_start_help_score_not_percent() -> None:
             ],
         }
     )
-    assert "Score: 87.4" in text
-    assert "%" not in text.split("Score:")[1][:10]
+    assert "امتیاز: 87.4" in text
+    assert "Score:" not in text
     assert "87%" not in text
+    assert "احتمال برد" not in text.split("ℹ️")[0]  # body must not claim win probability
+    assert "ℹ️ امتیاز، احتمال برد نیست." in text
+
+
+def test_format_prediction_null_score_and_friendly_warnings() -> None:
+    text = fmt.format_prediction(
+        {
+            "race_id": 601,
+            "prediction": [
+                {"rank": 1, "horse_id": 3317, "horse_name": None, "score": 24.0, "warnings": []},
+                {"rank": 2, "horse_id": 3232, "horse_name": None, "score": 20.7, "warnings": []},
+                {
+                    "rank": 3,
+                    "horse_id": 3231,
+                    "horse_name": None,
+                    "score": None,
+                    "warnings": [
+                        "low_feature_coverage",
+                        "score_unavailable_insufficient_features",
+                    ],
+                },
+            ],
+        }
+    )
+    assert "🏇 پیش‌بینی کورس 601" in text
+    assert "🥇 اسب 3317" in text
+    assert "امتیاز: 24.0" in text
+    assert "🥈 اسب 3232" in text
+    assert "امتیاز: 20.7" in text
+    assert "🥉 اسب 3231" in text
+    assert "امتیاز: —" in text
+    assert "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد." in text
+    # Internal codes must not leak to users
+    assert "low_feature_coverage" not in text
+    assert "score_unavailable_insufficient_features" not in text
+    assert "احتمال برد" not in text.replace("ℹ️ امتیاز، احتمال برد نیست.", "")
+    assert "ℹ️ امتیاز، احتمال برد نیست." in text
+    # Deduplicate same friendly message when both codes present
+    assert text.count("⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.") == 1
+
+
+def test_friendly_warnings_mapping() -> None:
+    msgs = fmt.friendly_warnings(
+        ["low_feature_coverage", "score_unavailable_insufficient_features", "unknown_code"]
+    )
+    assert msgs == ["⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد."]
 
 
 def test_format_races_empty() -> None:
@@ -154,7 +200,9 @@ def test_format_horse_and_fiveparreh() -> None:
         }
     )
     assert "3470" in horse
-    assert "احتمال برد تولید نمی‌کند" in horse
+    assert "low_feature_coverage" not in horse
+    assert "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد." in horse
+    assert "ℹ️ امتیاز، احتمال برد نیست." in horse
 
     confirm = fmt.format_fiveparreh_confirm(
         [3, 3, 2, 2, 3],
