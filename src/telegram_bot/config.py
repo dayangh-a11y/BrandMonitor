@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -23,6 +25,8 @@ class TelegramBotSettings(BaseSettings):
     telegram_session_ttl_seconds: int = 1800
     telegram_default_price_per_combination: int = 10_000
     telegram_races_page_size: int = 10
+    # Declared future Five-Parreh events (JSON). Missing file ⇒ no events.
+    five_parreh_events_path: Path = Path("data/five_parreh/events.json")
 
     @field_validator("api_base_url")
     @classmethod

@@ -12,17 +12,23 @@ from telegram.ext import ContextTypes
 from src.telegram_bot.api_client import PredictionApiClient
 from src.telegram_bot.errors import TelegramBotError
 from src.telegram_bot import formatters as fmt
+from src.telegram_bot.five_parreh_events import (
+    FiveParrehEventSource,
+    get_event_by_id,
+    list_future_events,
+)
 from src.telegram_bot.keyboards import (
-    fiveparreh_block_keyboard,
     fiveparreh_confirm_keyboard,
+    fiveparreh_event_keyboard,
+    fiveparreh_start_predict_keyboard,
     horse_toggle_keyboard,
     main_menu_keyboard,
     races_keyboard,
 )
-from src.telegram_bot.race_program import consecutive_from_start, valid_starting_races
 from src.telegram_bot.state import FiveParrehSession, SessionStore
 
 _ID_RE = re.compile(r"^\d{1,12}$")
+_EVENT_ID_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,40}$")
 _MAX_MESSAGE = 3500
 
 
@@ -36,6 +42,10 @@ def _sessions(context: ContextTypes.DEFAULT_TYPE) -> SessionStore:
 
 def _settings(context: ContextTypes.DEFAULT_TYPE) -> Any:
     return context.application.bot_data["settings"]
+
+
+def _events(context: ContextTypes.DEFAULT_TYPE) -> FiveParrehEventSource:
+    return context.application.bot_data["five_parreh_events"]
 
 
 async def _reply(update: Update, text: str, **kwargs: Any) -> None:
@@ -154,36 +164,14 @@ async def cmd_fiveparreh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         store = _sessions(context)
         store.clear(user.id)
 
-        # Fetch a wide catalog so meeting sequences can be resolved (not race_id+1).
-        catalog: list[dict[str, Any]] = []
-        offset = 0
-        page_size = 100
-        while offset < 500:
-            payload = _client(context).list_races(limit=page_size, offset=offset)
-            batch = list(payload.get("races") or [])
-            catalog.extend(batch)
-            total = int(payload.get("total") or 0)
-            offset += page_size
-            if not batch or offset >= total:
-                break
-
-        starts = valid_starting_races(catalog, count=5)
-        if not starts:
-            await _reply(
-                update,
-                "در حال حاضر برنامهٔ معتبری با ۵ کورس متوالی در دسترس نیست.",
-                reply_markup=main_menu_keyboard(),
-            )
+        # Only declared FUTURE Five-Parreh events — never inferred from freeze race_ids.
+        events = list_future_events(_events(context))
+        store.set(user.id, FiveParrehSession(step="pick_event"))
+        text = fmt.format_future_fiveparreh_events(events)
+        if not events:
+            await _reply(update, text, reply_markup=main_menu_keyboard())
             return
-
-        store.set(user.id, FiveParrehSession(step="pick_start", race_index=0, catalog=catalog))
-        await _reply(
-            update,
-            "🎟 پنج‌پره\n\n"
-            "یک کورس شروع را انتخاب کنید.\n"
-            "۴ کورس بعدی همان برنامه به‌صورت خودکار انتخاب می‌شوند.",
-            reply_markup=races_keyboard(starts[:30], prefix="fp_start"),
-        )
+        await _reply(update, text, reply_markup=fiveparreh_event_keyboard(events))
 
     await _safe(update, context, run)
 
@@ -228,10 +216,10 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             await _send_prediction(update, context, rid)
             return
 
-        if data.startswith("fp_start:"):
-            await _fp_pick_start(update, context, data.split(":", 1)[1])
+        if data.startswith("fp_event:"):
+            await _fp_select_event(update, context, data.split(":", 1)[1])
             return
-        if data == "fp:block_ok":
+        if data == "fp:start_predict":
             await _fp_begin_horse_selection(update, context)
             return
         if data.startswith("fp:tog:"):
@@ -255,40 +243,45 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     await _safe(update, context, run)
 
 
-async def _fp_pick_start(update: Update, context: ContextTypes.DEFAULT_TYPE, race_id: str) -> None:
+async def _fp_select_event(update: Update, context: ContextTypes.DEFAULT_TYPE, event_id: str) -> None:
     user = update.effective_user
     if not user:
         return
-    if not _ID_RE.match(race_id):
-        await _reply(update, "⚠️ شناسهٔ مسابقه نامعتبر است.")
+    if not _EVENT_ID_RE.match(event_id):
+        await _reply(update, "⚠️ رویداد نامعتبر است.")
         return
     session = _sessions(context).get(user.id)
-    if not session or session.step != "pick_start":
-        await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
-        return
+    if not session or session.step != "pick_event":
+        # Allow selecting from a fresh menu even if session was cleared.
+        session = _sessions(context).set(user.id, FiveParrehSession(step="pick_event"))
 
-    window = consecutive_from_start(session.catalog, race_id, count=5)
-    if not window:
+    event = get_event_by_id(_events(context), event_id)
+    if event is None:
         await _reply(
             update,
-            "⚠️ از این کورس شروع، ۵ کورس متوالی در همان برنامه موجود نیست.",
+            "⚠️ این رویداد پنج‌پره دیگر در دسترس نیست (ممکن است مسابقه‌ای از آن گذشته باشد).",
             reply_markup=main_menu_keyboard(),
         )
         return
 
-    race_ids = [str(r.get("race_id")) for r in window]
-    session.race_ids = race_ids
+    race_ids = event.race_ids
+    session.event_id = event.event_id
+    session.event_title = event.title
+    session.event_track = event.track
+    session.event_display_date = event.display_date
+    session.race_ids = list(race_ids)
+    session.race_labels = {r.race_id: r.label for r in event.races}
     session.horses_by_race = {rid: [] for rid in race_ids}
     session.race_index = 0
-    session.step = "confirm_block"
+    session.step = "confirm_event"
     session.candidates = []
     session.touch()
     _sessions(context).set(user.id, session)
 
     await _reply(
         update,
-        fmt.format_fiveparreh_race_block(race_ids),
-        reply_markup=fiveparreh_block_keyboard(),
+        fmt.format_fiveparreh_event_detail(event),
+        reply_markup=fiveparreh_start_predict_keyboard(),
     )
 
 
@@ -297,8 +290,17 @@ async def _fp_begin_horse_selection(update: Update, context: ContextTypes.DEFAUL
     if not user:
         return
     session = _sessions(context).get(user.id)
-    if not session or session.step != "confirm_block" or len(session.race_ids) != 5:
+    if not session or session.step != "confirm_event" or len(session.race_ids) != 5:
         await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
+        return
+    # Re-check future eligibility before predictions.
+    if session.event_id and get_event_by_id(_events(context), session.event_id) is None:
+        _sessions(context).clear(user.id)
+        await _reply(
+            update,
+            "⚠️ این رویداد دیگر آینده نیست و برای پیش‌بینی پنج‌پره مجاز نمی‌باشد.",
+            reply_markup=main_menu_keyboard(),
+        )
         return
     session.race_index = 0
     session.step = "pick_horses"
@@ -317,9 +319,11 @@ async def _fp_prompt_horses(
         await _reply(update, "⚠️ کورس نامعتبر است.")
         return
     prediction = _client(context).get_race_prediction(rid)
+    # Reuse friendly /predict formatting for the ranked field, then ask for multi-select.
+    pred_text = fmt.format_prediction(prediction)
     candidates = list(prediction.get("prediction") or [])
     if not candidates:
-        await _reply(update, f"⚠️ برای کورس {rid} اسبی جهت انتخاب نیست.")
+        await _reply(update, f"⚠️ برای {session.current_race_label()} اسبی جهت انتخاب نیست.")
         return
     session.candidates = candidates
     session.touch()
@@ -327,9 +331,10 @@ async def _fp_prompt_horses(
     if user:
         _sessions(context).set(user.id, session)
     text = (
-        f"کورس {session.race_index + 1} از ۵ — انتخاب اسب‌ها\n"
-        f"(مسابقه {rid})\n\n"
-        "حداقل یک اسب انتخاب کنید."
+        f"{pred_text}\n\n"
+        f"✅ انتخاب اسب برای {session.current_race_label()} "
+        f"(کورس {session.race_index + 1} از ۵)\n"
+        "حداقل یک اسب را از دکمه‌ها انتخاب کنید."
     )
     await _reply(
         update,

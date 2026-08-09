@@ -8,16 +8,20 @@ from dataclasses import dataclass, field
 
 @dataclass
 class FiveParrehSession:
-    """Per-user temporary selection state for exactly five races."""
+    """Per-user temporary selection state for one future Five-Parreh event."""
 
+    event_id: str | None = None
+    event_title: str | None = None
+    event_track: str | None = None
+    event_display_date: str | None = None
     race_ids: list[str] = field(default_factory=list)
+    race_labels: dict[str, str] = field(default_factory=dict)
     # race_id -> ordered unique horse ids
     horses_by_race: dict[str, list[str]] = field(default_factory=dict)
-    # pick_start → confirm_block → pick_horses → confirm
-    step: str = "pick_start"
+    # pick_event → confirm_event → pick_horses → confirm
+    step: str = "pick_event"
     race_index: int = 0  # 0..4 within locked race_ids
     candidates: list[dict] = field(default_factory=list)
-    catalog: list[dict] = field(default_factory=list)  # races fetched for meeting resolution
     updated_at: float = field(default_factory=time.time)
 
     def touch(self) -> None:
@@ -27,6 +31,12 @@ class FiveParrehSession:
         if 0 <= self.race_index < len(self.race_ids):
             return self.race_ids[self.race_index]
         return None
+
+    def current_race_label(self) -> str:
+        rid = self.current_race_id()
+        if not rid:
+            return "—"
+        return self.race_labels.get(rid) or f"مسابقه {rid}"
 
     def selected_for_current(self) -> list[str]:
         rid = self.current_race_id()

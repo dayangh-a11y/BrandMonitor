@@ -77,11 +77,25 @@ def fiveparreh_confirm_keyboard() -> InlineKeyboardMarkup:
     )
 
 
-def fiveparreh_block_keyboard() -> InlineKeyboardMarkup:
+def fiveparreh_event_keyboard(events: list[Any]) -> InlineKeyboardMarkup:
+    rows: list[list[InlineKeyboardButton]] = []
+    for event in events[:20]:
+        event_id = str(getattr(event, "event_id", "")).strip()
+        if not event_id or len(event_id) > 40:
+            continue
+        track = str(getattr(event, "track", "") or "پنج‌پره")[:20]
+        rows.append(
+            [InlineKeyboardButton(f"انتخاب — {track}", callback_data=f"fp_event:{event_id}")]
+        )
+    rows.append([InlineKeyboardButton("🏠 منو", callback_data="menu:home")])
+    return InlineKeyboardMarkup(rows)
+
+
+def fiveparreh_start_predict_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("ادامه — انتخاب اسب‌ها", callback_data="fp:block_ok"),
+                InlineKeyboardButton("شروع پیش‌بینی", callback_data="fp:start_predict"),
                 InlineKeyboardButton("بازگشت", callback_data="fp:cancel"),
             ]
         ]

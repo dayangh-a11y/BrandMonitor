@@ -67,7 +67,7 @@ def help_text() -> str:
         "/races — فهرست مسابقات موجود\n"
         "/predict [شناسه] — پیش‌بینی یک مسابقه (Score، نه احتمال)\n"
         "/horse [شناسه] — تحلیل اسب از دیتاست\n"
-        "/fiveparreh — ساخت ترکیب پنج‌پره با راهنمای گام‌به‌گام\n\n"
+        "/fiveparreh — رویدادهای پنج‌پرهٔ آینده (نه مسابقات گذشته)\n\n"
         "ربات فقط واسط کاربری است؛ محاسبات در API انجام می‌شود."
     )
 
@@ -146,13 +146,36 @@ def format_horse(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def format_fiveparreh_race_block(race_ids: list[str | int]) -> str:
-    lines = ["🎟 پنج‌پره", ""]
-    for i, rid in enumerate(race_ids, start=1):
-        lines.append(f"کورس {i}: {rid}")
-    lines.append("")
-    lines.append("۵ کورس متوالی از یک برنامه انتخاب شد.")
-    lines.append("برای ادامه، اسب‌های کورس ۱ را انتخاب کنید.")
+def format_future_fiveparreh_events(events: list[Any]) -> str:
+    if not events:
+        return (
+            "🎟 Five-Parreh های آینده\n\n"
+            "در حال حاضر رویداد پنج‌پرهٔ آینده‌ای ثبت نشده است.\n"
+            "رویدادها باید از منبع برنامهٔ مسابقات (آینده) تأمین شوند؛ "
+            "از مسابقات گذشته ساخته نمی‌شوند."
+        )
+    lines = ["🎟 Five-Parreh های آینده", ""]
+    for i, event in enumerate(events, start=1):
+        track = getattr(event, "track", None) or "—"
+        date = getattr(event, "display_date", None) or "—"
+        title = getattr(event, "title", None) or "پنج‌پره"
+        lines.append(f"{i}️⃣ 📅 {date}")
+        lines.append(f"📍 {track}")
+        lines.append(f"🏇 {title}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
+def format_fiveparreh_event_detail(event: Any) -> str:
+    track = getattr(event, "track", None) or "—"
+    date = getattr(event, "display_date", None) or "—"
+    title = getattr(event, "title", None) or "پنج‌پره"
+    lines = [f"🎟 {title} {track}", f"📅 {date}", "", "این پنج کورس در پنج‌پره هستند:", ""]
+    races = list(getattr(event, "races", []) or [])
+    for i, race in enumerate(races, start=1):
+        label = getattr(race, "label", None) or f"Race {getattr(race, 'race_id', '?')}"
+        rid = getattr(race, "race_id", "?")
+        lines.append(f"{i}. {label} ({rid})")
     return "\n".join(lines)
 
 

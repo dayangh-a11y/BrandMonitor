@@ -216,11 +216,16 @@ python -m src.telegram_bot.bot
 | `/races` | Lists races via `GET /races` |
 | `/predict [id]` | Calls `GET /races/{id}/prediction` — shows **Score**, never invents probability |
 | `/horse [id]` | Calls `GET /horses/{id}` |
-| `/fiveparreh` | Guided 5-race horse selection → `POST /five-parreh/combinations` |
+| `/fiveparreh` | Future Five-Parreh **events** only → predict each designated race → combinations |
 
-### Five-Parreh bot flow
+### Five-Parreh bot flow (future events)
 
-Pick race 1→5 → multi-select horses from prediction ranks → confirm counts/cost → API builds combinations.
+1. List **declared future** Five-Parreh events (`FIVE_PARREH_EVENTS_PATH` JSON) — never inferred from freeze `race_id`s  
+2. User selects one event (exactly 5 designated races, all still in the future)  
+3. For each race: show prediction ranks → multi-select horses  
+4. Confirm count/cost → `POST /five-parreh/combinations`  
+
+See [`docs/five_parreh_events.md`](docs/five_parreh_events.md).
 
 ### Production dataset blocker
 

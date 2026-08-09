@@ -227,7 +227,7 @@ def test_format_horse_and_fiveparreh() -> None:
 def test_fiveparreh_state_flow_and_validation() -> None:
     store = SessionStore(ttl_seconds=60)
     s = store.get_or_create(42)
-    assert s.step == "pick_start"
+    assert s.step == "pick_event"
     s.race_ids = ["1", "2", "3", "4", "5"]
     s.race_index = 0
     s.step = "pick_horses"
@@ -253,92 +253,141 @@ def test_fiveparreh_state_flow_and_validation() -> None:
     assert s.total_combinations_estimate() is None
 
 
-def _meeting_races() -> list[dict]:
-    """Fixture-like meeting with a gap in numeric race_ids (603 → 605)."""
-    gonbad = [
-        {"race_id": 601, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 602, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 603, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 605, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 606, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 607, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-        {"race_id": 608, "race_date": "1995-04-28", "track": "گنبدکاووس"},
-    ]
-    other = [
-        {"race_id": 609, "race_date": "1995-10-13", "track": "بندرترکمن"},
-        {"race_id": 610, "race_date": "1995-10-13", "track": "بندرترکمن"},
-        {"race_id": 611, "race_date": "1995-10-13", "track": "بندرترکمن"},
-        {"race_id": 612, "race_date": "1995-10-13", "track": "بندرترکمن"},
-    ]
-    return gonbad + other
+def _sample_event_doc(*, future: bool, race_count: int = 5, event_id: str = "fp-future-1") -> dict:
+    from datetime import datetime, timedelta, timezone
+
+    base = datetime.now(timezone.utc) + (timedelta(days=3) if future else timedelta(days=-3))
+    races = []
+    for i in range(race_count):
+        races.append(
+            {
+                "race_id": str(9000 + i),
+                "label": f"Race {chr(ord('X') + i)}",
+                "scheduled_start": (base + timedelta(minutes=30 * i)).isoformat(),
+            }
+        )
+    return {
+        "events": [
+            {
+                "event_id": event_id,
+                "display_date": "جمعه ۳۰ مرداد",
+                "track": "مشهد",
+                "city": "مشهد",
+                "title": "پنج‌پره",
+                "races": races,
+            }
+        ]
+    }
 
 
-def test_race_program_resolves_five_consecutive_non_numeric_gap() -> None:
-    from src.telegram_bot.race_program import consecutive_from_start, race_ids, valid_starting_races
+def test_future_event_eligibility_and_exactly_five() -> None:
+    from src.telegram_bot.five_parreh_events import (
+        InMemoryFiveParrehEventSource,
+        list_future_events,
+        parse_events_document,
+    )
 
-    races = _meeting_races()
-    window = consecutive_from_start(races, 601, count=5)
-    assert window is not None
-    assert race_ids(window) == ["601", "602", "603", "605", "606"]
-
-    # Not race_id+1: 603's next program race is 605, not 604
-    window2 = consecutive_from_start(races, 603, count=5)
-    assert race_ids(window2) == ["603", "605", "606", "607", "608"]
-
-
-def test_race_program_rejects_start_without_five_remaining() -> None:
-    from src.telegram_bot.race_program import consecutive_from_start, valid_starting_races
-
-    races = _meeting_races()
-    assert consecutive_from_start(races, 605, count=5) is None  # only 605..608 (4)
-    assert consecutive_from_start(races, 609, count=5) is None  # other meeting has 4
-
-    starts = valid_starting_races(races, count=5)
-    start_ids = {str(r["race_id"]) for r in starts}
-    assert "601" in start_ids
-    assert "602" in start_ids
-    assert "603" in start_ids
-    assert "605" not in start_ids
-    assert "609" not in start_ids
+    future = parse_events_document(_sample_event_doc(future=True))
+    past = parse_events_document(_sample_event_doc(future=False, event_id="fp-past"))
+    four = parse_events_document(_sample_event_doc(future=True, race_count=4, event_id="fp-four"))
+    source = InMemoryFiveParrehEventSource(future + past + four)
+    listed = list_future_events(source)
+    assert [e.event_id for e in listed] == ["fp-future-1"]
+    assert listed[0].race_ids == ["9000", "9001", "9002", "9003", "9004"]
 
 
-def test_race_program_does_not_mix_meetings() -> None:
-    from src.telegram_bot.race_program import consecutive_from_start, race_ids
+def test_completed_race_rejects_whole_event() -> None:
+    from datetime import datetime, timedelta, timezone
 
-    races = _meeting_races()
-    # Even though 608 then 609 are numeric neighbors, they are different meetings.
-    window = consecutive_from_start(races, 605, count=5)
-    assert window is None
-    window_ok = consecutive_from_start(races, 601, count=5)
-    assert window_ok is not None
-    tracks = {r["track"] for r in window_ok}
-    dates = {r["race_date"] for r in window_ok}
-    assert tracks == {"گنبدکاووس"}
-    assert dates == {"1995-04-28"}
-    assert "609" not in race_ids(window_ok)
+    from src.telegram_bot.five_parreh_events import (
+        InMemoryFiveParrehEventSource,
+        list_future_events,
+        parse_events_document,
+        reject_if_any_race_completed,
+    )
+
+    now = datetime(2030, 1, 1, 12, 0, tzinfo=timezone.utc)
+    doc = {
+        "events": [
+            {
+                "event_id": "fp-mixed",
+                "display_date": "x",
+                "track": "y",
+                "title": "پنج‌پره",
+                "races": [
+                    {
+                        "race_id": "1",
+                        "label": "A",
+                        "scheduled_start": (now - timedelta(minutes=1)).isoformat(),
+                    },
+                    {
+                        "race_id": "2",
+                        "label": "B",
+                        "scheduled_start": (now + timedelta(minutes=30)).isoformat(),
+                    },
+                    {
+                        "race_id": "3",
+                        "label": "C",
+                        "scheduled_start": (now + timedelta(minutes=60)).isoformat(),
+                    },
+                    {
+                        "race_id": "4",
+                        "label": "D",
+                        "scheduled_start": (now + timedelta(minutes=90)).isoformat(),
+                    },
+                    {
+                        "race_id": "5",
+                        "label": "E",
+                        "scheduled_start": (now + timedelta(minutes=120)).isoformat(),
+                    },
+                ],
+            }
+        ]
+    }
+    event = parse_events_document(doc)[0]
+    assert reject_if_any_race_completed(event, now=now) is True
+    assert list_future_events(InMemoryFiveParrehEventSource([event]), now=now) == []
 
 
-def test_fiveparreh_locked_block_reaches_api_with_exactly_five() -> None:
-    from src.telegram_bot.race_program import consecutive_from_start, race_ids
+def test_fiveparreh_not_inferred_from_race_id_arithmetic() -> None:
+    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource, list_future_events
 
-    races = _meeting_races()
-    window = consecutive_from_start(races, 601, count=5)
-    assert window is not None
-    session = FiveParrehSession(step="confirm_block")
-    session.race_ids = race_ids(window)
+    # Empty source: historical freeze race sequences must NOT invent events.
+    assert list_future_events(InMemoryFiveParrehEventSource([])) == []
+
+
+def test_future_meeting_selection_locks_exactly_five_for_api() -> None:
+    from src.telegram_bot.five_parreh_events import (
+        InMemoryFiveParrehEventSource,
+        get_event_by_id,
+        parse_events_document,
+    )
+
+    source = InMemoryFiveParrehEventSource(parse_events_document(_sample_event_doc(future=True)))
+    event = get_event_by_id(source, "fp-future-1")
+    assert event is not None
+    assert len(event.races) == 5
+    session = FiveParrehSession(step="confirm_event", event_id=event.event_id)
+    session.race_ids = event.race_ids
     session.horses_by_race = {rid: [f"h{rid}"] for rid in session.race_ids}
     session.step = "confirm"
     payload = session.to_api_payload()
     assert len(payload) == 5
-    assert [p["race_id"] for p in payload] == ["601", "602", "603", "605", "606"]
-    assert all(len(p["horses"]) == 1 for p in payload)
+    assert [p["race_id"] for p in payload] == event.race_ids
 
 
-def test_format_fiveparreh_race_block() -> None:
-    text = fmt.format_fiveparreh_race_block(["601", "602", "603", "605", "606"])
-    assert "کورس 1: 601" in text
-    assert "کورس 5: 606" in text
-    assert "۵ کورس متوالی" in text
+def test_format_future_fiveparreh_events() -> None:
+    from src.telegram_bot.five_parreh_events import parse_events_document
+
+    empty = fmt.format_future_fiveparreh_events([])
+    assert "آینده" in empty
+    assert "ثبت نشده" in empty
+    events = parse_events_document(_sample_event_doc(future=True))
+    text = fmt.format_future_fiveparreh_events(events)
+    assert "مشهد" in text
+    detail = fmt.format_fiveparreh_event_detail(events[0])
+    assert "این پنج کورس در پنج‌پره هستند" in detail
+    assert "Race X" in detail
 
 
 def test_user_facing_errors_have_no_paths() -> None:
@@ -362,11 +411,14 @@ async def test_handlers_start_help_with_mocks() -> None:
 
     update.effective_message.reply_text = _reply_text
 
+    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
+
     context = MagicMock()
     context.application.bot_data = {
         "api_client": MagicMock(),
         "sessions": SessionStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
+        "five_parreh_events": InMemoryFiveParrehEventSource([]),
     }
     await cmd_start(update, context)
     await cmd_help(update, context)
@@ -374,6 +426,7 @@ async def test_handlers_start_help_with_mocks() -> None:
 
 @pytest.mark.asyncio
 async def test_handlers_races_predict_horse_mocked() -> None:
+    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
     from src.telegram_bot.handlers import cmd_horse, cmd_predict, cmd_races
 
     client = MagicMock()
@@ -404,6 +457,7 @@ async def test_handlers_races_predict_horse_mocked() -> None:
             api_base_url="http://x",
             telegram_races_page_size=10,
         ),
+        "five_parreh_events": InMemoryFiveParrehEventSource([]),
     }
     await cmd_races(update, context)
     client.list_races.assert_called()
