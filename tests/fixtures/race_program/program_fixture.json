@@ -1,0 +1,86 @@
+{
+  "meetings": [
+    {
+      "meeting_id": "msh-future",
+      "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+      "track": "مشهد",
+      "city": "مشهد",
+      "races": [
+        {
+          "race_id": "3393",
+          "race_number": 1,
+          "label": "کورس ۱",
+          "scheduled_start": "2030-08-21T14:00:00+03:30",
+          "status": "scheduled"
+        },
+        {
+          "race_id": "3394",
+          "race_number": 2,
+          "label": "کورس ۲",
+          "scheduled_start": "2030-08-21T14:30:00+03:30",
+          "status": "scheduled"
+        },
+        {
+          "race_id": "3395",
+          "race_number": 3,
+          "label": "کورس ۳",
+          "scheduled_start": "2030-08-21T15:00:00+03:30",
+          "status": "scheduled"
+        },
+        {
+          "race_id": "9001",
+          "race_number": 4,
+          "label": "کورس ۴",
+          "scheduled_start": "2030-08-21T15:30:00+03:30",
+          "status": "scheduled"
+        },
+        {
+          "race_id": "9002",
+          "race_number": 5,
+          "label": "کورس ۵",
+          "scheduled_start": "2030-08-21T16:00:00+03:30",
+          "status": "scheduled"
+        },
+        {
+          "race_id": "9003",
+          "race_number": 6,
+          "label": "کورس ۶",
+          "scheduled_start": "1999-01-01T12:00:00+03:30",
+          "status": "completed"
+        },
+        {
+          "race_id": "9004",
+          "race_number": 7,
+          "label": "کورس ۷",
+          "status": "unknown_time"
+        }
+      ]
+    },
+    {
+      "meeting_id": "gnb-far",
+      "display_date": "شنبه ۱ شهریور ۱۴۰۵",
+      "track": "گنبدکاووس",
+      "city": "گنبدکاووس",
+      "races": [
+        {
+          "race_id": "9100",
+          "race_number": 1,
+          "label": "کورس ۱",
+          "scheduled_start": "2040-01-01T14:00:00+03:30",
+          "status": "scheduled"
+        }
+      ]
+    }
+  ],
+  "five_parreh_events": [
+    {
+      "event_id": "fp-msh-future",
+      "meeting_id": "msh-future",
+      "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+      "track": "مشهد",
+      "city": "مشهد",
+      "title": "پنج‌پره",
+      "race_ids": ["3393", "3394", "3395", "9001", "9002"]
+    }
+  ]
+}

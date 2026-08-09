@@ -1,0 +1,4 @@
+{
+  "events": [],
+  "_comment": "Declare FUTURE Five-Parreh events here. Do not invent from race_id sequences. Each event must have exactly 5 races with scheduled_start in the future. Example shape (do not commit real secrets; replace with real future program data when available): {\"event_id\":\"fp-example\",\"display_date\":\"جمعه ۳۰ مرداد\",\"track\":\"مشهد\",\"city\":\"مشهد\",\"title\":\"پنج‌پره\",\"races\":[{\"race_id\":\"1001\",\"label\":\"کورس ۱\",\"scheduled_start\":\"2030-01-01T14:00:00+03:30\"},{\"race_id\":\"1002\",\"label\":\"کورس ۲\",\"scheduled_start\":\"2030-01-01T14:30:00+03:30\"},{\"race_id\":\"1003\",\"label\":\"کورس ۳\",\"scheduled_start\":\"2030-01-01T15:00:00+03:30\"},{\"race_id\":\"1004\",\"label\":\"کورس ۴\",\"scheduled_start\":\"2030-01-01T15:30:00+03:30\"},{\"race_id\":\"1005\",\"label\":\"کورس ۵\",\"scheduled_start\":\"2030-01-01T16:00:00+03:30\"}]}"
+}

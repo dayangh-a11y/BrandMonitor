@@ -1,0 +1,5 @@
+{
+  "meetings": [],
+  "five_parreh_events": [],
+  "_comment": "Declare FUTURE race meetings here. Each race needs scheduled_start (ISO-8601). Prediction eligibility: scheduled_start > now. Example: {\"meetings\":[{\"meeting_id\":\"msh-2030-08-21\",\"display_date\":\"جمعه ۳۰ مرداد ۱۴۰۵\",\"track\":\"مشهد\",\"city\":\"مشهد\",\"races\":[{\"race_id\":\"1001\",\"race_number\":1,\"label\":\"کورس ۱\",\"scheduled_start\":\"2030-08-21T14:00:00+03:30\",\"status\":\"scheduled\"}]}],\"five_parreh_events\":[{\"event_id\":\"fp-msh-2030-08-21\",\"meeting_id\":\"msh-2030-08-21\",\"title\":\"پنج‌پره\",\"race_ids\":[\"1001\",\"1002\",\"1003\",\"1004\",\"1005\"]}]}. Legacy {\"events\":[...]} Five-Parreh documents are still accepted."
+}

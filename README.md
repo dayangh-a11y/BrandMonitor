@@ -116,8 +116,14 @@ uvicorn src.api.main:app --port 8000
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/health` | Liveness + dataset version |
+| GET | `/races` | List freeze-backed races (historical metadata) |
 | GET | `/races/{race_id}` | Race + horses from freeze observations |
 | GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
+| GET | `/races/{race_id}/compare?horse_a=&horse_b=` | Pairwise model-score comparison (same race; not probability) |
+| GET | `/race-program/upcoming` | Future meetings + races (`scheduled_start > now`, default 7 days) |
+| GET | `/race-program/meetings/{meeting_id}` | Eligible races for one future meeting |
+| GET | `/race-program/five-parreh` | Future Five-Parreh events (same program source) |
+| GET | `/horses/search?name=` | Search horses by display name |
 | GET | `/horses/{horse_id}` | Freeze-backed horse analysis |
 
 ### Example
@@ -172,3 +178,76 @@ curl -s http://127.0.0.1:8000/five-parreh/combinations \
     {"race_id":"R5","horses":["M","N","O"]}
   ],"price_per_combination":10000}'
 ```
+
+## Telegram Bot (thin UI client)
+
+Architecture: **Telegram UI → HTTP API → formatters → Telegram**.  
+The bot contains **no** scoring, `rank_race`, ML, pedigree, or Five-Parreh Cartesian-product logic.
+
+### Setup
+
+```bash
+pip install -r requirements.txt
+# Copy .env.example → .env and set TELEGRAM_BOT_TOKEN (never commit the real token)
+```
+
+| Variable | Purpose |
+|----------|---------|
+| `TELEGRAM_BOT_TOKEN` | Bot token from BotFather (required) |
+| `API_BASE_URL` | Prediction API base (default `http://localhost:8000`) |
+| `REQUEST_TIMEOUT_SECONDS` | HTTP timeout (default 10) |
+| `TELEGRAM_DEFAULT_PRICE_PER_COMBINATION` | Display/cost default for پنج‌پره (default 10000) |
+
+### Run (API and bot are independent)
+
+```bash
+# Terminal 1 — API (fixture mode for local/dev without production freeze file)
+PREDICTION_DATASET_PATH=tests/fixtures/prediction_api/observations_fixture.jsonl.gz \
+PREDICTION_VERIFY_FREEZE=false \
+uvicorn src.api.main:app --host 127.0.0.1 --port 8000
+
+# Terminal 2 — Telegram bot
+export TELEGRAM_BOT_TOKEN=...   # from BotFather
+export API_BASE_URL=http://127.0.0.1:8000
+python -m src.telegram_bot.bot
+```
+
+### Commands
+
+| Command | Action |
+|---------|--------|
+| `/start` | Welcome + inline menu |
+| `/help` | Short Persian help |
+| `/predict` | Future meetings → race number → prediction (Score, not probability) |
+| `/horsevs` | Future meeting → race → pick two horses → pairwise model-score comparison |
+| `/horse` | Horse **name** search → analysis (IDs internal) |
+| `/fiveparreh` | Future Five-Parreh event → five race selections → combination **count** (no pricing) |
+
+### Predict bot flow (future meetings)
+
+1. `GET /race-program/upcoming` — nearest future meetings (7-day window)  
+2. User picks meeting by **date + location** (no `race_id`)  
+3. User picks **کورس N**  
+4. Bot calls prediction API with internal `race_id` → ranked scores  
+
+### Five-Parreh bot flow (future events)
+
+1. `GET /race-program/five-parreh` — same program source as `/predict`  
+2. User selects one event (exactly 5 designated races, all still in the future)  
+3. For each race: show prediction ranks → multi-select horses  
+4. Confirm count/cost → `POST /five-parreh/combinations`  
+
+See [`docs/race_program.md`](docs/race_program.md) and [`docs/five_parreh_events.md`](docs/five_parreh_events.md).
+
+### Production dataset blocker
+
+Canonical `data/prediction_foundation/datasets/observations.jsonl.gz` is still missing.
+Production API startup fails until it is restored. The bot must not bypass this; use fixture API mode only for development/tests.
+
+### Bot tests
+
+```bash
+python -m pytest -q tests/test_telegram_bot.py
+```
+
+Mocks HTTP — no real Telegram token or production dataset required.

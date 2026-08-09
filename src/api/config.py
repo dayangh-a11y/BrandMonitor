@@ -34,6 +34,10 @@ class APISettings(BaseSettings):
     # PREDICTION_DATASET_PATH at tests/fixtures/prediction_api/observations_fixture.jsonl.gz.
     prediction_verify_freeze: bool = True
     prediction_default_baseline: str = "A"
+    # Optional sidecar for horse display names (freeze observations often lack names).
+    horse_name_index_path: Path = Path("data/identity/horse_name_index.json")
+    # Declared future race program (meetings + races + Five-Parreh). Missing ⇒ empty.
+    race_program_path: Path = Path("data/race_program/program.json")
 
     def cors_origins_list(self) -> list[str]:
         raw = [o.strip() for o in self.api_cors_origins.split(",") if o.strip()]

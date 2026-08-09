@@ -14,6 +14,10 @@ from src.prediction_foundation.baseline_eval import (
     score_C_recent_form,
     score_D_contextual,
 )
+from src.prediction_engine.horse_directory import (
+    HorseNameDirectory,
+    build_default_horse_directory,
+)
 from src.prediction_engine.store import ObservationStore
 
 SCORERS = {
@@ -77,11 +81,18 @@ def _horse_name(row: dict[str, Any]) -> str | None:
 class FreezeBackedEngine:
     """Minimum façade: race lookup + baseline ``rank_race`` + horse analysis."""
 
-    def __init__(self, store: ObservationStore, *, default_baseline: str = "A") -> None:
+    def __init__(
+        self,
+        store: ObservationStore,
+        *,
+        default_baseline: str = "A",
+        horse_directory: HorseNameDirectory | None = None,
+    ) -> None:
         if default_baseline not in SCORERS:
             raise ValueError(f"Unknown baseline {default_baseline!r}")
         self.store = store
         self.default_baseline = default_baseline
+        self.horse_directory = horse_directory or HorseNameDirectory()
 
     @classmethod
     def from_paths(
@@ -91,13 +102,15 @@ class FreezeBackedEngine:
         *,
         verify_freeze: bool = True,
         default_baseline: str = "A",
+        horse_name_index_path: Path | None = None,
     ) -> FreezeBackedEngine:
         store = ObservationStore(
             Path(dataset_path or DEFAULT_DATASET),
             freeze_path=Path(freeze_path) if freeze_path else DEFAULT_FREEZE,
             verify_freeze=verify_freeze,
         )
-        return cls(store, default_baseline=default_baseline)
+        directory = build_default_horse_directory(index_path=horse_name_index_path)
+        return cls(store, default_baseline=default_baseline, horse_directory=directory)
 
     @property
     def dataset_version(self) -> str:
@@ -108,6 +121,40 @@ class FreezeBackedEngine:
     def ml_status(self) -> str:
         self.store.load()
         return self.store.ml_status
+
+    def list_races(self, *, limit: int = 50, offset: int = 0) -> dict[str, Any]:
+        """List freeze race summaries (no scoring changes)."""
+        if limit < 1:
+            raise ValueError("limit must be >= 1")
+        if offset < 0:
+            raise ValueError("offset must be >= 0")
+        ids = self.store.race_ids()
+        total = len(ids)
+        page = ids[offset : offset + limit]
+        races: list[dict[str, Any]] = []
+        for rid in page:
+            race = self.get_race(rid)
+            if not race:
+                continue
+            races.append(
+                {
+                    "race_id": race["race_id"],
+                    "race_date": race.get("race_date"),
+                    "track": race.get("track"),
+                    "distance": race.get("distance"),
+                    "breed": race.get("breed"),
+                    "field_size": race.get("field_size"),
+                    "split": race.get("split"),
+                }
+            )
+        return {
+            "dataset_version": self.dataset_version,
+            "ml_status": self.ml_status,
+            "total": total,
+            "offset": offset,
+            "limit": limit,
+            "races": races,
+        }
 
     def get_race(self, race_id: int) -> dict[str, Any] | None:
         rows = self.store.get_race_rows(race_id)
@@ -158,13 +205,17 @@ class FreezeBackedEngine:
 
         prediction = []
         for row in ranked:
+            hid = row.get("horse_id")
             prediction.append(
                 {
                     "rank": row["pred_rank"],
-                    "horse_id": row.get("horse_id"),
+                    "horse_id": hid,
                     "warehouse_horse_id": row.get("warehouse_horse_id"),
                     "result_id": row.get("result_id"),
-                    "horse_name": _horse_name(row),
+                    "horse_name": self._display_name(
+                        int(hid) if hid is not None else None,
+                        _horse_name(row),
+                    ),
                     "score": row.get("pred_score"),
                     "probability": None,
                     "evidence": _row_evidence(row),
@@ -188,6 +239,132 @@ class FreezeBackedEngine:
             "prediction": prediction,
         }
 
+    def _display_name(self, horse_id: int | None, fallback: str | None = None) -> str | None:
+        if horse_id is None:
+            return fallback
+        rec = self.horse_directory.get(int(horse_id))
+        if rec and rec.horse_name:
+            return rec.horse_name
+        return fallback
+
+    def compare_horses(
+        self,
+        race_id: int,
+        horse_a_id: int,
+        horse_b_id: int,
+        *,
+        baseline: str | None = None,
+    ) -> dict[str, Any] | None:
+        """Pairwise comparison using existing baseline scores (not a new model).
+
+        Does not invent probability. Labels the outcome as a model-score comparison.
+        """
+        if int(horse_a_id) == int(horse_b_id):
+            raise ValueError("horse_a and horse_b must be different horses")
+        ranked = self.rank_race(race_id, baseline=baseline)
+        if ranked is None:
+            return None
+        by_id: dict[int, dict[str, Any]] = {}
+        for item in ranked.get("prediction") or []:
+            hid = item.get("horse_id")
+            if hid is None:
+                continue
+            by_id[int(hid)] = item
+        if int(horse_a_id) not in by_id or int(horse_b_id) not in by_id:
+            raise ValueError("both horses must belong to the same race")
+
+        def pack(hid: int) -> dict[str, Any]:
+            item = by_id[hid]
+            name = self._display_name(hid, item.get("horse_name"))
+            return {
+                "horse_id": hid,
+                "horse_name": name,
+                "rank": item.get("rank"),
+                "score": item.get("score"),
+                "probability": None,
+                "evidence": list(item.get("evidence") or []),
+                "warnings": list(item.get("warnings") or []),
+            }
+
+        a = pack(int(horse_a_id))
+        b = pack(int(horse_b_id))
+        sa, sb = a.get("score"), b.get("score")
+        selected_side: str | None
+        if sa is not None and sb is not None:
+            if float(sa) > float(sb):
+                selected_side = "a"
+            elif float(sb) > float(sa):
+                selected_side = "b"
+            else:
+                selected_side = "tie"
+        elif sa is not None:
+            selected_side = "a"
+        elif sb is not None:
+            selected_side = "b"
+        else:
+            selected_side = None
+
+        selected_horse = None
+        if selected_side == "a":
+            selected_horse = a
+        elif selected_side == "b":
+            selected_horse = b
+
+        evidence_lines: list[dict[str, Any]] = []
+        if sa is not None:
+            evidence_lines.append(
+                {"metric": "model_score_a", "value": sa, "label": f"امتیاز مدل {a.get('horse_name') or 'A'}"}
+            )
+        if sb is not None:
+            evidence_lines.append(
+                {"metric": "model_score_b", "value": sb, "label": f"امتیاز مدل {b.get('horse_name') or 'B'}"}
+            )
+        if a.get("rank") is not None:
+            evidence_lines.append({"metric": "rank_a", "value": a.get("rank"), "label": "رتبه مدل اسب اول"})
+        if b.get("rank") is not None:
+            evidence_lines.append({"metric": "rank_b", "value": b.get("rank"), "label": "رتبه مدل اسب دوم"})
+
+        return {
+            "race_id": int(race_id),
+            "dataset_version": self.dataset_version,
+            "ml_status": self.ml_status,
+            "baseline": ranked.get("baseline"),
+            "comparison_type": "model_score",
+            "note": (
+                "مقایسه بر اساس امتیاز مدل موجود است و احتمال برد یا قطعیت نیست."
+            ),
+            "horse_a": a,
+            "horse_b": b,
+            "selected": selected_side,
+            "selected_horse": selected_horse,
+            "evidence": evidence_lines,
+            "probability": None,
+        }
+
+    def search_horses(self, name: str, *, limit: int = 20) -> dict[str, Any]:
+        """Search horses by display name. Does not change analysis/scoring logic."""
+        q = (name or "").strip()
+        if not q:
+            raise ValueError("name is required")
+        if limit < 1:
+            raise ValueError("limit must be >= 1")
+        self.store.load()
+        # Prefer horses that exist in the freeze dataset (analyzable via GET /horses/{id}).
+        hits = self.horse_directory.search(q, limit=max(limit * 5, limit))
+        results = []
+        for rec in hits:
+            if int(rec.horse_id) not in self.store.by_horse:
+                continue
+            results.append(rec.to_search_dict())
+            if len(results) >= limit:
+                break
+        return {
+            "query": q,
+            "count": len(results),
+            "horses": results,
+            "dataset_version": self.dataset_version,
+        }
+
     def get_horse_analysis(self, horse_id: int) -> dict[str, Any] | None:
         """Horse analysis from freeze observations only (no new scoring model)."""
         rows = self.store.get_horse_rows(horse_id)
@@ -195,6 +372,9 @@ class FreezeBackedEngine:
             return None
         rows_sorted = sorted(rows, key=lambda r: str(r.get("race_date") or ""))
         latest = rows_sorted[-1]
+        directory_rec = self.horse_directory.get(int(horse_id))
+        directory_name = directory_rec.horse_name if directory_rec else None
+
         appearances = []
         for r in rows_sorted:
             appearances.append(
@@ -215,7 +395,7 @@ class FreezeBackedEngine:
         warnings = _row_warnings(latest)
         return {
             "horse_id": int(horse_id),
-            "horse_name": _horse_name(latest),
+            "horse_name": _horse_name(latest) or directory_name,
             "dataset_version": self.dataset_version,
             "ml_status": self.ml_status,
             "observation_count": len(rows_sorted),

@@ -12,10 +12,14 @@ from loguru import logger
 from src.api.config import get_api_settings, validate_prediction_dataset_settings
 from src.api.deps import get_engine, parse_positive_int, require_engine
 from src.api.five_parreh_routes import router as five_parreh_router
+from src.api.race_program_routes import router as race_program_router
 from src.api.schemas import (
     HealthResponse,
     HorseAnalysisResponse,
+    HorseCompareResponse,
+    HorseSearchResponse,
     PredictionResponse,
+    RaceListResponse,
     RaceResponse,
 )
 
@@ -55,6 +59,7 @@ app.add_middleware(
 )
 
 app.include_router(five_parreh_router)
+app.include_router(race_program_router)
 
 
 @app.exception_handler(Exception)
@@ -102,6 +107,23 @@ def _freeze_version_fallback() -> str:
         return "pf-v1.0.0-20260808"
 
 
+@app.get("/races", response_model=RaceListResponse, tags=["races"])
+def list_races(
+    limit: int = Query(default=30, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> RaceListResponse:
+    """List freeze-backed races (metadata only). No scoring changes."""
+    engine = require_engine()
+    try:
+        payload = engine.list_races(limit=limit, offset=offset)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("list_races failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    return RaceListResponse.model_validate(payload)
+
+
 @app.get("/races/{race_id}", response_model=RaceResponse, tags=["races"])
 def get_race(race_id: str) -> RaceResponse:
     rid = parse_positive_int(race_id, field="race_id")
@@ -142,6 +164,58 @@ def predict_race(
         item["probability"] = None
 
     return PredictionResponse.model_validate(result)
+
+
+@app.get(
+    "/races/{race_id}/compare",
+    response_model=HorseCompareResponse,
+    tags=["prediction"],
+)
+def compare_horses(
+    race_id: str,
+    horse_a: str = Query(..., description="Internal horse_id for side A"),
+    horse_b: str = Query(..., description="Internal horse_id for side B"),
+    baseline: str = Query(default="A", pattern="^[A-Da-d]$"),
+) -> HorseCompareResponse:
+    """Pairwise model-score comparison for two horses in the same race."""
+    rid = parse_positive_int(race_id, field="race_id")
+    hid_a = parse_positive_int(horse_a, field="horse_a")
+    hid_b = parse_positive_int(horse_b, field="horse_b")
+    engine = require_engine()
+    try:
+        result = engine.compare_horses(rid, hid_a, hid_b, baseline=baseline.upper())
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("compare_horses failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"Race {rid} not found in freeze dataset")
+    result["probability"] = None
+    if result.get("horse_a"):
+        result["horse_a"]["probability"] = None
+    if result.get("horse_b"):
+        result["horse_b"]["probability"] = None
+    if result.get("selected_horse"):
+        result["selected_horse"]["probability"] = None
+    return HorseCompareResponse.model_validate(result)
+
+
+@app.get("/horses/search", response_model=HorseSearchResponse, tags=["horses"])
+def search_horses(
+    name: str = Query(..., min_length=1, max_length=120),
+    limit: int = Query(default=20, ge=1, le=50),
+) -> HorseSearchResponse:
+    """Search horses by display name. ``horse_id`` is returned for clients; UI should not require users to type it."""
+    engine = require_engine()
+    try:
+        payload = engine.search_horses(name, limit=limit)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("search_horses failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    return HorseSearchResponse.model_validate(payload)
 
 
 @app.get("/horses/{horse_id}", response_model=HorseAnalysisResponse, tags=["horses"])

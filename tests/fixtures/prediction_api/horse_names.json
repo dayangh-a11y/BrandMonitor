@@ -1,0 +1,27 @@
+{
+  "horses": [
+    {
+      "horse_id": 3470,
+      "horse_name": "انفجار ایگدری",
+      "aliases": ["Enfejar Igdari"],
+      "breed": "Thoroughbred",
+      "sex": "female",
+      "birth_year": 1993
+    },
+    {
+      "horse_id": 3450,
+      "horse_name": "گل مارال",
+      "aliases": ["Gol Maral"],
+      "breed": "Thoroughbred",
+      "sex": "female",
+      "birth_year": 1992
+    },
+    {
+      "horse_id": 3239,
+      "horse_name": "شیرین صحرا",
+      "aliases": ["Danzig Boy", "دنزی بوی"],
+      "breed": "Thoroughbred",
+      "sex": "female"
+    }
+  ]
+}
