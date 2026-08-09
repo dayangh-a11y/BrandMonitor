@@ -25,6 +25,25 @@ class HorseRef(BaseModel):
     coverage_level: str | None = None
 
 
+class RaceListItem(BaseModel):
+    race_id: int
+    race_date: str | None = None
+    track: str | None = None
+    distance: float | int | None = None
+    breed: str | None = None
+    field_size: int | None = None
+    split: str | None = None
+
+
+class RaceListResponse(BaseModel):
+    dataset_version: str
+    ml_status: str | None = None
+    total: int
+    offset: int
+    limit: int
+    races: list[RaceListItem]
+
+
 class RaceResponse(BaseModel):
     race_id: int
     dataset_version: str

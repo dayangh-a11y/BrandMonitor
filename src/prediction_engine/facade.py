@@ -109,6 +109,40 @@ class FreezeBackedEngine:
         self.store.load()
         return self.store.ml_status
 
+    def list_races(self, *, limit: int = 50, offset: int = 0) -> dict[str, Any]:
+        """List freeze race summaries (no scoring changes)."""
+        if limit < 1:
+            raise ValueError("limit must be >= 1")
+        if offset < 0:
+            raise ValueError("offset must be >= 0")
+        ids = self.store.race_ids()
+        total = len(ids)
+        page = ids[offset : offset + limit]
+        races: list[dict[str, Any]] = []
+        for rid in page:
+            race = self.get_race(rid)
+            if not race:
+                continue
+            races.append(
+                {
+                    "race_id": race["race_id"],
+                    "race_date": race.get("race_date"),
+                    "track": race.get("track"),
+                    "distance": race.get("distance"),
+                    "breed": race.get("breed"),
+                    "field_size": race.get("field_size"),
+                    "split": race.get("split"),
+                }
+            )
+        return {
+            "dataset_version": self.dataset_version,
+            "ml_status": self.ml_status,
+            "total": total,
+            "offset": offset,
+            "limit": limit,
+            "races": races,
+        }
+
     def get_race(self, race_id: int) -> dict[str, Any] | None:
         rows = self.store.get_race_rows(race_id)
         if not rows:

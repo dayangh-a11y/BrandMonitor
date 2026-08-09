@@ -116,6 +116,7 @@ uvicorn src.api.main:app --port 8000
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/health` | Liveness + dataset version |
+| GET | `/races` | List freeze-backed races (metadata) |
 | GET | `/races/{race_id}` | Race + horses from freeze observations |
 | GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
 | GET | `/horses/{horse_id}` | Freeze-backed horse analysis |
@@ -172,3 +173,64 @@ curl -s http://127.0.0.1:8000/five-parreh/combinations \
     {"race_id":"R5","horses":["M","N","O"]}
   ],"price_per_combination":10000}'
 ```
+
+## Telegram Bot (thin UI client)
+
+Architecture: **Telegram UI → HTTP API → formatters → Telegram**.  
+The bot contains **no** scoring, `rank_race`, ML, pedigree, or Five-Parreh Cartesian-product logic.
+
+### Setup
+
+```bash
+pip install -r requirements.txt
+# Copy .env.example → .env and set TELEGRAM_BOT_TOKEN (never commit the real token)
+```
+
+| Variable | Purpose |
+|----------|---------|
+| `TELEGRAM_BOT_TOKEN` | Bot token from BotFather (required) |
+| `API_BASE_URL` | Prediction API base (default `http://localhost:8000`) |
+| `REQUEST_TIMEOUT_SECONDS` | HTTP timeout (default 10) |
+| `TELEGRAM_DEFAULT_PRICE_PER_COMBINATION` | Display/cost default for پنج‌پره (default 10000) |
+
+### Run (API and bot are independent)
+
+```bash
+# Terminal 1 — API (fixture mode for local/dev without production freeze file)
+PREDICTION_DATASET_PATH=tests/fixtures/prediction_api/observations_fixture.jsonl.gz \
+PREDICTION_VERIFY_FREEZE=false \
+uvicorn src.api.main:app --host 127.0.0.1 --port 8000
+
+# Terminal 2 — Telegram bot
+export TELEGRAM_BOT_TOKEN=...   # from BotFather
+export API_BASE_URL=http://127.0.0.1:8000
+python -m src.telegram_bot.bot
+```
+
+### Commands
+
+| Command | Action |
+|---------|--------|
+| `/start` | Welcome + inline menu |
+| `/help` | Short Persian help |
+| `/races` | Lists races via `GET /races` |
+| `/predict [id]` | Calls `GET /races/{id}/prediction` — shows **Score**, never invents probability |
+| `/horse [id]` | Calls `GET /horses/{id}` |
+| `/fiveparreh` | Guided 5-race horse selection → `POST /five-parreh/combinations` |
+
+### Five-Parreh bot flow
+
+Pick race 1→5 → multi-select horses from prediction ranks → confirm counts/cost → API builds combinations.
+
+### Production dataset blocker
+
+Canonical `data/prediction_foundation/datasets/observations.jsonl.gz` is still missing.
+Production API startup fails until it is restored. The bot must not bypass this; use fixture API mode only for development/tests.
+
+### Bot tests
+
+```bash
+python -m pytest -q tests/test_telegram_bot.py
+```
+
+Mocks HTTP — no real Telegram token or production dataset required.

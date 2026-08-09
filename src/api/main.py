@@ -16,6 +16,7 @@ from src.api.schemas import (
     HealthResponse,
     HorseAnalysisResponse,
     PredictionResponse,
+    RaceListResponse,
     RaceResponse,
 )
 
@@ -100,6 +101,23 @@ def _freeze_version_fallback() -> str:
         return str(load_freeze(settings.prediction_freeze_path).get("dataset_version") or "unknown")
     except Exception:  # noqa: BLE001
         return "pf-v1.0.0-20260808"
+
+
+@app.get("/races", response_model=RaceListResponse, tags=["races"])
+def list_races(
+    limit: int = Query(default=30, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> RaceListResponse:
+    """List freeze-backed races (metadata only). No scoring changes."""
+    engine = require_engine()
+    try:
+        payload = engine.list_races(limit=limit, offset=offset)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("list_races failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    return RaceListResponse.model_validate(payload)
 
 
 @app.get("/races/{race_id}", response_model=RaceResponse, tags=["races"])

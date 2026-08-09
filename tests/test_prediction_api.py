@@ -124,6 +124,16 @@ def test_openapi_available(client: TestClient) -> None:
     r = client.get("/openapi.json")
     assert r.status_code == 200
     assert "/races/{race_id}/prediction" in r.json()["paths"]
+    assert "/races" in r.json()["paths"]
+
+
+def test_list_races(client: TestClient) -> None:
+    r = client.get("/races?limit=5")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["total"] >= 1
+    assert isinstance(body["races"], list)
+    assert body["races"][0]["race_id"] is not None
 
 
 def test_production_mode_fails_when_canonical_dataset_missing(
