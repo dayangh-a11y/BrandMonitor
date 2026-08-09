@@ -124,3 +124,38 @@ def test_openapi_available(client: TestClient) -> None:
     r = client.get("/openapi.json")
     assert r.status_code == 200
     assert "/races/{race_id}/prediction" in r.json()["paths"]
+
+
+def test_production_mode_fails_when_canonical_dataset_missing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    missing = tmp_path / "observations.jsonl.gz"
+    monkeypatch.setenv("PREDICTION_DATASET_PATH", str(missing))
+    monkeypatch.setenv("PREDICTION_FREEZE_PATH", "data/prediction_foundation/freezes/LATEST.json")
+    monkeypatch.setenv("PREDICTION_VERIFY_FREEZE", "true")
+
+    from src.api.config import APISettings, validate_prediction_dataset_settings
+
+    with pytest.raises(RuntimeError, match="PRODUCTION BLOCKER"):
+        validate_prediction_dataset_settings(APISettings())
+
+
+def test_production_mode_refuses_fixture_path(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("PREDICTION_DATASET_PATH", str(FIXTURE_DS.resolve()))
+    monkeypatch.setenv("PREDICTION_FREEZE_PATH", "data/prediction_foundation/freezes/LATEST.json")
+    monkeypatch.setenv("PREDICTION_VERIFY_FREEZE", "true")
+
+    from src.api.config import APISettings, validate_prediction_dataset_settings
+
+    with pytest.raises(RuntimeError, match="refuses the test fixture"):
+        validate_prediction_dataset_settings(APISettings())
+
+
+def test_fixture_mode_accepts_fixture_dataset(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("PREDICTION_DATASET_PATH", str(FIXTURE_DS.resolve()))
+    monkeypatch.setenv("PREDICTION_FREEZE_PATH", "data/prediction_foundation/freezes/LATEST.json")
+    monkeypatch.setenv("PREDICTION_VERIFY_FREEZE", "false")
+
+    from src.api.config import APISettings, validate_prediction_dataset_settings
+
+    validate_prediction_dataset_settings(APISettings())  # must not raise

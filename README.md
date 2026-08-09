@@ -95,13 +95,15 @@ Dataset freeze: **`pf-v1.0.0-20260808`**. ML gate: **`DO_NOT_TRAIN_YET`**.
 
 ```bash
 pip install -r requirements.txt
-# Production: restore observations.jsonl.gz matching freeze sha256, then:
+# Production: restore the canonical frozen file matching freeze sha256, then:
+#   data/prediction_foundation/datasets/observations.jsonl.gz
+# Startup fails clearly if that file is missing (no fixture fallback).
 uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 OpenAPI docs: http://127.0.0.1:8000/docs
 
-Local smoke without the full freeze file (fixture only):
+**Fixture mode** (tests / local smoke only — never production):
 
 ```bash
 PREDICTION_DATASET_PATH=tests/fixtures/prediction_api/observations_fixture.jsonl.gz \

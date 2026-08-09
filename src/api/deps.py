@@ -3,10 +3,15 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 
 from fastapi import HTTPException
 
-from src.api.config import APISettings, get_api_settings
+from src.api.config import (
+    CANONICAL_DATASET_PATH,
+    get_api_settings,
+    missing_production_dataset_message,
+)
 from src.prediction_engine.facade import FreezeBackedEngine
 
 
@@ -32,13 +37,20 @@ def require_engine() -> FreezeBackedEngine:
         try:
             engine.store.load()
         except Exception as exc:  # noqa: BLE001
-            raise HTTPException(
-                status_code=503,
-                detail=(
-                    "Prediction dataset unavailable. Restore observations.jsonl.gz "
-                    f"matching freeze metadata. ({exc})"
-                ),
-            ) from None
+            settings = get_api_settings()
+            if settings.is_production_dataset_mode and not Path(
+                settings.prediction_dataset_path
+            ).exists():
+                detail = missing_production_dataset_message(
+                    settings.prediction_dataset_path,
+                    settings.prediction_freeze_path,
+                )
+            else:
+                detail = (
+                    "Prediction dataset unavailable. Restore "
+                    f"{CANONICAL_DATASET_PATH} matching freeze metadata. ({exc})"
+                )
+            raise HTTPException(status_code=503, detail=detail) from None
     return engine
 
 

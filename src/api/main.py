@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from loguru import logger
 
-from src.api.config import get_api_settings
+from src.api.config import get_api_settings, validate_prediction_dataset_settings
 from src.api.deps import get_engine, parse_positive_int, require_engine
 from src.api.schemas import (
     HealthResponse,
@@ -18,9 +20,20 @@ from src.api.schemas import (
 
 settings = get_api_settings()
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Production mode (PREDICTION_VERIFY_FREEZE=true): refuse startup if the
+    # canonical frozen observations file is missing. Never fall back to fixture.
+    # Re-read settings at startup so test env overrides apply.
+    validate_prediction_dataset_settings(get_api_settings())
+    yield
+
+
 app = FastAPI(
     title=settings.api_title,
     version=settings.api_version,
+    lifespan=lifespan,
     description=(
         "Freeze-backed horse racing prediction API. "
         "Uses prediction_foundation baseline ``rank_race`` (SCORE/RANK only). "

@@ -52,7 +52,8 @@ class ObservationStore:
             msg = (
                 f"Prediction dataset not found: {self.dataset_path}. "
                 "Restore data/prediction_foundation/datasets/observations.jsonl.gz "
-                "matching freeze pf-v1.0.0-20260808."
+                "matching freeze pf-v1.0.0-20260808 "
+                "(do not substitute tests/fixtures/prediction_api/observations_fixture.jsonl.gz)."
             )
             self.load_error = msg
             raise FileNotFoundError(msg)
