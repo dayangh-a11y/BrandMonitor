@@ -11,6 +11,7 @@ from loguru import logger
 
 from src.api.config import get_api_settings, validate_prediction_dataset_settings
 from src.api.deps import get_engine, parse_positive_int, require_engine
+from src.api.five_parreh_routes import router as five_parreh_router
 from src.api.schemas import (
     HealthResponse,
     HorseAnalysisResponse,
@@ -49,9 +50,11 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=_origins,
     allow_credentials=_allow_cred,
-    allow_methods=["GET", "OPTIONS"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+
+app.include_router(five_parreh_router)
 
 
 @app.exception_handler(Exception)

@@ -149,3 +149,26 @@ Example prediction item:
 - **probability**: always `null` in this API — baselines do not emit calibrated probabilities; do not treat score as a percent chance to win
 
 See also: `docs/PREDICTION_API_BLOCKER.md` (historical blockers) and `docs/baseline_evaluation.md`.
+
+## Five-Parreh (Phase 1)
+
+Cartesian-product ticket builder for **exactly five consecutive races**.
+Domain: `src/five_parreh/`. Docs: [`docs/five_parreh.md`](docs/five_parreh.md).
+
+This phase does **not** rank, score, or assign probabilities to combinations.
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/five-parreh/combinations` | Build combinations + cost from selections |
+
+```bash
+curl -s http://127.0.0.1:8000/five-parreh/combinations \
+  -H 'Content-Type: application/json' \
+  -d '{"races":[
+    {"race_id":"R1","horses":["A","B","C"]},
+    {"race_id":"R2","horses":["D","E","F"]},
+    {"race_id":"R3","horses":["G","H","I"]},
+    {"race_id":"R4","horses":["J","K","L"]},
+    {"race_id":"R5","horses":["M","N","O"]}
+  ],"price_per_combination":10000}'
+```
