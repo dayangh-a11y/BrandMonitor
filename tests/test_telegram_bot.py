@@ -159,9 +159,17 @@ def test_format_prediction_null_score_and_friendly_warnings() -> None:
                     ],
                 },
             ],
-        }
+        },
+        meta={
+            "race_number": 3,
+            "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+            "track": "مشهد",
+        },
     )
-    assert "🏇 پیش‌بینی کورس 601" in text
+    assert "🏇 پیش‌بینی کورس 3" in text
+    assert "📅 جمعه ۳۰ مرداد ۱۴۰۵" in text
+    assert "📍 مشهد" in text
+    assert "601" not in text  # race_id must stay internal in Telegram UX
     assert "🥇 اسب 3317" in text
     assert "امتیاز: 24.0" in text
     assert "🥈 اسب 3232" in text
@@ -185,8 +193,39 @@ def test_friendly_warnings_mapping() -> None:
     assert msgs == ["⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد."]
 
 
-def test_format_races_empty() -> None:
-    assert "در دسترس نیست" in fmt.format_race_list({"races": []})
+def test_format_upcoming_empty_and_meetings() -> None:
+    empty = fmt.format_upcoming_meetings(
+        {"meetings": [], "message": "در ۷ روز آینده مسابقه‌ای برای پیش‌بینی ثبت نشده است."}
+    )
+    assert "۷ روز آینده" in empty
+    text = fmt.format_upcoming_meetings(
+        {
+            "meetings": [
+                {
+                    "meeting_id": "msh-future",
+                    "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+                    "track": "مشهد",
+                    "location": "مشهد",
+                }
+            ]
+        }
+    )
+    assert "مسابقات آینده" in text
+    assert "مشهد" in text
+    assert "msh-future" not in text
+    races = fmt.format_meeting_races(
+        {
+            "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+            "location": "مشهد",
+            "races": [
+                {"race_id": "3393", "race_number": 1, "label": "کورس ۱"},
+                {"race_id": "3394", "race_number": 2, "label": "کورس ۲"},
+            ],
+        }
+    )
+    assert "مسابقات مشهد" in text or "مسابقات مشهد" in races
+    assert "کورس ۱" in races
+    assert "3393" not in races
 
 
 def test_format_horse_and_fiveparreh() -> None:
@@ -402,6 +441,7 @@ def test_format_future_fiveparreh_events() -> None:
     detail = fmt.format_fiveparreh_event_detail(events[0])
     assert "این پنج کورس در پنج‌پره هستند" in detail
     assert "Race X" in detail
+    assert "9000" not in detail  # race_id must stay internal
 
 
 def test_user_facing_errors_have_no_paths() -> None:
@@ -425,8 +465,6 @@ async def test_handlers_start_help_with_mocks() -> None:
 
     update.effective_message.reply_text = _reply_text
 
-    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
-
     context = MagicMock()
     from src.telegram_bot.state import HorseLookupStore
 
@@ -434,7 +472,6 @@ async def test_handlers_start_help_with_mocks() -> None:
         "api_client": MagicMock(),
         "sessions": SessionStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
-        "five_parreh_events": InMemoryFiveParrehEventSource([]),
         "horse_lookup": HorseLookupStore(),
     }
     await cmd_start(update, context)
@@ -442,15 +479,46 @@ async def test_handlers_start_help_with_mocks() -> None:
 
 
 @pytest.mark.asyncio
-async def test_handlers_races_predict_horse_mocked() -> None:
-    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
-    from src.telegram_bot.handlers import cmd_horse, cmd_predict, cmd_races, on_callback
+async def test_handlers_predict_meeting_flow_and_horse() -> None:
+    from src.telegram_bot.handlers import cmd_horse, cmd_predict, on_callback
+    from src.telegram_bot.keyboards import meeting_races_keyboard, upcoming_meetings_keyboard
     from src.telegram_bot.state import HorseLookupStore
 
     client = MagicMock()
-    client.list_races.return_value = {
-        "total": 1,
-        "races": [{"race_id": 3393, "track": "گنبد", "race_date": "2026-01-01", "field_size": 8}],
+    client.list_upcoming_meetings.return_value = {
+        "days": 7,
+        "count": 1,
+        "meetings": [
+            {
+                "meeting_id": "msh-future",
+                "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+                "track": "مشهد",
+                "location": "مشهد",
+                "races": [
+                    {
+                        "race_id": "3393",
+                        "race_number": 1,
+                        "label": "کورس ۱",
+                        "eligible_for_prediction": True,
+                    }
+                ],
+            }
+        ],
+        "message": None,
+    }
+    client.get_upcoming_meeting.return_value = {
+        "meeting_id": "msh-future",
+        "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+        "track": "مشهد",
+        "location": "مشهد",
+        "races": [
+            {
+                "race_id": "3393",
+                "race_number": 3,
+                "label": "کورس ۳",
+                "eligible_for_prediction": True,
+            }
+        ],
     }
     client.get_race_prediction.return_value = {
         "race_id": 3393,
@@ -469,7 +537,10 @@ async def test_handlers_races_predict_horse_mocked() -> None:
         "warnings": [],
     }
 
-    async def _reply_text(*a, **k):
+    replies: list[str] = []
+
+    async def _reply_text(text, **k):
+        replies.append(text)
         return None
 
     update = MagicMock()
@@ -487,36 +558,96 @@ async def test_handlers_races_predict_horse_mocked() -> None:
             api_base_url="http://x",
             telegram_races_page_size=10,
         ),
-        "five_parreh_events": InMemoryFiveParrehEventSource([]),
         "horse_lookup": HorseLookupStore(),
+        "predict_meta": {},
     }
-    await cmd_races(update, context)
-    client.list_races.assert_called()
 
-    context.args = ["3393"]
     await cmd_predict(update, context)
-    client.get_race_prediction.assert_called()
+    client.list_upcoming_meetings.assert_called_with(days=7)
+    client.list_races.assert_not_called()
+    assert any("مسابقات آینده" in r for r in replies)
+    assert all("3393" not in r for r in replies)
+    kb = upcoming_meetings_keyboard(client.list_upcoming_meetings.return_value["meetings"])
+    labels = [b.text for row in kb.inline_keyboard for b in row if b.callback_data.startswith("mtg:")]
+    assert labels == ["مشهد — جمعه ۳۰ مرداد ۱۴۰۵"]
+
+    update.callback_query = MagicMock()
+    update.callback_query.data = "mtg:msh-future"
+    update.callback_query.message = MagicMock()
+
+    async def _answer(*a, **k):
+        return None
+
+    async def _reply_cb(text, **k):
+        replies.append(text)
+        return None
+
+    update.callback_query.answer = _answer
+    update.callback_query.message.reply_text = _reply_cb
+    await on_callback(update, context)
+    client.get_upcoming_meeting.assert_called_with("msh-future")
+    assert any("مسابقات مشهد" in r for r in replies)
+    race_kb = meeting_races_keyboard(client.get_upcoming_meeting.return_value)
+    race_labels = [b.text for row in race_kb.inline_keyboard for b in row if b.callback_data.startswith("prd:")]
+    assert race_labels == ["کورس ۳"]
+    assert all("3393" not in t for t in race_labels)
+
+    update.callback_query.data = "prd:3393"
+    await on_callback(update, context)
+    client.get_race_prediction.assert_called_with("3393")
+    assert any("پیش‌بینی کورس 3" in r for r in replies)
+    assert all("3393" not in r for r in replies if "پیش‌بینی" in r)
 
     context.args = ["دنزی", "بوی"]
     await cmd_horse(update, context)
     client.search_horses.assert_called()
     client.get_horse.assert_not_called()
 
-    # Selecting a search result uses internal id via callback only.
-    update.callback_query = MagicMock()
     update.callback_query.data = "horse_sel:3239"
-    update.callback_query.message = MagicMock()
-
-    async def _answer(*a, **k):
-        return None
-
-    async def _reply_cb(*a, **k):
-        return None
-
-    update.callback_query.answer = _answer
-    update.callback_query.message.reply_text = _reply_cb
     await on_callback(update, context)
     client.get_horse.assert_called_with("3239")
+
+
+@pytest.mark.asyncio
+async def test_predict_and_fiveparreh_use_same_api_race_program_source() -> None:
+    from src.telegram_bot.handlers import cmd_fiveparreh, cmd_predict
+    from src.telegram_bot.state import HorseLookupStore
+
+    client = MagicMock()
+    client.list_upcoming_meetings.return_value = {
+        "days": 7,
+        "count": 0,
+        "meetings": [],
+        "message": "در ۷ روز آینده مسابقه‌ای برای پیش‌بینی ثبت نشده است.",
+    }
+    client.list_five_parreh_events.return_value = {
+        "count": 0,
+        "events": [],
+        "message": "در حال حاضر رویداد پنج‌پرهٔ آینده‌ای ثبت نشده است.",
+    }
+
+    async def _reply_text(text, **k):
+        return None
+
+    update = MagicMock()
+    update.callback_query = None
+    update.effective_chat.id = 3
+    update.effective_user.id = 3
+    update.effective_message.reply_text = _reply_text
+    context = MagicMock()
+    context.args = []
+    context.application.bot_data = {
+        "api_client": client,
+        "sessions": SessionStore(),
+        "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
+        "horse_lookup": HorseLookupStore(),
+    }
+    await cmd_predict(update, context)
+    await cmd_fiveparreh(update, context)
+    client.list_upcoming_meetings.assert_called_once()
+    client.list_five_parreh_events.assert_called_once()
+    # Must not fall back to historical freeze race list or local file source.
+    client.list_races.assert_not_called()
 
 
 def test_api_client_search_horses() -> None:
@@ -541,7 +672,6 @@ def test_api_client_search_horses() -> None:
 
 @pytest.mark.asyncio
 async def test_horse_flow_text_prompt_then_select() -> None:
-    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
     from src.telegram_bot.handlers import cmd_horse, on_callback, on_text_message
     from src.telegram_bot.keyboards import horse_search_keyboard
     from src.telegram_bot.state import HorseLookupStore
@@ -582,7 +712,6 @@ async def test_horse_flow_text_prompt_then_select() -> None:
         "api_client": client,
         "sessions": SessionStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
-        "five_parreh_events": InMemoryFiveParrehEventSource([]),
         "horse_lookup": lookup,
     }
 

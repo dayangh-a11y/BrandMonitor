@@ -1,31 +1,35 @@
-# Future Five-Parreh events (Telegram product layer)
+# Future Five-Parreh events (product layer)
 
 Five-Parreh is a **future betting/prediction event**, not “any five races in the freeze”.
 
 ## Model
 
 ```text
-Future race meeting
+Future race program (shared)
+  → Meeting (date + track/city)
+    → Races with scheduled_start
   → Five-Parreh event (exactly 5 designated races, all still in the future)
     → Prediction API per race (existing engine)
     → User horse selections
     → Five-Parreh combination engine (count + cost only)
 ```
 
-## Event source
+## Shared source with `/predict`
 
-Declared events are loaded from JSON (no fabrication from `race_id` arithmetic):
+Discovery uses the **same** race-program file/API:
 
-- Example schema: `data/five_parreh/events.example.json`
-- Runtime path: `FIVE_PARREH_EVENTS_PATH` (default `data/five_parreh/events.json`)
-- Missing file ⇒ **no events** (bot shows an empty/unavailable message)
+- Runtime path: `RACE_PROGRAM_PATH` (default `data/race_program/program.json`)
+- Example: `data/race_program/program.example.json`
+- HTTP: `GET /race-program/upcoming`, `GET /race-program/five-parreh`
+- Legacy `{ "events": [...] }` documents are still accepted by the loader
 
-Each race requires `scheduled_start` (ISO-8601). An event is listed only if:
+Each race requires `scheduled_start` (ISO-8601). Eligible only when:
 
-1. it has **exactly 5** races, and  
-2. **every** race `scheduled_start` is strictly after “now”.
+```text
+scheduled_start > current_time
+```
 
-Completed / started races are rejected.
+Completed / started races and races with missing schedule are rejected for live prediction.
 
 ## Combination engine
 

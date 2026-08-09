@@ -116,9 +116,12 @@ uvicorn src.api.main:app --port 8000
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/health` | Liveness + dataset version |
-| GET | `/races` | List freeze-backed races (metadata) |
+| GET | `/races` | List freeze-backed races (historical metadata) |
 | GET | `/races/{race_id}` | Race + horses from freeze observations |
 | GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
+| GET | `/race-program/upcoming` | Future meetings + races (`scheduled_start > now`, default 7 days) |
+| GET | `/race-program/meetings/{meeting_id}` | Eligible races for one future meeting |
+| GET | `/race-program/five-parreh` | Future Five-Parreh events (same program source) |
 | GET | `/horses/search?name=` | Search horses by display name |
 | GET | `/horses/{horse_id}` | Freeze-backed horse analysis |
 
@@ -214,19 +217,26 @@ python -m src.telegram_bot.bot
 |---------|--------|
 | `/start` | Welcome + inline menu |
 | `/help` | Short Persian help |
-| `/races` | Lists races via `GET /races` |
-| `/predict [id]` | Calls `GET /races/{id}/prediction` — shows **Score**, never invents probability |
+| `/races` | Same as `/predict` — upcoming meetings from race program |
+| `/predict` | Future meetings → races by number → internal `GET /races/{id}/prediction` (Score, not probability) |
 | `/horse` | Ask for **horse name** → `GET /horses/search` → user picks a name button → bot calls `GET /horses/{id}` internally |
-| `/fiveparreh` | Future Five-Parreh **events** only → predict each designated race → combinations |
+| `/fiveparreh` | Future Five-Parreh **events** from the same race program → predict → combinations |
+
+### Predict bot flow (future meetings)
+
+1. `GET /race-program/upcoming` — nearest future meetings (7-day window)  
+2. User picks meeting by **date + location** (no `race_id`)  
+3. User picks **کورس N**  
+4. Bot calls prediction API with internal `race_id` → ranked scores  
 
 ### Five-Parreh bot flow (future events)
 
-1. List **declared future** Five-Parreh events (`FIVE_PARREH_EVENTS_PATH` JSON) — never inferred from freeze `race_id`s  
+1. `GET /race-program/five-parreh` — same program source as `/predict`  
 2. User selects one event (exactly 5 designated races, all still in the future)  
 3. For each race: show prediction ranks → multi-select horses  
 4. Confirm count/cost → `POST /five-parreh/combinations`  
 
-See [`docs/five_parreh_events.md`](docs/five_parreh_events.md).
+See [`docs/race_program.md`](docs/race_program.md) and [`docs/five_parreh_events.md`](docs/five_parreh_events.md).
 
 ### Production dataset blocker
 

@@ -9,7 +9,6 @@ from telegram.ext import Application, CallbackQueryHandler, CommandHandler, Mess
 
 from src.telegram_bot.api_client import PredictionApiClient
 from src.telegram_bot.config import TelegramBotSettings, get_telegram_settings
-from src.telegram_bot.five_parreh_events import JsonFiveParrehEventSource
 from src.telegram_bot.handlers import (
     cmd_fiveparreh,
     cmd_help,
@@ -31,7 +30,6 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
         timeout_seconds=settings.request_timeout_seconds,
     )
     sessions = SessionStore(ttl_seconds=settings.telegram_session_ttl_seconds)
-    events = JsonFiveParrehEventSource(settings.five_parreh_events_path)
     horse_lookup = HorseLookupStore()
 
     async def _post_shutdown(application: Application) -> None:
@@ -46,8 +44,8 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
     app.bot_data["settings"] = settings
     app.bot_data["api_client"] = client
     app.bot_data["sessions"] = sessions
-    app.bot_data["five_parreh_events"] = events
     app.bot_data["horse_lookup"] = horse_lookup
+    # Race program / Five-Parreh discovery is via API client only (no local DB/file reads).
 
     app.add_handler(CommandHandler("start", cmd_start))
     app.add_handler(CommandHandler("help", cmd_help))

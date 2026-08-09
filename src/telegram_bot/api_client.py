@@ -108,6 +108,27 @@ class PredictionApiClient:
             raise ValidationUserError("⚠️ نام اسب بیش از حد طولانی است.")
         return self._request("GET", "/horses/search", params={"name": q, "limit": limit})
 
+    def list_upcoming_meetings(self, *, days: int = 7) -> dict[str, Any]:
+        """Shared race-program source for /predict (and related UI)."""
+        days = max(1, min(int(days), 60))
+        return self._request("GET", "/race-program/upcoming", params={"days": days})
+
+    def get_upcoming_meeting(self, meeting_id: str) -> dict[str, Any]:
+        mid = (meeting_id or "").strip()
+        if not mid or len(mid) > 80:
+            raise ValidationUserError("⚠️ جلسهٔ مسابقه نامعتبر است.")
+        return self._request("GET", f"/race-program/meetings/{mid}")
+
+    def list_five_parreh_events(self) -> dict[str, Any]:
+        """Same race-program source as upcoming meetings."""
+        return self._request("GET", "/race-program/five-parreh")
+
+    def get_five_parreh_event(self, event_id: str) -> dict[str, Any]:
+        eid = (event_id or "").strip()
+        if not eid or len(eid) > 80:
+            raise ValidationUserError("⚠️ رویداد پنج‌پره نامعتبر است.")
+        return self._request("GET", f"/race-program/five-parreh/{eid}")
+
     def generate_five_parreh(
         self,
         races: list[dict[str, Any]],

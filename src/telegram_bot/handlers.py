@@ -12,11 +12,7 @@ from telegram.ext import ContextTypes
 from src.telegram_bot.api_client import PredictionApiClient
 from src.telegram_bot.errors import TelegramBotError
 from src.telegram_bot import formatters as fmt
-from src.telegram_bot.five_parreh_events import (
-    FiveParrehEventSource,
-    get_event_by_id,
-    list_future_events,
-)
+from src.telegram_bot.five_parreh_events import event_from_api_payload
 from src.telegram_bot.keyboards import (
     fiveparreh_confirm_keyboard,
     fiveparreh_event_keyboard,
@@ -24,12 +20,14 @@ from src.telegram_bot.keyboards import (
     horse_search_keyboard,
     horse_toggle_keyboard,
     main_menu_keyboard,
-    races_keyboard,
+    meeting_races_keyboard,
+    upcoming_meetings_keyboard,
 )
 from src.telegram_bot.state import FiveParrehSession, HorseLookupStore, SessionStore
 
 _ID_RE = re.compile(r"^\d{1,12}$")
 _EVENT_ID_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,40}$")
+_MEETING_ID_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,40}$")
 _MAX_MESSAGE = 3500
 
 
@@ -43,10 +41,6 @@ def _sessions(context: ContextTypes.DEFAULT_TYPE) -> SessionStore:
 
 def _settings(context: ContextTypes.DEFAULT_TYPE) -> Any:
     return context.application.bot_data["settings"]
-
-
-def _events(context: ContextTypes.DEFAULT_TYPE) -> FiveParrehEventSource:
-    return context.application.bot_data["five_parreh_events"]
 
 
 def _horse_lookup(context: ContextTypes.DEFAULT_TYPE) -> HorseLookupStore:
@@ -96,47 +90,67 @@ async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def cmd_races(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    async def run() -> None:
-        logger.info("command=races chat={}", getattr(update.effective_chat, "id", None))
-        settings = _settings(context)
-        payload = _client(context).list_races(limit=settings.telegram_races_page_size, offset=0)
-        text = fmt.format_race_list(payload)
-        races = payload.get("races") or []
-        kb = races_keyboard(races, prefix="predict") if races else main_menu_keyboard()
-        await _reply(update, text, reply_markup=kb)
-
-    await _safe(update, context, run)
+    """Alias for upcoming race meetings (same race-program source as /predict)."""
+    await cmd_predict(update, context)
 
 
 async def cmd_predict(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     async def run() -> None:
-        args = context.args or []
-        logger.info("command=predict chat={} args={}", getattr(update.effective_chat, "id", None), args)
-        if args:
-            rid = args[0].strip()
-            if not _ID_RE.match(rid):
-                await _reply(update, "⚠️ شناسهٔ مسابقه نامعتبر است.")
-                return
-            await _send_prediction(update, context, rid)
+        logger.info("command=predict chat={}", getattr(update.effective_chat, "id", None))
+        # Never ask the user for race_id — only future meetings from the race program.
+        payload = _client(context).list_upcoming_meetings(days=7)
+        meetings = payload.get("meetings") or []
+        text = fmt.format_upcoming_meetings(payload)
+        if not meetings:
+            await _reply(update, text, reply_markup=main_menu_keyboard())
             return
-        settings = _settings(context)
-        payload = _client(context).list_races(limit=settings.telegram_races_page_size, offset=0)
-        races = payload.get("races") or []
-        if not races:
-            await _reply(update, "در حال حاضر مسابقه‌ای در دسترس نیست.", reply_markup=main_menu_keyboard())
-            return
-        await _reply(
-            update,
-            "یک مسابقه برای پیش‌بینی انتخاب کنید:",
-            reply_markup=races_keyboard(races, prefix="predict"),
-        )
+        await _reply(update, text, reply_markup=upcoming_meetings_keyboard(meetings))
 
     await _safe(update, context, run)
 
 
-async def _send_prediction(update: Update, context: ContextTypes.DEFAULT_TYPE, race_id: str) -> None:
+async def _show_meeting_races(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    meeting_id: str,
+) -> None:
+    meeting = _client(context).get_upcoming_meeting(meeting_id)
+    races = meeting.get("races") or []
+    # Cache human-readable race meta for prediction display (ids stay out of UX copy).
+    meta_store: dict[str, dict[str, Any]] = context.application.bot_data.setdefault(
+        "predict_meta", {}
+    )
+    location = meeting.get("location") or meeting.get("track") or meeting.get("city")
+    for race in races:
+        rid = str(race.get("race_id") or "").strip()
+        if not rid:
+            continue
+        meta_store[rid] = {
+            "label": race.get("label"),
+            "race_number": race.get("race_number"),
+            "display_date": meeting.get("display_date"),
+            "track": location,
+        }
+    text = fmt.format_meeting_races(meeting)
+    if not races:
+        await _reply(update, text, reply_markup=main_menu_keyboard())
+        return
+    await _reply(update, text, reply_markup=meeting_races_keyboard(meeting))
+
+
+async def _send_prediction(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    race_id: str,
+    *,
+    meta: dict[str, Any] | None = None,
+) -> None:
     payload = _client(context).get_race_prediction(race_id)
-    await _reply(update, fmt.format_prediction(payload), reply_markup=main_menu_keyboard())
+    await _reply(
+        update,
+        fmt.format_prediction(payload, meta=meta),
+        reply_markup=main_menu_keyboard(),
+    )
 
 
 async def cmd_horse(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -208,8 +222,9 @@ async def cmd_fiveparreh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         store = _sessions(context)
         store.clear(user.id)
 
-        # Only declared FUTURE Five-Parreh events — never inferred from freeze race_ids.
-        events = list_future_events(_events(context))
+        # Same race-program API source as /predict — never invent from race_id sequences.
+        payload = _client(context).list_five_parreh_events()
+        events = payload.get("events") or []
         store.set(user.id, FiveParrehSession(step="pick_event"))
         text = fmt.format_future_fiveparreh_events(events)
         if not events:
@@ -252,12 +267,22 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             await cmd_fiveparreh(update, context)
             return
 
-        if data.startswith("predict:"):
+        if data.startswith("mtg:"):
+            mid = data.split(":", 1)[1]
+            if not _MEETING_ID_RE.match(mid):
+                await _reply(update, "⚠️ جلسهٔ مسابقه نامعتبر است.")
+                return
+            await _show_meeting_races(update, context, mid)
+            return
+
+        if data.startswith("prd:"):
+            # Internal race_id in callback only — never typed by the user.
             rid = data.split(":", 1)[1]
             if not _ID_RE.match(rid):
-                await _reply(update, "⚠️ شناسهٔ مسابقه نامعتبر است.")
+                await _reply(update, "⚠️ انتخاب مسابقه نامعتبر است.")
                 return
-            await _send_prediction(update, context, rid)
+            meta = context.application.bot_data.get("predict_meta", {}).get(rid)
+            await _send_prediction(update, context, rid, meta=meta)
             return
 
         if data.startswith("horse_sel:"):
@@ -308,13 +333,19 @@ async def _fp_select_event(update: Update, context: ContextTypes.DEFAULT_TYPE, e
         # Allow selecting from a fresh menu even if session was cleared.
         session = _sessions(context).set(user.id, FiveParrehSession(step="pick_event"))
 
-    event = get_event_by_id(_events(context), event_id)
-    if event is None:
+    try:
+        payload = _client(context).get_five_parreh_event(event_id)
+    except TelegramBotError:
         await _reply(
             update,
             "⚠️ این رویداد پنج‌پره دیگر در دسترس نیست (ممکن است مسابقه‌ای از آن گذشته باشد).",
             reply_markup=main_menu_keyboard(),
         )
+        return
+
+    event = event_from_api_payload(payload)
+    if len(event.races) != 5:
+        await _reply(update, "⚠️ رویداد پنج‌پره باید دقیقاً ۵ کورس داشته باشد.")
         return
 
     race_ids = event.race_ids
@@ -346,15 +377,18 @@ async def _fp_begin_horse_selection(update: Update, context: ContextTypes.DEFAUL
     if not session or session.step != "confirm_event" or len(session.race_ids) != 5:
         await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
         return
-    # Re-check future eligibility before predictions.
-    if session.event_id and get_event_by_id(_events(context), session.event_id) is None:
-        _sessions(context).clear(user.id)
-        await _reply(
-            update,
-            "⚠️ این رویداد دیگر آینده نیست و برای پیش‌بینی پنج‌پره مجاز نمی‌باشد.",
-            reply_markup=main_menu_keyboard(),
-        )
-        return
+    # Re-check future eligibility via the shared race-program API.
+    if session.event_id:
+        try:
+            _client(context).get_five_parreh_event(session.event_id)
+        except TelegramBotError:
+            _sessions(context).clear(user.id)
+            await _reply(
+                update,
+                "⚠️ این رویداد دیگر آینده نیست و برای پیش‌بینی پنج‌پره مجاز نمی‌باشد.",
+                reply_markup=main_menu_keyboard(),
+            )
+            return
     session.race_index = 0
     session.step = "pick_horses"
     session.touch()

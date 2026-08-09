@@ -64,40 +64,90 @@ def help_text() -> str:
         "ℹ️ راهنما\n\n"
         "/start — منوی اصلی\n"
         "/help — همین راهنما\n"
-        "/races — فهرست مسابقات موجود\n"
-        "/predict [شناسه] — پیش‌بینی یک مسابقه (Score، نه احتمال)\n"
+        "/races — مسابقات آینده (بر اساس برنامه)\n"
+        "/predict — انتخاب جلسه و کورس آینده (بدون شناسه)\n"
         "/horse — جستجوی اسب با نام (نه شناسه)\n"
-        "/fiveparreh — رویدادهای پنج‌پرهٔ آینده (نه مسابقات گذشته)\n\n"
+        "/fiveparreh — رویدادهای پنج‌پرهٔ آینده از همان برنامهٔ مسابقات\n\n"
         "ربات فقط واسط کاربری است؛ محاسبات در API انجام می‌شود."
     )
 
 
-def format_race_list(payload: dict[str, Any]) -> str:
-    races = payload.get("races") or []
-    if not races:
-        return "در حال حاضر مسابقه‌ای در دسترس نیست."
-    lines = ["🏁 مسابقات موجود", ""]
-    for i, race in enumerate(races, start=1):
-        track = race.get("track") or "نامشخص"
-        rid = race.get("race_id")
-        date = race.get("race_date") or "—"
-        field = race.get("field_size")
-        field_s = f" — {field} اسب" if field is not None else ""
-        lines.append(f"{i}️⃣ {track} — کورس {rid} ({date}){field_s}")
-    total = payload.get("total")
-    if total is not None:
+def format_upcoming_meetings(payload: dict[str, Any]) -> str:
+    meetings = payload.get("meetings") or []
+    if not meetings:
+        return payload.get("message") or "در ۷ روز آینده مسابقه‌ای برای پیش‌بینی ثبت نشده است."
+    lines = ["🎯 مسابقات آینده", ""]
+    for meeting in meetings:
+        date = meeting.get("display_date") or "—"
+        location = meeting.get("location") or meeting.get("track") or meeting.get("city") or "—"
+        lines.append(f"📅 {date}")
+        lines.append(f"📍 {location}")
+        lines.append("🏇 برنامه مسابقات")
         lines.append("")
-        lines.append(f"مجموع در دیتاست: {total}")
+    return "\n".join(lines).rstrip()
+
+
+def format_meeting_races(meeting: dict[str, Any]) -> str:
+    location = meeting.get("location") or meeting.get("track") or meeting.get("city") or "—"
+    date = meeting.get("display_date") or "—"
+    races = meeting.get("races") or []
+    if not races:
+        return "برای این جلسه مسابقهٔ آینده‌ای باقی نمانده است."
+    lines = [f"🏇 مسابقات {location}", f"📅 {date}", ""]
+    for race in races:
+        num = race.get("race_number")
+        label = race.get("label") or (f"کورس {num}" if num is not None else "کورس")
+        # Prefer numbered list without exposing race_id.
+        prefix = f"{num}️⃣" if num is not None else "•"
+        lines.append(f"{prefix} {label}")
+        if race.get("scheduled_start") is None or race.get("status") == "unknown_time":
+            lines.append("   زمان مسابقه مشخص نیست")
     return "\n".join(lines)
 
 
-def format_prediction(payload: dict[str, Any], *, top_n: int = 10) -> str:
-    rid = payload.get("race_id")
-    lines = [f"🏇 پیش‌بینی کورس {rid}", ""]
+def format_race_list(payload: dict[str, Any]) -> str:
+    """Backward-compatible helper; prefer format_upcoming_meetings for /predict."""
+    if "meetings" in payload:
+        return format_upcoming_meetings(payload)
+    races = payload.get("races") or []
+    if not races:
+        return "در حال حاضر مسابقه‌ای در دسترس نیست."
+    lines = ["🏁 مسابقات", ""]
+    for i, race in enumerate(races, start=1):
+        track = race.get("track") or race.get("location") or "نامشخص"
+        date = race.get("race_date") or race.get("display_date") or "—"
+        label = race.get("label") or race.get("race_number") or "کورس"
+        lines.append(f"{i}️⃣ {track} — {label} ({date})")
+    return "\n".join(lines)
+
+
+def format_prediction(
+    payload: dict[str, Any],
+    *,
+    top_n: int = 10,
+    meta: dict[str, Any] | None = None,
+) -> str:
+    meta = meta or {}
+    race_number = meta.get("race_number")
+    label = meta.get("label")
+    if race_number is not None:
+        title = f"🏇 پیش‌بینی کورس {race_number}"
+    elif label:
+        title = f"🏇 پیش‌بینی {label}"
+    else:
+        # Do not lead with internal race_id in normal UX.
+        title = "🏇 پیش‌بینی کورس"
+    lines = [title]
+    if meta.get("display_date"):
+        lines.append(f"📅 {meta.get('display_date')}")
+    if meta.get("track"):
+        lines.append(f"📍 {meta.get('track')}")
+    lines.append("")
     medals = {1: "🥇", 2: "🥈", 3: "🥉"}
     preds = list(payload.get("prediction") or [])[:top_n]
     if not preds:
-        return f"🏇 پیش‌بینی کورس {rid}\n\nنتیجه‌ای موجود نیست."
+        lines.append("نتیجه‌ای موجود نیست.")
+        return "\n".join(lines)
     for item in preds:
         rank = item.get("rank")
         medal = medals.get(rank, f"{rank}.")
@@ -110,7 +160,6 @@ def format_prediction(payload: dict[str, Any], *, top_n: int = 10) -> str:
         lines.append("")
     lines.append("ℹ️ امتیاز، احتمال برد نیست.")
     return "\n".join(lines).rstrip()
-
 
 def format_horse_search_results(payload: dict[str, Any]) -> str:
     horses = payload.get("horses") or []
@@ -158,6 +207,16 @@ def format_horse(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _fp_field(event: Any, key: str, default: str = "—") -> str:
+    if isinstance(event, dict):
+        value = event.get(key)
+    else:
+        value = getattr(event, key, None)
+    if value is None or value == "":
+        return default
+    return str(value)
+
+
 def format_future_fiveparreh_events(events: list[Any]) -> str:
     if not events:
         return (
@@ -168,9 +227,9 @@ def format_future_fiveparreh_events(events: list[Any]) -> str:
         )
     lines = ["🎟 Five-Parreh های آینده", ""]
     for i, event in enumerate(events, start=1):
-        track = getattr(event, "track", None) or "—"
-        date = getattr(event, "display_date", None) or "—"
-        title = getattr(event, "title", None) or "پنج‌پره"
+        track = _fp_field(event, "location", "") or _fp_field(event, "track")
+        date = _fp_field(event, "display_date")
+        title = _fp_field(event, "title", "پنج‌پره")
         lines.append(f"{i}️⃣ 📅 {date}")
         lines.append(f"📍 {track}")
         lines.append(f"🏇 {title}")
@@ -179,15 +238,20 @@ def format_future_fiveparreh_events(events: list[Any]) -> str:
 
 
 def format_fiveparreh_event_detail(event: Any) -> str:
-    track = getattr(event, "track", None) or "—"
-    date = getattr(event, "display_date", None) or "—"
-    title = getattr(event, "title", None) or "پنج‌پره"
+    track = _fp_field(event, "location", "") or _fp_field(event, "track")
+    date = _fp_field(event, "display_date")
+    title = _fp_field(event, "title", "پنج‌پره")
     lines = [f"🎟 {title} {track}", f"📅 {date}", "", "این پنج کورس در پنج‌پره هستند:", ""]
-    races = list(getattr(event, "races", []) or [])
+    if isinstance(event, dict):
+        races = list(event.get("races") or [])
+    else:
+        races = list(getattr(event, "races", []) or [])
     for i, race in enumerate(races, start=1):
-        label = getattr(race, "label", None) or f"Race {getattr(race, 'race_id', '?')}"
-        rid = getattr(race, "race_id", "?")
-        lines.append(f"{i}. {label} ({rid})")
+        if isinstance(race, dict):
+            label = race.get("label") or f"کورس {race.get('race_number') or i}"
+        else:
+            label = getattr(race, "label", None) or f"کورس {i}"
+        lines.append(f"{i}. {label}")
     return "\n".join(lines)
 
 
