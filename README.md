@@ -83,3 +83,67 @@ python main.py crawler daily-report
 ```
 
 جزئیات: [`docs/crawler.md`](docs/crawler.md)
+
+## Prediction HTTP API (freeze-backed)
+
+Read-only HTTP layer over the **existing** prediction-foundation baselines.
+Uses `baseline_eval.rank_race` unchanged. **Score is not probability** — responses always set `"probability": null`.
+
+Dataset freeze: **`pf-v1.0.0-20260808`**. ML gate: **`DO_NOT_TRAIN_YET`**.
+
+### Start
+
+```bash
+pip install -r requirements.txt
+# Production: restore observations.jsonl.gz matching freeze sha256, then:
+uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+OpenAPI docs: http://127.0.0.1:8000/docs
+
+Local smoke without the full freeze file (fixture only):
+
+```bash
+PREDICTION_DATASET_PATH=tests/fixtures/prediction_api/observations_fixture.jsonl.gz \
+PREDICTION_VERIFY_FREEZE=false \
+uvicorn src.api.main:app --port 8000
+```
+
+### Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/health` | Liveness + dataset version |
+| GET | `/races/{race_id}` | Race + horses from freeze observations |
+| GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
+| GET | `/horses/{horse_id}` | Freeze-backed horse analysis |
+
+### Example
+
+```bash
+curl -s http://127.0.0.1:8000/health
+curl -s http://127.0.0.1:8000/races/636/prediction | jq '.prediction[0]'
+```
+
+Example prediction item:
+
+```json
+{
+  "rank": 1,
+  "horse_id": 3446,
+  "horse_name": null,
+  "score": 62.1,
+  "probability": null,
+  "evidence": [{"metric": "career_avg_finish", "value": 4.2}],
+  "warnings": []
+}
+```
+
+`horse_name` is null when the freeze observations omit display names (ids only).
+
+### Score vs probability
+
+- **score**: baseline ranking strength from existing scorers A–D  
+- **probability**: always `null` in this API — baselines do not emit calibrated probabilities; do not treat score as a percent chance to win
+
+See also: `docs/PREDICTION_API_BLOCKER.md` (historical blockers) and `docs/baseline_evaluation.md`.
