@@ -1,0 +1,96 @@
+{
+  "horse_id": 3450,
+  "display_name": "گل مارال",
+  "sex": "female",
+  "birth_year": 1992,
+  "as_of_date": null,
+  "form": {
+    "starts": 2,
+    "wins": 0,
+    "top3": 1,
+    "win_rate": {
+      "value": 0.1,
+      "raw_rate": 0.0,
+      "smoothed_rate": 0.1,
+      "sample_n": 2,
+      "is_missing": false,
+      "reliability": "VERY_LOW"
+    },
+    "recent": [
+      {
+        "race_id": 3393,
+        "race_date": "1995-04-14",
+        "track": "گنبدکاووس",
+        "distance": 1500,
+        "name": "گروه 4",
+        "finish_position": 6,
+        "weight": 0.0,
+        "source_rating": 0.0,
+        "number": 7
+      },
+      {
+        "race_id": 636,
+        "race_date": "1994-05-20",
+        "track": "بندرترکمن",
+        "distance": 1000,
+        "name": "گروه 4",
+        "finish_position": 2,
+        "weight": 0.0,
+        "source_rating": 0.0,
+        "number": 5
+      }
+    ]
+  },
+  "track_record": {
+    "گنبدکاووس": {
+      "starts": 1,
+      "wins": 0,
+      "top3": 0
+    },
+    "بندرترکمن": {
+      "starts": 1,
+      "wins": 0,
+      "top3": 1
+    }
+  },
+  "distance_record": {
+    "1500": {
+      "starts": 1,
+      "wins": 0,
+      "top3": 0
+    },
+    "1000": {
+      "starts": 1,
+      "wins": 0,
+      "top3": 1
+    }
+  },
+  "pedigree": {
+    "sire": {
+      "parent_id": "src:clpniga3d0nuowrdo1az8blq1",
+      "name": "غزال",
+      "confidence": "HIGH",
+      "source": "asbdavani_pedigree_page",
+      "evidence": {
+        "subject_source_id": "clpnifbmo0gwpwrdo9c003vo4",
+        "subject_name": "گل مارال",
+        "sex_hint": "M",
+        "external_url": "https://www.pedigreequery.com/ghazal5",
+        "parse_status": "OK"
+      }
+    },
+    "dam": null,
+    "source": "asbdavani_pedigree_page",
+    "confidence": "HIGH"
+  },
+  "data_quality": "VERY_LOW",
+  "provenance": {
+    "database": "/workspace/output/historical/horse_racing.db",
+    "warehouse_horse_ids": [
+      3455
+    ],
+    "uses_betting_data": false
+  },
+  "timestamp_utc": "2026-08-08T22:59:38.311711+00:00",
+  "methodology_version": "pe-v1.0.0"
+}

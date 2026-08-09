@@ -1,0 +1,2537 @@
+{
+  "1": {
+    "title": "ترکمن میدن آزاد ۱۰۰۰م",
+    "breed": "ترکمن",
+    "class": "میدن",
+    "distance": 1000,
+    "field": [
+      {
+        "query": "ژیوان",
+        "name": "ژیوان",
+        "birth_year": 2023,
+        "horse_id": 6348,
+        "score": 32.52,
+        "n": 2,
+        "wins": 0,
+        "top3": 2,
+        "rel": "VERY_LOW",
+        "recent": [
+          2,
+          2
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.1,
+        "st": 0.4286,
+        "rf": 0.5,
+        "engine_score": 26.21
+      },
+      {
+        "query": "آرکان شورچه",
+        "name": "آرکان شورچه",
+        "birth_year": 2023,
+        "horse_id": 6323,
+        "score": 28.24,
+        "n": 2,
+        "wins": 0,
+        "top3": 1,
+        "rel": "VERY_LOW",
+        "recent": [
+          null,
+          2
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.1,
+        "st": 0.2857,
+        "rf": 0.5,
+        "engine_score": 22.64
+      },
+      {
+        "query": "ویتو صوفیان",
+        "name": "ویتو صوفیان",
+        "birth_year": 2024,
+        "horse_id": 6917,
+        "score": 26.9,
+        "n": 6,
+        "wins": 0,
+        "top3": 4,
+        "rel": "MEDIUM",
+        "recent": [
+          8,
+          2,
+          3,
+          2,
+          10
+        ],
+        "days": 10,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 10,
+        "last_dist": 1200,
+        "sw": 0.0714,
+        "st": 0.4545,
+        "rf": 0.3117,
+        "engine_score": 21.53
+      },
+      {
+        "query": "نوردخت آراد",
+        "name": "نوردخت آراد",
+        "birth_year": 2024,
+        "horse_id": 7177,
+        "score": 25.73,
+        "n": 5,
+        "wins": 0,
+        "top3": 3,
+        "rel": "MEDIUM",
+        "recent": [
+          2,
+          5,
+          2,
+          null,
+          2
+        ],
+        "days": 44,
+        "dist_n": 4,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.0769,
+        "st": 0.4,
+        "rf": 0.425,
+        "engine_score": 22.73
+      },
+      {
+        "query": "بای بای صوفیان",
+        "name": "بای بای صوفیان",
+        "birth_year": 2023,
+        "horse_id": 4090,
+        "score": 25.72,
+        "n": 6,
+        "wins": 0,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          9,
+          2,
+          null,
+          null,
+          2
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.0714,
+        "st": 0.2727,
+        "rf": 0.3704,
+        "engine_score": 18.15
+      },
+      {
+        "query": "فرتینا",
+        "name": "فرتینا",
+        "birth_year": 2023,
+        "horse_id": 6330,
+        "score": 22.71,
+        "n": 5,
+        "wins": 0,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          6,
+          2,
+          2,
+          6,
+          4
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 4,
+        "last_dist": 1000,
+        "sw": 0.0769,
+        "st": 0.3,
+        "rf": 0.3167,
+        "engine_score": 18.06
+      },
+      {
+        "query": "یاد رخشان",
+        "name": "یاد رخشان",
+        "birth_year": 2023,
+        "horse_id": 6690,
+        "score": 21.48,
+        "n": 8,
+        "wins": 0,
+        "top3": 4,
+        "rel": "MEDIUM",
+        "recent": [
+          8,
+          7,
+          3,
+          4,
+          5
+        ],
+        "days": 23,
+        "dist_n": 4,
+        "dist_w": 0,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1200,
+        "sw": 0.0625,
+        "st": 0.3846,
+        "rf": 0.2102,
+        "engine_score": 17.26
+      },
+      {
+        "query": "بارچین",
+        "name": "بارچین",
+        "birth_year": 2024,
+        "horse_id": 6680,
+        "score": 21.41,
+        "n": 5,
+        "wins": 0,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          4,
+          8,
+          2,
+          5,
+          2
+        ],
+        "days": 10,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.0769,
+        "st": 0.3,
+        "rf": 0.315,
+        "engine_score": 18.03
+      },
+      {
+        "query": "الین ناز",
+        "name": "الین ناز",
+        "birth_year": 2024,
+        "horse_id": 6995,
+        "score": 19.67,
+        "n": 3,
+        "wins": 0,
+        "top3": 1,
+        "rel": "LOW",
+        "recent": [
+          null,
+          3,
+          null
+        ],
+        "days": 88,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": null,
+        "last_dist": 1000,
+        "sw": 0.0909,
+        "st": 0.25,
+        "rf": 0.3333,
+        "engine_score": 17.92
+      },
+      {
+        "query": "پهلوان مهرانی",
+        "name": "پهلوان مهرانی",
+        "birth_year": 2024,
+        "horse_id": 6733,
+        "score": 15.77,
+        "n": 5,
+        "wins": 0,
+        "top3": 1,
+        "rel": "MEDIUM",
+        "recent": [
+          5,
+          5,
+          7,
+          6,
+          3
+        ],
+        "days": 10,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1200,
+        "sw": 0.0769,
+        "st": 0.2,
+        "rf": 0.2086,
+        "engine_score": 13.4
+      }
+    ],
+    "h2h": [
+      {
+        "a": "ویتو صوفیان",
+        "b": "نوردخت آراد",
+        "aw": 0,
+        "bw": 2,
+        "n": 3,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 2,
+            "race_date": "2026-06-26",
+            "distance": 1000
+          },
+          {
+            "p1": 2,
+            "p2": null,
+            "race_date": "2026-05-13",
+            "distance": 1000
+          },
+          {
+            "p1": 8,
+            "p2": 2,
+            "race_date": "2026-02-11",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "ویتو صوفیان",
+        "b": "فرتینا",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 6,
+            "race_date": "2026-07-25",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "بای بای صوفیان",
+        "b": "فرتینا",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 4,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "title": "دوخون میدن آزاد ۱۰۰۰م",
+    "breed": "دوخون",
+    "class": "میدن",
+    "distance": 1000,
+    "field": [
+      {
+        "query": "بهلا",
+        "name": "بهلا",
+        "birth_year": 2024,
+        "horse_id": 6357,
+        "score": 23.5,
+        "n": 4,
+        "wins": 0,
+        "top3": 2,
+        "rel": "LOW",
+        "recent": [
+          2,
+          6,
+          2,
+          6
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1000,
+        "sw": 0.0833,
+        "st": 0.3333,
+        "rf": 0.3333,
+        "engine_score": 19.58
+      },
+      {
+        "query": "شل شلی وری",
+        "name": "شل شلی وری",
+        "birth_year": 2023,
+        "horse_id": 6800,
+        "score": 21.47,
+        "n": 2,
+        "wins": 0,
+        "top3": 1,
+        "rel": "VERY_LOW",
+        "recent": [
+          2,
+          5
+        ],
+        "days": 70,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1000,
+        "sw": 0.1,
+        "st": 0.2857,
+        "rf": 0.35,
+        "engine_score": 19.64
+      },
+      {
+        "query": "کازان",
+        "name": "کازان",
+        "birth_year": 2023,
+        "horse_id": 6356,
+        "score": 20.23,
+        "n": 3,
+        "wins": 0,
+        "top3": 1,
+        "rel": "LOW",
+        "recent": [
+          3,
+          8,
+          5
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1000,
+        "sw": 0.0909,
+        "st": 0.25,
+        "rf": 0.2194,
+        "engine_score": 15.64
+      },
+      {
+        "query": "سای سیتی",
+        "name": "سای سیتی",
+        "birth_year": 2024,
+        "horse_id": 4415,
+        "score": 11.99,
+        "n": 7,
+        "wins": 0,
+        "top3": 0,
+        "rel": "MEDIUM",
+        "recent": [
+          6,
+          8,
+          null,
+          5,
+          6
+        ],
+        "days": 8,
+        "dist_n": 5,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1600,
+        "sw": 0.0667,
+        "st": 0.0833,
+        "rf": 0.1646,
+        "engine_score": 9.04
+      },
+      {
+        "query": "کالبرایت",
+        "name": "کالبرایت",
+        "birth_year": 2024,
+        "horse_id": 6681,
+        "score": 11.88,
+        "n": 4,
+        "wins": 0,
+        "top3": 0,
+        "rel": "LOW",
+        "recent": [
+          null,
+          4,
+          10,
+          null
+        ],
+        "days": 51,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": null,
+        "last_dist": 1000,
+        "sw": 0.0833,
+        "st": 0.1111,
+        "rf": 0.175,
+        "engine_score": 10.86
+      },
+      {
+        "query": "عالم جهان",
+        "name": "عالم جهان",
+        "birth_year": 2022,
+        "horse_id": 4010,
+        "score": 11.39,
+        "n": 11,
+        "wins": 0,
+        "top3": 1,
+        "rel": "HIGH",
+        "recent": [
+          5,
+          7,
+          3,
+          7,
+          0
+        ],
+        "days": 59,
+        "dist_n": 4,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 0,
+        "last_dist": 1200,
+        "sw": 0.0526,
+        "st": 0.125,
+        "rf": 0.2048,
+        "engine_score": 10.11
+      },
+      {
+        "query": "ژنرال هموسو",
+        "name": "ژنرال هموسو",
+        "birth_year": 2024,
+        "horse_id": 4242,
+        "score": 9.48,
+        "n": 3,
+        "wins": 0,
+        "top3": 0,
+        "rel": "LOW",
+        "recent": [
+          7,
+          10,
+          12
+        ],
+        "days": 80,
+        "dist_n": 0,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 12,
+        "last_dist": 1200,
+        "sw": 0.0909,
+        "st": 0.125,
+        "rf": 0.1087,
+        "engine_score": 10.3
+      }
+    ],
+    "h2h": [
+      {
+        "a": "بهلا",
+        "b": "کازان",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 6,
+            "p2": 5,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "شل شلی وری",
+        "b": "کازان",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 3,
+            "race_date": "2026-05-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "سای سیتی",
+        "b": "کالبرایت",
+        "aw": 1,
+        "bw": 0,
+        "n": 3,
+        "meets": [
+          {
+            "p1": 5,
+            "p2": null,
+            "race_date": "2026-06-19",
+            "distance": 1000
+          },
+          {
+            "p1": 8,
+            "p2": 10,
+            "race_date": "2026-05-21",
+            "distance": 1200
+          },
+          {
+            "p1": null,
+            "p2": null,
+            "race_date": "2025-10-04",
+            "distance": 1000
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "title": "ترکمن کلاس۴ ۱۰۰۰م",
+    "breed": "ترکمن",
+    "class": "کلاس۴",
+    "distance": 1000,
+    "field": [
+      {
+        "query": "جان وحدانی",
+        "name": "جان وحدانی",
+        "birth_year": 2021,
+        "horse_id": 3814,
+        "score": 38.31,
+        "n": 4,
+        "wins": 2,
+        "top3": 3,
+        "rel": "LOW",
+        "recent": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "days": 16,
+        "dist_n": 1,
+        "dist_w": 1,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 1,
+        "last_dist": 1000,
+        "sw": 0.25,
+        "st": 0.4444,
+        "rf": 0.6458,
+        "engine_score": 37.78
+      },
+      {
+        "query": "ایاز رمضانی",
+        "name": "ایاز رمضانی",
+        "birth_year": 2022,
+        "horse_id": 6353,
+        "score": 34.38,
+        "n": 4,
+        "wins": 1,
+        "top3": 3,
+        "rel": "LOW",
+        "recent": [
+          3,
+          4,
+          3,
+          1
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 1,
+        "dist_t3": 2,
+        "mash_n": 1,
+        "mash_w": 1,
+        "last_pos": 1,
+        "last_dist": 1000,
+        "sw": 0.1667,
+        "st": 0.4444,
+        "rf": 0.4792,
+        "engine_score": 29.86
+      },
+      {
+        "query": "ون گلد",
+        "name": "ون گلد",
+        "birth_year": 2024,
+        "horse_id": 6351,
+        "score": 29.49,
+        "n": 7,
+        "wins": 1,
+        "top3": 4,
+        "rel": "MEDIUM",
+        "recent": [
+          4,
+          2,
+          null,
+          9,
+          2
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.1333,
+        "st": 0.4167,
+        "rf": 0.3403,
+        "engine_score": 24.56
+      },
+      {
+        "query": "میراث طلاقوش",
+        "name": "میراث طلاقوش",
+        "birth_year": 2021,
+        "horse_id": 6717,
+        "score": 26.6,
+        "n": 4,
+        "wins": 1,
+        "top3": 2,
+        "rel": "LOW",
+        "recent": [
+          11,
+          2,
+          1,
+          10
+        ],
+        "days": 87,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 10,
+        "last_dist": 1000,
+        "sw": 0.1667,
+        "st": 0.3333,
+        "rf": 0.4227,
+        "engine_score": 25.95
+      },
+      {
+        "query": "جولان معرب",
+        "name": "جولان معرب",
+        "birth_year": 2023,
+        "horse_id": 4172,
+        "score": 24.34,
+        "n": 10,
+        "wins": 1,
+        "top3": 3,
+        "rel": "HIGH",
+        "recent": [
+          3,
+          null,
+          10,
+          7,
+          1
+        ],
+        "days": 9,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 1,
+        "last_dist": 1700,
+        "sw": 0.1111,
+        "st": 0.2667,
+        "rf": 0.394,
+        "engine_score": 20.66
+      },
+      {
+        "query": "هیجا وحدانی",
+        "name": "هیجا وحدانی",
+        "birth_year": 2021,
+        "horse_id": 4276,
+        "score": 22.59,
+        "n": 14,
+        "wins": 2,
+        "top3": 4,
+        "rel": "HIGH",
+        "recent": [
+          3,
+          5,
+          4,
+          1,
+          6
+        ],
+        "days": 24,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1700,
+        "sw": 0.1364,
+        "st": 0.2632,
+        "rf": 0.39,
+        "engine_score": 21.88
+      },
+      {
+        "query": "تکاور نوری",
+        "name": "تکاور نوری",
+        "birth_year": 2021,
+        "horse_id": 8398,
+        "score": 21.89,
+        "n": 1,
+        "wins": 0,
+        "top3": 1,
+        "rel": "VERY_LOW",
+        "recent": [
+          2
+        ],
+        "days": 450,
+        "dist_n": 0,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.1111,
+        "st": 0.3333,
+        "rf": 0.5,
+        "engine_score": 24.44
+      },
+      {
+        "query": "خان قوش قره جه",
+        "name": "خان قوش قره جه",
+        "birth_year": 2022,
+        "horse_id": 6719,
+        "score": 21.02,
+        "n": 8,
+        "wins": 1,
+        "top3": 3,
+        "rel": "MEDIUM",
+        "recent": [
+          3,
+          4,
+          8,
+          12,
+          3
+        ],
+        "days": 16,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1000,
+        "sw": 0.125,
+        "st": 0.3077,
+        "rf": 0.225,
+        "engine_score": 19.07
+      },
+      {
+        "query": "آریا قلی زاده",
+        "name": "آریا قلی زاده",
+        "birth_year": 2022,
+        "horse_id": 4395,
+        "score": 15.23,
+        "n": 11,
+        "wins": 0,
+        "top3": 2,
+        "rel": "HIGH",
+        "recent": [
+          12,
+          7,
+          8,
+          4,
+          4
+        ],
+        "days": 8,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 4,
+        "last_dist": 1700,
+        "sw": 0.0526,
+        "st": 0.1875,
+        "rf": 0.1702,
+        "engine_score": 10.99
+      }
+    ],
+    "h2h": [
+      {
+        "a": "جان وحدانی",
+        "b": "ایاز رمضانی",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 1,
+            "p2": 4,
+            "race_date": "2026-07-24",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "جان وحدانی",
+        "b": "میراث طلاقوش",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 4,
+            "p2": 11,
+            "race_date": "2023-04-27",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "جان وحدانی",
+        "b": "هیجا وحدانی",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 7,
+            "race_date": "2023-08-05",
+            "distance": 1550
+          }
+        ]
+      },
+      {
+        "a": "ایاز رمضانی",
+        "b": "ون گلد",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 1,
+            "p2": 2,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "ون گلد",
+        "b": "جولان معرب",
+        "aw": 0,
+        "bw": 1,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 9,
+            "p2": 1,
+            "race_date": "2026-07-31",
+            "distance": 1700
+          },
+          {
+            "p1": null,
+            "p2": 10,
+            "race_date": "2026-07-03",
+            "distance": 1700
+          }
+        ]
+      },
+      {
+        "a": "میراث طلاقوش",
+        "b": "جولان معرب",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 10,
+            "p2": 4,
+            "race_date": "2026-05-14",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "جولان معرب",
+        "b": "هیجا وحدانی",
+        "aw": 1,
+        "bw": 1,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 6,
+            "p2": 8,
+            "race_date": "2025-08-16",
+            "distance": 1200
+          },
+          {
+            "p1": 7,
+            "p2": 6,
+            "race_date": "2026-07-16",
+            "distance": 1700
+          }
+        ]
+      }
+    ]
+  },
+  "4": {
+    "title": "تروبرد کلاس۵ ۱۰۰۰م",
+    "breed": "تروبرد",
+    "class": "کلاس۵",
+    "distance": 1000,
+    "field": [
+      {
+        "query": "دل والی",
+        "name": "دل والی",
+        "birth_year": 2022,
+        "horse_id": 6361,
+        "score": 37.65,
+        "n": 7,
+        "wins": 2,
+        "top3": 3,
+        "rel": "MEDIUM",
+        "recent": [
+          1,
+          2,
+          5,
+          4,
+          1
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 2,
+        "dist_t3": 3,
+        "mash_n": 1,
+        "mash_w": 1,
+        "last_pos": 1,
+        "last_dist": 1000,
+        "sw": 0.2,
+        "st": 0.3333,
+        "rf": 0.59,
+        "engine_score": 31.13
+      },
+      {
+        "query": "بادپا",
+        "name": "بادپا",
+        "birth_year": 2024,
+        "horse_id": 6360,
+        "score": 23.74,
+        "n": 5,
+        "wins": 0,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          3,
+          2,
+          9,
+          null,
+          null
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": null,
+        "last_dist": 1000,
+        "sw": 0.0769,
+        "st": 0.3,
+        "rf": 0.3148,
+        "engine_score": 18.03
+      },
+      {
+        "query": "فلایتر",
+        "name": "فلایتر",
+        "birth_year": 2023,
+        "horse_id": 7248,
+        "score": 22.44,
+        "n": 13,
+        "wins": 1,
+        "top3": 3,
+        "rel": "HIGH",
+        "recent": [
+          8,
+          1,
+          6,
+          5,
+          null
+        ],
+        "days": 11,
+        "dist_n": 9,
+        "dist_w": 1,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": null,
+        "last_dist": 1200,
+        "sw": 0.0952,
+        "st": 0.2222,
+        "rf": 0.3729,
+        "engine_score": 18.25
+      },
+      {
+        "query": "دبولت",
+        "name": "دبولت",
+        "birth_year": 2023,
+        "horse_id": 7039,
+        "score": 20.75,
+        "n": 4,
+        "wins": 0,
+        "top3": 2,
+        "rel": "LOW",
+        "recent": [
+          5,
+          3,
+          5,
+          2
+        ],
+        "days": 58,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.0833,
+        "st": 0.3333,
+        "rf": 0.3083,
+        "engine_score": 19.08
+      },
+      {
+        "query": "تریموف",
+        "name": "تریموف",
+        "birth_year": 2022,
+        "horse_id": 6359,
+        "score": 20.14,
+        "n": 14,
+        "wins": 0,
+        "top3": 4,
+        "rel": "HIGH",
+        "recent": [
+          6,
+          5,
+          8,
+          8,
+          2
+        ],
+        "days": 2,
+        "dist_n": 7,
+        "dist_w": 0,
+        "dist_t3": 3,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1000,
+        "sw": 0.0455,
+        "st": 0.2632,
+        "rf": 0.2233,
+        "engine_score": 13.55
+      },
+      {
+        "query": "زستان/زستا",
+        "name": "زستا",
+        "birth_year": 2020,
+        "horse_id": 3769,
+        "score": 15.72,
+        "n": 14,
+        "wins": 1,
+        "top3": 3,
+        "rel": "HIGH",
+        "recent": [
+          9,
+          8,
+          7,
+          6,
+          9
+        ],
+        "days": 11,
+        "dist_n": 5,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 9,
+        "last_dist": 1200,
+        "sw": 0.0909,
+        "st": 0.2105,
+        "rf": 0.1313,
+        "engine_score": 12.89
+      }
+    ],
+    "h2h": [
+      {
+        "a": "دل والی",
+        "b": "بادپا",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 1,
+            "p2": null,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "دل والی",
+        "b": "تریموف",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 1,
+            "p2": 2,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "بادپا",
+        "b": "فلایتر",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 1,
+            "race_date": "2026-06-13",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "بادپا",
+        "b": "تریموف",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": null,
+            "p2": 2,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "فلایتر",
+        "b": "دبولت",
+        "aw": 1,
+        "bw": 1,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 8,
+            "p2": 5,
+            "race_date": "2026-05-21",
+            "distance": 1200
+          },
+          {
+            "p1": 3,
+            "p2": 5,
+            "race_date": "2025-04-30",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "فلایتر",
+        "b": "تریموف",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": null,
+            "p2": 8,
+            "race_date": "2026-07-29",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "فلایتر",
+        "b": "زستا",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": null,
+            "p2": 9,
+            "race_date": "2026-07-29",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "دبولت",
+        "b": "تریموف",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 5,
+            "race_date": "2026-06-12",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "تریموف",
+        "b": "زستا",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 8,
+            "p2": 9,
+            "race_date": "2026-07-29",
+            "distance": 1200
+          }
+        ]
+      }
+    ]
+  },
+  "5": {
+    "title": "دوخون کلاس۵ ۱۰۰۰م",
+    "breed": "دوخون",
+    "class": "کلاس۵",
+    "distance": 1000,
+    "field": [
+      {
+        "query": "اسپید کالر",
+        "name": "اسپید کالر",
+        "birth_year": 2024,
+        "horse_id": 4246,
+        "score": 29.55,
+        "n": 6,
+        "wins": 1,
+        "top3": 4,
+        "rel": "MEDIUM",
+        "recent": [
+          1,
+          9,
+          3,
+          4,
+          2
+        ],
+        "days": 9,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.1429,
+        "st": 0.4545,
+        "rf": 0.4389,
+        "engine_score": 28.0
+      },
+      {
+        "query": "ارکن",
+        "name": "ارکن",
+        "birth_year": 2024,
+        "horse_id": 4280,
+        "score": 25.7,
+        "n": 9,
+        "wins": 1,
+        "top3": 4,
+        "rel": "MEDIUM",
+        "recent": [
+          6,
+          3,
+          1,
+          11,
+          4
+        ],
+        "days": 26,
+        "dist_n": 6,
+        "dist_w": 1,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 4,
+        "last_dist": 1000,
+        "sw": 0.1176,
+        "st": 0.3571,
+        "rf": 0.3682,
+        "engine_score": 22.76
+      },
+      {
+        "query": "النورا",
+        "name": "النورا",
+        "birth_year": 2022,
+        "horse_id": 7014,
+        "score": 22.6,
+        "n": 12,
+        "wins": 2,
+        "top3": 4,
+        "rel": "HIGH",
+        "recent": [
+          4,
+          4,
+          8,
+          7,
+          3
+        ],
+        "days": 17,
+        "dist_n": 6,
+        "dist_w": 2,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1000,
+        "sw": 0.15,
+        "st": 0.2941,
+        "rf": 0.2202,
+        "engine_score": 20.01
+      },
+      {
+        "query": "خوشه",
+        "name": "خوشه",
+        "birth_year": 2024,
+        "horse_id": 6935,
+        "score": 21.76,
+        "n": 5,
+        "wins": 1,
+        "top3": 1,
+        "rel": "MEDIUM",
+        "recent": [
+          1,
+          9,
+          6,
+          5,
+          6
+        ],
+        "days": 26,
+        "dist_n": 4,
+        "dist_w": 1,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1000,
+        "sw": 0.1538,
+        "st": 0.2,
+        "rf": 0.3289,
+        "engine_score": 20.04
+      },
+      {
+        "query": "سلماجان",
+        "name": "سلماجان",
+        "birth_year": 2023,
+        "horse_id": 4033,
+        "score": 20.13,
+        "n": 12,
+        "wins": 0,
+        "top3": 5,
+        "rel": "HIGH",
+        "recent": [
+          8,
+          4,
+          null,
+          3,
+          7
+        ],
+        "days": 17,
+        "dist_n": 7,
+        "dist_w": 0,
+        "dist_t3": 4,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 7,
+        "last_dist": 1000,
+        "sw": 0.05,
+        "st": 0.3529,
+        "rf": 0.2128,
+        "engine_score": 15.83
+      },
+      {
+        "query": "شکیرا",
+        "name": "شکیرا",
+        "birth_year": 2021,
+        "horse_id": 7198,
+        "score": 15.79,
+        "n": 19,
+        "wins": 1,
+        "top3": 4,
+        "rel": "HIGH",
+        "recent": [
+          7,
+          3,
+          3,
+          11,
+          9
+        ],
+        "days": 26,
+        "dist_n": 14,
+        "dist_w": 0,
+        "dist_t3": 3,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 9,
+        "last_dist": 1000,
+        "sw": 0.0741,
+        "st": 0.2083,
+        "rf": 0.2023,
+        "engine_score": 13.33
+      },
+      {
+        "query": "میس نارگل",
+        "name": "میس نارگل",
+        "birth_year": 2023,
+        "horse_id": 6714,
+        "score": 12.22,
+        "n": 2,
+        "wins": 0,
+        "top3": 0,
+        "rel": "VERY_LOW",
+        "recent": [
+          12,
+          null
+        ],
+        "days": 26,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": null,
+        "last_dist": 1000,
+        "sw": 0.1,
+        "st": 0.1429,
+        "rf": 0.0833,
+        "engine_score": 10.74
+      }
+    ],
+    "h2h": [
+      {
+        "a": "اسپید کالر",
+        "b": "خوشه",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 9,
+            "p2": 5,
+            "race_date": "2026-05-15",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "ارکن",
+        "b": "خوشه",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 1,
+            "race_date": "2025-11-20",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "ارکن",
+        "b": "سلماجان",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 4,
+            "p2": 3,
+            "race_date": "2026-07-14",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "النورا",
+        "b": "سلماجان",
+        "aw": 2,
+        "bw": 0,
+        "n": 3,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 7,
+            "race_date": "2026-07-23",
+            "distance": 1000
+          },
+          {
+            "p1": null,
+            "p2": 4,
+            "race_date": "2026-05-20",
+            "distance": 1200
+          },
+          {
+            "p1": 6,
+            "p2": 7,
+            "race_date": "2026-02-06",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "خوشه",
+        "b": "شکیرا",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 6,
+            "p2": 9,
+            "race_date": "2026-07-14",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "سلماجان",
+        "b": "شکیرا",
+        "aw": 0,
+        "bw": 1,
+        "n": 3,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": null,
+            "race_date": "2025-08-07",
+            "distance": 1000
+          },
+          {
+            "p1": 6,
+            "p2": 4,
+            "race_date": "2025-07-02",
+            "distance": 1000
+          },
+          {
+            "p1": 3,
+            "p2": null,
+            "race_date": "2025-07-18",
+            "distance": 1000
+          }
+        ]
+      }
+    ]
+  },
+  "6": {
+    "title": "دوخون کلاس۶ ۱۳۰۰م",
+    "breed": "دوخون",
+    "class": "کلاس۶",
+    "distance": 1300,
+    "field": [
+      {
+        "query": "ناز جهان",
+        "name": "ناز جهان",
+        "birth_year": 2023,
+        "horse_id": 6830,
+        "score": 29.05,
+        "n": 8,
+        "wins": 2,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          4,
+          null,
+          1,
+          6,
+          1
+        ],
+        "days": 16,
+        "dist_n": 1,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 1,
+        "last_dist": 1600,
+        "sw": 0.1875,
+        "st": 0.2308,
+        "rf": 0.6042,
+        "engine_score": 28.17
+      },
+      {
+        "query": "سمیرامیس",
+        "name": "سمیرامیس",
+        "birth_year": 2023,
+        "horse_id": 3910,
+        "score": 21.79,
+        "n": 16,
+        "wins": 2,
+        "top3": 5,
+        "rel": "HIGH",
+        "recent": [
+          9,
+          1,
+          10,
+          8,
+          11
+        ],
+        "days": 23,
+        "dist_n": 6,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 11,
+        "last_dist": 1200,
+        "sw": 0.125,
+        "st": 0.2857,
+        "rf": 0.2854,
+        "engine_score": 19.73
+      },
+      {
+        "query": "برنا",
+        "name": "برنا",
+        "birth_year": 2021,
+        "horse_id": 4386,
+        "score": 19.85,
+        "n": 33,
+        "wins": 1,
+        "top3": 8,
+        "rel": "HIGH",
+        "recent": [
+          2,
+          null,
+          5,
+          5,
+          3
+        ],
+        "days": 2,
+        "dist_n": 6,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1000,
+        "sw": 0.0488,
+        "st": 0.2368,
+        "rf": 0.3083,
+        "engine_score": 14.77
+      },
+      {
+        "query": "نیو کینگ من",
+        "name": "نیو کینگ من",
+        "birth_year": 2024,
+        "horse_id": 4014,
+        "score": 18.87,
+        "n": 8,
+        "wins": 1,
+        "top3": 2,
+        "rel": "MEDIUM",
+        "recent": [
+          11,
+          4,
+          11,
+          5,
+          4
+        ],
+        "days": 2,
+        "dist_n": 1,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 4,
+        "last_dist": 1000,
+        "sw": 0.125,
+        "st": 0.2308,
+        "rf": 0.1764,
+        "engine_score": 16.17
+      },
+      {
+        "query": "بلک تایم",
+        "name": "بلک تایم",
+        "birth_year": 2022,
+        "horse_id": 4378,
+        "score": 15.49,
+        "n": 12,
+        "wins": 0,
+        "top3": 1,
+        "rel": "HIGH",
+        "recent": [
+          11,
+          6,
+          6,
+          5,
+          2
+        ],
+        "days": 8,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.05,
+        "st": 0.1176,
+        "rf": 0.2248,
+        "engine_score": 10.19
+      },
+      {
+        "query": "الون/الو",
+        "name": "الو",
+        "birth_year": 2024,
+        "horse_id": 4367,
+        "score": 12.98,
+        "n": 15,
+        "wins": 0,
+        "top3": 1,
+        "rel": "HIGH",
+        "recent": [
+          11,
+          10,
+          11,
+          6,
+          3
+        ],
+        "days": 8,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1200,
+        "sw": 0.0435,
+        "st": 0.1,
+        "rf": 0.1564,
+        "engine_score": 8.02
+      },
+      {
+        "query": "آرتکس بندر",
+        "name": "آرتکس بندر",
+        "birth_year": 2022,
+        "horse_id": 4373,
+        "score": 12.27,
+        "n": 5,
+        "wins": 0,
+        "top3": 0,
+        "rel": "MEDIUM",
+        "recent": [
+          12,
+          12,
+          9,
+          10,
+          6
+        ],
+        "days": 8,
+        "dist_n": 1,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1200,
+        "sw": 0.0769,
+        "st": 0.1,
+        "rf": 0.1089,
+        "engine_score": 8.91
+      },
+      {
+        "query": "شاتیلا",
+        "name": "شاتیلا",
+        "birth_year": 2021,
+        "horse_id": 7086,
+        "score": 11.86,
+        "n": 9,
+        "wins": 0,
+        "top3": 0,
+        "rel": "MEDIUM",
+        "recent": [
+          7,
+          5,
+          5,
+          4,
+          7
+        ],
+        "days": 24,
+        "dist_n": 1,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 7,
+        "last_dist": 1000,
+        "sw": 0.0588,
+        "st": 0.0714,
+        "rf": 0.1871,
+        "engine_score": 8.76
+      }
+    ],
+    "h2h": [
+      {
+        "a": "ناز جهان",
+        "b": "برنا",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 6,
+            "p2": 2,
+            "race_date": "2026-07-03",
+            "distance": 1700
+          }
+        ]
+      },
+      {
+        "a": "ناز جهان",
+        "b": "الو",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 6,
+            "p2": 11,
+            "race_date": "2026-07-03",
+            "distance": 1700
+          }
+        ]
+      },
+      {
+        "a": "سمیرامیس",
+        "b": "برنا",
+        "aw": 2,
+        "bw": 2,
+        "n": 4,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 7,
+            "race_date": "2024-11-14",
+            "distance": 1200
+          },
+          {
+            "p1": 7,
+            "p2": 5,
+            "race_date": "2023-07-07",
+            "distance": 1550
+          },
+          {
+            "p1": 7,
+            "p2": 3,
+            "race_date": "2025-01-15",
+            "distance": 1700
+          }
+        ]
+      },
+      {
+        "a": "سمیرامیس",
+        "b": "بلک تایم",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 1,
+            "p2": 11,
+            "race_date": "2026-05-14",
+            "distance": 1600
+          }
+        ]
+      },
+      {
+        "a": "سمیرامیس",
+        "b": "الو",
+        "aw": 1,
+        "bw": 1,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 10,
+            "p2": 11,
+            "race_date": "2026-06-11",
+            "distance": 1000
+          },
+          {
+            "p1": 8,
+            "p2": 5,
+            "race_date": "2025-12-19",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "برنا",
+        "b": "نیو کینگ من",
+        "aw": 1,
+        "bw": 1,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 8,
+            "p2": 4,
+            "race_date": "2023-10-27",
+            "distance": 1600
+          },
+          {
+            "p1": 3,
+            "p2": 4,
+            "race_date": "2026-08-07",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "برنا",
+        "b": "بلک تایم",
+        "aw": 3,
+        "bw": 1,
+        "n": 5,
+        "meets": [
+          {
+            "p1": 5,
+            "p2": 11,
+            "race_date": "2026-05-14",
+            "distance": 1600
+          },
+          {
+            "p1": 3,
+            "p2": 8,
+            "race_date": "2024-04-13",
+            "distance": 1000
+          },
+          {
+            "p1": 5,
+            "p2": 4,
+            "race_date": "2025-12-11",
+            "distance": 1600
+          }
+        ]
+      },
+      {
+        "a": "برنا",
+        "b": "الو",
+        "aw": 5,
+        "bw": 1,
+        "n": 6,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 4,
+            "race_date": "2025-04-17",
+            "distance": 1700
+          },
+          {
+            "p1": 11,
+            "p2": 5,
+            "race_date": "2025-05-16",
+            "distance": 1600
+          },
+          {
+            "p1": 4,
+            "p2": 6,
+            "race_date": "2026-01-08",
+            "distance": 1600
+          }
+        ]
+      },
+      {
+        "a": "نیو کینگ من",
+        "b": "الو",
+        "aw": 1,
+        "bw": 0,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 5,
+            "p2": null,
+            "race_date": "2024-08-09",
+            "distance": 1550
+          },
+          {
+            "p1": 1,
+            "p2": 5,
+            "race_date": "2022-09-30",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "بلک تایم",
+        "b": "الو",
+        "aw": 2,
+        "bw": 0,
+        "n": 2,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 3,
+            "race_date": "2026-08-01",
+            "distance": 1200
+          },
+          {
+            "p1": 6,
+            "p2": 10,
+            "race_date": "2026-06-20",
+            "distance": 1600
+          }
+        ]
+      }
+    ]
+  },
+  "7": {
+    "title": "ترکمن کلاس۶ ۱۳۰۰م",
+    "breed": "ترکمن",
+    "class": "کلاس۶",
+    "distance": 1300,
+    "field": [
+      {
+        "query": "گدر سن سجادی",
+        "name": "گدر سن سجادی",
+        "birth_year": 2016,
+        "horse_id": 1771,
+        "score": 35.75,
+        "n": 8,
+        "wins": 3,
+        "top3": 5,
+        "rel": "MEDIUM",
+        "recent": [
+          5,
+          6,
+          3,
+          null,
+          1
+        ],
+        "days": 2,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 1,
+        "last_pos": 1,
+        "last_dist": 1000,
+        "sw": 0.25,
+        "st": 0.4615,
+        "rf": 0.425,
+        "engine_score": 33.79
+      },
+      {
+        "query": "علی بابا",
+        "name": "علی بابا",
+        "birth_year": 2023,
+        "horse_id": 3981,
+        "score": 28.46,
+        "n": 8,
+        "wins": 2,
+        "top3": 3,
+        "rel": "MEDIUM",
+        "recent": [
+          1,
+          3,
+          8,
+          4,
+          11
+        ],
+        "days": 10,
+        "dist_n": 3,
+        "dist_w": 2,
+        "dist_t3": 2,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 11,
+        "last_dist": 1200,
+        "sw": 0.1875,
+        "st": 0.3077,
+        "rf": 0.3598,
+        "engine_score": 25.2
+      },
+      {
+        "query": "خان تاتار علیا",
+        "name": "خان تاتار علیا",
+        "birth_year": 2022,
+        "horse_id": 4092,
+        "score": 23.67,
+        "n": 9,
+        "wins": 0,
+        "top3": 5,
+        "rel": "MEDIUM",
+        "recent": [
+          3,
+          null,
+          5,
+          3,
+          3
+        ],
+        "days": 10,
+        "dist_n": 4,
+        "dist_w": 0,
+        "dist_t3": 2,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 3,
+        "last_dist": 1200,
+        "sw": 0.0588,
+        "st": 0.4286,
+        "rf": 0.3,
+        "engine_score": 19.95
+      },
+      {
+        "query": "نورا",
+        "name": "نورا",
+        "birth_year": 2023,
+        "horse_id": 4211,
+        "score": 22.84,
+        "n": 7,
+        "wins": 1,
+        "top3": 3,
+        "rel": "MEDIUM",
+        "recent": [
+          7,
+          1,
+          10,
+          10,
+          5
+        ],
+        "days": 11,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1200,
+        "sw": 0.1333,
+        "st": 0.3333,
+        "rf": 0.3086,
+        "engine_score": 21.84
+      },
+      {
+        "query": "نازگل تاتار علیا",
+        "name": "نازگل تاتار علیا",
+        "birth_year": 2023,
+        "horse_id": 3988,
+        "score": 21.61,
+        "n": 10,
+        "wins": 1,
+        "top3": 3,
+        "rel": "HIGH",
+        "recent": [
+          3,
+          1,
+          7,
+          9,
+          5
+        ],
+        "days": 10,
+        "dist_n": 3,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1200,
+        "sw": 0.1111,
+        "st": 0.2667,
+        "rf": 0.3575,
+        "engine_score": 19.93
+      },
+      {
+        "query": "ارمغان امید",
+        "name": "ارمغان امید",
+        "birth_year": 2023,
+        "horse_id": 6350,
+        "score": 20.26,
+        "n": 10,
+        "wins": 1,
+        "top3": 3,
+        "rel": "HIGH",
+        "recent": [
+          3,
+          null,
+          7,
+          12,
+          5
+        ],
+        "days": 2,
+        "dist_n": 3,
+        "dist_w": 1,
+        "dist_t3": 1,
+        "mash_n": 1,
+        "mash_w": 0,
+        "last_pos": 5,
+        "last_dist": 1000,
+        "sw": 0.1111,
+        "st": 0.2667,
+        "rf": 0.1899,
+        "engine_score": 16.58
+      },
+      {
+        "query": "چگن چگینی",
+        "name": "چگن چگینی",
+        "birth_year": 2022,
+        "horse_id": 3895,
+        "score": 17.44,
+        "n": 7,
+        "wins": 0,
+        "top3": 1,
+        "rel": "MEDIUM",
+        "recent": [
+          9,
+          4,
+          4,
+          0,
+          2
+        ],
+        "days": 11,
+        "dist_n": 4,
+        "dist_w": 0,
+        "dist_t3": 1,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 2,
+        "last_dist": 1200,
+        "sw": 0.0667,
+        "st": 0.1667,
+        "rf": 0.2778,
+        "engine_score": 13.39
+      },
+      {
+        "query": "یاران داوری",
+        "name": "یاران داوری",
+        "birth_year": 2023,
+        "horse_id": 4209,
+        "score": 15.41,
+        "n": 9,
+        "wins": 0,
+        "top3": 1,
+        "rel": "MEDIUM",
+        "recent": [
+          4,
+          9,
+          5,
+          2,
+          4
+        ],
+        "days": 11,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 4,
+        "last_dist": 1200,
+        "sw": 0.0588,
+        "st": 0.1429,
+        "rf": 0.2622,
+        "engine_score": 12.05
+      },
+      {
+        "query": "ماهنور",
+        "name": "ماهنور",
+        "birth_year": 2023,
+        "horse_id": 6705,
+        "score": 11.45,
+        "n": 5,
+        "wins": 0,
+        "top3": 0,
+        "rel": "MEDIUM",
+        "recent": [
+          4,
+          5,
+          11,
+          8,
+          6
+        ],
+        "days": 57,
+        "dist_n": 2,
+        "dist_w": 0,
+        "dist_t3": 0,
+        "mash_n": 0,
+        "mash_w": 0,
+        "last_pos": 6,
+        "last_dist": 1200,
+        "sw": 0.0769,
+        "st": 0.1,
+        "rf": 0.1665,
+        "engine_score": 10.06
+      }
+    ],
+    "h2h": [
+      {
+        "a": "گدر سن سجادی",
+        "b": "خان تاتار علیا",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": null,
+            "p2": 4,
+            "race_date": "2025-02-28",
+            "distance": 2200
+          }
+        ]
+      },
+      {
+        "a": "علی بابا",
+        "b": "خان تاتار علیا",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 11,
+            "p2": 3,
+            "race_date": "2026-07-30",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "علی بابا",
+        "b": "نازگل تاتار علیا",
+        "aw": 0,
+        "bw": 1,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 5,
+            "p2": 2,
+            "race_date": "2024-08-09",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "علی بابا",
+        "b": "ارمغان امید",
+        "aw": 3,
+        "bw": 0,
+        "n": 3,
+        "meets": [
+          {
+            "p1": 8,
+            "p2": 12,
+            "race_date": "2026-06-27",
+            "distance": 1000
+          },
+          {
+            "p1": 3,
+            "p2": 7,
+            "race_date": "2026-05-08",
+            "distance": 1000
+          },
+          {
+            "p1": 1,
+            "p2": 8,
+            "race_date": "2025-09-11",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "خان تاتار علیا",
+        "b": "نازگل تاتار علیا",
+        "aw": 0,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": null,
+            "p2": 10,
+            "race_date": "2026-02-06",
+            "distance": 1200
+          }
+        ]
+      },
+      {
+        "a": "نورا",
+        "b": "نازگل تاتار علیا",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 3,
+            "p2": 9,
+            "race_date": "2025-07-11",
+            "distance": 1000
+          }
+        ]
+      },
+      {
+        "a": "نورا",
+        "b": "ارمغان امید",
+        "aw": 1,
+        "bw": 0,
+        "n": 1,
+        "meets": [
+          {
+            "p1": 2,
+            "p2": 8,
+            "race_date": "2025-04-03",
+            "distance": 1000
+          }
+        ]
+      }
+    ]
+  }
+}

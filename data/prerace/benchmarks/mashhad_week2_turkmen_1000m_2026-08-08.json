@@ -1,0 +1,224 @@
+{
+  "benchmark_id": "mashhad-week2-turkmen-1000m-2026-08-08",
+  "immutable": true,
+  "schema_version": "1.0.0",
+  "label": "PRE-RACE BENCHMARK — Mashhad Week 2 Turkmen +3 1000m Open Field",
+  "frozen_at_utc": "2026-08-08T17:21:16.006Z",
+  "data_cutoff_utc": "2026-08-08T17:21:16.006Z",
+  "data_cutoff_policy": "No race result, card update, or warehouse row with published/updated time after data_cutoff_utc may be used to alter this benchmark. This snapshot freezes scores already computed; it does not re-query live DB.",
+  "race": {
+    "track": "مشهد",
+    "distance_m": 1000,
+    "breed": "ترکمن",
+    "age_condition": "+3",
+    "field_type": "open",
+    "meeting": "هفته ۲ / پیش‌ثبت‌نام",
+    "field_size": 9,
+    "status": "upcoming_at_freeze"
+  },
+  "leans": {
+    "WIN_LEAN": {
+      "horse_id": 6348,
+      "horse": "ژیوان"
+    },
+    "EXACTA_LEAN": {
+      "first": {
+        "horse_id": 6348,
+        "horse": "ژیوان"
+      },
+      "second": {
+        "horse_id": 6323,
+        "horse": "آرکان شورچه"
+      }
+    },
+    "TOP_3": [
+      {
+        "horse_id": 6348,
+        "horse": "ژیوان",
+        "rank": 1
+      },
+      {
+        "horse_id": 6323,
+        "horse": "آرکان شورچه",
+        "rank": 2
+      },
+      {
+        "horse_id": 7177,
+        "horse": "نوردخت آراد",
+        "rank": 3
+      }
+    ]
+  },
+  "horses": [
+    {
+      "horse_id": 6348,
+      "horse": "ژیوان",
+      "final_score": 85.6,
+      "rank": 1,
+      "confidence": "HIGH",
+      "historical_score": 88.0,
+      "recent_form_score": 88.0,
+      "track_score": 88.0,
+      "distance_score": 88.0,
+      "rating_score": 40.0
+    },
+    {
+      "horse_id": 6323,
+      "horse": "آرکان شورچه",
+      "final_score": 75.64,
+      "rank": 2,
+      "confidence": "HIGH",
+      "historical_score": 71.77,
+      "recent_form_score": 81.99,
+      "track_score": 88.0,
+      "distance_score": 71.77,
+      "rating_score": 40.0
+    },
+    {
+      "horse_id": 7177,
+      "horse": "نوردخت آراد",
+      "final_score": 71.62,
+      "rank": 3,
+      "confidence": "MEDIUM",
+      "historical_score": 72.1,
+      "recent_form_score": 72.56,
+      "track_score": null,
+      "distance_score": 67.86,
+      "rating_score": 76.67
+    },
+    {
+      "horse_id": 4090,
+      "horse": "بای بای صوفیان",
+      "final_score": 68.7,
+      "rank": 4,
+      "confidence": "HIGH",
+      "historical_score": 58.47,
+      "recent_form_score": 64.81,
+      "track_score": 88.0,
+      "distance_score": 88.0,
+      "rating_score": 26.67
+    },
+    {
+      "horse_id": 6330,
+      "horse": "فرتینا",
+      "final_score": 63.42,
+      "rank": 5,
+      "confidence": "HIGH",
+      "historical_score": 63.98,
+      "recent_form_score": 63.65,
+      "track_score": 64.0,
+      "distance_score": 75.45,
+      "rating_score": 13.33
+    },
+    {
+      "horse_id": 6917,
+      "horse": "ویتو صوفیان",
+      "final_score": 61.2,
+      "rank": 6,
+      "confidence": "MEDIUM",
+      "historical_score": 58.02,
+      "recent_form_score": 50.45,
+      "track_score": null,
+      "distance_score": 83.18,
+      "rating_score": 63.33
+    },
+    {
+      "horse_id": 6690,
+      "horse": "یاد رخشان",
+      "final_score": 59.86,
+      "rank": 7,
+      "confidence": "HIGH",
+      "historical_score": 57.6,
+      "recent_form_score": 57.1,
+      "track_score": null,
+      "distance_score": 71.94,
+      "rating_score": 46.67
+    },
+    {
+      "horse_id": 6995,
+      "horse": "الین ناز",
+      "final_score": 48.93,
+      "rank": 8,
+      "confidence": "MEDIUM",
+      "historical_score": 49.03,
+      "recent_form_score": 48.75,
+      "track_score": null,
+      "distance_score": 49.03,
+      "rating_score": null
+    },
+    {
+      "horse_id": 6733,
+      "horse": "پهلوان مهرانی",
+      "final_score": 48.15,
+      "rank": 9,
+      "confidence": "MEDIUM",
+      "historical_score": 49.84,
+      "recent_form_score": 53.62,
+      "track_score": null,
+      "distance_score": 41.6,
+      "rating_score": 30.0
+    }
+  ],
+  "relative_score_share": [
+    {
+      "horse_id": 6348,
+      "horse": "ژیوان",
+      "relative_score_share_pct": 40.2
+    },
+    {
+      "horse_id": 6323,
+      "horse": "آرکان شورچه",
+      "relative_score_share_pct": 17.5
+    },
+    {
+      "horse_id": 7177,
+      "horse": "نوردخت آراد",
+      "relative_score_share_pct": 12.5
+    },
+    {
+      "horse_id": 4090,
+      "horse": "بای بای صوفیان",
+      "relative_score_share_pct": 9.8
+    },
+    {
+      "horse_id": 6330,
+      "horse": "فرتینا",
+      "relative_score_share_pct": 6.3
+    },
+    {
+      "horse_id": 6917,
+      "horse": "ویتو صوفیان",
+      "relative_score_share_pct": 5.3
+    },
+    {
+      "horse_id": 6690,
+      "horse": "یاد رخشان",
+      "relative_score_share_pct": 4.7
+    },
+    {
+      "horse_id": 6995,
+      "horse": "الین ناز",
+      "relative_score_share_pct": 1.9
+    },
+    {
+      "horse_id": 6733,
+      "horse": "پهلوان مهرانی",
+      "relative_score_share_pct": 1.8
+    }
+  ],
+  "relative_score_share_note": "Relative Score Share is a normalization of Final_Score across the field. It is NOT a win probability and must not be used as Probability in evaluation (Brier/Calibration require real probabilities).",
+  "scoring_notes": {
+    "method": "PRE-RACE HISTORICAL + CONTEXTUAL RANKING",
+    "not_a_prediction": true,
+    "prediction_probability_produced": false,
+    "ranking_altered_at_freeze": false
+  },
+  "source_ranking_artifact": "/opt/cursor/artifacts/mashhad_week_ahead_1000m_ranking.json",
+  "no_prediction_probability": true,
+  "content_sha256": "8bd6a6b4c1ef3c095b4720ad0189fbe3ff0fadbdce4b6d75af4c2837a59e2a7c",
+  "immutability": {
+    "write_once": true,
+    "content_sha256": "8bd6a6b4c1ef3c095b4720ad0189fbe3ff0fadbdce4b6d75af4c2837a59e2a7c",
+    "verify_instruction": "Recompute sha256 over freeze_payload_hash_body(benchmark); must equal content_sha256. Do not overwrite file."
+  }
+}

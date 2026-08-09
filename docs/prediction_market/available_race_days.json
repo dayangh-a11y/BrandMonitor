@@ -1,0 +1,450 @@
+[
+  {
+    "id": 111,
+    "name": "هفته 1 فصل تابستان مشهد 1405",
+    "date": "2026-08-07T00:00:00Z",
+    "track": "مشهد",
+    "num_races": 7,
+    "external_id": "cmrhgl4wp001lpl01l9qdpeoc"
+  },
+  {
+    "id": 109,
+    "name": "هفته 11 فصل بهار گنبدکاووس 1405",
+    "date": "2026-08-01T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cms261wbt00ollt01w4jifkjx"
+  },
+  {
+    "id": 110,
+    "name": "هفته 11 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-31T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cms0qjaje00f9l901rmicn6mr"
+  },
+  {
+    "id": 107,
+    "name": "هفته 11 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-30T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cms261n7e00o8lt01dicq48mq"
+  },
+  {
+    "id": 108,
+    "name": "هفته 11 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-29T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cms261ay100llrq01p2belw34"
+  },
+  {
+    "id": 104,
+    "name": "هفته 10 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-25T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmrqprg8701jlrv01okbl5muu"
+  },
+  {
+    "id": 105,
+    "name": "هفته 10 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-24T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmrp1twjb00pqo601imv11a8u"
+  },
+  {
+    "id": 106,
+    "name": "هفته 10 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-23T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmrqprb6h01j9rv01zn6bkcqj"
+  },
+  {
+    "id": 100,
+    "name": "هفته 9 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-17T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmr4th4ni00abmm01y1uzn18q"
+  },
+  {
+    "id": 102,
+    "name": "هفته 9 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-16T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmr6oua8w00gjpk01ftrenrtg"
+  },
+  {
+    "id": 103,
+    "name": "هفته 9 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-15T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmr6otvcp00dirz01wsptn5au"
+  },
+  {
+    "id": 99,
+    "name": "هفته 9 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-14T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqzmpa7n0042pb01yv96pk7r"
+  },
+  {
+    "id": 98,
+    "name": "هفته 8 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-03T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqxdabp700o7lp010g4vn5rn"
+  },
+  {
+    "id": 97,
+    "name": "هفته 8 فصل بهار گنبدکاووس 1405",
+    "date": "2026-07-02T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqzmp5th003elh01ua2cbz4q"
+  },
+  {
+    "id": 96,
+    "name": "هفته 7 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-28T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmqo39tef00sol701lvniifc9"
+  },
+  {
+    "id": 94,
+    "name": "هفته 7 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-27T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmqo3ajy300ocrt01gcxg3bgm"
+  },
+  {
+    "id": 95,
+    "name": "هفته 7 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-26T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmqmoonde002uo601ilndeic3"
+  },
+  {
+    "id": 91,
+    "name": "هفته 6 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-20T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqe4rdkv0136lp01ro55xq2h"
+  },
+  {
+    "id": 92,
+    "name": "هفته 6 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-19T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqcho61l00g3qb0139cjx3l9"
+  },
+  {
+    "id": 93,
+    "name": "هفته 6 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-18T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmqe4qsia016iqq019zw72wwg"
+  },
+  {
+    "id": 90,
+    "name": "هفته 4 فصل بهار یزد 1405",
+    "date": "2026-06-16T00:00:00Z",
+    "track": "یزد",
+    "num_races": 9,
+    "external_id": "cmq7n2wzi03t3p0016kk30z5q"
+  },
+  {
+    "id": 89,
+    "name": "هفته 5 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-13T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmq2q17c8036tju01gt1u1hty"
+  },
+  {
+    "id": 88,
+    "name": "هفته 5 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-12T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmq1ask0502ghju01bi4qnmgg"
+  },
+  {
+    "id": 85,
+    "name": "هفته 5 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-11T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmq2q0os702vvmp01eg5w10cu"
+  },
+  {
+    "id": 86,
+    "name": "هفته 5 فصل بهار گنبدکاووس 1405",
+    "date": "2026-06-10T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmq2q09qw02xop001cz28tvih"
+  },
+  {
+    "id": 87,
+    "name": "هفته 3 فصل بهار یزد 1405",
+    "date": "2026-06-09T00:00:00Z",
+    "track": "یزد",
+    "num_races": 8,
+    "external_id": "cmpxjjsvu020pp001x6pbcvpm"
+  },
+  {
+    "id": 84,
+    "name": "هفته 2 فصل بهار یزد 1405",
+    "date": "2026-06-02T00:00:00Z",
+    "track": "یزد",
+    "num_races": 6,
+    "external_id": "cmpn2gzyw00mjo801oib3q6ru"
+  },
+  {
+    "id": 81,
+    "name": "هفته 4 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-31T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmpiqq5ei04q1mg01fg1gr4td"
+  },
+  {
+    "id": 82,
+    "name": "هفته 4 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-30T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmpiqpu2804f9nv01qkel3a00"
+  },
+  {
+    "id": 83,
+    "name": "هفته 4 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-29T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmph6upuo03stnv01m8rs1fhh"
+  },
+  {
+    "id": 80,
+    "name": "هفته 1 فصل بهار یزد 1405",
+    "date": "2026-05-26T00:00:00Z",
+    "track": "یزد",
+    "num_races": 7,
+    "external_id": "cmpd6g72t02wap901jij9gpfh"
+  },
+  {
+    "id": 79,
+    "name": "هفته 3 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-22T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmp77lfyo012znv01lpcl9j5c"
+  },
+  {
+    "id": 77,
+    "name": "هفته 3 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-21T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmp8ofpmw02jumg01ceogk4jg"
+  },
+  {
+    "id": 78,
+    "name": "هفته 3 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-20T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmp8ofysk028jo80125yj7np0"
+  },
+  {
+    "id": 76,
+    "name": "هفته 2 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-15T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmowz08ak000ho10fucte2sdh"
+  },
+  {
+    "id": 74,
+    "name": "هفته 2 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-14T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmoyo4ktv009bm80reav3giln"
+  },
+  {
+    "id": 75,
+    "name": "هفته 2 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-13T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmoyo4w94008gm80lxhu6ivtn"
+  },
+  {
+    "id": 73,
+    "name": "هفته 1 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-08T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmonhm0x60006o40stmvhustw"
+  },
+  {
+    "id": 70,
+    "name": "هفته 1 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-07T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmooqe94y000vmw0fbyq0dmfn"
+  },
+  {
+    "id": 71,
+    "name": "هفته 1 فصل بهار گنبدکاووس 1405",
+    "date": "2026-05-06T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 6,
+    "external_id": "cmooqekyp0007nv0eqdvccer5"
+  },
+  {
+    "id": 72,
+    "name": "هفته 7 فصل زمستان اهواز 1404",
+    "date": "2026-03-06T00:00:00Z",
+    "track": "اهواز",
+    "num_races": 3,
+    "external_id": "cmm4yhc6y09elo2015elf05lh"
+  },
+  {
+    "id": 69,
+    "name": "هفته 6 فصل زمستان اهواز 1404",
+    "date": "2026-02-27T00:00:00Z",
+    "track": "اهواز",
+    "num_races": 6,
+    "external_id": "cmlvwd63509ihqk01foe9c3xt"
+  },
+  {
+    "id": 68,
+    "name": "هفته 5 فصل زمستان اهواز 1404",
+    "date": "2026-02-20T00:00:00Z",
+    "track": "اهواز",
+    "num_races": 7,
+    "external_id": "cmlhpdpw907qfqk01gll26sji"
+  },
+  {
+    "id": 66,
+    "name": "هفته 12 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-14T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmle8fur706jslw01w9mx09vv"
+  },
+  {
+    "id": 67,
+    "name": "هفته 12 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-13T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cmlce1kml05wwqk01p0jfuxr8"
+  },
+  {
+    "id": 64,
+    "name": "هفته 12 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-12T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmle8e7kb06j0lw01qlp6wex0"
+  },
+  {
+    "id": 65,
+    "name": "هفته 12 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-11T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmle8exvb06jelw01oqh9z1fg"
+  },
+  {
+    "id": 63,
+    "name": "هفته 4 فصل زمستان اهواز 1404",
+    "date": "2026-02-10T00:00:00Z",
+    "track": "اهواز",
+    "num_races": 6,
+    "external_id": "cml70ym5504u8lw014gkm6cx8"
+  },
+  {
+    "id": 61,
+    "name": "هفته 11 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-07T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 7,
+    "external_id": "cml2sbipw03ufo201xy5xg1ea"
+  },
+  {
+    "id": 62,
+    "name": "هفته 11 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-06T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cml27xx050358lw01jjfv6zna"
+  },
+  {
+    "id": 58,
+    "name": "هفته 11 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-05T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cml2sbaqa0465n101oitsdcb6"
+  },
+  {
+    "id": 59,
+    "name": "هفته 11 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-02-04T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cml2sb6hl03rmlw011zakpolg"
+  },
+  {
+    "id": 60,
+    "name": "هفته 3 فصل زمستان اهواز 1404",
+    "date": "2026-02-03T00:00:00Z",
+    "track": "اهواز",
+    "num_races": 7,
+    "external_id": "cmk3pqs7g00uxn1014tb71pog"
+  },
+  {
+    "id": 57,
+    "name": "هفته 10 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-01-30T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmkhakdn400l2lw01eh9b0hn3"
+  },
+  {
+    "id": 55,
+    "name": "هفته 10 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-01-29T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmkiheltw015lqk01eftci3o7"
+  },
+  {
+    "id": 56,
+    "name": "هفته 10 فصل پاییز گنبدکاووس 1404",
+    "date": "2026-01-28T00:00:00Z",
+    "track": "گنبدکاووس",
+    "num_races": 8,
+    "external_id": "cmjwzibtj01mplg01kmsyn73p"
+  }
+]

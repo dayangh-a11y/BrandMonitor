@@ -1,0 +1,10 @@
+{
+  "status": "COMPLETE",
+  "phase": 6,
+  "contract_version": "pe-v1.0.0",
+  "smoke_ok": true,
+  "sample_race_id": 3393,
+  "warnings": [],
+  "output_dir": "/workspace/data/night_run/phase6_prediction_engine",
+  "generated_at_utc": "2026-08-08T22:59:38.312139+00:00"
+}
