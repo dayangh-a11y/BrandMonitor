@@ -102,6 +102,49 @@ class HorseLookupStore:
         return True
 
 
+@dataclass
+class HorseVsSession:
+    """Per-user state for pairwise horse comparison in one future race."""
+
+    step: str = "pick_meeting"  # pick_meeting → pick_race → pick_a → pick_b
+    meeting_id: str | None = None
+    race_id: str | None = None
+    race_label: str | None = None
+    race_number: int | None = None
+    display_date: str | None = None
+    track: str | None = None
+    horse_a_id: str | None = None
+    horse_a_name: str | None = None
+    candidates: list[dict] = field(default_factory=list)
+    updated_at: float = field(default_factory=time.time)
+
+    def touch(self) -> None:
+        self.updated_at = time.time()
+
+
+class HorseVsStore:
+    def __init__(self, *, ttl_seconds: int = 1800) -> None:
+        self.ttl_seconds = ttl_seconds
+        self._sessions: dict[int, HorseVsSession] = {}
+
+    def get(self, user_id: int) -> HorseVsSession | None:
+        session = self._sessions.get(user_id)
+        if not session:
+            return None
+        if time.time() - session.updated_at > self.ttl_seconds:
+            self._sessions.pop(user_id, None)
+            return None
+        return session
+
+    def set(self, user_id: int, session: HorseVsSession) -> HorseVsSession:
+        session.touch()
+        self._sessions[user_id] = session
+        return session
+
+    def clear(self, user_id: int) -> None:
+        self._sessions.pop(user_id, None)
+
+
 class SessionStore:
     def __init__(self, *, ttl_seconds: int = 1800) -> None:
         self.ttl_seconds = ttl_seconds

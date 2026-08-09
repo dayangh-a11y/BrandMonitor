@@ -16,7 +16,7 @@ from src.telegram_bot.errors import (
     RaceNotFoundError,
 )
 from src.telegram_bot import formatters as fmt
-from src.telegram_bot.state import FiveParrehSession, SessionStore
+from src.telegram_bot.state import FiveParrehSession, HorseVsStore, SessionStore
 
 
 def test_config_requires_token(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -92,12 +92,13 @@ def test_api_client_five_parreh_post() -> None:
 
         payload = json.loads(request.content.decode())
         assert len(payload["races"]) == 5
+        assert "price_per_combination" not in payload
         return httpx.Response(
             200,
             json={
                 "total_combinations": 243,
-                "price_per_combination": 10000,
-                "total_cost": 2430000,
+                "price_per_combination": None,
+                "total_cost": None,
                 "selections_per_race": [3, 3, 3, 3, 3],
                 "combinations_omitted": False,
                 "combinations": [],
@@ -106,9 +107,8 @@ def test_api_client_five_parreh_post() -> None:
     client = PredictionApiClient("http://test")
     client._client = httpx.Client(transport=httpx.MockTransport(handler), base_url="http://test")
     races = [{"race_id": f"R{i}", "horses": ["A", "B", "C"]} for i in range(1, 6)]
-    out = client.generate_five_parreh(races, price_per_combination=10_000)
+    out = client.generate_five_parreh(races)
     assert out["total_combinations"] == 243
-    assert out["total_cost"] == 2_430_000
     client.close()
 
 
@@ -260,21 +260,21 @@ def test_format_horse_and_fiveparreh() -> None:
     confirm = fmt.format_fiveparreh_confirm(
         [3, 3, 2, 2, 3],
         total_combinations=108,
-        price_per_combination=10_000,
     )
+    assert "خلاصه پنج‌پره" in confirm
     assert "108" in confirm
-    assert "1,080,000" in confirm
+    assert "قیمت" not in confirm
+    assert "تومان" not in confirm
 
     result = fmt.format_fiveparreh_result(
         {
             "total_combinations": 243,
-            "price_per_combination": 10000,
-            "total_cost": 2430000,
             "combinations_omitted": True,
         }
     )
     assert "243" in result
     assert "خلاصه" in result
+    assert "قیمت" not in result
 
 
 def test_fiveparreh_state_flow_and_validation() -> None:
@@ -466,11 +466,12 @@ async def test_handlers_start_help_with_mocks() -> None:
     update.effective_message.reply_text = _reply_text
 
     context = MagicMock()
-    from src.telegram_bot.state import HorseLookupStore
+    from src.telegram_bot.state import HorseLookupStore, HorseVsStore
 
     context.application.bot_data = {
         "api_client": MagicMock(),
         "sessions": SessionStore(),
+        "horsevs": HorseVsStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
         "horse_lookup": HorseLookupStore(),
     }
@@ -482,7 +483,7 @@ async def test_handlers_start_help_with_mocks() -> None:
 async def test_handlers_predict_meeting_flow_and_horse() -> None:
     from src.telegram_bot.handlers import cmd_horse, cmd_predict, on_callback
     from src.telegram_bot.keyboards import meeting_races_keyboard, upcoming_meetings_keyboard
-    from src.telegram_bot.state import HorseLookupStore
+    from src.telegram_bot.state import HorseLookupStore, HorseVsStore
 
     client = MagicMock()
     client.list_upcoming_meetings.return_value = {
@@ -553,6 +554,7 @@ async def test_handlers_predict_meeting_flow_and_horse() -> None:
     context.application.bot_data = {
         "api_client": client,
         "sessions": SessionStore(),
+        "horsevs": HorseVsStore(),
         "settings": TelegramBotSettings(
             telegram_bot_token="t",
             api_base_url="http://x",
@@ -611,7 +613,7 @@ async def test_handlers_predict_meeting_flow_and_horse() -> None:
 @pytest.mark.asyncio
 async def test_predict_and_fiveparreh_use_same_api_race_program_source() -> None:
     from src.telegram_bot.handlers import cmd_fiveparreh, cmd_predict
-    from src.telegram_bot.state import HorseLookupStore
+    from src.telegram_bot.state import HorseLookupStore, HorseVsStore
 
     client = MagicMock()
     client.list_upcoming_meetings.return_value = {
@@ -639,6 +641,7 @@ async def test_predict_and_fiveparreh_use_same_api_race_program_source() -> None
     context.application.bot_data = {
         "api_client": client,
         "sessions": SessionStore(),
+        "horsevs": HorseVsStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
         "horse_lookup": HorseLookupStore(),
     }
@@ -674,7 +677,7 @@ def test_api_client_search_horses() -> None:
 async def test_horse_flow_text_prompt_then_select() -> None:
     from src.telegram_bot.handlers import cmd_horse, on_callback, on_text_message
     from src.telegram_bot.keyboards import horse_search_keyboard
-    from src.telegram_bot.state import HorseLookupStore
+    from src.telegram_bot.state import HorseLookupStore, HorseVsStore
 
     client = MagicMock()
     client.search_horses.return_value = {
@@ -711,6 +714,7 @@ async def test_horse_flow_text_prompt_then_select() -> None:
     context.application.bot_data = {
         "api_client": client,
         "sessions": SessionStore(),
+        "horsevs": HorseVsStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
         "horse_lookup": lookup,
     }
@@ -768,3 +772,151 @@ def test_horse_directory_search_units() -> None:
     multi = d.search("صحرا")
     assert multi
     assert d.search("ناموجود") == []
+
+
+def test_format_horsevs_result_no_probability() -> None:
+    text = fmt.format_horsevs_result(
+        {
+            "horse_a": {"horse_id": 3470, "horse_name": "انفجار ایگدری", "score": 20.0},
+            "horse_b": {"horse_id": 3450, "horse_name": "گل مارال", "score": 15.0},
+            "selected": "a",
+            "selected_horse": {"horse_name": "انفجار ایگدری"},
+            "evidence": [{"label": "امتیاز مدل انفجار ایگدری", "value": 20.0}],
+            "probability": None,
+        },
+        meta={"display_date": "جمعه ۳۰ مرداد", "track": "مشهد", "race_label": "کورس ۴"},
+    )
+    assert "مقایسه دو اسب" in text
+    assert "انفجار ایگدری" in text
+    assert "گل مارال" in text
+    assert "انتخاب سیستم" in text
+    assert "3470" not in text
+    assert "3450" not in text
+    assert "%" not in text
+    assert "احتمال قطعی" in text or "امتیاز مدل" in text
+
+
+def test_api_client_compare_horses_rejects_same_horse() -> None:
+    client = PredictionApiClient("http://test")
+    with pytest.raises(Exception):
+        client.compare_horses(3393, 3470, 3470)
+    client.close()
+
+
+@pytest.mark.asyncio
+async def test_horsevs_flow_same_future_race() -> None:
+    from src.telegram_bot.handlers import cmd_horsevs, on_callback
+    from src.telegram_bot.state import HorseLookupStore, HorseVsStore
+
+    client = MagicMock()
+    client.list_upcoming_meetings.return_value = {
+        "days": 7,
+        "count": 1,
+        "meetings": [
+            {
+                "meeting_id": "msh-future",
+                "display_date": "جمعه ۳۰ مرداد",
+                "track": "مشهد",
+                "location": "مشهد",
+                "races": [{"race_id": "3393", "race_number": 4, "label": "کورس ۴", "eligible_for_prediction": True}],
+            }
+        ],
+        "message": None,
+    }
+    client.get_upcoming_meeting.return_value = {
+        "meeting_id": "msh-future",
+        "display_date": "جمعه ۳۰ مرداد",
+        "track": "مشهد",
+        "location": "مشهد",
+        "races": [{"race_id": "3393", "race_number": 4, "label": "کورس ۴", "eligible_for_prediction": True}],
+    }
+    client.get_race_prediction.return_value = {
+        "race_id": 3393,
+        "prediction": [
+            {"rank": 1, "horse_id": 3470, "horse_name": "انفجار ایگدری", "score": 22.0, "probability": None},
+            {"rank": 2, "horse_id": 3450, "horse_name": "گل مارال", "score": 18.0, "probability": None},
+        ],
+    }
+    client.compare_horses.return_value = {
+        "race_id": 3393,
+        "horse_a": {"horse_id": 3470, "horse_name": "انفجار ایگدری", "score": 22.0, "probability": None},
+        "horse_b": {"horse_id": 3450, "horse_name": "گل مارال", "score": 18.0, "probability": None},
+        "selected": "a",
+        "selected_horse": {"horse_name": "انفجار ایگدری"},
+        "evidence": [{"label": "امتیاز مدل انفجار ایگدری", "value": 22.0}],
+        "probability": None,
+        "comparison_type": "model_score",
+    }
+
+    replies: list[str] = []
+
+    async def _reply_text(text, **k):
+        replies.append(text)
+        return None
+
+    update = MagicMock()
+    update.callback_query = None
+    update.effective_chat.id = 22
+    update.effective_user.id = 22
+    update.effective_message.reply_text = _reply_text
+    context = MagicMock()
+    context.application.bot_data = {
+        "api_client": client,
+        "sessions": SessionStore(),
+        "horsevs": HorseVsStore(),
+        "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
+        "horse_lookup": HorseLookupStore(),
+        "predict_meta": {},
+    }
+
+    await cmd_horsevs(update, context)
+    client.list_upcoming_meetings.assert_called_with(days=7)
+    assert any("اسب مقابل اسب" in r for r in replies)
+
+    async def _answer(*a, **k):
+        return None
+
+    update.callback_query = MagicMock()
+    update.callback_query.answer = _answer
+    update.callback_query.message = MagicMock()
+    update.callback_query.message.reply_text = _reply_text
+
+    update.callback_query.data = "hvs_mtg:msh-future"
+    await on_callback(update, context)
+    client.get_upcoming_meeting.assert_called_with("msh-future")
+
+    update.callback_query.data = "hvs_race:3393"
+    await on_callback(update, context)
+    client.get_race_prediction.assert_called_with("3393")
+    assert any("اسب اول" in r for r in replies)
+
+    update.callback_query.data = "hvs_a:3470"
+    await on_callback(update, context)
+    assert any("اسب دوم" in r for r in replies)
+
+    # Same horse rejected before API call.
+    update.callback_query.data = "hvs_b:3470"
+    # After pick_a, picking same id should be excluded from keyboard; if forced, handler rejects.
+    # Reset step to pick_b with horse_a set, then try same id:
+    session = context.application.bot_data["horsevs"].get(22)
+    assert session is not None and session.horse_a_id == "3470"
+    await on_callback(update, context)
+    client.compare_horses.assert_not_called()
+
+    update.callback_query.data = "hvs_b:3450"
+    await on_callback(update, context)
+    client.compare_horses.assert_called_with("3393", "3470", "3450")
+    assert any("انتخاب سیستم" in r for r in replies)
+    assert all("3470" not in r and "3450" not in r for r in replies if "انتخاب سیستم" in r or "مقایسه دو اسب" in r)
+
+
+def test_main_menu_has_four_mvp_features() -> None:
+    from src.telegram_bot.keyboards import main_menu_keyboard
+
+    kb = main_menu_keyboard()
+    labels = [b.text for row in kb.inline_keyboard for b in row]
+    assert "🎯 پیش‌بینی کورس" in labels
+    assert "⚔️ اسب مقابل اسب" in labels
+    assert "🎟 پنج‌پره" in labels
+    assert "🐎 تحلیل اسب" in labels
+    assert "🏁 مسابقات" not in labels

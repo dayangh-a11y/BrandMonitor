@@ -49,10 +49,10 @@ def friendly_warnings(warnings: list[Any] | None) -> list[str]:
 
 def welcome_text() -> str:
     return (
-        "🏇 سیستم تحلیل مسابقات اسب‌دوانی\n\n"
+        "🏇 سیستم تحلیل مسابقات\n\n"
         "امکانات:\n\n"
-        "🏁 مسابقات\n"
-        "🎯 پیش‌بینی\n"
+        "🎯 پیش‌بینی کورس\n"
+        "⚔️ اسب مقابل اسب\n"
         "🎟 پنج‌پره\n"
         "🐎 تحلیل اسب\n\n"
         "توجه: امتیازها احتمال قطعی برد نیستند و تضمین سود وجود ندارد."
@@ -64,10 +64,10 @@ def help_text() -> str:
         "ℹ️ راهنما\n\n"
         "/start — منوی اصلی\n"
         "/help — همین راهنما\n"
-        "/races — مسابقات آینده (بر اساس برنامه)\n"
-        "/predict — انتخاب جلسه و کورس آینده (بدون شناسه)\n"
-        "/horse — جستجوی اسب با نام (نه شناسه)\n"
-        "/fiveparreh — رویدادهای پنج‌پرهٔ آینده از همان برنامهٔ مسابقات\n\n"
+        "/predict — پیش‌بینی کورس آینده (تاریخ و مکان، بدون شناسه)\n"
+        "/horsevs — مقایسه دو اسب در یک کورس آینده\n"
+        "/fiveparreh — رویداد پنج‌پرهٔ آینده\n"
+        "/horse — تحلیل اسب با نام\n\n"
         "ربات فقط واسط کاربری است؛ محاسبات در API انجام می‌شود."
     )
 
@@ -259,20 +259,14 @@ def format_fiveparreh_confirm(
     selections_per_race: list[int],
     *,
     total_combinations: int | None,
-    price_per_combination: int | float,
 ) -> str:
-    lines = ["🎟 پنج‌پره", ""]
+    # Pricing is out of MVP scope — show combination count only.
+    lines = ["🎟 خلاصه پنج‌پره", ""]
     for i, n in enumerate(selections_per_race, start=1):
         lines.append(f"کورس {i}: {n} اسب")
     if total_combinations is not None:
         lines.append("")
         lines.append(f"تعداد ترکیب:\n{total_combinations}")
-    lines.append("")
-    lines.append(f"قیمت هر برگ:\n{format_money(price_per_combination)} تومان")
-    if total_combinations is not None:
-        total_cost = int(total_combinations) * int(price_per_combination)
-        lines.append("")
-        lines.append(f"هزینه کل:\n{format_money(total_cost)} تومان")
     return "\n".join(lines)
 
 
@@ -281,8 +275,6 @@ def format_fiveparreh_result(payload: dict[str, Any]) -> str:
         "🎟 نتیجه پنج‌پره",
         "",
         f"تعداد ترکیب: {payload.get('total_combinations')}",
-        f"قیمت هر ترکیب: {format_money(payload.get('price_per_combination'))} تومان",
-        f"هزینه کل: {format_money(payload.get('total_cost'))} تومان",
     ]
     if payload.get("combinations_omitted"):
         lines.append("")
@@ -295,6 +287,81 @@ def format_fiveparreh_result(payload: dict[str, Any]) -> str:
             for c in combos[:10]:
                 ids = c.get("horse_ids") or []
                 lines.append("• " + " / ".join(str(x) for x in ids))
+    return "\n".join(lines)
+
+
+def format_horsevs_prompt(
+    *,
+    display_date: str | None,
+    track: str | None,
+    race_label: str | None,
+    which: str,
+) -> str:
+    lines = ["⚔️ مقایسه دو اسب", ""]
+    if display_date:
+        lines.append(f"📅 {display_date}")
+    if track:
+        lines.append(f"📍 {track}")
+    if race_label:
+        lines.append(f"🏇 {race_label}")
+    lines.append("")
+    if which == "a":
+        lines.append("اسب اول را انتخاب کنید:")
+    else:
+        lines.append("اسب دوم را انتخاب کنید:")
+    return "\n".join(lines)
+
+
+def format_horsevs_result(payload: dict[str, Any], *, meta: dict[str, Any] | None = None) -> str:
+    meta = meta or {}
+    a = payload.get("horse_a") or {}
+    b = payload.get("horse_b") or {}
+    name_a = a.get("horse_name") or "اسب A"
+    name_b = b.get("horse_name") or "اسب B"
+    lines = ["⚔️ مقایسه دو اسب", ""]
+    if meta.get("display_date"):
+        lines.append(f"📅 {meta.get('display_date')}")
+    if meta.get("track"):
+        lines.append(f"📍 {meta.get('track')}")
+    if meta.get("race_label"):
+        lines.append(f"🏇 {meta.get('race_label')}")
+    lines.append("")
+    lines.append(f"🐎 {name_a}")
+    lines.append("🆚")
+    lines.append(f"🐎 {name_b}")
+    lines.append("")
+    selected = payload.get("selected")
+    selected_horse = payload.get("selected_horse") or {}
+    lines.append("🏆 انتخاب سیستم:")
+    if selected == "tie":
+        lines.append("نتیجه برابر (امتیاز مدل یکسان)")
+    elif selected_horse.get("horse_name") or selected in {"a", "b"}:
+        winner = selected_horse.get("horse_name") or (name_a if selected == "a" else name_b)
+        lines.append(str(winner))
+    else:
+        lines.append("امتیاز کافی برای مقایسه موجود نیست")
+    lines.append("")
+    lines.append("دلایل/شواهد موجود:")
+    evidence = payload.get("evidence") or []
+    if evidence:
+        for ev in evidence[:8]:
+            if not isinstance(ev, dict):
+                continue
+            label = ev.get("label")
+            value = ev.get("value")
+            if label is None:
+                continue
+            if value is not None:
+                try:
+                    lines.append(f"• {label}: {float(value):.1f}")
+                except (TypeError, ValueError):
+                    lines.append(f"• {label}: {value}")
+            else:
+                lines.append(f"• {label}")
+    else:
+        lines.append("• شواهد اضافی موجود نیست")
+    lines.append("")
+    lines.append("ℹ️ این یک مقایسهٔ امتیاز مدل است، نه احتمال قطعی برد.")
     return "\n".join(lines)
 
 

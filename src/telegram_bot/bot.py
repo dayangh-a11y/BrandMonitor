@@ -13,13 +13,14 @@ from src.telegram_bot.handlers import (
     cmd_fiveparreh,
     cmd_help,
     cmd_horse,
+    cmd_horsevs,
     cmd_predict,
     cmd_races,
     cmd_start,
     on_callback,
     on_text_message,
 )
-from src.telegram_bot.state import HorseLookupStore, SessionStore
+from src.telegram_bot.state import HorseLookupStore, HorseVsStore, SessionStore
 
 
 def build_application(settings: TelegramBotSettings | None = None) -> Application:
@@ -30,6 +31,7 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
         timeout_seconds=settings.request_timeout_seconds,
     )
     sessions = SessionStore(ttl_seconds=settings.telegram_session_ttl_seconds)
+    horsevs = HorseVsStore(ttl_seconds=settings.telegram_session_ttl_seconds)
     horse_lookup = HorseLookupStore()
 
     async def _post_shutdown(application: Application) -> None:
@@ -44,13 +46,15 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
     app.bot_data["settings"] = settings
     app.bot_data["api_client"] = client
     app.bot_data["sessions"] = sessions
+    app.bot_data["horsevs"] = horsevs
     app.bot_data["horse_lookup"] = horse_lookup
-    # Race program / Five-Parreh discovery is via API client only (no local DB/file reads).
+    # Race program / discovery is via API client only (no local DB reads).
 
     app.add_handler(CommandHandler("start", cmd_start))
     app.add_handler(CommandHandler("help", cmd_help))
     app.add_handler(CommandHandler("races", cmd_races))
     app.add_handler(CommandHandler("predict", cmd_predict))
+    app.add_handler(CommandHandler("horsevs", cmd_horsevs))
     app.add_handler(CommandHandler("horse", cmd_horse))
     app.add_handler(CommandHandler("fiveparreh", cmd_fiveparreh))
     app.add_handler(CallbackQueryHandler(on_callback))

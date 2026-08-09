@@ -119,6 +119,7 @@ uvicorn src.api.main:app --port 8000
 | GET | `/races` | List freeze-backed races (historical metadata) |
 | GET | `/races/{race_id}` | Race + horses from freeze observations |
 | GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
+| GET | `/races/{race_id}/compare?horse_a=&horse_b=` | Pairwise model-score comparison (same race; not probability) |
 | GET | `/race-program/upcoming` | Future meetings + races (`scheduled_start > now`, default 7 days) |
 | GET | `/race-program/meetings/{meeting_id}` | Eligible races for one future meeting |
 | GET | `/race-program/five-parreh` | Future Five-Parreh events (same program source) |
@@ -217,10 +218,10 @@ python -m src.telegram_bot.bot
 |---------|--------|
 | `/start` | Welcome + inline menu |
 | `/help` | Short Persian help |
-| `/races` | Same as `/predict` — upcoming meetings from race program |
-| `/predict` | Future meetings → races by number → internal `GET /races/{id}/prediction` (Score, not probability) |
-| `/horse` | Ask for **horse name** → `GET /horses/search` → user picks a name button → bot calls `GET /horses/{id}` internally |
-| `/fiveparreh` | Future Five-Parreh **events** from the same race program → predict → combinations |
+| `/predict` | Future meetings → race number → prediction (Score, not probability) |
+| `/horsevs` | Future meeting → race → pick two horses → pairwise model-score comparison |
+| `/horse` | Horse **name** search → analysis (IDs internal) |
+| `/fiveparreh` | Future Five-Parreh event → five race selections → combination **count** (no pricing) |
 
 ### Predict bot flow (future meetings)
 

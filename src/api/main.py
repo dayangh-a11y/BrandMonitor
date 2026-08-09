@@ -16,6 +16,7 @@ from src.api.race_program_routes import router as race_program_router
 from src.api.schemas import (
     HealthResponse,
     HorseAnalysisResponse,
+    HorseCompareResponse,
     HorseSearchResponse,
     PredictionResponse,
     RaceListResponse,
@@ -163,6 +164,41 @@ def predict_race(
         item["probability"] = None
 
     return PredictionResponse.model_validate(result)
+
+
+@app.get(
+    "/races/{race_id}/compare",
+    response_model=HorseCompareResponse,
+    tags=["prediction"],
+)
+def compare_horses(
+    race_id: str,
+    horse_a: str = Query(..., description="Internal horse_id for side A"),
+    horse_b: str = Query(..., description="Internal horse_id for side B"),
+    baseline: str = Query(default="A", pattern="^[A-Da-d]$"),
+) -> HorseCompareResponse:
+    """Pairwise model-score comparison for two horses in the same race."""
+    rid = parse_positive_int(race_id, field="race_id")
+    hid_a = parse_positive_int(horse_a, field="horse_a")
+    hid_b = parse_positive_int(horse_b, field="horse_b")
+    engine = require_engine()
+    try:
+        result = engine.compare_horses(rid, hid_a, hid_b, baseline=baseline.upper())
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("compare_horses failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"Race {rid} not found in freeze dataset")
+    result["probability"] = None
+    if result.get("horse_a"):
+        result["horse_a"]["probability"] = None
+    if result.get("horse_b"):
+        result["horse_b"]["probability"] = None
+    if result.get("selected_horse"):
+        result["selected_horse"]["probability"] = None
+    return HorseCompareResponse.model_validate(result)
 
 
 @app.get("/horses/search", response_model=HorseSearchResponse, tags=["horses"])

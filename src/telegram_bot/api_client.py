@@ -96,6 +96,28 @@ class PredictionApiClient:
             params={"baseline": baseline},
         )
 
+    def compare_horses(
+        self,
+        race_id: int | str,
+        horse_a: int | str,
+        horse_b: int | str,
+        *,
+        baseline: str = "A",
+    ) -> dict[str, Any]:
+        rid = _safe_id(race_id, "race")
+        hid_a = _safe_id(horse_a, "horse")
+        hid_b = _safe_id(horse_b, "horse")
+        if hid_a == hid_b:
+            raise ValidationUserError("⚠️ برای مقایسه باید دو اسب متفاوت انتخاب شوند.")
+        baseline = (baseline or "A").upper()
+        if baseline not in {"A", "B", "C", "D"}:
+            raise ValidationUserError("⚠️ پایهٔ پیش‌بینی نامعتبر است.")
+        return self._request(
+            "GET",
+            f"/races/{rid}/compare",
+            params={"horse_a": hid_a, "horse_b": hid_b, "baseline": baseline},
+        )
+
     def get_horse(self, horse_id: int | str) -> dict[str, Any]:
         hid = _safe_id(horse_id, "horse")
         return self._request("GET", f"/horses/{hid}")
@@ -133,17 +155,15 @@ class PredictionApiClient:
         self,
         races: list[dict[str, Any]],
         *,
-        price_per_combination: int | float | None = None,
         include_combinations: bool = True,
         max_combinations_in_response: int = 50,
     ) -> dict[str, Any]:
+        # Pricing is out of MVP scope — never send price_per_combination from Telegram.
         body: dict[str, Any] = {
             "races": races,
             "include_combinations": include_combinations,
             "max_combinations_in_response": max_combinations_in_response,
         }
-        if price_per_combination is not None:
-            body["price_per_combination"] = price_per_combination
         return self._request("POST", "/five-parreh/combinations", json=body)
 
 

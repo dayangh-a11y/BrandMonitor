@@ -187,6 +187,37 @@ def test_horse_analysis_includes_directory_name(client: TestClient) -> None:
     assert r.json()["horse_name"] == "انفجار ایگدری"
 
 
+def test_compare_horses_same_race_model_score(client: TestClient) -> None:
+    rid = IDS["test_race_id"]
+    # Both horses are in race 3393 fixture field.
+    r = client.get(
+        f"/races/{rid}/compare",
+        params={"horse_a": 3470, "horse_b": 3450},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert body["race_id"] == rid
+    assert body["comparison_type"] == "model_score"
+    assert body["probability"] is None
+    assert body["horse_a"]["horse_id"] == 3470
+    assert body["horse_b"]["horse_id"] == 3450
+    assert body["horse_a"]["probability"] is None
+    assert body["selected"] in {"a", "b", "tie"}
+    assert body["selected_horse"] is None or body["selected_horse"].get("probability") is None
+
+
+def test_compare_horses_rejects_same_horse_and_foreign_horse(client: TestClient) -> None:
+    rid = IDS["test_race_id"]
+    same = client.get(f"/races/{rid}/compare", params={"horse_a": 3470, "horse_b": 3470})
+    assert same.status_code == 422
+
+    foreign = client.get(
+        f"/races/{rid}/compare",
+        params={"horse_a": 3470, "horse_b": IDS["invalid_horse_id"]},
+    )
+    assert foreign.status_code == 422
+
+
 def test_production_mode_fails_when_canonical_dataset_missing(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

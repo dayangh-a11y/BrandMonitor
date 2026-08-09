@@ -17,13 +17,20 @@ from src.telegram_bot.keyboards import (
     fiveparreh_confirm_keyboard,
     fiveparreh_event_keyboard,
     fiveparreh_start_predict_keyboard,
+    horse_pick_keyboard,
     horse_search_keyboard,
     horse_toggle_keyboard,
     main_menu_keyboard,
     meeting_races_keyboard,
     upcoming_meetings_keyboard,
 )
-from src.telegram_bot.state import FiveParrehSession, HorseLookupStore, SessionStore
+from src.telegram_bot.state import (
+    FiveParrehSession,
+    HorseLookupStore,
+    HorseVsSession,
+    HorseVsStore,
+    SessionStore,
+)
 
 _ID_RE = re.compile(r"^\d{1,12}$")
 _EVENT_ID_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,40}$")
@@ -37,6 +44,10 @@ def _client(context: ContextTypes.DEFAULT_TYPE) -> PredictionApiClient:
 
 def _sessions(context: ContextTypes.DEFAULT_TYPE) -> SessionStore:
     return context.application.bot_data["sessions"]
+
+
+def _horsevs(context: ContextTypes.DEFAULT_TYPE) -> HorseVsStore:
+    return context.application.bot_data["horsevs"]
 
 
 def _settings(context: ContextTypes.DEFAULT_TYPE) -> Any:
@@ -213,6 +224,31 @@ async def _send_horse_analysis(update: Update, context: ContextTypes.DEFAULT_TYP
     await _reply(update, fmt.format_horse(payload), reply_markup=main_menu_keyboard())
 
 
+async def cmd_horsevs(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def run() -> None:
+        user = update.effective_user
+        if not user:
+            return
+        logger.info("command=horsevs chat={}", getattr(update.effective_chat, "id", None))
+        store = _horsevs(context)
+        store.clear(user.id)
+        store.set(user.id, HorseVsSession(step="pick_meeting"))
+        payload = _client(context).list_upcoming_meetings(days=7)
+        meetings = payload.get("meetings") or []
+        text = fmt.format_upcoming_meetings(payload)
+        if not meetings:
+            await _reply(update, text, reply_markup=main_menu_keyboard())
+            return
+        text = "⚔️ اسب مقابل اسب\n\n" + text
+        await _reply(
+            update,
+            text,
+            reply_markup=upcoming_meetings_keyboard(meetings, callback_prefix="hvs_mtg"),
+        )
+
+    await _safe(update, context, run)
+
+
 async def cmd_fiveparreh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     async def run() -> None:
         user = update.effective_user
@@ -252,12 +288,12 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         if data == "menu:help":
             await _reply(update, fmt.help_text(), reply_markup=main_menu_keyboard())
             return
-        if data == "menu:races":
-            await cmd_races(update, context)
-            return
         if data == "menu:predict":
             context.args = []
             await cmd_predict(update, context)
+            return
+        if data == "menu:horsevs":
+            await cmd_horsevs(update, context)
             return
         if data == "menu:horse":
             context.args = []
@@ -283,6 +319,41 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                 return
             meta = context.application.bot_data.get("predict_meta", {}).get(rid)
             await _send_prediction(update, context, rid, meta=meta)
+            return
+
+        if data.startswith("hvs_mtg:"):
+            mid = data.split(":", 1)[1]
+            if not _MEETING_ID_RE.match(mid):
+                await _reply(update, "⚠️ جلسهٔ مسابقه نامعتبر است.")
+                return
+            await _hvs_select_meeting(update, context, mid)
+            return
+        if data.startswith("hvs_race:"):
+            rid = data.split(":", 1)[1]
+            if not _ID_RE.match(rid):
+                await _reply(update, "⚠️ انتخاب مسابقه نامعتبر است.")
+                return
+            await _hvs_select_race(update, context, rid)
+            return
+        if data.startswith("hvs_a:"):
+            hid = data.split(":", 1)[1]
+            if not _ID_RE.match(hid):
+                await _reply(update, "⚠️ انتخاب اسب نامعتبر است.")
+                return
+            await _hvs_pick_a(update, context, hid)
+            return
+        if data.startswith("hvs_b:"):
+            hid = data.split(":", 1)[1]
+            if not _ID_RE.match(hid):
+                await _reply(update, "⚠️ انتخاب اسب نامعتبر است.")
+                return
+            await _hvs_pick_b(update, context, hid)
+            return
+        if data == "hvs:cancel":
+            user = update.effective_user
+            if user:
+                _horsevs(context).clear(user.id)
+            await _reply(update, "مقایسه لغو شد.", reply_markup=main_menu_keyboard())
             return
 
         if data.startswith("horse_sel:"):
@@ -480,16 +551,13 @@ async def _fp_confirm_horses(update: Update, context: ContextTypes.DEFAULT_TYPE)
         await _fp_prompt_horses(update, context, session)
         return
 
-    # Horses selected for all five locked races → cost confirmation
+    # Horses selected for all five locked races → combination summary (no pricing).
     session.step = "confirm"
     session.touch()
     _sessions(context).set(user.id, session)
-    settings = _settings(context)
-    price = settings.telegram_default_price_per_combination
     text = fmt.format_fiveparreh_confirm(
         session.selections_per_race(),
         total_combinations=session.total_combinations_estimate(),
-        price_per_combination=price,
     )
     await _reply(update, text, reply_markup=fiveparreh_confirm_keyboard())
 
@@ -506,14 +574,193 @@ async def _fp_submit(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         await _reply(update, "⚠️ همهٔ پنج کورس باید حداقل یک اسب داشته باشند.")
         return
 
-    settings = _settings(context)
-    price = settings.telegram_default_price_per_combination
-    # Combination generation happens ONLY in the API / Five-Parreh engine.
+    # Combination generation happens ONLY in the API / Five-Parreh engine (no pricing).
     result = _client(context).generate_five_parreh(
         session.to_api_payload(),
-        price_per_combination=price,
         include_combinations=True,
         max_combinations_in_response=20,
     )
     _sessions(context).clear(user.id)
     await _reply(update, fmt.format_fiveparreh_result(result), reply_markup=main_menu_keyboard())
+
+
+async def _hvs_select_meeting(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    meeting_id: str,
+) -> None:
+    user = update.effective_user
+    if not user:
+        return
+    meeting = _client(context).get_upcoming_meeting(meeting_id)
+    races = meeting.get("races") or []
+    meta_store: dict[str, dict[str, Any]] = context.application.bot_data.setdefault(
+        "predict_meta", {}
+    )
+    location = meeting.get("location") or meeting.get("track") or meeting.get("city")
+    for race in races:
+        rid = str(race.get("race_id") or "").strip()
+        if not rid:
+            continue
+        meta_store[rid] = {
+            "label": race.get("label"),
+            "race_number": race.get("race_number"),
+            "display_date": meeting.get("display_date"),
+            "track": location,
+        }
+    session = _horsevs(context).get(user.id) or HorseVsSession()
+    session.step = "pick_race"
+    session.meeting_id = meeting_id
+    session.display_date = meeting.get("display_date")
+    session.track = location
+    session.touch()
+    _horsevs(context).set(user.id, session)
+    text = "⚔️ اسب مقابل اسب\n\n" + fmt.format_meeting_races(meeting)
+    if not races:
+        await _reply(update, text, reply_markup=main_menu_keyboard())
+        return
+    await _reply(
+        update,
+        text,
+        reply_markup=meeting_races_keyboard(meeting, callback_prefix="hvs_race"),
+    )
+
+
+async def _hvs_select_race(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    race_id: str,
+) -> None:
+    user = update.effective_user
+    if not user:
+        return
+    session = _horsevs(context).get(user.id)
+    if not session or session.step not in {"pick_race", "pick_meeting", "pick_a"}:
+        session = HorseVsSession(step="pick_race")
+    meta = context.application.bot_data.get("predict_meta", {}).get(race_id) or {}
+    # Ensure meta available even if user skipped /predict cache.
+    if session.meeting_id and not meta:
+        meeting = _client(context).get_upcoming_meeting(session.meeting_id)
+        location = meeting.get("location") or meeting.get("track")
+        for race in meeting.get("races") or []:
+            if str(race.get("race_id")) == race_id:
+                meta = {
+                    "label": race.get("label"),
+                    "race_number": race.get("race_number"),
+                    "display_date": meeting.get("display_date"),
+                    "track": location,
+                }
+                break
+    prediction = _client(context).get_race_prediction(race_id)
+    candidates = list(prediction.get("prediction") or [])
+    if len(candidates) < 2:
+        await _reply(update, "⚠️ برای مقایسه حداقل دو اسب در این کورس لازم است.")
+        return
+    # Enrich display names for buttons.
+    for item in candidates:
+        if not item.get("horse_name") and item.get("horse_id") is not None:
+            item["horse_name"] = f"اسب {item.get('horse_id')}"
+    session.step = "pick_a"
+    session.race_id = race_id
+    session.race_label = meta.get("label") or (
+        f"کورس {meta.get('race_number')}" if meta.get("race_number") is not None else "کورس"
+    )
+    session.race_number = meta.get("race_number")
+    session.display_date = meta.get("display_date") or session.display_date
+    session.track = meta.get("track") or session.track
+    session.horse_a_id = None
+    session.horse_a_name = None
+    session.candidates = candidates
+    session.touch()
+    _horsevs(context).set(user.id, session)
+    text = fmt.format_horsevs_prompt(
+        display_date=session.display_date,
+        track=session.track,
+        race_label=session.race_label,
+        which="a",
+    )
+    await _reply(
+        update,
+        text,
+        reply_markup=horse_pick_keyboard(candidates, callback_prefix="hvs_a"),
+    )
+
+
+async def _hvs_pick_a(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    horse_id: str,
+) -> None:
+    user = update.effective_user
+    if not user:
+        return
+    session = _horsevs(context).get(user.id)
+    if not session or session.step != "pick_a" or not session.race_id:
+        await _reply(update, "جلسه مقایسه منقضی شده. /horsevs را دوباره بزنید.")
+        return
+    name = None
+    for item in session.candidates:
+        if str(item.get("horse_id")) == horse_id:
+            name = item.get("horse_name")
+            break
+    if name is None:
+        await _reply(update, "⚠️ این اسب در کورس انتخاب‌شده نیست.")
+        return
+    session.horse_a_id = horse_id
+    session.horse_a_name = name
+    session.step = "pick_b"
+    session.touch()
+    _horsevs(context).set(user.id, session)
+    text = fmt.format_horsevs_prompt(
+        display_date=session.display_date,
+        track=session.track,
+        race_label=session.race_label,
+        which="b",
+    )
+    await _reply(
+        update,
+        text,
+        reply_markup=horse_pick_keyboard(
+            session.candidates,
+            callback_prefix="hvs_b",
+            exclude_ids={horse_id},
+        ),
+    )
+
+
+async def _hvs_pick_b(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    horse_id: str,
+) -> None:
+    user = update.effective_user
+    if not user:
+        return
+    session = _horsevs(context).get(user.id)
+    if (
+        not session
+        or session.step != "pick_b"
+        or not session.race_id
+        or not session.horse_a_id
+    ):
+        await _reply(update, "جلسه مقایسه منقضی شده. /horsevs را دوباره بزنید.")
+        return
+    if horse_id == session.horse_a_id:
+        await _reply(update, "⚠️ برای مقایسه باید دو اسب متفاوت انتخاب شوند.")
+        return
+    in_race = any(str(item.get("horse_id")) == horse_id for item in session.candidates)
+    if not in_race:
+        await _reply(update, "⚠️ هر دو اسب باید از همین کورس باشند.")
+        return
+    result = _client(context).compare_horses(session.race_id, session.horse_a_id, horse_id)
+    meta = {
+        "display_date": session.display_date,
+        "track": session.track,
+        "race_label": session.race_label,
+    }
+    _horsevs(context).clear(user.id)
+    await _reply(
+        update,
+        fmt.format_horsevs_result(result, meta=meta),
+        reply_markup=main_menu_keyboard(),
+    )

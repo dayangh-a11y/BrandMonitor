@@ -89,6 +89,35 @@ class PredictionResponse(BaseModel):
     prediction: list[PredictionItem]
 
 
+class CompareHorseSide(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    horse_id: int
+    horse_name: str | None = None
+    rank: int | None = None
+    score: float | None = None
+    probability: None = None
+    evidence: list[EvidenceItem] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
+class HorseCompareResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    race_id: int
+    dataset_version: str
+    ml_status: str | None = None
+    baseline: str | None = None
+    comparison_type: str = "model_score"
+    note: str | None = None
+    horse_a: CompareHorseSide
+    horse_b: CompareHorseSide
+    selected: str | None = None
+    selected_horse: CompareHorseSide | None = None
+    evidence: list[dict[str, Any]] = Field(default_factory=list)
+    probability: None = None
+
+
 class HorseAnalysisResponse(BaseModel):
     model_config = ConfigDict(extra="allow")
 
