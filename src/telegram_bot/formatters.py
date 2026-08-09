@@ -146,6 +146,16 @@ def format_horse(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def format_fiveparreh_race_block(race_ids: list[str | int]) -> str:
+    lines = ["🎟 پنج‌پره", ""]
+    for i, rid in enumerate(race_ids, start=1):
+        lines.append(f"کورس {i}: {rid}")
+    lines.append("")
+    lines.append("۵ کورس متوالی از یک برنامه انتخاب شد.")
+    lines.append("برای ادامه، اسب‌های کورس ۱ را انتخاب کنید.")
+    return "\n".join(lines)
+
+
 def format_fiveparreh_confirm(
     selections_per_race: list[int],
     *,

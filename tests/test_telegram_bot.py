@@ -227,7 +227,7 @@ def test_format_horse_and_fiveparreh() -> None:
 def test_fiveparreh_state_flow_and_validation() -> None:
     store = SessionStore(ttl_seconds=60)
     s = store.get_or_create(42)
-    assert s.step == "pick_race"
+    assert s.step == "pick_start"
     s.race_ids = ["1", "2", "3", "4", "5"]
     s.race_index = 0
     s.step = "pick_horses"
@@ -251,6 +251,94 @@ def test_fiveparreh_state_flow_and_validation() -> None:
     # empty race => no estimate
     s.horses_by_race["3"] = []
     assert s.total_combinations_estimate() is None
+
+
+def _meeting_races() -> list[dict]:
+    """Fixture-like meeting with a gap in numeric race_ids (603 → 605)."""
+    gonbad = [
+        {"race_id": 601, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 602, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 603, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 605, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 606, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 607, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+        {"race_id": 608, "race_date": "1995-04-28", "track": "گنبدکاووس"},
+    ]
+    other = [
+        {"race_id": 609, "race_date": "1995-10-13", "track": "بندرترکمن"},
+        {"race_id": 610, "race_date": "1995-10-13", "track": "بندرترکمن"},
+        {"race_id": 611, "race_date": "1995-10-13", "track": "بندرترکمن"},
+        {"race_id": 612, "race_date": "1995-10-13", "track": "بندرترکمن"},
+    ]
+    return gonbad + other
+
+
+def test_race_program_resolves_five_consecutive_non_numeric_gap() -> None:
+    from src.telegram_bot.race_program import consecutive_from_start, race_ids, valid_starting_races
+
+    races = _meeting_races()
+    window = consecutive_from_start(races, 601, count=5)
+    assert window is not None
+    assert race_ids(window) == ["601", "602", "603", "605", "606"]
+
+    # Not race_id+1: 603's next program race is 605, not 604
+    window2 = consecutive_from_start(races, 603, count=5)
+    assert race_ids(window2) == ["603", "605", "606", "607", "608"]
+
+
+def test_race_program_rejects_start_without_five_remaining() -> None:
+    from src.telegram_bot.race_program import consecutive_from_start, valid_starting_races
+
+    races = _meeting_races()
+    assert consecutive_from_start(races, 605, count=5) is None  # only 605..608 (4)
+    assert consecutive_from_start(races, 609, count=5) is None  # other meeting has 4
+
+    starts = valid_starting_races(races, count=5)
+    start_ids = {str(r["race_id"]) for r in starts}
+    assert "601" in start_ids
+    assert "602" in start_ids
+    assert "603" in start_ids
+    assert "605" not in start_ids
+    assert "609" not in start_ids
+
+
+def test_race_program_does_not_mix_meetings() -> None:
+    from src.telegram_bot.race_program import consecutive_from_start, race_ids
+
+    races = _meeting_races()
+    # Even though 608 then 609 are numeric neighbors, they are different meetings.
+    window = consecutive_from_start(races, 605, count=5)
+    assert window is None
+    window_ok = consecutive_from_start(races, 601, count=5)
+    assert window_ok is not None
+    tracks = {r["track"] for r in window_ok}
+    dates = {r["race_date"] for r in window_ok}
+    assert tracks == {"گنبدکاووس"}
+    assert dates == {"1995-04-28"}
+    assert "609" not in race_ids(window_ok)
+
+
+def test_fiveparreh_locked_block_reaches_api_with_exactly_five() -> None:
+    from src.telegram_bot.race_program import consecutive_from_start, race_ids
+
+    races = _meeting_races()
+    window = consecutive_from_start(races, 601, count=5)
+    assert window is not None
+    session = FiveParrehSession(step="confirm_block")
+    session.race_ids = race_ids(window)
+    session.horses_by_race = {rid: [f"h{rid}"] for rid in session.race_ids}
+    session.step = "confirm"
+    payload = session.to_api_payload()
+    assert len(payload) == 5
+    assert [p["race_id"] for p in payload] == ["601", "602", "603", "605", "606"]
+    assert all(len(p["horses"]) == 1 for p in payload)
+
+
+def test_format_fiveparreh_race_block() -> None:
+    text = fmt.format_fiveparreh_race_block(["601", "602", "603", "605", "606"])
+    assert "کورس 1: 601" in text
+    assert "کورس 5: 606" in text
+    assert "۵ کورس متوالی" in text
 
 
 def test_user_facing_errors_have_no_paths() -> None:

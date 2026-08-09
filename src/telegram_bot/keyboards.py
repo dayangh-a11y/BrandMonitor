@@ -75,3 +75,14 @@ def fiveparreh_confirm_keyboard() -> InlineKeyboardMarkup:
             ]
         ]
     )
+
+
+def fiveparreh_block_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("ادامه — انتخاب اسب‌ها", callback_data="fp:block_ok"),
+                InlineKeyboardButton("بازگشت", callback_data="fp:cancel"),
+            ]
+        ]
+    )

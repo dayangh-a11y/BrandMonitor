@@ -13,11 +13,13 @@ from src.telegram_bot.api_client import PredictionApiClient
 from src.telegram_bot.errors import TelegramBotError
 from src.telegram_bot import formatters as fmt
 from src.telegram_bot.keyboards import (
+    fiveparreh_block_keyboard,
     fiveparreh_confirm_keyboard,
     horse_toggle_keyboard,
     main_menu_keyboard,
     races_keyboard,
 )
+from src.telegram_bot.race_program import consecutive_from_start, valid_starting_races
 from src.telegram_bot.state import FiveParrehSession, SessionStore
 
 _ID_RE = re.compile(r"^\d{1,12}$")
@@ -151,17 +153,36 @@ async def cmd_fiveparreh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         logger.info("command=fiveparreh chat={}", getattr(update.effective_chat, "id", None))
         store = _sessions(context)
         store.clear(user.id)
-        session = store.set(user.id, FiveParrehSession(step="pick_race", race_index=0))
-        settings = _settings(context)
-        payload = _client(context).list_races(limit=settings.telegram_races_page_size, offset=0)
-        races = payload.get("races") or []
-        if not races:
-            await _reply(update, "در حال حاضر مسابقه‌ای در دسترس نیست.", reply_markup=main_menu_keyboard())
+
+        # Fetch a wide catalog so meeting sequences can be resolved (not race_id+1).
+        catalog: list[dict[str, Any]] = []
+        offset = 0
+        page_size = 100
+        while offset < 500:
+            payload = _client(context).list_races(limit=page_size, offset=offset)
+            batch = list(payload.get("races") or [])
+            catalog.extend(batch)
+            total = int(payload.get("total") or 0)
+            offset += page_size
+            if not batch or offset >= total:
+                break
+
+        starts = valid_starting_races(catalog, count=5)
+        if not starts:
+            await _reply(
+                update,
+                "در حال حاضر برنامهٔ معتبری با ۵ کورس متوالی در دسترس نیست.",
+                reply_markup=main_menu_keyboard(),
+            )
             return
+
+        store.set(user.id, FiveParrehSession(step="pick_start", race_index=0, catalog=catalog))
         await _reply(
             update,
-            f"🎟 پنج‌پره — انتخاب مسابقه {session.race_index + 1} از ۵",
-            reply_markup=races_keyboard(races, prefix="fp_race"),
+            "🎟 پنج‌پره\n\n"
+            "یک کورس شروع را انتخاب کنید.\n"
+            "۴ کورس بعدی همان برنامه به‌صورت خودکار انتخاب می‌شوند.",
+            reply_markup=races_keyboard(starts[:30], prefix="fp_start"),
         )
 
     await _safe(update, context, run)
@@ -207,8 +228,11 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             await _send_prediction(update, context, rid)
             return
 
-        if data.startswith("fp_race:"):
-            await _fp_pick_race(update, context, data.split(":", 1)[1])
+        if data.startswith("fp_start:"):
+            await _fp_pick_start(update, context, data.split(":", 1)[1])
+            return
+        if data == "fp:block_ok":
+            await _fp_begin_horse_selection(update, context)
             return
         if data.startswith("fp:tog:"):
             await _fp_toggle(update, context, data.split(":", 2)[2])
@@ -231,7 +255,7 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     await _safe(update, context, run)
 
 
-async def _fp_pick_race(update: Update, context: ContextTypes.DEFAULT_TYPE, race_id: str) -> None:
+async def _fp_pick_start(update: Update, context: ContextTypes.DEFAULT_TYPE, race_id: str) -> None:
     user = update.effective_user
     if not user:
         return
@@ -239,37 +263,78 @@ async def _fp_pick_race(update: Update, context: ContextTypes.DEFAULT_TYPE, race
         await _reply(update, "⚠️ شناسهٔ مسابقه نامعتبر است.")
         return
     session = _sessions(context).get(user.id)
-    if not session or session.step != "pick_race":
+    if not session or session.step != "pick_start":
         await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
         return
-    if race_id in session.race_ids:
-        await _reply(update, "⚠️ این مسابقه قبلاً انتخاب شده. مسابقه دیگری برگزینید.")
+
+    window = consecutive_from_start(session.catalog, race_id, count=5)
+    if not window:
+        await _reply(
+            update,
+            "⚠️ از این کورس شروع، ۵ کورس متوالی در همان برنامه موجود نیست.",
+            reply_markup=main_menu_keyboard(),
+        )
         return
 
-    # Load ranked horses from prediction API (display only; no local scoring).
-    prediction = _client(context).get_race_prediction(race_id)
-    candidates = list(prediction.get("prediction") or [])
-    if not candidates:
-        await _reply(update, "⚠️ برای این مسابقه اسبی جهت انتخاب نیست.")
-        return
-
-    session.race_ids.append(race_id)
-    session.horses_by_race[race_id] = []
-    session.candidates = candidates
-    session.step = "pick_horses"
+    race_ids = [str(r.get("race_id")) for r in window]
+    session.race_ids = race_ids
+    session.horses_by_race = {rid: [] for rid in race_ids}
+    session.race_index = 0
+    session.step = "confirm_block"
+    session.candidates = []
     session.touch()
     _sessions(context).set(user.id, session)
 
+    await _reply(
+        update,
+        fmt.format_fiveparreh_race_block(race_ids),
+        reply_markup=fiveparreh_block_keyboard(),
+    )
+
+
+async def _fp_begin_horse_selection(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = update.effective_user
+    if not user:
+        return
+    session = _sessions(context).get(user.id)
+    if not session or session.step != "confirm_block" or len(session.race_ids) != 5:
+        await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
+        return
+    session.race_index = 0
+    session.step = "pick_horses"
+    session.touch()
+    _sessions(context).set(user.id, session)
+    await _fp_prompt_horses(update, context, session)
+
+
+async def _fp_prompt_horses(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    session: FiveParrehSession,
+) -> None:
+    rid = session.current_race_id()
+    if not rid:
+        await _reply(update, "⚠️ کورس نامعتبر است.")
+        return
+    prediction = _client(context).get_race_prediction(rid)
+    candidates = list(prediction.get("prediction") or [])
+    if not candidates:
+        await _reply(update, f"⚠️ برای کورس {rid} اسبی جهت انتخاب نیست.")
+        return
+    session.candidates = candidates
+    session.touch()
+    user = update.effective_user
+    if user:
+        _sessions(context).set(user.id, session)
     text = (
-        f"کورس {session.race_index + 1} — انتخاب اسب‌ها\n"
-        f"(مسابقه {race_id})\n\n"
+        f"کورس {session.race_index + 1} از ۵ — انتخاب اسب‌ها\n"
+        f"(مسابقه {rid})\n\n"
         "حداقل یک اسب انتخاب کنید."
     )
-    selected = set(session.selected_for_current())
     await _reply(
         update,
         text,
-        reply_markup=horse_toggle_keyboard(candidates, selected),
+        reply_markup=horse_toggle_keyboard(candidates, set(session.selected_for_current())),
     )
 
 
@@ -307,7 +372,7 @@ async def _fp_confirm_horses(update: Update, context: ContextTypes.DEFAULT_TYPE)
     if not user:
         return
     session = _sessions(context).get(user.id)
-    if not session or session.step != "pick_horses":
+    if not session or session.step != "pick_horses" or len(session.race_ids) != 5:
         await _reply(update, "جلسه پنج‌پره منقضی شده. /fiveparreh را دوباره بزنید.")
         return
     selected = session.selected_for_current()
@@ -317,21 +382,13 @@ async def _fp_confirm_horses(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
     session.race_index += 1
     if session.race_index < 5:
-        session.step = "pick_race"
         session.candidates = []
         session.touch()
         _sessions(context).set(user.id, session)
-        settings = _settings(context)
-        payload = _client(context).list_races(limit=settings.telegram_races_page_size, offset=0)
-        races = payload.get("races") or []
-        await _reply(
-            update,
-            f"🎟 پنج‌پره — انتخاب مسابقه {session.race_index + 1} از ۵",
-            reply_markup=races_keyboard(races, prefix="fp_race"),
-        )
+        await _fp_prompt_horses(update, context, session)
         return
 
-    # All five races selected
+    # Horses selected for all five locked races → cost confirmation
     session.step = "confirm"
     session.touch()
     _sessions(context).set(user.id, session)

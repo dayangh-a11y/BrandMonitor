@@ -13,9 +13,11 @@ class FiveParrehSession:
     race_ids: list[str] = field(default_factory=list)
     # race_id -> ordered unique horse ids
     horses_by_race: dict[str, list[str]] = field(default_factory=dict)
-    step: str = "pick_race"  # pick_race | pick_horses | confirm
-    race_index: int = 0  # 0..4
+    # pick_start → confirm_block → pick_horses → confirm
+    step: str = "pick_start"
+    race_index: int = 0  # 0..4 within locked race_ids
     candidates: list[dict] = field(default_factory=list)
+    catalog: list[dict] = field(default_factory=list)  # races fetched for meeting resolution
     updated_at: float = field(default_factory=time.time)
 
     def touch(self) -> None:
