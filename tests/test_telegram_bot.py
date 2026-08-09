@@ -193,16 +193,30 @@ def test_format_horse_and_fiveparreh() -> None:
     horse = fmt.format_horse(
         {
             "horse_id": 3470,
-            "horse_name": None,
+            "horse_name": "انفجار ایگدری",
             "observation_count": 9,
             "evidence": [{"metric": "career_win_rate", "value": 0.1}],
             "warnings": ["low_feature_coverage"],
         }
     )
-    assert "3470" in horse
+    assert "انفجار ایگدری" in horse
+    assert "شناسه" not in horse
+    assert "3470" not in horse  # horse_id must stay internal in Telegram UX
     assert "low_feature_coverage" not in horse
     assert "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد." in horse
     assert "ℹ️ امتیاز، احتمال برد نیست." in horse
+
+    search = fmt.format_horse_search_results(
+        {
+            "horses": [
+                {"horse_id": 3239, "horse_name": "شیرین صحرا", "breed": "Thoroughbred"},
+            ]
+        }
+    )
+    assert "نتایج جستجوی اسب" in search
+    assert "شیرین صحرا" in search
+    assert "3239" not in search
+    assert "اسبی با این نام پیدا نشد" in fmt.format_horse_search_results({"horses": []})
 
     confirm = fmt.format_fiveparreh_confirm(
         [3, 3, 2, 2, 3],
@@ -414,11 +428,14 @@ async def test_handlers_start_help_with_mocks() -> None:
     from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
 
     context = MagicMock()
+    from src.telegram_bot.state import HorseLookupStore
+
     context.application.bot_data = {
         "api_client": MagicMock(),
         "sessions": SessionStore(),
         "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
         "five_parreh_events": InMemoryFiveParrehEventSource([]),
+        "horse_lookup": HorseLookupStore(),
     }
     await cmd_start(update, context)
     await cmd_help(update, context)
@@ -427,7 +444,8 @@ async def test_handlers_start_help_with_mocks() -> None:
 @pytest.mark.asyncio
 async def test_handlers_races_predict_horse_mocked() -> None:
     from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
-    from src.telegram_bot.handlers import cmd_horse, cmd_predict, cmd_races
+    from src.telegram_bot.handlers import cmd_horse, cmd_predict, cmd_races, on_callback
+    from src.telegram_bot.state import HorseLookupStore
 
     client = MagicMock()
     client.list_races.return_value = {
@@ -438,7 +456,18 @@ async def test_handlers_races_predict_horse_mocked() -> None:
         "race_id": 3393,
         "prediction": [{"rank": 1, "horse_id": 1, "horse_name": "A", "score": 12.5, "probability": None}],
     }
-    client.get_horse.return_value = {"horse_id": 3470, "observation_count": 2, "evidence": [], "warnings": []}
+    client.search_horses.return_value = {
+        "query": "دنزی بوی",
+        "count": 1,
+        "horses": [{"horse_id": 3239, "horse_name": "شیرین صحرا", "breed": "Thoroughbred"}],
+    }
+    client.get_horse.return_value = {
+        "horse_id": 3239,
+        "horse_name": "شیرین صحرا",
+        "observation_count": 2,
+        "evidence": [],
+        "warnings": [],
+    }
 
     async def _reply_text(*a, **k):
         return None
@@ -446,6 +475,7 @@ async def test_handlers_races_predict_horse_mocked() -> None:
     update = MagicMock()
     update.callback_query = None
     update.effective_chat.id = 7
+    update.effective_user.id = 7
     update.effective_message.reply_text = _reply_text
     context = MagicMock()
     context.args = []
@@ -458,6 +488,7 @@ async def test_handlers_races_predict_horse_mocked() -> None:
             telegram_races_page_size=10,
         ),
         "five_parreh_events": InMemoryFiveParrehEventSource([]),
+        "horse_lookup": HorseLookupStore(),
     }
     await cmd_races(update, context)
     client.list_races.assert_called()
@@ -466,6 +497,145 @@ async def test_handlers_races_predict_horse_mocked() -> None:
     await cmd_predict(update, context)
     client.get_race_prediction.assert_called()
 
-    context.args = ["3470"]
+    context.args = ["دنزی", "بوی"]
     await cmd_horse(update, context)
-    client.get_horse.assert_called_with("3470")
+    client.search_horses.assert_called()
+    client.get_horse.assert_not_called()
+
+    # Selecting a search result uses internal id via callback only.
+    update.callback_query = MagicMock()
+    update.callback_query.data = "horse_sel:3239"
+    update.callback_query.message = MagicMock()
+
+    async def _answer(*a, **k):
+        return None
+
+    async def _reply_cb(*a, **k):
+        return None
+
+    update.callback_query.answer = _answer
+    update.callback_query.message.reply_text = _reply_cb
+    await on_callback(update, context)
+    client.get_horse.assert_called_with("3239")
+
+
+def test_api_client_search_horses() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/horses/search"
+        assert request.url.params["name"] == "دنزی بوی"
+        return httpx.Response(
+            200,
+            json={
+                "query": request.url.params["name"],
+                "count": 1,
+                "horses": [{"horse_id": 3239, "horse_name": "شیرین صحرا", "breed": "Thoroughbred"}],
+            },
+        )
+
+    client = PredictionApiClient("http://test")
+    client._client = httpx.Client(transport=httpx.MockTransport(handler), base_url="http://test")
+    out = client.search_horses("دنزی بوی")
+    assert out["horses"][0]["horse_name"] == "شیرین صحرا"
+    client.close()
+
+
+@pytest.mark.asyncio
+async def test_horse_flow_text_prompt_then_select() -> None:
+    from src.telegram_bot.five_parreh_events import InMemoryFiveParrehEventSource
+    from src.telegram_bot.handlers import cmd_horse, on_callback, on_text_message
+    from src.telegram_bot.keyboards import horse_search_keyboard
+    from src.telegram_bot.state import HorseLookupStore
+
+    client = MagicMock()
+    client.search_horses.return_value = {
+        "query": "صحرا",
+        "count": 2,
+        "horses": [
+            {"horse_id": 3239, "horse_name": "شیرین صحرا", "breed": "Thoroughbred"},
+            {"horse_id": 9999, "horse_name": "صحرا نورد", "breed": "Thoroughbred"},
+        ],
+    }
+    client.get_horse.return_value = {
+        "horse_id": 3239,
+        "horse_name": "شیرین صحرا",
+        "observation_count": 1,
+        "evidence": [],
+        "warnings": [],
+    }
+
+    replies: list[str] = []
+
+    async def _reply_text(text, **k):
+        replies.append(text)
+        return None
+
+    update = MagicMock()
+    update.callback_query = None
+    update.effective_chat.id = 11
+    update.effective_user.id = 11
+    update.effective_message.reply_text = _reply_text
+    update.effective_message.text = None
+    context = MagicMock()
+    context.args = []
+    lookup = HorseLookupStore()
+    context.application.bot_data = {
+        "api_client": client,
+        "sessions": SessionStore(),
+        "settings": TelegramBotSettings(telegram_bot_token="t", api_base_url="http://x"),
+        "five_parreh_events": InMemoryFiveParrehEventSource([]),
+        "horse_lookup": lookup,
+    }
+
+    await cmd_horse(update, context)
+    assert lookup.is_waiting(11)
+    assert any("نام اسب" in r for r in replies)
+    client.search_horses.assert_not_called()
+
+    update.effective_message.text = "صحرا"
+    await on_text_message(update, context)
+    assert not lookup.is_waiting(11)
+    client.search_horses.assert_called_with("صحرا", limit=15)
+    assert any("نتایج جستجوی اسب" in r for r in replies)
+    assert all("3239" not in r and "9999" not in r for r in replies)
+
+    kb = horse_search_keyboard(client.search_horses.return_value["horses"])
+    labels = [btn.text for row in kb.inline_keyboard for btn in row if btn.callback_data.startswith("horse_sel:")]
+    assert labels == ["شیرین صحرا", "صحرا نورد"]
+    assert all("3239" not in t and "9999" not in t for t in labels)
+
+    update.callback_query = MagicMock()
+    update.callback_query.data = "horse_sel:3239"
+    update.callback_query.message = MagicMock()
+
+    async def _answer(*a, **k):
+        return None
+
+    async def _reply_cb(text, **k):
+        replies.append(text)
+        return None
+
+    update.callback_query.answer = _answer
+    update.callback_query.message.reply_text = _reply_cb
+    await on_callback(update, context)
+    client.get_horse.assert_called_with("3239")
+    assert any("تحلیل شیرین صحرا" in r for r in replies)
+    assert all("3239" not in r for r in replies if "تحلیل" in r)
+
+
+def test_horse_directory_search_units() -> None:
+    from src.prediction_engine.horse_directory import HorseNameDirectory, HorseNameRecord
+
+    d = HorseNameDirectory(
+        [
+            HorseNameRecord(3239, "شیرین صحرا", breed="Thoroughbred", aliases=("دنزی بوی", "Danzig Boy")),
+            HorseNameRecord(3450, "گل مارال", breed="Thoroughbred"),
+            HorseNameRecord(3470, "انفجار ایگدری"),
+        ]
+    )
+    exact = d.search("انفجار ایگدری")
+    assert exact and exact[0].horse_id == 3470
+    partial = d.search("مارال")
+    assert any(r.horse_id == 3450 for r in partial)
+    multi = d.search("صحرا")
+    assert multi
+    assert d.search("ناموجود") == []

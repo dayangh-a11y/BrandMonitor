@@ -23,6 +23,7 @@ def get_engine() -> FreezeBackedEngine:
         settings.prediction_freeze_path,
         verify_freeze=settings.prediction_verify_freeze,
         default_baseline=settings.prediction_default_baseline,
+        horse_name_index_path=settings.horse_name_index_path,
     )
     try:
         engine.store.load()

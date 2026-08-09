@@ -100,6 +100,14 @@ class PredictionApiClient:
         hid = _safe_id(horse_id, "horse")
         return self._request("GET", f"/horses/{hid}")
 
+    def search_horses(self, name: str, *, limit: int = 20) -> dict[str, Any]:
+        q = (name or "").strip()
+        if not q:
+            raise ValidationUserError("⚠️ لطفاً نام اسب را وارد کنید.")
+        if len(q) > 120:
+            raise ValidationUserError("⚠️ نام اسب بیش از حد طولانی است.")
+        return self._request("GET", "/horses/search", params={"name": q, "limit": limit})
+
     def generate_five_parreh(
         self,
         races: list[dict[str, Any]],

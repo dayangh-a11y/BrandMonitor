@@ -79,6 +79,29 @@ class FiveParrehSession:
         return races
 
 
+class HorseLookupStore:
+    """Tracks users who were asked to type a horse name (no IDs)."""
+
+    def __init__(self, *, ttl_seconds: int = 600) -> None:
+        self.ttl_seconds = ttl_seconds
+        self._waiting: dict[int, float] = {}
+
+    def ask(self, user_id: int) -> None:
+        self._waiting[user_id] = time.time()
+
+    def clear(self, user_id: int) -> None:
+        self._waiting.pop(user_id, None)
+
+    def is_waiting(self, user_id: int) -> bool:
+        started = self._waiting.get(user_id)
+        if started is None:
+            return False
+        if time.time() - started > self.ttl_seconds:
+            self._waiting.pop(user_id, None)
+            return False
+        return True
+
+
 class SessionStore:
     def __init__(self, *, ttl_seconds: int = 1800) -> None:
         self.ttl_seconds = ttl_seconds

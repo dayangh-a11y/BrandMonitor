@@ -91,6 +91,21 @@ def fiveparreh_event_keyboard(events: list[Any]) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(rows)
 
 
+def horse_search_keyboard(horses: list[dict[str, Any]]) -> InlineKeyboardMarkup:
+    """Buttons show horse names; callback carries internal horse_id only."""
+    rows: list[list[InlineKeyboardButton]] = []
+    for horse in horses[:15]:
+        hid = horse.get("horse_id")
+        name = str(horse.get("horse_name") or "").strip()
+        if hid is None or not name:
+            continue
+        rows.append(
+            [InlineKeyboardButton(name[:60], callback_data=f"horse_sel:{int(hid)}")]
+        )
+    rows.append([InlineKeyboardButton("🏠 منو", callback_data="menu:home")])
+    return InlineKeyboardMarkup(rows)
+
+
 def fiveparreh_start_predict_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [

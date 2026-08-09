@@ -104,3 +104,18 @@ class HorseAnalysisResponse(BaseModel):
     evidence: list[EvidenceItem] = Field(default_factory=list)
     appearances: list[dict[str, Any]] = Field(default_factory=list)
     note: str | None = None
+
+
+class HorseSearchItem(BaseModel):
+    horse_id: int
+    horse_name: str
+    breed: str | None = None
+    sex: str | None = None
+    birth_year: int | None = None
+
+
+class HorseSearchResponse(BaseModel):
+    query: str
+    count: int
+    horses: list[HorseSearchItem]
+    dataset_version: str | None = None

@@ -21,11 +21,12 @@ from src.telegram_bot.keyboards import (
     fiveparreh_confirm_keyboard,
     fiveparreh_event_keyboard,
     fiveparreh_start_predict_keyboard,
+    horse_search_keyboard,
     horse_toggle_keyboard,
     main_menu_keyboard,
     races_keyboard,
 )
-from src.telegram_bot.state import FiveParrehSession, SessionStore
+from src.telegram_bot.state import FiveParrehSession, HorseLookupStore, SessionStore
 
 _ID_RE = re.compile(r"^\d{1,12}$")
 _EVENT_ID_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,40}$")
@@ -46,6 +47,10 @@ def _settings(context: ContextTypes.DEFAULT_TYPE) -> Any:
 
 def _events(context: ContextTypes.DEFAULT_TYPE) -> FiveParrehEventSource:
     return context.application.bot_data["five_parreh_events"]
+
+
+def _horse_lookup(context: ContextTypes.DEFAULT_TYPE) -> HorseLookupStore:
+    return context.application.bot_data["horse_lookup"]
 
 
 async def _reply(update: Update, text: str, **kwargs: Any) -> None:
@@ -136,23 +141,62 @@ async def _send_prediction(update: Update, context: ContextTypes.DEFAULT_TYPE, r
 
 async def cmd_horse(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     async def run() -> None:
+        user = update.effective_user
+        if not user:
+            return
         args = context.args or []
         logger.info("command=horse chat={} args={}", getattr(update.effective_chat, "id", None), args)
-        if not args:
-            await _reply(
-                update,
-                "شناسه اسب را بفرستید.\nمثال: /horse 3470",
-                reply_markup=main_menu_keyboard(),
-            )
+        # Name may be provided as /horse دنزی بوی — never ask for horse_id.
+        if args:
+            await _search_and_offer_horses(update, context, " ".join(args))
             return
-        hid = args[0].strip()
-        if not _ID_RE.match(hid):
-            await _reply(update, "⚠️ شناسهٔ اسب نامعتبر است.")
-            return
-        payload = _client(context).get_horse(hid)
-        await _reply(update, fmt.format_horse(payload), reply_markup=main_menu_keyboard())
+        _horse_lookup(context).ask(user.id)
+        await _reply(
+            update,
+            "🐎 نام اسب را بنویسید.\nمثال: دنزی بوی",
+            reply_markup=main_menu_keyboard(),
+        )
 
     await _safe(update, context, run)
+
+
+async def on_text_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Receive horse name after /horse prompt (not a command)."""
+
+    async def run() -> None:
+        user = update.effective_user
+        message = update.effective_message
+        if not user or not message or not message.text:
+            return
+        if not _horse_lookup(context).is_waiting(user.id):
+            return
+        name = message.text.strip()
+        if not name or name.startswith("/"):
+            return
+        _horse_lookup(context).clear(user.id)
+        await _search_and_offer_horses(update, context, name)
+
+    await _safe(update, context, run)
+
+
+async def _search_and_offer_horses(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+    name: str,
+) -> None:
+    payload = _client(context).search_horses(name, limit=15)
+    horses = payload.get("horses") or []
+    text = fmt.format_horse_search_results(payload)
+    if not horses:
+        await _reply(update, text, reply_markup=main_menu_keyboard())
+        return
+    # Single exact-ish result: still show button (name only) for confirmation.
+    await _reply(update, text, reply_markup=horse_search_keyboard(horses))
+
+
+async def _send_horse_analysis(update: Update, context: ContextTypes.DEFAULT_TYPE, horse_id: str) -> None:
+    payload = _client(context).get_horse(horse_id)
+    await _reply(update, fmt.format_horse(payload), reply_markup=main_menu_keyboard())
 
 
 async def cmd_fiveparreh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -214,6 +258,15 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                 await _reply(update, "⚠️ شناسهٔ مسابقه نامعتبر است.")
                 return
             await _send_prediction(update, context, rid)
+            return
+
+        if data.startswith("horse_sel:"):
+            hid = data.split(":", 1)[1]
+            if not _ID_RE.match(hid):
+                await _reply(update, "⚠️ انتخاب اسب نامعتبر است.")
+                return
+            # Internal id from callback only — never asked from the user.
+            await _send_horse_analysis(update, context, hid)
             return
 
         if data.startswith("fp_event:"):

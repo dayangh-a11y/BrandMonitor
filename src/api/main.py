@@ -15,6 +15,7 @@ from src.api.five_parreh_routes import router as five_parreh_router
 from src.api.schemas import (
     HealthResponse,
     HorseAnalysisResponse,
+    HorseSearchResponse,
     PredictionResponse,
     RaceListResponse,
     RaceResponse,
@@ -160,6 +161,23 @@ def predict_race(
         item["probability"] = None
 
     return PredictionResponse.model_validate(result)
+
+
+@app.get("/horses/search", response_model=HorseSearchResponse, tags=["horses"])
+def search_horses(
+    name: str = Query(..., min_length=1, max_length=120),
+    limit: int = Query(default=20, ge=1, le=50),
+) -> HorseSearchResponse:
+    """Search horses by display name. ``horse_id`` is returned for clients; UI should not require users to type it."""
+    engine = require_engine()
+    try:
+        payload = engine.search_horses(name, limit=limit)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("search_horses failed")
+        raise HTTPException(status_code=500, detail="Internal prediction error") from exc
+    return HorseSearchResponse.model_validate(payload)
 
 
 @app.get("/horses/{horse_id}", response_model=HorseAnalysisResponse, tags=["horses"])

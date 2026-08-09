@@ -119,6 +119,7 @@ uvicorn src.api.main:app --port 8000
 | GET | `/races` | List freeze-backed races (metadata) |
 | GET | `/races/{race_id}` | Race + horses from freeze observations |
 | GET | `/races/{race_id}/prediction?baseline=A` | Baseline ranking (`A`/`B`/`C`/`D`) |
+| GET | `/horses/search?name=` | Search horses by display name |
 | GET | `/horses/{horse_id}` | Freeze-backed horse analysis |
 
 ### Example
@@ -215,7 +216,7 @@ python -m src.telegram_bot.bot
 | `/help` | Short Persian help |
 | `/races` | Lists races via `GET /races` |
 | `/predict [id]` | Calls `GET /races/{id}/prediction` — shows **Score**, never invents probability |
-| `/horse [id]` | Calls `GET /horses/{id}` |
+| `/horse` | Ask for **horse name** → `GET /horses/search` → user picks a name button → bot calls `GET /horses/{id}` internally |
 | `/fiveparreh` | Future Five-Parreh **events** only → predict each designated race → combinations |
 
 ### Five-Parreh bot flow (future events)

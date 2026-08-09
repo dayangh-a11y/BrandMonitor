@@ -66,7 +66,7 @@ def help_text() -> str:
         "/help — همین راهنما\n"
         "/races — فهرست مسابقات موجود\n"
         "/predict [شناسه] — پیش‌بینی یک مسابقه (Score، نه احتمال)\n"
-        "/horse [شناسه] — تحلیل اسب از دیتاست\n"
+        "/horse — جستجوی اسب با نام (نه شناسه)\n"
         "/fiveparreh — رویدادهای پنج‌پرهٔ آینده (نه مسابقات گذشته)\n\n"
         "ربات فقط واسط کاربری است؛ محاسبات در API انجام می‌شود."
     )
@@ -112,16 +112,28 @@ def format_prediction(payload: dict[str, Any], *, top_n: int = 10) -> str:
     return "\n".join(lines).rstrip()
 
 
+def format_horse_search_results(payload: dict[str, Any]) -> str:
+    horses = payload.get("horses") or []
+    if not horses:
+        return "🐎 اسبی با این نام پیدا نشد."
+    lines = ["🐎 نتایج جستجوی اسب", ""]
+    for i, horse in enumerate(horses, start=1):
+        name = horse.get("horse_name") or "—"
+        breed = horse.get("breed")
+        lines.append(f"{i}️⃣ {name}")
+        if breed:
+            lines.append(f"   نژاد: {breed}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
 def format_horse(payload: dict[str, Any]) -> str:
-    hid = payload.get("horse_id")
-    name = payload.get("horse_name") or f"اسب {hid}"
-    lines = [f"🐎 تحلیل اسب: {name}", f"شناسه: {hid}", ""]
+    name = payload.get("horse_name") or "اسب"
+    lines = [f"🐎 تحلیل {name}", ""]
     if payload.get("observation_count") is not None:
         lines.append(f"تعداد مشاهده: {payload.get('observation_count')}")
-    if payload.get("latest_race_id") is not None:
-        lines.append(
-            f"آخرین مسابقه: {payload.get('latest_race_id')} ({payload.get('latest_race_date') or '—'})"
-        )
+    if payload.get("latest_race_date") is not None:
+        lines.append(f"آخرین مسابقه: {payload.get('latest_race_date') or '—'}")
     evidence = payload.get("evidence") or payload.get("latest_features") or []
     if evidence:
         lines.append("")

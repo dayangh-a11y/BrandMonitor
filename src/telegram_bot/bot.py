@@ -5,7 +5,7 @@ from __future__ import annotations
 import sys
 
 from loguru import logger
-from telegram.ext import Application, CallbackQueryHandler, CommandHandler
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, MessageHandler, filters
 
 from src.telegram_bot.api_client import PredictionApiClient
 from src.telegram_bot.config import TelegramBotSettings, get_telegram_settings
@@ -18,8 +18,9 @@ from src.telegram_bot.handlers import (
     cmd_races,
     cmd_start,
     on_callback,
+    on_text_message,
 )
-from src.telegram_bot.state import SessionStore
+from src.telegram_bot.state import HorseLookupStore, SessionStore
 
 
 def build_application(settings: TelegramBotSettings | None = None) -> Application:
@@ -31,6 +32,7 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
     )
     sessions = SessionStore(ttl_seconds=settings.telegram_session_ttl_seconds)
     events = JsonFiveParrehEventSource(settings.five_parreh_events_path)
+    horse_lookup = HorseLookupStore()
 
     async def _post_shutdown(application: Application) -> None:
         client.close()
@@ -45,6 +47,7 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
     app.bot_data["api_client"] = client
     app.bot_data["sessions"] = sessions
     app.bot_data["five_parreh_events"] = events
+    app.bot_data["horse_lookup"] = horse_lookup
 
     app.add_handler(CommandHandler("start", cmd_start))
     app.add_handler(CommandHandler("help", cmd_help))
@@ -53,6 +56,7 @@ def build_application(settings: TelegramBotSettings | None = None) -> Applicatio
     app.add_handler(CommandHandler("horse", cmd_horse))
     app.add_handler(CommandHandler("fiveparreh", cmd_fiveparreh))
     app.add_handler(CallbackQueryHandler(on_callback))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text_message))
     return app
 
 

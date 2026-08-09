@@ -14,6 +14,10 @@ from src.prediction_foundation.baseline_eval import (
     score_C_recent_form,
     score_D_contextual,
 )
+from src.prediction_engine.horse_directory import (
+    HorseNameDirectory,
+    build_default_horse_directory,
+)
 from src.prediction_engine.store import ObservationStore
 
 SCORERS = {
@@ -77,11 +81,18 @@ def _horse_name(row: dict[str, Any]) -> str | None:
 class FreezeBackedEngine:
     """Minimum façade: race lookup + baseline ``rank_race`` + horse analysis."""
 
-    def __init__(self, store: ObservationStore, *, default_baseline: str = "A") -> None:
+    def __init__(
+        self,
+        store: ObservationStore,
+        *,
+        default_baseline: str = "A",
+        horse_directory: HorseNameDirectory | None = None,
+    ) -> None:
         if default_baseline not in SCORERS:
             raise ValueError(f"Unknown baseline {default_baseline!r}")
         self.store = store
         self.default_baseline = default_baseline
+        self.horse_directory = horse_directory or HorseNameDirectory()
 
     @classmethod
     def from_paths(
@@ -91,13 +102,15 @@ class FreezeBackedEngine:
         *,
         verify_freeze: bool = True,
         default_baseline: str = "A",
+        horse_name_index_path: Path | None = None,
     ) -> FreezeBackedEngine:
         store = ObservationStore(
             Path(dataset_path or DEFAULT_DATASET),
             freeze_path=Path(freeze_path) if freeze_path else DEFAULT_FREEZE,
             verify_freeze=verify_freeze,
         )
-        return cls(store, default_baseline=default_baseline)
+        directory = build_default_horse_directory(index_path=horse_name_index_path)
+        return cls(store, default_baseline=default_baseline, horse_directory=directory)
 
     @property
     def dataset_version(self) -> str:
@@ -222,6 +235,30 @@ class FreezeBackedEngine:
             "prediction": prediction,
         }
 
+    def search_horses(self, name: str, *, limit: int = 20) -> dict[str, Any]:
+        """Search horses by display name. Does not change analysis/scoring logic."""
+        q = (name or "").strip()
+        if not q:
+            raise ValueError("name is required")
+        if limit < 1:
+            raise ValueError("limit must be >= 1")
+        self.store.load()
+        # Prefer horses that exist in the freeze dataset (analyzable via GET /horses/{id}).
+        hits = self.horse_directory.search(q, limit=max(limit * 5, limit))
+        results = []
+        for rec in hits:
+            if int(rec.horse_id) not in self.store.by_horse:
+                continue
+            results.append(rec.to_search_dict())
+            if len(results) >= limit:
+                break
+        return {
+            "query": q,
+            "count": len(results),
+            "horses": results,
+            "dataset_version": self.dataset_version,
+        }
+
     def get_horse_analysis(self, horse_id: int) -> dict[str, Any] | None:
         """Horse analysis from freeze observations only (no new scoring model)."""
         rows = self.store.get_horse_rows(horse_id)
@@ -229,6 +266,9 @@ class FreezeBackedEngine:
             return None
         rows_sorted = sorted(rows, key=lambda r: str(r.get("race_date") or ""))
         latest = rows_sorted[-1]
+        directory_rec = self.horse_directory.get(int(horse_id))
+        directory_name = directory_rec.horse_name if directory_rec else None
+
         appearances = []
         for r in rows_sorted:
             appearances.append(
@@ -249,7 +289,7 @@ class FreezeBackedEngine:
         warnings = _row_warnings(latest)
         return {
             "horse_id": int(horse_id),
-            "horse_name": _horse_name(latest),
+            "horse_name": _horse_name(latest) or directory_name,
             "dataset_version": self.dataset_version,
             "ml_status": self.ml_status,
             "observation_count": len(rows_sorted),
