@@ -179,6 +179,26 @@ curl -s http://127.0.0.1:8000/five-parreh/combinations \
   ],"price_per_combination":10000}'
 ```
 
+## Web Prediction Dashboard (internal lab)
+
+Architecture: **Dashboard UI → HTTP API → existing services**.  
+No scoring, ranking, or Five-Parreh logic in the browser.
+
+```bash
+cd frontend
+cp .env.example .env   # VITE_API_BASE_URL=http://127.0.0.1:8000
+npm install
+npm run dev            # http://127.0.0.1:3000
+npm run build
+npm test
+```
+
+Tabs: race prediction, horse vs horse, Five-Parreh (real future events only), horse analysis by name.
+
+GitHub Pages: workflow `.github/workflows/deploy-dashboard.yml` builds `frontend/` and deploys to Pages (`VITE_BASE_PATH=/BrandMonitor/`).
+
+See [`frontend/README.md`](frontend/README.md).
+
 ## Telegram Bot (thin UI client)
 
 Architecture: **Telegram UI → HTTP API → formatters → Telegram**.  

@@ -1,0 +1,56 @@
+name: Deploy Prediction Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-dashboard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build dashboard
+        working-directory: frontend
+        env:
+          VITE_API_BASE_URL: http://127.0.0.1:8000
+          VITE_BASE_PATH: /BrandMonitor/
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
