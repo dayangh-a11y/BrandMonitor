@@ -32,8 +32,8 @@ export function SystemStatusTab() {
 
   return (
     <section className="page-card">
-      <h2 className="page-title">API / وضعیت سیستم</h2>
-      <p className="page-subtitle">وضعیت اتصال سرویس‌ها و ابزارهای پیشرفته برای پشتیبانی فنی</p>
+      <h2 className="page-title">System</h2>
+      <p className="page-subtitle">وضعیت اتصال سرویس‌ها برای پشتیبانی فنی</p>
 
       <div style={{ margin: '0.75rem 0' }}>
         <ApiStatus compact={false} />
@@ -45,19 +45,25 @@ export function SystemStatusTab() {
         <div className="status-row">
           <span>API</span>
           <span className={`badge ${health?.status === 'ok' ? 'badge--ok' : 'badge--warn'}`}>
-            {health?.status === 'ok' ? '● متصل' : '● قطع / نامشخص'}
+            {health?.status === 'ok' ? '🟢 Connected' : '⚠️ Offline'}
           </span>
         </div>
         <div className="status-row">
-          <span>موتور پیش‌بینی</span>
+          <span>Health</span>
+          <span className={`badge ${health?.status === 'ok' ? 'badge--ok' : 'badge--warn'}`}>
+            {health?.status === 'ok' ? '200' : '—'}
+          </span>
+        </div>
+        <div className="status-row">
+          <span>Prediction Engine</span>
           <span className={`badge ${health?.dataset_loaded ? 'badge--ok' : 'badge--warn'}`}>
-            {health?.dataset_loaded ? '● آماده' : '● در حال آماده‌سازی'}
+            {health?.dataset_loaded ? '🟢 Ready' : '⚠️ Preparing'}
           </span>
         </div>
         <div className="status-row">
-          <span>داده</span>
+          <span>Database / Dataset</span>
           <span className={`badge ${health ? 'badge--ok' : 'badge--warn'}`}>
-            {health ? '● متصل' : '● نامشخص'}
+            {health ? '🟢 Connected' : '⚠️'}
           </span>
         </div>
       </div>

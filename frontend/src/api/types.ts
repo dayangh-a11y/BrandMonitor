@@ -57,7 +57,50 @@ export interface PredictionResponse {
   dataset_version?: string
   ml_status?: string | null
   baseline?: string | null
+  baseline_name?: string | null
+  data_completeness?: string | null
+  probability_note?: string | null
   prediction: PredictionItem[]
+}
+
+export interface RaceListItem {
+  race_id: number
+  race_date?: string | null
+  track?: string | null
+  distance?: number | null
+  breed?: string | null
+  field_size?: number | null
+  split?: string | null
+}
+
+export interface RaceListResponse {
+  dataset_version?: string
+  ml_status?: string | null
+  total: number
+  offset: number
+  limit: number
+  races: RaceListItem[]
+}
+
+export interface HorseRef {
+  horse_id?: number | null
+  horse_name?: string | null
+  warehouse_horse_id?: number | null
+  coverage_level?: string | null
+}
+
+export interface RaceDetailResponse {
+  race_id: number
+  dataset_version?: string
+  race_date?: string | null
+  track?: string | null
+  distance?: number | null
+  breed?: string | null
+  race_class?: string | null
+  field_size?: number
+  split?: string | null
+  data_completeness?: string | null
+  horses: HorseRef[]
 }
 
 export interface CompareHorseSide {

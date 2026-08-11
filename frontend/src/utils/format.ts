@@ -6,11 +6,11 @@ const WARNING_MESSAGES: Record<string, string> = {
 
 export function formatScore(value: unknown): string {
   if (value === null || value === undefined) {
-    return '—'
+    return 'در دسترس نیست'
   }
   const num = Number(value)
   if (Number.isNaN(num)) {
-    return '—'
+    return 'در دسترس نیست'
   }
   return num.toFixed(1)
 }
@@ -46,9 +46,9 @@ export function horseDisplayName(name: string | null | undefined, fallback?: str
 export function formatEvidence(items: { metric?: string; value?: unknown }[] | undefined): string[] {
   if (!items?.length) return []
   return items.map((item) => {
-    const metric = item.metric ?? '—'
+    const metric = item.metric ?? 'در دسترس نیست'
     const value =
-      item.value === null || item.value === undefined ? '—' : String(item.value)
+      item.value === null || item.value === undefined ? 'در دسترس نیست' : String(item.value)
     return `${metric}: ${value}`
   })
 }

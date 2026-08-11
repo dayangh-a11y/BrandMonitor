@@ -1,48 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { ApiStatus } from './components/ApiStatus'
-import { FiveParrehTab } from './tabs/FiveParrehTab'
-import { HomeDashboard } from './tabs/HomeDashboard'
-import { HorseAnalysisTab } from './tabs/HorseAnalysisTab'
-import { HorseVsHorseTab } from './tabs/HorseVsHorseTab'
-import { RacePredictionTab } from './tabs/RacePredictionTab'
+import { HorseSearchBox } from './components/HorseSearchBox'
+import { AnalyticsPage } from './pages/AnalyticsPage'
+import { DashboardPage } from './pages/DashboardPage'
+import { HorsesPage } from './pages/HorsesPage'
+import { PredictionsPage } from './pages/PredictionsPage'
+import { RacesPage } from './pages/RacesPage'
 import { SystemStatusTab } from './tabs/SystemStatusTab'
+import { NAV_ITEMS, type NavId } from './nav'
 import './styles.css'
-
-type TabId = 'home' | 'predict' | 'fiveparreh' | 'horsevs' | 'horse' | 'system'
-
-const TABS: { id: TabId; label: string }[] = [
-  { id: 'home', label: 'داشبورد' },
-  { id: 'predict', label: 'پیش‌بینی کورس' },
-  { id: 'fiveparreh', label: 'پنج‌پره' },
-  { id: 'horsevs', label: 'اسب مقابل اسب' },
-  { id: 'horse', label: 'تحلیل اسب' },
-  { id: 'system', label: 'API / وضعیت سیستم' },
-]
-
-function TabPanel({
-  active,
-  onNavigate,
-}: {
-  active: TabId
-  onNavigate: (tab: Exclude<TabId, 'home' | 'system'>) => void
-}) {
-  switch (active) {
-    case 'home':
-      return <HomeDashboard onNavigate={onNavigate} />
-    case 'predict':
-      return <RacePredictionTab />
-    case 'fiveparreh':
-      return <FiveParrehTab />
-    case 'horsevs':
-      return <HorseVsHorseTab />
-    case 'horse':
-      return <HorseAnalysisTab />
-    case 'system':
-      return <SystemStatusTab />
-    default:
-      return null
-  }
-}
 
 function persianDate(now = new Date()): string {
   try {
@@ -58,45 +24,91 @@ function persianDate(now = new Date()): string {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabId>('home')
+  const [activeTab, setActiveTab] = useState<NavId>('dashboard')
+  const [focusHorseId, setFocusHorseId] = useState<number | null>(null)
   const today = useMemo(() => persianDate(), [])
+
+  const openHorse = useCallback((horseId: number) => {
+    setFocusHorseId(horseId)
+    setActiveTab('horses')
+  }, [])
 
   return (
     <div className="app-shell" dir="rtl" lang="fa">
-      <header className="app-header">
-        <div className="brand-block">
-          <h1 className="brand-name">والدین اسب مسابقه باارزش</h1>
-          <p className="brand-tagline">تحلیل و پیش‌بینی مسابقات اسب</p>
+      <aside className="sidebar">
+        <div className="sidebar__brand">
+          <div className="logo-mark" aria-hidden>
+            HR
+          </div>
+          <div>
+            <div className="brand-name">Horse Racing AI</div>
+            <div className="brand-tagline">تحلیل حرفه‌ای مسابقات</div>
+          </div>
         </div>
-        <div className="header-meta">
-          <span className="header-date">{today}</span>
-          <ApiStatus />
-        </div>
-      </header>
 
-      <nav className="app-nav" aria-label="ناوبری اصلی">
-        {TABS.map((tab) => (
+        <nav className="sidebar__nav" aria-label="ناوبری اصلی">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={activeTab === item.id ? 'nav-btn active' : 'nav-btn'}
+              onClick={() => setActiveTab(item.id)}
+            >
+              <span className="nav-btn__en">{item.label}</span>
+              <span className="nav-btn__fa">{item.short}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="sidebar__foot">
+          <ApiStatus />
+          <div className="sidebar__date">{today}</div>
+        </div>
+      </aside>
+
+      <div className="app-body">
+        <header className="topbar">
+          <div className="topbar__title">
+            <strong>Horse Racing AI</strong>
+            <span className="muted">MVP Dashboard</span>
+          </div>
+          <div className="topbar__search">
+            <HorseSearchBox onSelect={(h) => openHorse(h.horse_id)} />
+          </div>
+          <div className="topbar__meta">
+            <span className="header-date">{today}</span>
+            <ApiStatus />
+          </div>
+        </header>
+
+        <main className="app-main">
+          {activeTab === 'dashboard' ? (
+            <DashboardPage onNavigate={setActiveTab} onOpenHorse={openHorse} />
+          ) : null}
+          {activeTab === 'races' ? <RacesPage onNavigate={setActiveTab} /> : null}
+          {activeTab === 'horses' ? <HorsesPage initialHorseId={focusHorseId} /> : null}
+          {activeTab === 'predictions' ? <PredictionsPage onOpenHorse={openHorse} /> : null}
+          {activeTab === 'analytics' ? <AnalyticsPage /> : null}
+          {activeTab === 'system' ? <SystemStatusTab /> : null}
+        </main>
+
+        <footer className="app-footer">
+          <p>امتیاز مدل احتمال قطعی برد نیست و تضمین سود وجود ندارد.</p>
+        </footer>
+      </div>
+
+      <nav className="mobile-nav" aria-label="ناوبری موبایل">
+        {NAV_ITEMS.map((item) => (
           <button
-            key={tab.id}
+            key={item.id}
             type="button"
-            className={activeTab === tab.id ? 'nav-btn active' : 'nav-btn'}
-            onClick={() => setActiveTab(tab.id)}
+            className={activeTab === item.id ? 'mobile-nav__btn active' : 'mobile-nav__btn'}
+            onClick={() => setActiveTab(item.id)}
           >
-            {tab.label}
+            {item.short}
           </button>
         ))}
       </nav>
-
-      <main className="app-main">
-        <TabPanel
-          active={activeTab}
-          onNavigate={(tab) => setActiveTab(tab)}
-        />
-      </main>
-
-      <footer className="app-footer">
-        <p>امتیازها احتمال قطعی برد نیستند و تضمین سود وجود ندارد.</p>
-      </footer>
     </div>
   )
 }

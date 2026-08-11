@@ -46,7 +46,11 @@ export function ApiStatus({ compact = true, onChange }: ApiStatusProps) {
   }, [onChange])
 
   const label =
-    status === 'checking' ? 'در حال بررسی…' : status === 'online' ? 'API متصل' : 'API قطع'
+    status === 'checking'
+      ? 'Checking…'
+      : status === 'online'
+        ? '🟢 API Connected'
+        : '⚠️ API Offline'
 
   if (compact) {
     return (
