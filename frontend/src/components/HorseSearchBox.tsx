@@ -106,7 +106,7 @@ export function HorseSearchBox({
             >
               <strong>{horse.horse_name}</strong>
               <span className="muted">
-                {[horse.breed, horse.sex, horse.birth_year].filter(Boolean).join(' · ') || '—'}
+                {[horse.breed, horse.sex, horse.birth_year].filter(Boolean).join(' · ') || 'در دسترس نیست'}
               </span>
             </button>
           ))}

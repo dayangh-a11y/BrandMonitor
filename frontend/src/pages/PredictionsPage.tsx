@@ -12,7 +12,7 @@ import { RankingTable } from '../components/RankingTable'
 import { RaceSummaryCard } from '../components/RaceSummaryCard'
 import { EmptyState, SkeletonBlock, friendlyApiError } from '../components/Ui'
 import { MiniBars } from '../components/MiniBars'
-import { riskFromWarnings } from '../utils/metrics'
+import { riskFromWarnings, confidenceLabel } from '../utils/metrics'
 import { formatScore, horseDisplayName } from '../utils/format'
 
 interface Props {
@@ -242,9 +242,11 @@ export function PredictionsPage({ onOpenHorse }: Props) {
             <h3>نتیجه تحلیل</h3>
             <div className="meta-row">
               <span>
-                اطمینان:{' '}
-                {filteredPrediction.data_completeness ??
-                  (top.some((t) => (t.warnings ?? []).length) ? 'محدود' : 'کافی')}
+                اطمینان داده:{' '}
+                {confidenceLabel(
+                  top[0] ?? { rank: 0 },
+                  filteredPrediction.data_completeness,
+                )}
               </span>
               <span>
                 ریسک:{' '}
@@ -260,11 +262,15 @@ export function PredictionsPage({ onOpenHorse }: Props) {
                 <li key={item.rank} className={item.rank === 1 ? 'is-gold' : ''}>
                   <span className={`rank-badge rank-badge--${item.rank}`}>#{item.rank}</span>
                   <div>
-                    <strong>{horseDisplayName(item.horse_name)}</strong>
-                    <div className="muted">امتیاز {formatScore(item.score)}</div>
+                    <strong>
+                      {horseDisplayName(item.horse_name)}
+                      {item.rank === 1 ? ' · پیشنهاد اصلی' : ''}
+                    </strong>
+                    <div className="muted">امتیاز نسبی: {formatScore(item.score)}</div>
                     {(item.evidence ?? []).slice(0, 2).map((ev) => (
                       <div key={ev.metric} className="evidence-line">
-                        {ev.metric}: {String(ev.value ?? '—')}
+                        {ev.metric}:{' '}
+                        {ev.value == null || ev.value === '' ? 'در دسترس نیست' : String(ev.value)}
                       </div>
                     ))}
                   </div>

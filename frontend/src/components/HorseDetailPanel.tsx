@@ -63,9 +63,13 @@ export function HorseDetailPanel({
         <div>
           <h3>{name}</h3>
           <p className="muted">
-            {[breed !== '—' ? breed : null, age !== '—' ? `سن ${age}` : null, searchMeta?.sex]
+            {[
+              breed !== 'در دسترس نیست' ? breed : null,
+              age !== 'در دسترس نیست' ? `سن ${age}` : null,
+              searchMeta?.sex,
+            ]
               .filter(Boolean)
-              .join(' · ') || '—'}
+              .join(' · ') || 'در دسترس نیست'}
           </p>
         </div>
         {predictionItem?.rank != null ? (
@@ -83,7 +87,7 @@ export function HorseDetailPanel({
         <div><span className="meta-k">امتیاز پیش‌بینی</span><strong>{formatScore(predictionItem?.score)}</strong></div>
         <div>
           <span className="meta-k">مشاهدات</span>
-          <strong>{analysis?.observation_count ?? '—'}</strong>
+          <strong>{analysis?.observation_count ?? 'در دسترس نیست'}</strong>
         </div>
       </div>
 

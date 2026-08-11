@@ -1,3 +1,5 @@
+const NA = 'در دسترس نیست'
+
 interface RaceSummaryCardProps {
   raceDay?: string | null
   track?: string | null
@@ -11,14 +13,14 @@ interface RaceSummaryCardProps {
 
 export function RaceSummaryCard(props: RaceSummaryCardProps) {
   const rows: [string, string][] = [
-    ['روز مسابقه', props.raceDay || '—'],
-    ['پیست / شهر', props.track || '—'],
-    ['کورس (Heat)', props.heat || '—'],
-    ['مسافت', props.distance != null && props.distance !== '' ? String(props.distance) : '—'],
-    ['تعداد اسب', props.horseCount != null ? String(props.horseCount) : '—'],
-    ['کلاس', props.raceClass || '—'],
-    ['نژاد', props.breed || '—'],
-    ['سطح', props.surface || '—'],
+    ['روز مسابقه', props.raceDay || NA],
+    ['پیست / شهر', props.track || NA],
+    ['کورس (Heat)', props.heat || NA],
+    ['مسافت', props.distance != null && props.distance !== '' ? String(props.distance) : NA],
+    ['تعداد اسب', props.horseCount != null ? String(props.horseCount) : NA],
+    ['کلاس', props.raceClass || NA],
+    ['نژاد', props.breed || NA],
+    ['سطح', props.surface || NA],
   ]
 
   return (
@@ -28,7 +30,7 @@ export function RaceSummaryCard(props: RaceSummaryCardProps) {
         {rows.map(([k, v]) => (
           <div key={k} className="summary-dl__row">
             <dt>{k}</dt>
-            <dd>{v}</dd>
+            <dd className={v === NA ? 'is-na' : undefined}>{v}</dd>
           </div>
         ))}
       </dl>

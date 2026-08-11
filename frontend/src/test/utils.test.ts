@@ -5,7 +5,7 @@ import { formatScore, friendlyWarnings } from '../utils/format'
 describe('format helpers', () => {
   it('formats numeric scores without probability semantics', () => {
     expect(formatScore(12.34)).toBe('12.3')
-    expect(formatScore(null)).toBe('—')
+    expect(formatScore(null)).toBe('در دسترس نیست')
   })
 
   it('maps internal warning codes to friendly Persian only', () => {

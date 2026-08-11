@@ -30,19 +30,20 @@ export function pickEvidence(
   for (const alias of METRIC_ALIASES[key]) {
     if (map.has(alias)) {
       const v = map.get(alias)
-      if (v === null || v === undefined || v === '') return '—'
+      if (v === null || v === undefined || v === '') return 'در دسترس نیست'
       return String(v)
     }
     const lower = alias.toLowerCase()
     if (map.has(lower)) {
       const v = map.get(lower)
-      if (v === null || v === undefined || v === '') return '—'
+      if (v === null || v === undefined || v === '') return 'در دسترس نیست'
       return String(v)
     }
   }
-  return '—'
+  return 'در دسترس نیست'
 }
 
+/** @deprecated Do not display as win probability. Kept for internal ranking only. */
 export function relativeScoreShare(
   item: PredictionItem,
   field: PredictionItem[],
@@ -63,13 +64,26 @@ export function riskFromWarnings(warnings: string[] | undefined | null): 'low' |
   return 'high'
 }
 
+const COMPLETENESS_FA: Record<string, string> = {
+  substantial_missing: 'داده ناقص',
+  partial: 'ناقص',
+  limited: 'محدود',
+  complete: 'کافی',
+  full: 'کافی',
+  high: 'کافی',
+  good: 'کافی',
+}
+
 export function confidenceLabel(
   item: PredictionItem,
   completeness?: string | null,
 ): string {
   if ((item.warnings ?? []).length) return 'محدود'
-  if (completeness) return String(completeness)
-  if (item.score == null) return 'نامشخص'
+  if (completeness) {
+    const key = String(completeness).trim().toLowerCase()
+    return COMPLETENESS_FA[key] ?? 'در دسترس نیست'
+  }
+  if (item.score == null) return 'در دسترس نیست'
   return 'کافی'
 }
 

@@ -1,10 +1,5 @@
 import type { PredictionItem, PredictionResponse } from '../api/types'
-import {
-  confidenceLabel,
-  pickEvidence,
-  relativeScoreShare,
-  riskFromWarnings,
-} from '../utils/metrics'
+import { confidenceLabel, pickEvidence, riskFromWarnings } from '../utils/metrics'
 import { formatScore, friendlyWarnings, horseDisplayName } from '../utils/format'
 
 interface RankingTableProps {
@@ -38,17 +33,17 @@ export function RankingTable({ prediction, selectedHorseId, onSelectHorse }: Ran
             <th>فرم اخیر</th>
             <th>سرعت</th>
             <th>کلاس</th>
-            <th>احتمال نسبی*</th>
-            <th>اطمینان</th>
+            <th>امتیاز نسبی</th>
+            <th>اطمینان داده</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((item) => {
             const rankClass =
               item.rank === 1 ? 'is-gold' : item.rank === 2 ? 'is-silver' : item.rank === 3 ? 'is-bronze' : ''
-            const share = relativeScoreShare(item, rows)
             const risk = riskFromWarnings(item.warnings)
             const selected = item.horse_id != null && item.horse_id === selectedHorseId
+            const scoreText = formatScore(item.score)
             return (
               <tr
                 key={`${item.rank}-${item.horse_id ?? item.horse_name}`}
@@ -59,10 +54,12 @@ export function RankingTable({ prediction, selectedHorseId, onSelectHorse }: Ran
                   <span className={`rank-badge rank-badge--${item.rank <= 3 ? item.rank : 'n'}`}>
                     #{item.rank}
                   </span>
+                  {item.rank === 1 ? <div className="rank-first-label">رتبه اول</div> : null}
                 </td>
                 <td>
                   <div className="horse-cell">
                     <strong>{horseDisplayName(item.horse_name)}</strong>
+                    {item.rank === 1 ? <span className="top-pick-chip">پیشنهاد اصلی</span> : null}
                     {friendlyWarnings(item.warnings)[0] ? (
                       <span className={`risk-dot risk-dot--${risk}`} title={friendlyWarnings(item.warnings)[0]} />
                     ) : null}
@@ -76,8 +73,7 @@ export function RankingTable({ prediction, selectedHorseId, onSelectHorse }: Ran
                 <td>{pickEvidence(item.evidence, 'speed')}</td>
                 <td>{pickEvidence(item.evidence, 'class')}</td>
                 <td>
-                  {share != null ? `${share.toFixed(0)}%` : '—'}
-                  <div className="cell-sub">امتیاز {formatScore(item.score)}</div>
+                  <strong className={item.rank === 1 ? 'score-lead' : undefined}>{scoreText}</strong>
                 </td>
                 <td>{confidenceLabel(item, prediction.data_completeness)}</td>
               </tr>
@@ -86,7 +82,7 @@ export function RankingTable({ prediction, selectedHorseId, onSelectHorse }: Ran
         </tbody>
       </table>
       <p className="table-footnote">
-        * احتمال نسبی فقط بر اساس سهم امتیاز مدل در این کورس است؛ API احتمال قطعی برنمی‌گرداند.
+        امتیاز نسبی، رتبه‌بندی مدل است — احتمال برد نیست. فیلد احتمال از API موجود نیست.
       </p>
     </div>
   )

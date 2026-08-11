@@ -136,7 +136,7 @@ describe('App dashboard', () => {
 
     await waitFor(() => {
       expect(screen.getAllByText('Test Horse').length).toBeGreaterThan(0)
-      expect(screen.getAllByText(/امتیاز 12.3/i).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/امتیاز نسبی: 12.3/i).length).toBeGreaterThan(0)
     })
   })
 
