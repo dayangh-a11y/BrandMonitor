@@ -67,6 +67,10 @@ class WhRace(Base):
     weather: Mapped[str | None] = mapped_column(String(128), nullable=True)
     prize_json: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Hierarchy links (rebuilt; never treat this row as a Race Day)
+    week_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
+    race_day_id: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
+    heat_key: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
     extracted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     raw_race_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(
