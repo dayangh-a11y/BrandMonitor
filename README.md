@@ -179,6 +179,30 @@ curl -s http://127.0.0.1:8000/five-parreh/combinations \
   ],"price_per_combination":10000}'
 ```
 
+## Web Prediction Dashboard (product MVP)
+
+Architecture: **Dashboard UI → HTTP API → existing services**.  
+No scoring, ranking, or Five-Parreh logic in the browser.
+
+Brand: **والدین اسب مسابقه باارزش** — تحلیل و پیش‌بینی مسابقات اسب
+
+```bash
+cd frontend
+cp .env.example .env
+# Production: VITE_API_BASE_URL=https://your-api.example.com
+# Local:      VITE_API_BASE_URL=http://127.0.0.1:8000
+npm install
+npm run dev            # http://127.0.0.1:3000
+npm run build
+npm test
+```
+
+Hosting split: frontend on Vercel/Pages; FastAPI on Render/Railway. See [`frontend/README.md`](frontend/README.md).
+
+**First public Demo (fixture mode):** see [`.env.demo.example`](.env.demo.example).  
+Render start: `./scripts/render_start.sh` (`0.0.0.0` + `$PORT`).  
+Fixture data is explicitly DEMO/TEST — do not invent production race cards.
+
 ## Telegram Bot (thin UI client)
 
 Architecture: **Telegram UI → HTTP API → formatters → Telegram**.  

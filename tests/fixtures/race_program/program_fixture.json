@@ -1,8 +1,9 @@
 {
+  "_comment": "TEST FIXTURE ONLY — not a production race card. Race ids map to freeze observations_fixture races. Regenerate with: python3 tests/fixtures/race_program/build.py",
   "meetings": [
     {
       "meeting_id": "msh-future",
-      "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+      "display_date": "تست — جلسه آینده (fixture)",
       "track": "مشهد",
       "city": "مشهد",
       "races": [
@@ -10,42 +11,42 @@
           "race_id": "3393",
           "race_number": 1,
           "label": "کورس ۱",
-          "scheduled_start": "2030-08-21T14:00:00+03:30",
+          "scheduled_start": "2026-08-12T13:51:34.977077+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "3394",
+          "race_id": "3391",
           "race_number": 2,
           "label": "کورس ۲",
-          "scheduled_start": "2030-08-21T14:30:00+03:30",
+          "scheduled_start": "2026-08-12T14:21:34.977077+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "3395",
+          "race_id": "3392",
           "race_number": 3,
           "label": "کورس ۳",
-          "scheduled_start": "2030-08-21T15:00:00+03:30",
+          "scheduled_start": "2026-08-12T14:51:34.977077+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "9001",
+          "race_id": "636",
           "race_number": 4,
           "label": "کورس ۴",
-          "scheduled_start": "2030-08-21T15:30:00+03:30",
+          "scheduled_start": "2026-08-12T15:21:34.977077+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "9002",
+          "race_id": "639",
           "race_number": 5,
           "label": "کورس ۵",
-          "scheduled_start": "2030-08-21T16:00:00+03:30",
+          "scheduled_start": "2026-08-12T15:51:34.977077+00:00",
           "status": "scheduled"
         },
         {
           "race_id": "9003",
           "race_number": 6,
           "label": "کورس ۶",
-          "scheduled_start": "1999-01-01T12:00:00+03:30",
+          "scheduled_start": "2025-07-07T11:51:34.977077+00:00",
           "status": "completed"
         },
         {
@@ -58,7 +59,7 @@
     },
     {
       "meeting_id": "gnb-far",
-      "display_date": "شنبه ۱ شهریور ۱۴۰۵",
+      "display_date": "تست — خارج از پنجره ۷ روزه",
       "track": "گنبدکاووس",
       "city": "گنبدکاووس",
       "races": [
@@ -66,7 +67,7 @@
           "race_id": "9100",
           "race_number": 1,
           "label": "کورس ۱",
-          "scheduled_start": "2040-01-01T14:00:00+03:30",
+          "scheduled_start": "2026-09-20T11:51:34.977077+00:00",
           "status": "scheduled"
         }
       ]
@@ -76,11 +77,17 @@
     {
       "event_id": "fp-msh-future",
       "meeting_id": "msh-future",
-      "display_date": "جمعه ۳۰ مرداد ۱۴۰۵",
+      "display_date": "تست — پنج‌پره آینده (fixture)",
       "track": "مشهد",
       "city": "مشهد",
       "title": "پنج‌پره",
-      "race_ids": ["3393", "3394", "3395", "9001", "9002"]
+      "race_ids": [
+        "3393",
+        "3391",
+        "3392",
+        "636",
+        "639"
+      ]
     }
   ]
 }
