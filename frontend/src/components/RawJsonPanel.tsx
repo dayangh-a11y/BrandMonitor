@@ -5,7 +5,10 @@ interface RawJsonPanelProps {
   title?: string
 }
 
-export function RawJsonPanel({ data, title = 'مشاهده پاسخ خام API' }: RawJsonPanelProps) {
+export function RawJsonPanel({
+  data,
+  title = 'پاسخ خام API (پیشرفته)',
+}: RawJsonPanelProps) {
   const [open, setOpen] = useState(false)
 
   if (data === null || data === undefined) {

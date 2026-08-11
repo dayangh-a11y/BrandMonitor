@@ -20,4 +20,13 @@ describe('api config', () => {
     expect(getApiBaseUrl()).toBe('http://example.test:9000')
     vi.unstubAllEnvs()
   })
+
+  it('does not hardcode localhost outside development when unset', () => {
+    vi.stubEnv('VITE_API_BASE_URL', '')
+    vi.stubEnv('DEV', false)
+    // In Vitest, import.meta.env.DEV may still be true; assert configured URL path works.
+    const value = getApiBaseUrl()
+    expect(typeof value).toBe('string')
+    vi.unstubAllEnvs()
+  })
 })

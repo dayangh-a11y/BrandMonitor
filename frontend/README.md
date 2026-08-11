@@ -1,61 +1,94 @@
-# Horse Racing Prediction Lab (Dashboard)
+# والدین اسب مسابقه باارزش — داشبورد پیش‌بینی
 
-Internal Persian RTL dashboard for testing the existing Prediction API.
+Persian RTL web dashboard for horse-racing prediction analytics.
 
-## Setup
+Architecture:
+
+```
+Frontend (static)  →  FastAPI Prediction API  →  existing services / engine
+```
+
+The frontend never computes scores, rankings, or Five-Parreh combinations.
+
+## Local development
 
 ```bash
 cd frontend
 cp .env.example .env
+# set:
+# VITE_API_BASE_URL=http://127.0.0.1:8000
+# VITE_BASE_PATH=/
 npm install
-```
-
-For local development set in `.env`:
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:8000
-VITE_BASE_PATH=/
-```
-
-## Run
-
-```bash
 npm run dev
 ```
 
-Open http://127.0.0.1:3000 (Vite dev server uses port 3000 to match API CORS defaults).
-
-## Build
+API (fixture mode):
 
 ```bash
-npm run build
+python3 tests/fixtures/race_program/build.py
+
+PREDICTION_DATASET_PATH=tests/fixtures/prediction_api/observations_fixture.jsonl.gz \
+PREDICTION_VERIFY_FREEZE=false \
+HORSE_NAME_INDEX_PATH=tests/fixtures/prediction_api/horse_names.json \
+RACE_PROGRAM_PATH=tests/fixtures/race_program/program_fixture.json \
+uvicorn src.api.main:app --host 127.0.0.1 --port 8000
 ```
 
-GitHub Pages build uses `VITE_BASE_PATH=/BrandMonitor/` (see `.github/workflows/deploy-dashboard.yml`).
-
-## Test
+## Scripts
 
 ```bash
-npm test
+npm run dev      # Vite on http://127.0.0.1:3000
+npm run build    # production build → dist/
+npm run preview  # preview production build
+npm test         # Vitest
 ```
 
-## Architecture
+## Production configuration
 
+Required build-time env:
+
+| Variable | Purpose |
+|----------|---------|
+| `VITE_API_BASE_URL` | Absolute API origin, e.g. `https://api.example.com` (no trailing slash) |
+| `VITE_BASE_PATH` | Static asset base (`/` for Vercel; `/BrandMonitor/` for GitHub Pages) |
+
+`VITE_API_BASE_URL` must be set for production builds. Localhost is only used as a **dev** fallback.
+
+### Recommended hosting split
+
+- **Frontend:** Vercel (or Netlify / Cloudflare Pages / GitHub Pages)
+- **Backend:** Render / Railway / Fly.io (FastAPI + uvicorn)
+
+GitHub Pages hosts the frontend only — not FastAPI.
+
+### CORS
+
+Configure backend `API_CORS_ORIGINS` to include the frontend origin, e.g.:
+
+```env
+API_CORS_ORIGINS=https://your-frontend.vercel.app
 ```
-WEB DASHBOARD → EXISTING API → EXISTING SERVICES → PREDICTION ENGINE
-```
 
-The dashboard only collects input, calls the API, and displays responses. No prediction logic runs in the browser.
+### Vercel
 
-## API endpoints used
+1. Root directory: `frontend`
+2. Build command: `npm run build`
+3. Output: `dist`
+4. Env: `VITE_API_BASE_URL`, `VITE_BASE_PATH=/`
 
-- `GET /health`
-- `GET /race-program/upcoming`
-- `GET /race-program/meetings/{meeting_id}`
-- `GET /races/{race_id}/prediction`
-- `GET /races/{race_id}/compare`
-- `GET /race-program/five-parreh`
-- `GET /race-program/five-parreh/{event_id}`
-- `POST /five-parreh/combinations`
-- `GET /horses/search`
-- `GET /horses/{horse_id}`
+### GitHub Pages
+
+Workflow: `.github/workflows/deploy-dashboard.yml`
+
+Set `VITE_API_BASE_URL` to the public API URL before relying on Pages for anything beyond static hosting.
+
+## Product navigation
+
+1. داشبورد
+2. پیش‌بینی کورس
+3. پنج‌پره
+4. اسب مقابل اسب
+5. تحلیل اسب
+6. API / وضعیت سیستم
+
+Raw API payloads are available only under **وضعیت سیستم** (advanced).

@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { api } from '../api/client'
-import { ApiError } from '../api/types'
 import type { HorseAnalysisResponse, HorseSearchItem } from '../api/types'
-import { RawJsonPanel } from '../components/RawJsonPanel'
+import { EmptyState, friendlyApiError } from '../components/Ui'
 import { formatEvidence, friendlyWarnings, horseDisplayName } from '../utils/format'
 
 export function HorseAnalysisTab() {
   const [query, setQuery] = useState('')
   const [matches, setMatches] = useState<HorseSearchItem[]>([])
   const [analysis, setAnalysis] = useState<HorseAnalysisResponse | null>(null)
-  const [rawPayload, setRawPayload] = useState<unknown>(null)
+  const [selectedSearch, setSelectedSearch] = useState<HorseSearchItem | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searchMessage, setSearchMessage] = useState<string | null>(null)
@@ -23,18 +22,17 @@ export function HorseAnalysisTab() {
     setLoading(true)
     setError(null)
     setAnalysis(null)
+    setSelectedSearch(null)
     setMatches([])
     setSearchMessage(null)
     try {
       const result = await api.searchHorses(name)
       setMatches(result.horses ?? [])
-      setRawPayload(result)
       if (!result.horses?.length) {
         setSearchMessage('اسبی با این نام پیدا نشد.')
       }
     } catch (err) {
-      setRawPayload(err instanceof ApiError ? err.body : null)
-      setError(err instanceof ApiError ? err.message : 'جستجو ناموفق بود')
+      setError(friendlyApiError(err, 'جستجو ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -43,26 +41,25 @@ export function HorseAnalysisTab() {
   async function selectHorse(horse: HorseSearchItem) {
     setLoading(true)
     setError(null)
+    setSelectedSearch(horse)
     try {
       const result = await api.horseAnalysis(horse.horse_id)
       setAnalysis(result)
-      setRawPayload(result)
     } catch (err) {
-      setRawPayload(err instanceof ApiError ? err.body : null)
-      setError(err instanceof ApiError ? err.message : 'تحلیل اسب ناموفق بود')
+      setError(friendlyApiError(err, 'تحلیل اسب ناموفق بود.'))
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <section className="tab-panel">
-      <h2>🐎 تحلیل اسب</h2>
-      <p className="hint">نام اسب را وارد کنید — نیازی به شناسه داخلی نیست.</p>
+    <section className="page-card">
+      <h2 className="page-title">تحلیل اسب</h2>
+      <p className="page-subtitle">جستجو با نام فارسی یا لاتین — بدون نیاز به شناسه داخلی</p>
 
       <div className="search-row">
         <label className="full-width">
-          نام اسب
+          نام اسب را وارد کنید
           <input
             type="search"
             value={query}
@@ -73,13 +70,13 @@ export function HorseAnalysisTab() {
             }}
           />
         </label>
-        <button type="button" className="primary-btn" onClick={() => void search()} disabled={loading}>
+        <button type="button" className="btn btn-primary" onClick={() => void search()} disabled={loading}>
           {loading ? '…' : 'جستجو'}
         </button>
       </div>
 
       {error ? <p className="error-box">{error}</p> : null}
-      {searchMessage ? <p className="info-box">{searchMessage}</p> : null}
+      {searchMessage ? <EmptyState title="نتیجه‌ای نیست" body={searchMessage} /> : null}
 
       {matches.length ? (
         <ul className="match-list">
@@ -96,11 +93,15 @@ export function HorseAnalysisTab() {
       ) : null}
 
       {analysis ? (
-        <div className="result-card">
-          <h3>🐎 {horseDisplayName(analysis.horse_name)}</h3>
-          {analysis.observation_count != null ? (
-            <p>تعداد مشاهده: {analysis.observation_count}</p>
+        <div className="panel" style={{ marginTop: '1rem' }}>
+          <h3>{horseDisplayName(analysis.horse_name)}</h3>
+          {selectedSearch && selectedSearch.horse_name !== analysis.horse_name ? (
+            <p className="muted">نام نمایشی جستجو: {selectedSearch.horse_name}</p>
           ) : null}
+          {selectedSearch?.breed ? <p>نژاد: {selectedSearch.breed}</p> : null}
+          {selectedSearch?.sex ? <p>جنسیت: {selectedSearch.sex}</p> : null}
+          {selectedSearch?.birth_year ? <p>سال تولد: {selectedSearch.birth_year}</p> : null}
+          {analysis.observation_count != null ? <p>تعداد مشاهده: {analysis.observation_count}</p> : null}
           {analysis.latest_race_date ? <p>آخرین مسابقه: {analysis.latest_race_date}</p> : null}
           {analysis.note ? <p className="note-text">{analysis.note}</p> : null}
 
@@ -123,7 +124,7 @@ export function HorseAnalysisTab() {
 
           {formatEvidence(analysis.latest_features).length ? (
             <div>
-              <h4>ویژگی‌های آخرین مسابقه</h4>
+              <h4>شاخص‌های آخرین مشاهده</h4>
               {formatEvidence(analysis.latest_features).map((line) => (
                 <p key={line} className="evidence-line">
                   {line}
@@ -137,11 +138,11 @@ export function HorseAnalysisTab() {
               <h4>سوابق مسابقه</h4>
               <pre className="evidence-json">{JSON.stringify(analysis.appearances, null, 2)}</pre>
             </div>
-          ) : null}
+          ) : (
+            <EmptyState title="سابقهٔ اضافی نیست" body="فیلد سابقهٔ بیشتر از API برای این اسب برنگشته است." />
+          )}
         </div>
       ) : null}
-
-      <RawJsonPanel data={rawPayload} />
     </section>
   )
 }

@@ -4,9 +4,14 @@ import { ApiError } from '../api/types'
 
 type Status = 'checking' | 'online' | 'offline'
 
-export function ApiStatus() {
+interface ApiStatusProps {
+  compact?: boolean
+  onChange?: (online: boolean, detail?: string) => void
+}
+
+export function ApiStatus({ compact = true, onChange }: ApiStatusProps) {
   const [status, setStatus] = useState<Status>('checking')
-  const [detail, setDetail] = useState<string>('')
+  const [detail, setDetail] = useState('')
 
   useEffect(() => {
     let cancelled = false
@@ -17,19 +22,18 @@ export function ApiStatus() {
         if (cancelled) return
         if (health.status === 'ok') {
           setStatus('online')
-          setDetail(`نسخه ${health.version} · دیتاست ${health.dataset_version}`)
+          setDetail(`نسخه ${health.version}`)
+          onChange?.(true, health.dataset_version)
         } else {
           setStatus('offline')
           setDetail('پاسخ سلامت نامعتبر')
+          onChange?.(false)
         }
       } catch (err) {
         if (cancelled) return
         setStatus('offline')
-        if (err instanceof ApiError) {
-          setDetail(err.message)
-        } else {
-          setDetail('اتصال برقرار نشد')
-        }
+        setDetail(err instanceof ApiError ? err.message : 'اتصال برقرار نشد')
+        onChange?.(false)
       }
     }
 
@@ -39,19 +43,27 @@ export function ApiStatus() {
       cancelled = true
       window.clearInterval(timer)
     }
-  }, [])
+  }, [onChange])
 
   const label =
-    status === 'checking'
-      ? 'در حال بررسی…'
-      : status === 'online'
-        ? '🟢 API متصل است'
-        : '🔴 API در دسترس نیست'
+    status === 'checking' ? 'در حال بررسی…' : status === 'online' ? 'API متصل' : 'API قطع'
+
+  if (compact) {
+    return (
+      <div className={`api-pill api-pill--${status}`} role="status" aria-live="polite">
+        <span className="dot" aria-hidden />
+        <span>{label}</span>
+      </div>
+    )
+  }
 
   return (
-    <div className={`api-status api-status--${status}`} role="status" aria-live="polite">
-      <span className="api-status__label">{label}</span>
-      {detail ? <span className="api-status__detail">{detail}</span> : null}
+    <div className={`api-pill api-pill--${status}`} role="status">
+      <span className="dot" aria-hidden />
+      <span>
+        {label}
+        {detail ? ` · ${detail}` : ''}
+      </span>
     </div>
   )
 }

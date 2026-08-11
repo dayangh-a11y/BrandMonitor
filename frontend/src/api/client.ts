@@ -13,15 +13,20 @@ import type {
 } from './types'
 import { ApiError } from './types'
 
-const DEFAULT_BASE = 'http://127.0.0.1:8000'
-
 export function getApiBaseUrl(): string {
   const raw = import.meta.env.VITE_API_BASE_URL?.trim()
-  return (raw || DEFAULT_BASE).replace(/\/$/, '')
+  if (raw) return raw.replace(/\/$/, '')
+  // Local development convenience only — production builds must set VITE_API_BASE_URL.
+  if (import.meta.env.DEV) return 'http://127.0.0.1:8000'
+  return ''
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const url = `${getApiBaseUrl()}${path}`
+  const base = getApiBaseUrl()
+  if (!base) {
+    throw new ApiError('آدرس API پیکربندی نشده است (VITE_API_BASE_URL).', 0, null)
+  }
+  const url = `${base}${path}`
   let response: Response
   try {
     response = await fetch(url, init)

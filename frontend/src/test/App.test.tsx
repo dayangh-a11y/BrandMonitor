@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../App'
@@ -6,11 +6,7 @@ import App from '../App'
 function mockFetch(handler: (url: string) => Response | Promise<Response>) {
   return vi.spyOn(globalThis, 'fetch').mockImplementation((input: RequestInfo | URL) => {
     const url =
-      typeof input === 'string'
-        ? input
-        : input instanceof URL
-          ? input.href
-          : input.url
+      typeof input === 'string' ? input : input instanceof URL ? input.href : input.url
     return Promise.resolve(handler(url))
   })
 }
@@ -25,13 +21,13 @@ describe('App dashboard', () => {
     vi.restoreAllMocks()
   })
 
-  it('loads dashboard with Persian header and tabs', async () => {
+  it('loads product shell with Persian brand and navigation', async () => {
     mockFetch((url) => {
       if (url.includes('/health')) {
-        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test' }))
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
       }
       if (url.includes('/race-program/upcoming')) {
-        return new Response(JSON.stringify({ meetings: [], message: 'empty' }))
+        return new Response(JSON.stringify({ meetings: [], message: 'empty', count: 0 }))
       }
       if (url.includes('/race-program/five-parreh')) {
         return new Response(JSON.stringify({ events: [], message: 'none' }))
@@ -41,15 +37,18 @@ describe('App dashboard', () => {
 
     render(<App />)
 
-    expect(screen.getByText(/Horse Racing Prediction Lab/i)).toBeInTheDocument()
-    expect(screen.getByText(/محیط تست موتور پیش‌بینی/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /پیش‌بینی کورس/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /اسب مقابل اسب/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /پنج‌پره/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /تحلیل اسب/i })).toBeInTheDocument()
+    const nav = screen.getByRole('navigation', { name: /ناوبری اصلی/i })
+    expect(screen.getByText(/والدین اسب مسابقه باارزش/i)).toBeInTheDocument()
+    expect(screen.getByText('تحلیل و پیش‌بینی مسابقات اسب')).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /^داشبورد$/i })).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /^پیش‌بینی کورس$/i })).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /^پنج‌پره$/i })).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /^اسب مقابل اسب$/i })).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /^تحلیل اسب$/i })).toBeInTheDocument()
+    expect(within(nav).getByRole('button', { name: /وضعیت سیستم/i })).toBeInTheDocument()
 
     await waitFor(() => {
-      expect(screen.getByText(/API متصل است/i)).toBeInTheDocument()
+      expect(screen.getByText(/API متصل/i)).toBeInTheDocument()
     })
   })
 
@@ -61,7 +60,7 @@ describe('App dashboard', () => {
     render(<App />)
 
     await waitFor(() => {
-      expect(screen.getByRole('status')).toHaveTextContent(/🔴 API در دسترس نیست/i)
+      expect(screen.getByRole('status')).toHaveTextContent(/API قطع/i)
     })
   })
 
@@ -69,11 +68,12 @@ describe('App dashboard', () => {
     const user = userEvent.setup()
     mockFetch((url) => {
       if (url.includes('/health')) {
-        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test' }))
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
       }
       if (url.includes('/race-program/upcoming')) {
         return new Response(
           JSON.stringify({
+            count: 1,
             meetings: [
               {
                 meeting_id: 'm1',
@@ -111,39 +111,29 @@ describe('App dashboard', () => {
     })
 
     render(<App />)
+    await user.click(within(screen.getByRole('navigation', { name: /ناوبری اصلی/i })).getByRole('button', { name: /^پیش‌بینی کورس$/i }))
+    await waitFor(() => expect(screen.getByText(/API متصل/i)).toBeInTheDocument())
 
-    await waitFor(() => expect(screen.getByText(/API متصل است/i)).toBeInTheDocument())
-
-    await user.selectOptions(screen.getByLabelText(/تاریخ/i), 'm1')
-    await user.selectOptions(screen.getByLabelText(/کورس/i), '3393')
-    await user.click(screen.getByRole('button', { name: /تحلیل کورس/i }))
+    await user.selectOptions(screen.getByLabelText(/جلسه/i), 'm1')
+    await user.selectOptions(screen.getByLabelText(/^کورس$/i), '3393')
+    await user.click(screen.getByRole('button', { name: /شروع پیش‌بینی/i }))
 
     await waitFor(() => {
       expect(screen.getByText('Test Horse')).toBeInTheDocument()
       expect(screen.getByText(/امتیاز: 12.3/i)).toBeInTheDocument()
     })
-
-    await user.click(screen.getByText(/مشاهده پاسخ خام API/i))
-    expect(screen.getByText(/"horse_name": "Test Horse"/)).toBeInTheDocument()
   })
 
   it('validates horse vs horse same-horse selection', async () => {
     const user = userEvent.setup()
     mockFetch((url) => {
       if (url.includes('/health')) {
-        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test' }))
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
       }
       if (url.includes('/race-program/upcoming')) {
         return new Response(
           JSON.stringify({
-            meetings: [
-              {
-                meeting_id: 'm1',
-                display_date: 'جمعه',
-                track: 'مشهد',
-                location: 'مشهد',
-              },
-            ],
+            meetings: [{ meeting_id: 'm1', display_date: 'جمعه', track: 'مشهد', location: 'مشهد' }],
           }),
         )
       }
@@ -173,10 +163,10 @@ describe('App dashboard', () => {
     })
 
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /اسب مقابل اسب/i }))
+    await user.click(within(screen.getByRole('navigation', { name: /ناوبری اصلی/i })).getByRole('button', { name: /^اسب مقابل اسب$/i }))
 
     await user.selectOptions(screen.getByLabelText(/جلسه/i), 'm1')
-    await user.selectOptions(screen.getByLabelText(/^🏇 کورس/i), '3393')
+    await user.selectOptions(screen.getByLabelText(/^کورس$/i), '3393')
     await user.selectOptions(screen.getByLabelText(/اسب A/i), '10')
     await user.selectOptions(screen.getByLabelText(/اسب B/i), '10')
     await user.click(screen.getByRole('button', { name: /^مقایسه$/i }))
@@ -188,30 +178,30 @@ describe('App dashboard', () => {
     const user = userEvent.setup()
     mockFetch((url) => {
       if (url.includes('/health')) {
-        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test' }))
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
       }
       if (url.includes('/race-program/upcoming')) {
         return new Response(JSON.stringify({ meetings: [] }))
       }
       if (url.includes('/race-program/five-parreh')) {
-        return new Response(JSON.stringify({ events: [], message: 'هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست.' }))
+        return new Response(
+          JSON.stringify({ events: [], message: 'هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست.' }),
+        )
       }
       return new Response('{}')
     })
 
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /پنج‌پره/i }))
+    await user.click(within(screen.getByRole('navigation', { name: /ناوبری اصلی/i })).getByRole('button', { name: /^پنج‌پره$/i }))
 
-    expect(
-      await screen.findByText(/هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست/i),
-    ).toBeInTheDocument()
+    expect(await screen.findByText(/هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست/i)).toBeInTheDocument()
   })
 
   it('supports horse search and analysis', async () => {
     const user = userEvent.setup()
     mockFetch((url) => {
       if (url.includes('/health')) {
-        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test' }))
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
       }
       if (url.includes('/race-program/upcoming')) {
         return new Response(JSON.stringify({ meetings: [] }))
@@ -242,7 +232,7 @@ describe('App dashboard', () => {
     })
 
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /تحلیل اسب/i }))
+    await user.click(within(screen.getByRole('navigation', { name: /ناوبری اصلی/i })).getByRole('button', { name: /^تحلیل اسب$/i }))
 
     await user.type(screen.getByLabelText(/نام اسب/i), 'دنزی')
     await user.click(screen.getByRole('button', { name: /^جستجو$/i }))
@@ -250,5 +240,24 @@ describe('App dashboard', () => {
     await user.click(await screen.findByRole('button', { name: /شیرین صحرا/i }))
 
     expect(await screen.findByText(/تعداد مشاهده: 3/i)).toBeInTheDocument()
+  })
+
+  it('keeps raw API response under system status only', async () => {
+    const user = userEvent.setup()
+    mockFetch((url) => {
+      if (url.includes('/health')) {
+        return new Response(JSON.stringify({ status: 'ok', version: '1', dataset_version: 'test', dataset_loaded: true }))
+      }
+      if (url.includes('/race-program/upcoming')) {
+        return new Response(JSON.stringify({ meetings: [], count: 0 }))
+      }
+      return new Response('{}')
+    })
+
+    render(<App />)
+    expect(screen.queryByText(/پاسخ خام API/i)).not.toBeInTheDocument()
+
+    await user.click(within(screen.getByRole('navigation', { name: /ناوبری اصلی/i })).getByRole('button', { name: /وضعیت سیستم/i }))
+    expect(await screen.findByText(/پاسخ خام API \(پیشرفته\)/i)).toBeInTheDocument()
   })
 })

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api/client'
-import { ApiError } from '../api/types'
 import type { MeetingDetailResponse, MeetingSummary, PredictionResponse } from '../api/types'
-import { RawJsonPanel } from '../components/RawJsonPanel'
+import { EmptyState, SkeletonBlock, friendlyApiError } from '../components/Ui'
 import {
   formatScore,
   friendlyWarnings,
   horseDisplayName,
-  medalForRank,
 } from '../utils/format'
 
 export function RacePredictionTab() {
@@ -17,13 +15,14 @@ export function RacePredictionTab() {
   const [meetingDetail, setMeetingDetail] = useState<MeetingDetailResponse | null>(null)
   const [raceId, setRaceId] = useState('')
   const [prediction, setPrediction] = useState<PredictionResponse | null>(null)
-  const [rawPayload, setRawPayload] = useState<unknown>(null)
+  const [loadingList, setLoadingList] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     async function load() {
+      setLoadingList(true)
       try {
         const payload = await api.upcomingMeetings()
         if (cancelled) return
@@ -32,7 +31,9 @@ export function RacePredictionTab() {
       } catch (err) {
         if (cancelled) return
         setMeetings([])
-        setListMessage(err instanceof ApiError ? err.message : 'بارگذاری جلسات ناموفق بود')
+        setListMessage(friendlyApiError(err, 'بارگذاری جلسات ناموفق بود.'))
+      } finally {
+        if (!cancelled) setLoadingList(false)
       }
     }
     void load()
@@ -48,7 +49,6 @@ export function RacePredictionTab() {
     setRaceId('')
     setMeetingDetail(null)
     setPrediction(null)
-    setRawPayload(null)
     setError(null)
     if (!nextId) return
 
@@ -58,7 +58,7 @@ export function RacePredictionTab() {
       setMeetingDetail(detail)
     } catch (err) {
       setMeetingDetail(null)
-      setError(err instanceof ApiError ? err.message : 'بارگذاری جلسه ناموفق بود')
+      setError(friendlyApiError(err, 'بارگذاری جلسه ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -75,10 +75,8 @@ export function RacePredictionTab() {
     try {
       const result = await api.racePrediction(raceId)
       setPrediction(result)
-      setRawPayload(result)
     } catch (err) {
-      setRawPayload(err instanceof ApiError ? err.body : null)
-      setError(err instanceof ApiError ? err.message : 'تحلیل کورس ناموفق بود')
+      setError(friendlyApiError(err, 'تحلیل کورس ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -88,21 +86,26 @@ export function RacePredictionTab() {
   const selectedRace = races.find((r) => r.race_id === raceId)
 
   return (
-    <section className="tab-panel">
-      <h2>🎯 پیش‌بینی کورس</h2>
-      <p className="hint">مسابقهٔ آینده را انتخاب کنید و تحلیل کورس را بگیرید.</p>
+    <section className="page-card">
+      <h2 className="page-title">پیش‌بینی کورس</h2>
+      <p className="page-subtitle">جلسه و کورس آینده را انتخاب کنید — بدون نیاز به شناسه داخلی</p>
 
-      {listMessage && !meetings.length ? (
-        <p className="info-box">{listMessage}</p>
+      {loadingList ? <SkeletonBlock rows={2} /> : null}
+
+      {!loadingList && !meetings.length ? (
+        <EmptyState
+          title="مسابقه‌ای در دسترس نیست"
+          body={listMessage ?? 'در حال حاضر مسابقه‌ای برای این بازه ثبت نشده است.'}
+        />
       ) : null}
 
       <div className="form-grid">
         <label>
-          📅 تاریخ / جلسه
+          جلسه / تاریخ
           <select
             value={meetingId}
             onChange={(e) => void onMeetingChange(e.target.value)}
-            disabled={loading}
+            disabled={loading || loadingList}
           >
             <option value="">— انتخاب —</option>
             {meetings.map((m) => (
@@ -114,7 +117,7 @@ export function RacePredictionTab() {
         </label>
 
         <label>
-          📍 محل
+          محل
           <input
             type="text"
             readOnly
@@ -130,7 +133,7 @@ export function RacePredictionTab() {
         </label>
 
         <label>
-          🏇 کورس
+          کورس
           <select
             value={raceId}
             onChange={(e) => setRaceId(e.target.value)}
@@ -146,42 +149,60 @@ export function RacePredictionTab() {
         </label>
       </div>
 
-      <button type="button" className="primary-btn" onClick={() => void analyzeRace()} disabled={loading || !raceId}>
-        {loading ? 'در حال تحلیل…' : 'تحلیل کورس'}
+      <button
+        type="button"
+        className="btn btn-gold"
+        onClick={() => void analyzeRace()}
+        disabled={loading || !raceId}
+      >
+        {loading ? 'در حال تحلیل…' : 'شروع پیش‌بینی'}
       </button>
 
       {error ? <p className="error-box">{error}</p> : null}
 
       {prediction ? (
-        <div className="result-card">
-          <h3>🏇 پیش‌بینی کورس</h3>
-          <p>📅 {meetingDetail?.display_date ?? selectedMeeting?.display_date ?? '—'}</p>
-          <p>
-            📍{' '}
-            {meetingDetail?.location ??
-              meetingDetail?.track ??
-              selectedMeeting?.location ??
-              selectedMeeting?.track ??
-              '—'}
-          </p>
-          <p>🏁 {selectedRace?.label ?? (selectedRace?.race_number ? `کورس ${selectedRace.race_number}` : '—')}</p>
+        <div className="panel" style={{ marginTop: '1rem' }}>
+          <h3>نتیجه پیش‌بینی</h3>
+          <div className="meta-row">
+            <span>📅 {meetingDetail?.display_date ?? selectedMeeting?.display_date ?? '—'}</span>
+            <span>
+              📍{' '}
+              {meetingDetail?.location ??
+                meetingDetail?.track ??
+                selectedMeeting?.location ??
+                selectedMeeting?.track ??
+                '—'}
+            </span>
+            <span>
+              🏁 {selectedRace?.label ?? (selectedRace?.race_number ? `کورس ${selectedRace.race_number}` : '—')}
+            </span>
+          </div>
 
           <ol className="rank-list">
             {(prediction.prediction ?? []).map((item) => {
               const scoreText = formatScore(item.score)
               const warnings = friendlyWarnings(item.warnings)
               const showWarning = scoreText === '—' || warnings.length > 0
+              const rankClass =
+                item.rank === 1 ? 'top1' : item.rank === 2 ? 'top2' : item.rank === 3 ? 'top3' : ''
               return (
                 <li key={`${item.rank}-${item.horse_id ?? item.horse_name}`} className="rank-item">
-                  <span className="rank-medal">{medalForRank(item.rank)}</span>
+                  <span className={`rank-num ${rankClass}`}>{item.rank}</span>
                   <div className="rank-body">
                     <strong>{horseDisplayName(item.horse_name)}</strong>
-                    <span>امتیاز: {scoreText}</span>
                     {showWarning ? (
                       <span className="warning-text">
                         {warnings[0] ?? '⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.'}
                       </span>
                     ) : null}
+                    {(item.evidence ?? []).slice(0, 3).map((ev) => (
+                      <span key={`${ev.metric}`} className="evidence-line">
+                        {ev.metric}: {ev.value == null ? '—' : String(ev.value)}
+                      </span>
+                    ))}
+                  </div>
+                  <div>
+                    <span className="badge">امتیاز: {scoreText}</span>
                   </div>
                 </li>
               )
@@ -189,8 +210,6 @@ export function RacePredictionTab() {
           </ol>
         </div>
       ) : null}
-
-      <RawJsonPanel data={rawPayload} />
     </section>
   )
 }

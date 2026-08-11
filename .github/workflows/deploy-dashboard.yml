@@ -36,7 +36,8 @@ jobs:
       - name: Build dashboard
         working-directory: frontend
         env:
-          VITE_API_BASE_URL: http://127.0.0.1:8000
+          # Configure repository Variable/Secret `VITE_API_BASE_URL` to your public API.
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
           VITE_BASE_PATH: /BrandMonitor/
         run: npm run build
 

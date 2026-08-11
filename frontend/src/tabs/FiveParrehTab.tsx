@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { api } from '../api/client'
-import { ApiError } from '../api/types'
 import type {
   FiveParrehCombinationsResponse,
   FiveParrehEventSummary,
   PredictionItem,
 } from '../api/types'
-import { RawJsonPanel } from '../components/RawJsonPanel'
-import { horseDisplayName } from '../utils/format'
+import { EmptyState, SkeletonBlock, friendlyApiError } from '../components/Ui'
+import { formatScore, horseDisplayName } from '../utils/format'
 
 type SelectionMap = Record<string, Set<string>>
 
@@ -24,13 +23,14 @@ export function FiveParrehTab() {
   const [predictionsByRace, setPredictionsByRace] = useState<Record<string, PredictionItem[]>>({})
   const [selections, setSelections] = useState<SelectionMap>({})
   const [result, setResult] = useState<FiveParrehCombinationsResponse | null>(null)
-  const [rawPayload, setRawPayload] = useState<unknown>(null)
+  const [loadingList, setLoadingList] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     async function load() {
+      setLoadingList(true)
       try {
         const payload = await api.listFiveParrehEvents()
         if (cancelled) return
@@ -39,7 +39,9 @@ export function FiveParrehTab() {
       } catch (err) {
         if (cancelled) return
         setEvents([])
-        setListMessage(err instanceof ApiError ? err.message : 'بارگذاری رویدادها ناموفق بود')
+        setListMessage(friendlyApiError(err, 'بارگذاری رویدادها ناموفق بود.'))
+      } finally {
+        if (!cancelled) setLoadingList(false)
       }
     }
     void load()
@@ -54,7 +56,6 @@ export function FiveParrehTab() {
     setPredictionsByRace({})
     setSelections({})
     setResult(null)
-    setRawPayload(null)
     setError(null)
     if (!nextId) return
 
@@ -66,14 +67,18 @@ export function FiveParrehTab() {
       const preds: Record<string, PredictionItem[]> = {}
       const initialSelections: SelectionMap = {}
       for (const race of races) {
-        const prediction = await api.racePrediction(race.race_id)
-        preds[race.race_id] = prediction.prediction ?? []
+        try {
+          const prediction = await api.racePrediction(race.race_id)
+          preds[race.race_id] = prediction.prediction ?? []
+        } catch {
+          preds[race.race_id] = []
+        }
         initialSelections[race.race_id] = new Set()
       }
       setPredictionsByRace(preds)
       setSelections(initialSelections)
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'بارگذاری رویداد ناموفق بود')
+      setError(friendlyApiError(err, 'بارگذاری رویداد ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -83,23 +88,34 @@ export function FiveParrehTab() {
     setSelections((prev) => {
       const next = { ...prev }
       const set = new Set(next[raceIdKey] ?? [])
-      if (set.has(key)) {
-        set.delete(key)
-      } else {
-        set.add(key)
-      }
+      if (set.has(key)) set.delete(key)
+      else set.add(key)
       next[raceIdKey] = set
       return next
     })
   }
 
-  const selectionCounts = useMemo(() => {
+  const selectionSummary = useMemo(() => {
     const races = eventDetail?.races ?? []
-    return races.map((race, index) => ({
-      label: race.label ?? `کورس ${race.race_number ?? index + 1}`,
-      count: selections[race.race_id]?.size ?? 0,
-    }))
-  }, [eventDetail, selections])
+    return races.map((race, index) => {
+      const selectedKeys = Array.from(selections[race.race_id] ?? [])
+      const candidates = predictionsByRace[race.race_id] ?? []
+      const names = selectedKeys.map((key) => {
+        const found = candidates.find((c) => horseKey(c) === key)
+        return horseDisplayName(found?.horse_name, key)
+      })
+      return {
+        label: race.label ?? `کورس ${race.race_number ?? index + 1}`,
+        count: selectedKeys.length,
+        names,
+      }
+    })
+  }, [eventDetail, selections, predictionsByRace])
+
+  const suggestedCombo = useMemo(() => {
+    if (!selectionSummary.length || selectionSummary.some((s) => s.count !== 1)) return null
+    return selectionSummary.map((s) => ({ label: s.label, name: s.names[0] }))
+  }, [selectionSummary])
 
   async function generateCombinations() {
     if (!eventDetail?.races?.length) {
@@ -110,7 +126,6 @@ export function FiveParrehTab() {
       setError('رویداد باید دقیقاً ۵ کورس داشته باشد.')
       return
     }
-
     for (const race of eventDetail.races) {
       if ((selections[race.race_id]?.size ?? 0) < 1) {
         setError('هر کورس باید حداقل یک اسب انتخاب‌شده داشته باشد.')
@@ -130,26 +145,24 @@ export function FiveParrehTab() {
       }
       const response = await api.generateFiveParrehCombinations(body)
       setResult(response)
-      setRawPayload(response)
     } catch (err) {
-      setRawPayload(err instanceof ApiError ? err.body : null)
-      setError(err instanceof ApiError ? err.message : 'محاسبه ترکیب‌ها ناموفق بود')
+      setError(friendlyApiError(err, 'محاسبه ترکیب‌ها ناموفق بود.'))
     } finally {
       setLoading(false)
     }
   }
 
-  const noEvents = !events.length
-
   return (
-    <section className="tab-panel">
-      <h2>🎟 پنج‌پره</h2>
-      <p className="hint">فقط رویدادهای پنج‌پرهٔ آیندهٔ ثبت‌شده در برنامه مسابقات.</p>
+    <section className="page-card">
+      <h2 className="page-title">پنج‌پره</h2>
+      <p className="page-subtitle">انتخاب پنج اسب برتر از پنج کورس — فقط رویدادهای اعلام‌شده</p>
 
-      {noEvents ? (
-        <p className="info-box">
-          {listMessage ?? 'هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست.'}
-        </p>
+      {loadingList ? <SkeletonBlock rows={2} /> : null}
+      {!loadingList && !events.length ? (
+        <EmptyState
+          title="پنج‌پره‌ای ثبت نشده"
+          body={listMessage ?? 'هیچ پنج‌پره آینده‌ای در داده فعلی موجود نیست.'}
+        />
       ) : (
         <label className="full-width">
           رویداد
@@ -164,39 +177,71 @@ export function FiveParrehTab() {
         </label>
       )}
 
+      {loading && eventId ? <SkeletonBlock rows={3} /> : null}
+
       {eventDetail ? (
-        <div className="result-card">
-          <h3>🎟 پنج‌پره</h3>
-          <p>📅 {eventDetail.display_date ?? '—'}</p>
-          <p>📍 {eventDetail.location ?? eventDetail.track ?? '—'}</p>
+        <div className="panel" style={{ marginTop: '1rem' }}>
+          <h3>{eventDetail.title ?? 'پنج‌پره'}</h3>
+          <div className="meta-row">
+            <span>📅 {eventDetail.display_date ?? '—'}</span>
+            <span>📍 {eventDetail.location ?? eventDetail.track ?? '—'}</span>
+          </div>
 
           {(eventDetail.races ?? []).map((race, index) => {
             const candidates = predictionsByRace[race.race_id] ?? []
             const selected = selections[race.race_id] ?? new Set<string>()
             return (
               <div key={race.race_id} className="fp-race-block">
-                <h4>🏇 {race.label ?? `کورس ${race.race_number ?? index + 1}`}</h4>
+                <h4>
+                  {race.label ?? `کورس ${race.race_number ?? index + 1}`}
+                  {race.race_number != null ? (
+                    <span className="badge" style={{ marginInlineStart: '0.5rem' }}>
+                      شماره {race.race_number}
+                    </span>
+                  ) : null}
+                </h4>
+                <p className="muted">
+                  📍 {eventDetail.location ?? eventDetail.track ?? '—'}
+                  {race.scheduled_start ? ` · ${race.scheduled_start}` : ''}
+                </p>
+
                 {candidates.length ? (
-                  <ul className="horse-select-list">
-                    {candidates.map((item) => {
-                      const key = horseKey(item)
-                      const name = horseDisplayName(item.horse_name)
-                      const checked = selected.has(key)
-                      return (
-                        <li key={key}>
-                          <label className="checkbox-row">
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              onChange={() => toggleHorse(race.race_id, key)}
-                              disabled={loading}
-                            />
-                            <span>{name}</span>
-                          </label>
+                  <>
+                    <p className="muted">رتبه‌بندی پیش‌بینی‌شده:</p>
+                    <ol className="rank-list">
+                      {candidates.slice(0, 5).map((item) => (
+                        <li key={horseKey(item)} className="rank-item">
+                          <span className={`rank-num ${item.rank <= 3 ? `top${item.rank}` : ''}`}>
+                            {item.rank}
+                          </span>
+                          <div className="rank-body">
+                            <strong>{horseDisplayName(item.horse_name)}</strong>
+                          </div>
+                          <span className="badge">امتیاز: {formatScore(item.score)}</span>
                         </li>
-                      )
-                    })}
-                  </ul>
+                      ))}
+                    </ol>
+                    <ul className="horse-select-list">
+                      {candidates.map((item) => {
+                        const key = horseKey(item)
+                        const name = horseDisplayName(item.horse_name)
+                        const checked = selected.has(key)
+                        return (
+                          <li key={key}>
+                            <label className="checkbox-row">
+                              <input
+                                type="checkbox"
+                                checked={checked}
+                                onChange={() => toggleHorse(race.race_id, key)}
+                                disabled={loading}
+                              />
+                              <span>{name}</span>
+                            </label>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </>
                 ) : (
                   <p className="hint">اسبی برای این کورس در دسترس نیست.</p>
                 )}
@@ -206,7 +251,8 @@ export function FiveParrehTab() {
 
           <button
             type="button"
-            className="primary-btn"
+            className="btn btn-gold"
+            style={{ marginTop: '1rem' }}
             onClick={() => void generateCombinations()}
             disabled={loading}
           >
@@ -218,11 +264,11 @@ export function FiveParrehTab() {
       {error ? <p className="error-box">{error}</p> : null}
 
       {result ? (
-        <div className="result-card">
-          <h3>نتیجه ترکیب‌ها</h3>
+        <div className="panel" style={{ marginTop: '1rem' }}>
+          <h3>ترکیب پیشنهادی پنج‌پره</h3>
           <p>تعداد انتخاب‌ها:</p>
           <ul>
-            {selectionCounts.map((row, index) => (
+            {selectionSummary.map((row, index) => (
               <li key={row.label}>
                 {row.label}: {row.count || result.selections_per_race?.[index] || 0}
               </li>
@@ -231,10 +277,23 @@ export function FiveParrehTab() {
           <p>
             تعداد ترکیب: <strong>{result.total_combinations ?? '—'}</strong>
           </p>
+
+          {suggestedCombo ? (
+            <div className="combo-picks">
+              {suggestedCombo.map((row) => (
+                <div key={row.label} className="combo-pick">
+                  <span>{row.label}</span>
+                  <strong>{row.name}</strong>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="muted">
+              برای نمایش یک ترکیب پیشنهادی مشخص، از هر کورس دقیقاً یک اسب انتخاب کنید.
+            </p>
+          )}
         </div>
       ) : null}
-
-      <RawJsonPanel data={rawPayload} />
     </section>
   )
 }

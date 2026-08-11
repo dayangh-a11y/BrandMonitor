@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api/client'
-import { ApiError } from '../api/types'
 import type {
   HorseCompareResponse,
   MeetingDetailResponse,
@@ -8,7 +7,7 @@ import type {
   PredictionItem,
   PredictionResponse,
 } from '../api/types'
-import { RawJsonPanel } from '../components/RawJsonPanel'
+import { EmptyState, SkeletonBlock, friendlyApiError } from '../components/Ui'
 import {
   formatEvidence,
   formatScore,
@@ -26,13 +25,14 @@ export function HorseVsHorseTab() {
   const [horseAId, setHorseAId] = useState<number | ''>('')
   const [horseBId, setHorseBId] = useState<number | ''>('')
   const [compare, setCompare] = useState<HorseCompareResponse | null>(null)
-  const [rawPayload, setRawPayload] = useState<unknown>(null)
+  const [loadingList, setLoadingList] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     async function load() {
+      setLoadingList(true)
       try {
         const payload = await api.upcomingMeetings()
         if (cancelled) return
@@ -41,7 +41,9 @@ export function HorseVsHorseTab() {
       } catch (err) {
         if (cancelled) return
         setMeetings([])
-        setListMessage(err instanceof ApiError ? err.message : 'بارگذاری جلسات ناموفق بود')
+        setListMessage(friendlyApiError(err, 'بارگذاری جلسات ناموفق بود.'))
+      } finally {
+        if (!cancelled) setLoadingList(false)
       }
     }
     void load()
@@ -58,7 +60,6 @@ export function HorseVsHorseTab() {
     setHorseAId('')
     setHorseBId('')
     setCompare(null)
-    setRawPayload(null)
     setError(null)
     if (!nextId) return
 
@@ -67,7 +68,7 @@ export function HorseVsHorseTab() {
       const detail = await api.meetingDetail(nextId)
       setMeetingDetail(detail)
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'بارگذاری جلسه ناموفق بود')
+      setError(friendlyApiError(err, 'بارگذاری جلسه ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -78,7 +79,6 @@ export function HorseVsHorseTab() {
     setHorseAId('')
     setHorseBId('')
     setCompare(null)
-    setRawPayload(null)
     setError(null)
     if (!nextRaceId) {
       setField([])
@@ -91,7 +91,7 @@ export function HorseVsHorseTab() {
       setField(prediction.prediction ?? [])
     } catch (err) {
       setField([])
-      setError(err instanceof ApiError ? err.message : 'بارگذاری اسب‌های کورس ناموفق بود')
+      setError(friendlyApiError(err, 'بارگذاری اسب‌های کورس ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -118,10 +118,8 @@ export function HorseVsHorseTab() {
     try {
       const result = await api.compareHorses(raceId, horseAId, horseBId)
       setCompare(result)
-      setRawPayload(result)
     } catch (err) {
-      setRawPayload(err instanceof ApiError ? err.body : null)
-      setError(err instanceof ApiError ? err.message : 'مقایسه ناموفق بود')
+      setError(friendlyApiError(err, 'مقایسه ناموفق بود.'))
     } finally {
       setLoading(false)
     }
@@ -132,22 +130,28 @@ export function HorseVsHorseTab() {
   const horseB = field.find((h) => h.horse_id === horseBId)
   const selectedName =
     compare?.selected_horse?.horse_name ??
-    (compare?.selected === 'horse_a'
+    (compare?.selected === 'horse_a' || compare?.selected === 'a'
       ? compare.horse_a.horse_name
-      : compare?.selected === 'horse_b'
+      : compare?.selected === 'horse_b' || compare?.selected === 'b'
         ? compare.horse_b.horse_name
         : null)
 
   return (
-    <section className="tab-panel">
-      <h2>⚔️ اسب مقابل اسب</h2>
-      <p className="hint">هر دو اسب باید در همان کورس آینده باشند.</p>
+    <section className="page-card">
+      <h2 className="page-title">اسب مقابل اسب</h2>
+      <p className="page-subtitle">مقایسه حرفه‌ای دو اسب از یک کورس آینده بر اساس امتیاز مدل</p>
 
-      {listMessage && !meetings.length ? <p className="info-box">{listMessage}</p> : null}
+      {loadingList ? <SkeletonBlock rows={2} /> : null}
+      {!loadingList && !meetings.length ? (
+        <EmptyState
+          title="مسابقه‌ای در دسترس نیست"
+          body={listMessage ?? 'در حال حاضر مسابقه‌ای برای این بازه ثبت نشده است.'}
+        />
+      ) : null}
 
       <div className="form-grid">
         <label>
-          📅 جلسهٔ آینده
+          جلسهٔ آینده
           <select value={meetingId} onChange={(e) => void onMeetingChange(e.target.value)} disabled={loading}>
             <option value="">— انتخاب —</option>
             {meetings.map((m) => (
@@ -159,7 +163,7 @@ export function HorseVsHorseTab() {
         </label>
 
         <label>
-          🏇 کورس
+          کورس
           <select
             value={raceId}
             onChange={(e) => void onRaceChange(e.target.value)}
@@ -213,7 +217,7 @@ export function HorseVsHorseTab() {
 
       <button
         type="button"
-        className="primary-btn"
+        className="btn btn-primary"
         onClick={() => void runCompare()}
         disabled={loading || !raceId || !horseAId || !horseBId}
       >
@@ -223,13 +227,13 @@ export function HorseVsHorseTab() {
       {error ? <p className="error-box">{error}</p> : null}
 
       {compare ? (
-        <div className="result-card compare-card">
-          <h3>⚔️ مقایسه دو اسب</h3>
-          <div className="compare-row">
+        <div className="panel" style={{ marginTop: '1rem' }}>
+          <h3>نتیجه مقایسه</h3>
+          <div className="compare-layout">
             <div className="compare-side">
               <h4>{horseDisplayName(horseA?.horse_name ?? compare.horse_a.horse_name)}</h4>
               <p>امتیاز: {formatScore(compare.horse_a.score)}</p>
-              {compare.horse_a.rank != null ? <p>رتبه: {compare.horse_a.rank}</p> : null}
+              {compare.horse_a.rank != null ? <p>رتبه در کورس: {compare.horse_a.rank}</p> : null}
               {friendlyWarnings(compare.horse_a.warnings).map((w) => (
                 <p key={w} className="warning-text">
                   {w}
@@ -241,11 +245,11 @@ export function HorseVsHorseTab() {
                 </p>
               ))}
             </div>
-            <div className="compare-vs">🆚</div>
+            <div className="compare-vs">در برابر</div>
             <div className="compare-side">
               <h4>{horseDisplayName(horseB?.horse_name ?? compare.horse_b.horse_name)}</h4>
               <p>امتیاز: {formatScore(compare.horse_b.score)}</p>
-              {compare.horse_b.rank != null ? <p>رتبه: {compare.horse_b.rank}</p> : null}
+              {compare.horse_b.rank != null ? <p>رتبه در کورس: {compare.horse_b.rank}</p> : null}
               {friendlyWarnings(compare.horse_b.warnings).map((w) => (
                 <p key={w} className="warning-text">
                   {w}
@@ -260,23 +264,11 @@ export function HorseVsHorseTab() {
           </div>
 
           {selectedName ? (
-            <p className="compare-winner">
-              🏆 انتخاب سیستم: <strong>{horseDisplayName(selectedName)}</strong>
-            </p>
+            <p className="compare-winner">انتخاب سیستم: {horseDisplayName(selectedName)}</p>
           ) : null}
-
           {compare.note ? <p className="note-text">{compare.note}</p> : null}
-
-          {(compare.evidence ?? []).length > 0 ? (
-            <div className="evidence-block">
-              <h4>شواهد مقایسه</h4>
-              <pre className="evidence-json">{JSON.stringify(compare.evidence, null, 2)}</pre>
-            </div>
-          ) : null}
         </div>
       ) : null}
-
-      <RawJsonPanel data={rawPayload} />
     </section>
   )
 }
