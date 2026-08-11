@@ -199,6 +199,10 @@ npm test
 
 Hosting split: frontend on Vercel/Pages; FastAPI on Render/Railway. See [`frontend/README.md`](frontend/README.md).
 
+**First public Demo (fixture mode):** see [`.env.demo.example`](.env.demo.example).  
+Render start: `./scripts/render_start.sh` (`0.0.0.0` + `$PORT`).  
+Fixture data is explicitly DEMO/TEST — do not invent production race cards.
+
 ## Telegram Bot (thin UI client)
 
 Architecture: **Telegram UI → HTTP API → formatters → Telegram**.  

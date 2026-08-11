@@ -69,6 +69,33 @@ Configure backend `API_CORS_ORIGINS` to include the frontend origin, e.g.:
 API_CORS_ORIGINS=https://your-frontend.vercel.app
 ```
 
+### Render (FastAPI backend — Demo)
+
+Build command:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start command:
+
+```bash
+./scripts/render_start.sh
+```
+
+Equivalent:
+
+```bash
+uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+```
+
+Use `.env.demo.example` for DEMO/TEST fixture env vars (not real production race data).
+Materialize near-future program times before Demo deploy:
+
+```bash
+python3 tests/fixtures/race_program/build.py
+```
+
 ### Vercel
 
 1. Root directory: `frontend`
