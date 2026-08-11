@@ -9,6 +9,8 @@ import type {
   HorseSearchResponse,
   MeetingDetailResponse,
   PredictionResponse,
+  RaceDetailResponse,
+  RaceListResponse,
   UpcomingMeetingsResponse,
 } from './types'
 import { ApiError } from './types'
@@ -68,6 +70,18 @@ export const api = {
     return request<MeetingDetailResponse>(
       `/race-program/meetings/${encodeURIComponent(meetingId)}`,
     )
+  },
+
+  listRaces(limit = 30, offset = 0): Promise<RaceListResponse> {
+    const params = new URLSearchParams({
+      limit: String(limit),
+      offset: String(offset),
+    })
+    return request<RaceListResponse>(`/races?${params.toString()}`)
+  },
+
+  getRace(raceId: string | number): Promise<RaceDetailResponse> {
+    return request<RaceDetailResponse>(`/races/${encodeURIComponent(String(raceId))}`)
   },
 
   racePrediction(raceId: string, baseline = 'A'): Promise<PredictionResponse> {
