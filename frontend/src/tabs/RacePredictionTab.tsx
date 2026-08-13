@@ -178,6 +178,15 @@ export function RacePredictionTab() {
             </span>
           </div>
 
+          {prediction.ranking_available === false ? (
+            <EmptyState
+              title="رتبه‌بندی واقعی ممکن نیست"
+              body={
+                friendlyWarnings(prediction.warnings)[0] ??
+                'برای این کورس دادهٔ کافی جهت امتیازدهی وجود ندارد. ترتیب شماره کارت به‌عنوان پیش‌بینی نمایش داده نمی‌شود.'
+              }
+            />
+          ) : (
           <ol className="rank-list">
             {(prediction.prediction ?? []).map((item) => {
               const scoreText = formatScore(item.score)
@@ -187,7 +196,7 @@ export function RacePredictionTab() {
                 item.rank === 1 ? 'top1' : item.rank === 2 ? 'top2' : item.rank === 3 ? 'top3' : ''
               return (
                 <li key={`${item.rank}-${item.horse_id ?? item.horse_name}`} className="rank-item">
-                  <span className={`rank-num ${rankClass}`}>{item.rank}</span>
+                  <span className={`rank-num ${rankClass}`}>{item.rank ?? '—'}</span>
                   <div className="rank-body">
                     <strong>{horseDisplayName(item.horse_name)}</strong>
                     {showWarning ? (
@@ -208,6 +217,7 @@ export function RacePredictionTab() {
               )
             })}
           </ol>
+          )}
         </div>
       ) : null}
     </section>

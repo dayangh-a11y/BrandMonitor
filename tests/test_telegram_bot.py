@@ -145,6 +145,7 @@ def test_format_prediction_null_score_and_friendly_warnings() -> None:
     text = fmt.format_prediction(
         {
             "race_id": 601,
+            "ranking_available": True,
             "prediction": [
                 {"rank": 1, "horse_id": 3317, "horse_name": None, "score": 24.0, "warnings": []},
                 {"rank": 2, "horse_id": 3232, "horse_name": None, "score": 20.7, "warnings": []},
@@ -184,6 +185,25 @@ def test_format_prediction_null_score_and_friendly_warnings() -> None:
     assert "ℹ️ امتیاز، احتمال برد نیست." in text
     # Deduplicate same friendly message when both codes present
     assert text.count("⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.") == 1
+
+
+def test_format_prediction_ranking_unavailable() -> None:
+    text = fmt.format_prediction(
+        {
+            "race_id": 636,
+            "ranking_available": False,
+            "warnings": ["ranking_unavailable_insufficient_features"],
+            "prediction": [],
+        },
+        meta={"race_number": 2, "track": "مشهد"},
+    )
+    assert "پیش‌بینی کورس 2" in text
+    assert "رتبه‌بندی واقعی" in text
+    assert "شماره کارت" in text
+    assert "🥇" not in text
+    assert "636" not in text
+    assert "ranking_unavailable_insufficient_features" not in text
+    assert "ℹ️ امتیاز، احتمال برد نیست." in text
 
 
 def test_friendly_warnings_mapping() -> None:

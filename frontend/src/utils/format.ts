@@ -2,6 +2,9 @@ const WARNING_MESSAGES: Record<string, string> = {
   low_feature_coverage: '⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.',
   score_unavailable_insufficient_features:
     '⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد.',
+  ranking_unavailable_insufficient_features:
+    '⚠️ برای این کورس دادهٔ کافی جهت رتبه‌بندی واقعی وجود ندارد — ترتیب شماره کارت به‌عنوان پیش‌بینی نمایش داده نمی‌شود.',
+  source_rating_missing_for_field: '⚠️ ریتینگ رسمی اسب‌های این میدان در داده موجود نیست.',
 }
 
 export function formatScore(value: unknown): string {
