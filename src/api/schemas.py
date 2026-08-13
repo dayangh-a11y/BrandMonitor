@@ -66,7 +66,7 @@ class EvidenceItem(BaseModel):
 class PredictionItem(BaseModel):
     model_config = ConfigDict(extra="allow")
 
-    rank: int
+    rank: int | None = None
     horse_id: int | None = None
     horse_name: str | None = None
     score: float | None = None
@@ -79,12 +79,18 @@ class PredictionItem(BaseModel):
 
 
 class PredictionResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
     race_id: int
     dataset_version: str
     ml_status: str | None = None
     baseline: str | None = None
     baseline_name: str | None = None
     data_completeness: str | None = None
+    ranking_available: bool = True
+    scored_horses: int | None = None
+    field_size: int | None = None
+    warnings: list[str] = Field(default_factory=list)
     probability_note: str | None = None
     prediction: list[PredictionItem]
 

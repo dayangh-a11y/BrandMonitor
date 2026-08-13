@@ -17,8 +17,9 @@ from pathlib import Path
 from typing import Any
 
 # Freeze-backed race ids from tests/fixtures/prediction_api/observations_fixture.jsonl.gz
-# Chosen because each has a multi-horse field suitable for prediction / horse-vs-horse.
-FP_RACE_IDS: tuple[str, ...] = ("3393", "3391", "3392", "636", "639")
+# Prefer races with non-null baseline-A historical scores so demo predictions are
+# not an empty/fabricated cloth-order ranking of program numbers 1–2–3.
+FP_RACE_IDS: tuple[str, ...] = ("618", "617", "605", "3171", "3301")
 PRIMARY_MEETING_ID = "msh-future"
 FP_EVENT_ID = "fp-msh-future"
 FIXTURE_PATH = Path(__file__).resolve().parent / "program_fixture.json"

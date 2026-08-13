@@ -8,45 +8,45 @@
       "city": "مشهد",
       "races": [
         {
-          "race_id": "3393",
+          "race_id": "618",
           "race_number": 1,
           "label": "کورس ۱",
-          "scheduled_start": "2026-08-12T13:51:34.977077+00:00",
+          "scheduled_start": "2026-08-14T23:08:02.459729+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "3391",
+          "race_id": "617",
           "race_number": 2,
           "label": "کورس ۲",
-          "scheduled_start": "2026-08-12T14:21:34.977077+00:00",
+          "scheduled_start": "2026-08-14T23:38:02.459729+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "3392",
+          "race_id": "605",
           "race_number": 3,
           "label": "کورس ۳",
-          "scheduled_start": "2026-08-12T14:51:34.977077+00:00",
+          "scheduled_start": "2026-08-15T00:08:02.459729+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "636",
+          "race_id": "3171",
           "race_number": 4,
           "label": "کورس ۴",
-          "scheduled_start": "2026-08-12T15:21:34.977077+00:00",
+          "scheduled_start": "2026-08-15T00:38:02.459729+00:00",
           "status": "scheduled"
         },
         {
-          "race_id": "639",
+          "race_id": "3301",
           "race_number": 5,
           "label": "کورس ۵",
-          "scheduled_start": "2026-08-12T15:51:34.977077+00:00",
+          "scheduled_start": "2026-08-15T01:08:02.459729+00:00",
           "status": "scheduled"
         },
         {
           "race_id": "9003",
           "race_number": 6,
           "label": "کورس ۶",
-          "scheduled_start": "2025-07-07T11:51:34.977077+00:00",
+          "scheduled_start": "2025-07-09T21:08:02.459729+00:00",
           "status": "completed"
         },
         {
@@ -67,7 +67,7 @@
           "race_id": "9100",
           "race_number": 1,
           "label": "کورس ۱",
-          "scheduled_start": "2026-09-20T11:51:34.977077+00:00",
+          "scheduled_start": "2026-09-22T21:08:02.459729+00:00",
           "status": "scheduled"
         }
       ]
@@ -82,11 +82,11 @@
       "city": "مشهد",
       "title": "پنج‌پره",
       "race_ids": [
-        "3393",
-        "3391",
-        "3392",
-        "636",
-        "639"
+        "618",
+        "617",
+        "605",
+        "3171",
+        "3301"
       ]
     }
   ]

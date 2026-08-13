@@ -30,6 +30,13 @@ _WARNING_MESSAGES: dict[str, str] = {
     "score_unavailable_insufficient_features": (
         "⚠️ اطلاعات کافی برای امتیازدهی این اسب وجود ندارد."
     ),
+    "ranking_unavailable_insufficient_features": (
+        "⚠️ برای این کورس دادهٔ کافی جهت رتبه‌بندی واقعی وجود ندارد "
+        "— ترتیب شماره کارت به‌عنوان پیش‌بینی نمایش داده نمی‌شود."
+    ),
+    "source_rating_missing_for_field": (
+        "⚠️ ریتینگ رسمی اسب‌های این میدان در داده موجود نیست."
+    ),
 }
 
 
@@ -144,6 +151,17 @@ def format_prediction(
         lines.append(f"📍 {meta.get('track')}")
     lines.append("")
     medals = {1: "🥇", 2: "🥈", 3: "🥉"}
+    if payload.get("ranking_available") is False:
+        for warning in friendly_warnings(payload.get("warnings")):
+            lines.append(warning)
+        if not any(friendly_warnings(payload.get("warnings"))):
+            lines.append(
+                "⚠️ برای این کورس دادهٔ کافی جهت رتبه‌بندی واقعی وجود ندارد "
+                "— ترتیب شماره کارت به‌عنوان پیش‌بینی نمایش داده نمی‌شود."
+            )
+        lines.append("")
+        lines.append("ℹ️ امتیاز، احتمال برد نیست.")
+        return "\n".join(lines).rstrip()
     preds = list(payload.get("prediction") or [])[:top_n]
     if not preds:
         lines.append("نتیجه‌ای موجود نیست.")

@@ -43,7 +43,7 @@ export interface EvidenceItem {
 }
 
 export interface PredictionItem {
-  rank: number
+  rank: number | null
   horse_id?: number | null
   horse_name?: string | null
   score?: number | null
@@ -57,6 +57,10 @@ export interface PredictionResponse {
   dataset_version?: string
   ml_status?: string | null
   baseline?: string | null
+  ranking_available?: boolean
+  scored_horses?: number | null
+  field_size?: number | null
+  warnings?: string[]
   prediction: PredictionItem[]
 }
 

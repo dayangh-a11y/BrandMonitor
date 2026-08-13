@@ -205,12 +205,21 @@ def rank_race(
     horses: list[dict[str, Any]],
     scorer: Callable[[dict[str, Any]], float | None],
 ) -> list[dict[str, Any]]:
-    """Return horses with pred_score and pred_rank (1=best). Missing scores ranked last."""
-    scored = []
+    """Return horses with pred_score and pred_rank (1=best).
+
+    Horses with a real score are ordered by score (desc). Horses without a
+    score are listed after them with ``pred_rank=None``.
+
+    Critical: when *every* score is missing, do **not** invent ranks from
+    ``result_id`` / program-number order — that falsely looks like a real
+    top-1/2/3 of cloth numbers 1–2–3.
+    """
+    scored: list[dict[str, Any]] = []
     for h in horses:
         s = scorer(h)
         scored.append({**h, "pred_score": s})
     # sort: higher score better; None last; tie-break by result_id for stability
+    # among horses that actually have scores (or among the unscored tail only).
     scored.sort(
         key=lambda x: (
             x["pred_score"] is None,
@@ -218,8 +227,13 @@ def rank_race(
             int(x["result_id"]),
         )
     )
-    for i, h in enumerate(scored, 1):
-        h["pred_rank"] = i
+    rank_i = 0
+    for h in scored:
+        if h["pred_score"] is None:
+            h["pred_rank"] = None
+        else:
+            rank_i += 1
+            h["pred_rank"] = rank_i
     return scored
 
 
@@ -339,18 +353,24 @@ def evaluate_baseline_on_races(
         # skip race if ALL scores missing (no signal)
         if all(h["pred_score"] is None for h in ranked):
             continue
+        ranked_scored = [h for h in ranked if h.get("pred_rank") is not None]
+        if not ranked_scored:
+            continue
 
         actual_finish = {
             int(h["result_id"]): int(h["target__target_finish"])
             for h in horses
             if h.get("target__target_finish") is not None and int(h["target__target_finish"]) >= 1
         }
-        pred_rank = {int(h["result_id"]): int(h["pred_rank"]) for h in ranked}
-        pred_order = [int(h["result_id"]) for h in ranked]
+        pred_rank = {int(h["result_id"]): int(h["pred_rank"]) for h in ranked_scored}
+        pred_order = [int(h["result_id"]) for h in ranked_scored]
 
         w_rid = int(winner["result_id"])
+        if w_rid not in pred_rank:
+            # Winner unscored → no valid ranking signal for this race.
+            continue
         w_rank = pred_rank[w_rid]
-        top1 = ranked[0]
+        top1 = ranked_scored[0]
         top1_finish = actual_finish.get(int(top1["result_id"]))
         top3_ids = pred_order[:3]
 

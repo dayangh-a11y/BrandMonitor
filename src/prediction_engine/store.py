@@ -4,12 +4,47 @@ from __future__ import annotations
 
 import gzip
 import json
+import os
+import sqlite3
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 from src.prediction_foundation.baseline_eval import coverage_level
 from src.prediction_foundation.freeze import assert_dataset_matches_freeze, load_freeze
+
+
+def _default_warehouse_db() -> Path | None:
+    raw = os.environ.get("WAREHOUSE_DB_PATH") or os.environ.get("DATABASE_PATH")
+    if raw:
+        return Path(raw)
+    for cand in (
+        Path("data/warehouse.db"),
+        Path("data/brandmonitor.db"),
+        Path("brandmonitor.db"),
+    ):
+        if cand.exists():
+            return cand
+    return None
+
+
+def load_source_ratings(db_path: Path | None) -> dict[int, float | None]:
+    """Join map: wh_race_results.id (result_id) → source_rating."""
+    if db_path is None or not Path(db_path).exists():
+        return {}
+    ratings: dict[int, float | None] = {}
+    try:
+        conn = sqlite3.connect(str(db_path))
+        try:
+            for rid, rating in conn.execute(
+                "SELECT id, source_rating FROM wh_race_results"
+            ):
+                ratings[int(rid)] = float(rating) if rating is not None else None
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return {}
+    return ratings
 
 
 class ObservationStore:
@@ -21,10 +56,14 @@ class ObservationStore:
         *,
         freeze_path: Path | None = None,
         verify_freeze: bool = True,
+        warehouse_db_path: Path | None = None,
     ) -> None:
         self.dataset_path = Path(dataset_path)
         self.freeze_path = Path(freeze_path) if freeze_path else None
         self.verify_freeze = verify_freeze
+        self.warehouse_db_path = (
+            Path(warehouse_db_path) if warehouse_db_path is not None else _default_warehouse_db()
+        )
         self.freeze: dict[str, Any] = {}
         self.by_race: dict[int, list[dict[str, Any]]] = {}
         self.by_horse: dict[int, list[dict[str, Any]]] = {}
@@ -69,6 +108,8 @@ class ObservationStore:
             if latest.exists():
                 self.freeze = load_freeze(latest)
 
+        ratings = load_source_ratings(self.warehouse_db_path)
+
         by_race: dict[int, list[dict[str, Any]]] = defaultdict(list)
         by_horse: dict[int, list[dict[str, Any]]] = defaultdict(list)
 
@@ -80,7 +121,12 @@ class ObservationStore:
                 row = json.loads(line)
                 row = dict(row)
                 row["coverage_level"] = coverage_level(row)
-                # source_rating may already be present; baseline B uses it.
+                # Baseline B needs source_rating. Observations often omit it;
+                # join from warehouse by result_id when available (same as eval).
+                if row.get("source_rating") is None:
+                    rid_result = row.get("result_id")
+                    if rid_result is not None and int(rid_result) in ratings:
+                        row["source_rating"] = ratings[int(rid_result)]
                 rid = int(row["race_id"])
                 hid = row.get("horse_id")
                 by_race[rid].append(row)

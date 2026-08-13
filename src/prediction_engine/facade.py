@@ -191,6 +191,9 @@ class FreezeBackedEngine:
         """Run existing ``baseline_eval.rank_race`` on freeze rows for one race.
 
         ``probability`` is always null — baselines produce SCORE/RANK only.
+
+        When no horse has a usable score, ``ranking_available`` is false and
+        ``prediction`` is empty — we never invent top-1/2/3 from cloth order.
         """
         rows = self.store.get_race_rows(race_id)
         if not rows:
@@ -200,11 +203,19 @@ class FreezeBackedEngine:
         if scorer is None:
             raise ValueError(f"Unknown baseline {baseline_id!r}; choose A|B|C|D")
 
-        # IMPORTANT: call existing rank_race unchanged.
         ranked = rank_race(list(rows), scorer)
+        scored_ranked = [row for row in ranked if row.get("pred_score") is not None]
+        ranking_available = bool(scored_ranked)
+        race_warnings: list[str] = []
+        if not ranking_available:
+            race_warnings.append("ranking_unavailable_insufficient_features")
+            if baseline_id == "B":
+                race_warnings.append("source_rating_missing_for_field")
 
         prediction = []
-        for row in ranked:
+        # Only emit ranked horses that actually have scores. Unscored runners
+        # used to receive fake ranks from result_id/program order.
+        for row in scored_ranked:
             hid = row.get("horse_id")
             prediction.append(
                 {
@@ -232,9 +243,15 @@ class FreezeBackedEngine:
             "baseline": baseline_id,
             "baseline_name": BASELINE_NAMES.get(baseline_id),
             "data_completeness": race_missing_level(rows),
+            "ranking_available": ranking_available,
+            "scored_horses": len(scored_ranked),
+            "field_size": len(rows),
+            "warnings": race_warnings,
             "probability_note": (
                 "Baselines produce SCORE/RANK only. probability is null; "
-                "score must not be interpreted as a probability."
+                "score must not be interpreted as a probability. "
+                "When ranking_available is false, prediction is empty "
+                "(no fabricated cloth-order ranking)."
             ),
             "prediction": prediction,
         }
@@ -261,29 +278,35 @@ class FreezeBackedEngine:
         """
         if int(horse_a_id) == int(horse_b_id):
             raise ValueError("horse_a and horse_b must be different horses")
-        ranked = self.rank_race(race_id, baseline=baseline)
-        if ranked is None:
+        rows = self.store.get_race_rows(race_id)
+        if not rows:
             return None
+        baseline_id = (baseline or self.default_baseline).upper()
+        scorer = SCORERS.get(baseline_id)
+        if scorer is None:
+            raise ValueError(f"Unknown baseline {baseline_id!r}; choose A|B|C|D")
+
+        ranked = rank_race(list(rows), scorer)
         by_id: dict[int, dict[str, Any]] = {}
-        for item in ranked.get("prediction") or []:
-            hid = item.get("horse_id")
+        for row in ranked:
+            hid = row.get("horse_id")
             if hid is None:
                 continue
-            by_id[int(hid)] = item
+            by_id[int(hid)] = row
         if int(horse_a_id) not in by_id or int(horse_b_id) not in by_id:
             raise ValueError("both horses must belong to the same race")
 
         def pack(hid: int) -> dict[str, Any]:
-            item = by_id[hid]
-            name = self._display_name(hid, item.get("horse_name"))
+            row = by_id[hid]
+            name = self._display_name(hid, _horse_name(row))
             return {
                 "horse_id": hid,
                 "horse_name": name,
-                "rank": item.get("rank"),
-                "score": item.get("score"),
+                "rank": row.get("pred_rank"),
+                "score": row.get("pred_score"),
                 "probability": None,
-                "evidence": list(item.get("evidence") or []),
-                "warnings": list(item.get("warnings") or []),
+                "evidence": _row_evidence(row),
+                "warnings": _row_warnings(row),
             }
 
         a = pack(int(horse_a_id))
@@ -310,34 +333,29 @@ class FreezeBackedEngine:
         elif selected_side == "b":
             selected_horse = b
 
-        evidence_lines: list[dict[str, Any]] = []
-        if sa is not None:
-            evidence_lines.append(
-                {"metric": "model_score_a", "value": sa, "label": f"امتیاز مدل {a.get('horse_name') or 'A'}"}
-            )
-        if sb is not None:
-            evidence_lines.append(
-                {"metric": "model_score_b", "value": sb, "label": f"امتیاز مدل {b.get('horse_name') or 'B'}"}
-            )
-        if a.get("rank") is not None:
-            evidence_lines.append({"metric": "rank_a", "value": a.get("rank"), "label": "رتبه مدل اسب اول"})
-        if b.get("rank") is not None:
-            evidence_lines.append({"metric": "rank_b", "value": b.get("rank"), "label": "رتبه مدل اسب دوم"})
+        note = (
+            "Comparison uses baseline model scores only (not probabilities). "
+            "Equal scores are reported as a tie; missing scores do not invent a winner."
+        )
+        if selected_side is None:
+            note += " Neither horse has enough features for a score under this baseline."
 
         return {
             "race_id": int(race_id),
             "dataset_version": self.dataset_version,
             "ml_status": self.ml_status,
-            "baseline": ranked.get("baseline"),
+            "baseline": baseline_id,
+            "baseline_name": BASELINE_NAMES.get(baseline_id),
             "comparison_type": "model_score",
-            "note": (
-                "مقایسه بر اساس امتیاز مدل موجود است و احتمال برد یا قطعیت نیست."
-            ),
+            "note": note,
             "horse_a": a,
             "horse_b": b,
             "selected": selected_side,
             "selected_horse": selected_horse,
-            "evidence": evidence_lines,
+            "evidence": [
+                {"side": "a", "items": a["evidence"]},
+                {"side": "b", "items": b["evidence"]},
+            ],
             "probability": None,
         }
 

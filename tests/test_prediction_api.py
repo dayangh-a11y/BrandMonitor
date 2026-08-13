@@ -72,10 +72,34 @@ def test_valid_prediction(client: TestClient) -> None:
     assert body["race_id"] == rid
     assert body["dataset_version"] == "pf-v1.0.0-20260808"
     assert body["baseline"] == "A"
+    assert body["ranking_available"] is True
     assert isinstance(body["prediction"], list)
     assert len(body["prediction"]) >= 5
     ranks = [p["rank"] for p in body["prediction"]]
     assert ranks == list(range(1, len(ranks) + 1))
+    assert all(p["score"] is not None for p in body["prediction"])
+
+
+def test_prediction_does_not_fabricate_cloth_order_when_unscored(client: TestClient) -> None:
+    """Race 636 has no baseline-A features — must not invent ranks 1/2/3 from entry order."""
+    r = client.get("/races/636/prediction")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["ranking_available"] is False
+    assert body["prediction"] == []
+    assert "ranking_unavailable_insufficient_features" in body["warnings"]
+
+
+def test_prediction_top_ranks_differ_from_entry_order_when_scored(client: TestClient) -> None:
+    """Race 618 has historical signal — top horses must not collapse to lowest result_ids."""
+    race = client.get("/races/618").json()
+    entry_ids = [h["result_id"] for h in race["horses"][:3]]
+    body = client.get("/races/618/prediction").json()
+    assert body["ranking_available"] is True
+    assert len(body["prediction"]) >= 3
+    top_ids = [p["result_id"] for p in body["prediction"][:3]]
+    assert top_ids != entry_ids
+    assert all(p["score"] is not None for p in body["prediction"][:3])
 
 
 def test_prediction_schema_and_probability_null(client: TestClient) -> None:
