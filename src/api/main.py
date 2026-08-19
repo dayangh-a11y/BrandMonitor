@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
 from src.api.config import get_api_settings, validate_prediction_dataset_settings
@@ -230,3 +232,20 @@ def get_horse(horse_id: str) -> HorseAnalysisResponse:
     if analysis is None:
         raise HTTPException(status_code=404, detail=f"Horse {hid} not found in freeze dataset")
     return HorseAnalysisResponse.model_validate(analysis)
+
+
+# ---------------------------------------------------------------------------
+# Serve frontend SPA when built (frontend/dist). API routes take precedence.
+# ---------------------------------------------------------------------------
+_frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+if _frontend_dist.is_dir():
+    from starlette.responses import FileResponse
+
+    app.mount("/assets", StaticFiles(directory=str(_frontend_dist / "assets")), name="frontend-assets")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    async def serve_spa(path: str) -> FileResponse:
+        file = _frontend_dist / path
+        if file.is_file():
+            return FileResponse(str(file))
+        return FileResponse(str(_frontend_dist / "index.html"))
