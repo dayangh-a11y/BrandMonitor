@@ -211,8 +211,8 @@ export function FiveParrehTab() {
                     <ol className="rank-list">
                       {candidates.slice(0, 5).map((item) => (
                         <li key={horseKey(item)} className="rank-item">
-                          <span className={`rank-num ${item.rank <= 3 ? `top${item.rank}` : ''}`}>
-                            {item.rank}
+                          <span className={`rank-num ${(item.rank ?? 0) <= 3 ? `top${item.rank}` : ''}`}>
+                            {item.rank ?? '—'}
                           </span>
                           <div className="rank-body">
                             <strong>{horseDisplayName(item.horse_name)}</strong>

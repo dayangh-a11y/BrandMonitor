@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: horse-racing-prediction
+    runtime: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      cd frontend && npm ci && npm run build && cd ..
+      python3 tests/fixtures/race_program/build.py
+    startCommand: bash scripts/render_start.sh
+    envVars:
+      - key: PREDICTION_DATASET_PATH
+        value: tests/fixtures/prediction_api/observations_fixture.jsonl.gz
+      - key: PREDICTION_FREEZE_PATH
+        value: data/prediction_foundation/freezes/LATEST.json
+      - key: PREDICTION_VERIFY_FREEZE
+        value: "false"
+      - key: PREDICTION_DEFAULT_BASELINE
+        value: A
+      - key: HORSE_NAME_INDEX_PATH
+        value: tests/fixtures/prediction_api/horse_names.json
+      - key: RACE_PROGRAM_PATH
+        value: tests/fixtures/race_program/program_fixture.json
+      - key: API_CORS_ORIGINS
+        value: "*"
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: NODE_VERSION
+        value: "20.11.0"
