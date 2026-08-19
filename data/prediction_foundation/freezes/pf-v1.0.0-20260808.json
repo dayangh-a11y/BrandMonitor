@@ -1,0 +1,28 @@
+{
+  "dataset_version": "pf-v1.0.0-20260808",
+  "immutable": true,
+  "frozen_at_utc": "2026-08-08T17:58:25.654847+00:00",
+  "dataset_path": "data/prediction_foundation/datasets/observations.jsonl.gz",
+  "dataset_sha256": "f671acc534266451afb3812963b9cd49dfa8435a7f20092729700b6aa39e770c",
+  "dataset_bytes": 11883969,
+  "source_db_path": "output/historical/horse_racing.db",
+  "source_db_sha256": "b44537e112427587b5b5d7fa70ab70d0ff8193f4595b07909ecc910596d8f0bf",
+  "feature_dictionary_path": "data/prediction_foundation/reports/feature_dictionary.json",
+  "feature_dictionary_sha256": "3bfbbb3bf5901c1609840d3a4d1bb2569057949976b2662002132f9871f11247",
+  "feature_dictionary_version": "1.0.0",
+  "observation_count": 32970,
+  "horse_count": 9411,
+  "race_count": 3317,
+  "train_count": 22199,
+  "validation_count": 3944,
+  "test_count": 6827,
+  "date_min": "1994-05-20",
+  "date_max": "2026-08-07",
+  "notes": [
+    "Frozen dataset must not change during baseline evaluation.",
+    "Baseline evaluation reads this sha256 and refuses mismatch.",
+    "No ML training in this phase."
+  ],
+  "ml_status": "DO_NOT_TRAIN_YET",
+  "content_sha256": "de53ea52ab57d7075883f7b6e19b7cbac1b694d6536499bdcba207e61e2b8b8c"
+}

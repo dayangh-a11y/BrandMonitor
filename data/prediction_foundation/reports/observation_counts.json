@@ -1,0 +1,16 @@
+{
+  "horse_race_observations": 32970,
+  "unique_permanent_horses": 9411,
+  "unique_warehouse_horses": 9425,
+  "races": 3317,
+  "tracks": 9,
+  "trainers": 1117,
+  "owners": 12734,
+  "split_counts": {
+    "TRAIN": 22199,
+    "VALIDATION": 3944,
+    "TEST": 6827
+  },
+  "date_min": "1994-05-20",
+  "date_max": "2026-08-07"
+}

@@ -1,0 +1,186 @@
+"""Harvest pedigree pages from asbdavani into local JSONL (no DB writes)."""
+
+from __future__ import annotations
+
+import json
+import time
+import urllib.error
+import urllib.request
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+from pathlib import Path
+from typing import Any, Iterable
+
+from src.pedigree.parse import parse_pedigree_html
+
+BASE = "https://asbdavani.app/performance/horses"
+UA = "BrandMonitorPedigreeFoundation/0.1 (+research; file-only harvest)"
+
+
+def pedigree_url(source_horse_id: str) -> str:
+    return f"{BASE}/{source_horse_id}/pedigree"
+
+
+def fetch_html(url: str, *, timeout: float = 30.0, retries: int = 3) -> str:
+    last: Exception | None = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "User-Agent": UA,
+                    "Accept": "text/html,application/xhtml+xml",
+                    "Accept-Language": "fa,en;q=0.8",
+                    "Connection": "close",
+                },
+            )
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.read().decode("utf-8", errors="replace")
+        except (urllib.error.URLError, TimeoutError, ConnectionResetError, OSError) as exc:
+            last = exc
+            time.sleep(0.4 * (2**attempt))
+    raise RuntimeError(f"fetch failed after {retries} retries: {url}: {last}")
+
+
+def harvest_one(source_horse_id: str) -> dict[str, Any]:
+    url = pedigree_url(source_horse_id)
+    try:
+        html = fetch_html(url)
+        parsed = parse_pedigree_html(html, source_horse_id)
+        parsed["source_url"] = url
+        parsed["source"] = "asbdavani_pedigree_page"
+        parsed["harvest_error"] = None
+        return parsed
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "subject_source_id": source_horse_id,
+            "subject_name": None,
+            "sire": None,
+            "dam": None,
+            "sire_sire": None,
+            "sire_dam": None,
+            "dam_sire": None,
+            "dam_dam": None,
+            "parse_status": "FETCH_ERROR",
+            "named_ancestor_count": 0,
+            "source_url": url,
+            "source": "asbdavani_pedigree_page",
+            "harvest_error": str(exc)[:500],
+        }
+
+
+def load_done_ids(path: Path) -> set[str]:
+    done: set[str] = set()
+    if not path.exists():
+        return done
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            sid = row.get("subject_source_id")
+            # Count FETCH_ERROR as not done so they can be retried
+            if sid and row.get("parse_status") != "FETCH_ERROR":
+                done.add(str(sid))
+    return done
+
+
+def _update_stats(stats: dict[str, int], row: dict[str, Any]) -> None:
+    status = row.get("parse_status")
+    if status == "FETCH_ERROR":
+        stats["errors"] += 1
+    elif status == "EMPTY_CHART" or not row.get("named_ancestor_count"):
+        stats["empty"] += 1
+    else:
+        stats["ok"] += 1
+    if row.get("sire"):
+        stats["with_sire"] += 1
+    if row.get("dam"):
+        stats["with_dam"] += 1
+    if row.get("sire") and row.get("dam"):
+        stats["with_both"] += 1
+
+
+def harvest_many(
+    source_horse_ids: Iterable[str],
+    out_jsonl: Path,
+    *,
+    workers: int = 8,
+    limit: int | None = None,
+    progress_every: int = 50,
+) -> dict[str, Any]:
+    """Append pedigree harvest rows to ``out_jsonl`` with resume support.
+
+    Uses a bounded in-flight window so thousands of futures are not queued at once.
+    """
+    out_jsonl.parent.mkdir(parents=True, exist_ok=True)
+    done = load_done_ids(out_jsonl)
+    todo = [sid for sid in source_horse_ids if sid not in done]
+    if limit is not None:
+        todo = todo[:limit]
+
+    stats = {
+        "already_done": len(done),
+        "queued": len(todo),
+        "ok": 0,
+        "empty": 0,
+        "errors": 0,
+        "with_sire": 0,
+        "with_dam": 0,
+        "with_both": 0,
+    }
+    if not todo:
+        return stats
+
+    completed = 0
+    t0 = time.time()
+    # Drop prior FETCH_ERROR lines by rewriting? Keep append-only; errors excluded from done.
+    with out_jsonl.open("a", encoding="utf-8") as fh, ThreadPoolExecutor(
+        max_workers=workers
+    ) as pool:
+        in_flight: dict[Any, str] = {}
+        it = iter(todo)
+
+        def _submit_one() -> bool:
+            try:
+                sid = next(it)
+            except StopIteration:
+                return False
+            fut = pool.submit(harvest_one, sid)
+            in_flight[fut] = sid
+            return True
+
+        for _ in range(min(workers, len(todo))):
+            if not _submit_one():
+                break
+
+        while in_flight:
+            finished, _ = wait(in_flight, return_when=FIRST_COMPLETED)
+            for fut in finished:
+                in_flight.pop(fut, None)
+                row = fut.result()
+                fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+                fh.flush()
+                _update_stats(stats, row)
+                completed += 1
+                if progress_every and completed % progress_every == 0:
+                    rate = completed / max(1e-6, time.time() - t0)
+                    print(
+                        f"[pedigree-harvest] {completed}/{len(todo)} "
+                        f"ok={stats['ok']} empty={stats['empty']} err={stats['errors']} "
+                        f"rate={rate:.1f}/s",
+                        flush=True,
+                    )
+                _submit_one()
+
+    elapsed = round(time.time() - t0, 2)
+    stats["elapsed_sec"] = elapsed
+    print(
+        f"[pedigree-harvest] done completed={completed} elapsed={elapsed}s "
+        f"ok={stats['ok']} empty={stats['empty']} err={stats['errors']}",
+        flush=True,
+    )
+    return stats

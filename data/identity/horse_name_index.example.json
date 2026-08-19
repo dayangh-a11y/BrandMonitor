@@ -1,0 +1,4 @@
+{
+  "horses": [],
+  "_comment": "Optional sidecar mapping freeze horse_id → display name. Merged with pedigree linked_horse_id names at API startup. Example: {\"horse_id\": 123, \"horse_name\": \"نام اسب\", \"breed\": \"تروبرد\", \"aliases\": [\"Latin Name\"]}"
+}

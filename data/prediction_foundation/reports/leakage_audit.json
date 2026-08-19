@@ -1,0 +1,115 @@
+{
+  "title": "Leakage Audit — Prediction Foundation",
+  "medium_or_higher_features": [
+    {
+      "feature": "starts_same_class",
+      "leakage_risk": "MEDIUM — classification may be backfilled after race publication; freeze class as-of snapshot recommended",
+      "note": "ALL class features is_missing if structured class unavailable — NEVER invent",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "wins_same_class",
+      "leakage_risk": "MEDIUM (same as class source)",
+      "note": "is_missing if class unknown",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "top3_same_class",
+      "leakage_risk": "MEDIUM",
+      "note": "is_missing if class unknown",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "avg_finish_same_class",
+      "leakage_risk": "MEDIUM",
+      "note": "is_missing if class unknown or no finishes",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "class_win_rate",
+      "leakage_risk": "MEDIUM",
+      "note": "is_missing if n=0 or class unknown",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "class_top3_rate",
+      "leakage_risk": "MEDIUM",
+      "note": "is_missing if n=0 or class unknown",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "class_sample_n",
+      "leakage_risk": "MEDIUM",
+      "note": "0 / is_missing if class unknown",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "race_class",
+      "leakage_risk": "MEDIUM — backfill risk",
+      "note": "is_missing if not classified — do not invent from free text",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "age_category",
+      "leakage_risk": "MEDIUM",
+      "note": "is_missing if null — do not invent",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    },
+    {
+      "feature": "field_size",
+      "leakage_risk": "MEDIUM — post-scratch final field may differ from morning declaration",
+      "note": "is_missing if 0",
+      "mitigation": "Use only values known at declaration time; prefer frozen as-of snapshots for class/age backfills; never join on finish_position when building features."
+    }
+  ],
+  "structural_rules": [
+    {
+      "rule": "TIME_BASED_CUTOFF",
+      "description": "All prior histories require (race_date, race_id, result_id) < current key (strict).",
+      "status": "ENFORCED_IN_BUILD"
+    },
+    {
+      "rule": "SAME_DAY_MULTI_RACE",
+      "description": "Same calendar day is allowed only for earlier race_id/result_id; equal date alone is not sufficient.",
+      "status": "ENFORCED_IN_BUILD"
+    },
+    {
+      "rule": "TARGETS_ISOLATED",
+      "description": "target_win / target_top3 / target_finish never enter feature formulas",
+      "status": "ENFORCED_IN_COMPUTE",
+      "targets": [
+        "target_win",
+        "target_top3",
+        "target_finish"
+      ]
+    },
+    {
+      "rule": "NO_FUTURE_RACES",
+      "description": "Build pipeline must not read races after observation date for that row",
+      "status": "ENFORCED_IN_BUILD"
+    },
+    {
+      "rule": "NO_BETTING_DATA",
+      "description": "Odds / pools / market prices are excluded from feature sources",
+      "status": "POLICY"
+    },
+    {
+      "rule": "NO_RANDOM_SPLIT",
+      "description": "Only chronological TRAIN/VALIDATION/TEST",
+      "status": "ENFORCED_IN_SPLIT"
+    },
+    {
+      "rule": "FIELD_SIZE_PROXY",
+      "description": "field_size from final result cardinality may differ from morning declarations due to scratches — flagged MEDIUM",
+      "status": "DOCUMENTED"
+    },
+    {
+      "rule": "IDENTITY_ASOF",
+      "description": "Permanent horse_id merges/corrections applied today may regroup historical careers retroactively — identity_confidence flag required",
+      "status": "FLAGGED"
+    }
+  ],
+  "betting_data_used": false,
+  "future_results_used_in_features": false,
+  "targets_leak_into_features": false
+}

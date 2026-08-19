@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-08-07T06:49:18.497749+00:00",
+  "target_races": 100,
+  "enqueued_races": 100,
+  "crawl": {
+    "success": 100,
+    "failed": 0,
+    "unchanged": 0,
+    "elapsed_seconds": 323.54,
+    "avg_processing_time_seconds": 3.23,
+    "success_rate_percent": 100.0
+  },
+  "warehouse": {
+    "horses": 564,
+    "races": 100,
+    "results": 1022,
+    "jockeys": 59,
+    "trainers": 202,
+    "owners": 596
+  },
+  "entity_matches": {
+    "jockey": 0,
+    "trainer": 1,
+    "owner": 3,
+    "horse": 1
+  },
+  "quality": {
+    "races": 100,
+    "horses": 564,
+    "jockeys": 59,
+    "trainers": 202,
+    "owners": 596,
+    "duplicate_count": 5,
+    "missing_value_count": 0,
+    "invalid_dates": 0,
+    "invalid_ratings": 0,
+    "invalid_times": 0,
+    "parser_errors": 0,
+    "broken_urls": 0,
+    "processing_speed_seconds": 0.0376,
+    "rows_per_second": 57083.62
+  },
+  "quality_text": "=== Data Quality Report ===\nNumber of races:      100\nNumber of horses:     564\nNumber of jockeys:    59\nNumber of trainers:   202\nNumber of owners:     596\nDuplicate count:      5\nMissing value count:  0\nParser errors:        0\nBroken URLs:          0\nInvalid dates:        0\nInvalid ratings:      0\nInvalid times:        0\nProcessing speed:     0.0376s (57083.62 rows/s)",
+  "dashboard": {
+    "total_races": 100,
+    "total_horses": 564,
+    "total_jockeys": 59,
+    "total_trainers": 202,
+    "total_owners": 596,
+    "total_race_videos": 0,
+    "crawl_speed_jobs_per_sec": 0.0,
+    "failed_pages": 0,
+    "success_rate_percent": 100.0,
+    "estimated_remaining_jobs": 0,
+    "estimated_remaining_seconds": null,
+    "queue": {
+      "success": 100
+    },
+    "total_jobs": 100,
+    "raw_race_versions": 100,
+    "pending_jobs": 0,
+    "running_jobs": 0
+  },
+  "counts": {
+    "total_races": 100,
+    "total_horses": 564,
+    "total_jockeys": 59,
+    "total_trainers": 202,
+    "total_owners": 596,
+    "raw_race_rows": 100,
+    "raw_horse_rows": 1022,
+    "parser_errors": 0,
+    "duplicate_entities": 5
+  },
+  "missing_fields": {},
+  "broken_pages": [],
+  "parser_error_samples": [],
+  "duplicate_samples": [
+    {
+      "entity_type": "trainer",
+      "left_key": "عبدالحکیم مهرانی",
+      "right_key": "عبدالحی مهرانی",
+      "score": 0.9333333333333333,
+      "method": "fuzzy"
+    },
+    {
+      "entity_type": "owner",
+      "left_key": "عبدالجلیل مهرانی",
+      "right_key": "عبدالخلیل مهرانی",
+      "score": 0.9375,
+      "method": "fuzzy"
+    },
+    {
+      "entity_type": "owner",
+      "left_key": "عیدمحمدوآشوربای ایگدری",
+      "right_key": "عیدمحمدوعاشوربای ایگدری",
+      "score": 0.9333333333333333,
+      "method": "fuzzy"
+    },
+    {
+      "entity_type": "owner",
+      "left_key": "نور گلدی پرویز",
+      "right_key": "نورگلدی پرویز",
+      "score": 0.9629629629629629,
+      "method": "fuzzy"
+    },
+    {
+      "entity_type": "horse",
+      "left_key": "clpnidjqr06aawrdobnvt1iie",
+      "right_key": "clpniepzs0d54wrdo50y730l2",
+      "score": 1.0,
+      "method": "name_collision"
+    }
+  ],
+  "sample_race": {
+    "id": 1,
+    "name": "از 0 تا 60",
+    "date": "2006-06-01",
+    "track": "گنبدکاووس",
+    "distance": 1000,
+    "race_number": 1,
+    "source_url": "https://asbdavani.app/racecards/clpniklfc1y5mwrdovypaxdou?round=1"
+  },
+  "sample_horse": {
+    "id": 1,
+    "name": "چلیپا",
+    "sex": "ماده",
+    "birthdate": null,
+    "profile_url": "https://asbdavani.app/performance/horses/clpnieq9q0ddlwrdogcq95287",
+    "source_horse_id": "clpnieq9q0ddlwrdogcq95287"
+  },
+  "sample_result": {
+    "finish_position": 7,
+    "weight": 50.0,
+    "time_raw": "1:05.690"
+  }
+}
